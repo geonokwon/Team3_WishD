@@ -4,6 +4,7 @@
 .bg-primary {
     background-color: var(--bs-primary) !important; /* 변수를 사용하여 색상 적용 */
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -92,4 +93,9 @@ body {
 }
 .pagination .page-link:hover {
     color: #0056b3; /* 페이지네이션 링크 호버 색상 */
+}
+.custom-hr {
+    border: none;
+    /* 색상, 두께 설정 */
+    border-top: 3px solid #445283;
 }

@@ -18,7 +18,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project_find/project_find.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project_find/project.css">
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
@@ -26,14 +26,14 @@
 <jsp:include page="../include/heard.jsp"/>
 
 <!-- Main Content -->
-<div class="container my-4 mx-5 px-5 py-5">
+<div class="container my-4 mx-5 px-5 py-5" style="min-height: 100vh;">
     <!-- header -->
     <div class="container">
         <div class="row align-items-center px-4">
             <!-- 제목 -->
             <div class="col">
                 <div class="d-flex align-items-center">
-                    <img class="float-start" src="${pageContext.request.contextPath}/resources/project_find/image/speaker.png" />
+                    <img class="float-start" src="${pageContext.request.contextPath}/resources/project_find/images/speaker.png" />
                     <h2 class="ms-2 mb-0">구인 중인 프로젝트</h2>
                 </div>
             </div>
@@ -87,14 +87,19 @@
         <div class="container mb-4 px-5">
             <div class="card h-100 p-2" style="height: 200px">
                 <div class="card-body">
-                    <a class="nav-link mb-3 fs-4" href="#">(반상주 / 판교) HR SaaS 솔루션 인사/조직 관리 백앤드 개발</a>
+                    <!-- 타이틀 -->
+                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">(반상주 / 판교) HR SaaS 솔루션 인사/조직 관리 백앤드 개발</a>
+                    <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
                         <span class="badge me-2"># Java</span>
                         <span class="badge me-2"># spring</span>
                         <span class="badge me-2"># spring boot</span>
                     </div>
+                    <!-- 예상 금액 -->
                     <p class="card-text mb-1">예상 금액: 450만원 ~ 520만원</p>
+                    <!-- 시작 예정일 -->
                     <p class="card-text mb-1">시작 예정일: 2024년 08월 01일</p>
+                    <!-- 예상 기간 -->
                     <p class="card-text">예상 기간: 10 개월</p>
                 </div>
             </div>

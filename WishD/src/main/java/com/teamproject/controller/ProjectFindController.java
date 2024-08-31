@@ -10,5 +10,8 @@ public class ProjectFindController {
     public String projectFind(){
         return "/project_find/project_find";
     }
-
+    @GetMapping("projectRead")
+    public String projectRead(){
+        return "/project_find/project_read";
+    }
 }
