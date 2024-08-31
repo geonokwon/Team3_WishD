@@ -1,0 +1,62 @@
+#myContainer {
+	margin: 150px auto;
+	max-width: 1000px;
+	border: 1px solid;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+#myTab {
+	margin: 10px;
+	max-width: 1000px;
+}
+
+.tab-content {
+	margin: 0 auto;
+}
+
+.nav-link {
+	color: #ffffff;
+}
+
+.tab-content {
+	padding: 10px 20px 50px 50px;
+}
+
+.necessary {
+	color: red;
+	font-size: 12px;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap; /* Wrap items to the next line if necessary */
+    gap: 40px; /* Æû»çÀÌ °Å¸® */
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Wrap items to the next line if necessary */
+    gap: 20px; /* Space between form elements */
+}
+
+.form-group {
+    flex: 1 1 200px; /* Grow and shrink, with a minimum width */
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 70%; /* Full width of the form-group */
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 10px;
+}
