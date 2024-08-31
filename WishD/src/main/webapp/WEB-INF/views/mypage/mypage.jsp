@@ -35,8 +35,7 @@
 			<li class="my_nav-item" role="presentation">
 				<button class="nav-link active" id="profile-tab"
 					data-bs-toggle="tab" data-bs-target="#profile" type="button"
-					role="tab" aria-controls="profile" aria-selected="true">기본
-					정보</button>
+					role="tab" aria-controls="profile" aria-selected="true">기본정보</button>
 			</li>
 			<li class="my_nav-item" role="presentation">
 				<button class="nav-link" id="freelancer-tab" data-bs-toggle="tab"
@@ -61,39 +60,42 @@
 				aria-labelledby="profile-tab">
 				
 				<p class="necessary">*필수입력</p>
-				<form action="#" method="post">
+<!-- 			${pageContext.request.contextPath}/ updatepro에 전달-->
+				<form action="#" class="my-form" method="post" name="fr">
 					<div class="form-row">
 						<div class="form-group">
-							<label for="name">이름</label> <input type="text" id="name"
-								name="user_name">
+							<label for="name" class="my-label">이름</label> <input type="text" id="name"
+								name="user_name" value="${memberDTO.user_name }">
 						</div>
 						<div class="form-group">
-							<label for="user_id">아이디</label> <input type="text" id="user_id"
-								name="user_id">
+							<label for="user_id" class="my-label">아이디</label> <input type="text" id="user_id"
+								name="user_id" value="${memberDTO.user_id }">
 						</div>
 					</div>
 					
 					<div class="form-row">
 						<div class="form-group">
-							<label for="email">이메일</label> <input type="email" id="email"
-								name="email">
+							<label for="email" class="my-label">이메일</label> <input type="email" id="email"
+								name="email" value="${memberDTO.email }">
 						</div>
 						<div class="form-group">
-							<label for="password">비밀번호</label> <input type="password"
-								id="password" name="user_pass">
+							<label for="password" class="my-label">비밀번호</label> <input type="password"
+								id="password" name="user_pass" value="${memberDTO.user_pass }" placeholder="정보수정, 회원탈퇴시 필수입력">
 						</div>
 					</div>
 					
 					<div class="form-row">
 						<div class="form-group">
-							<label for="phone">연락처</label> <input type="number" id="phone"
-								name="user_phone">
+							<label for="phone" class="my-label">연락처</label> <input type="number" id="phone"
+								name="user_phone" value="${memberDTO.user_phone }">
 						</div>
 					</div>
 					
-					<button type="submit">제출</button>
 				</form>
-
+				<div class="button-container">
+				<a href="javascript:document.fr.submit();" class="button btnFade btnPurple">정보수정</a>
+				<a href="" class="button btnFade btnPurple">회원탈퇴</a>
+				</div>
 			</div>
 
 
@@ -110,7 +112,6 @@
 
 			<div class="tab-pane" id="qna" role="tabpanel"
 				aria-labelledby="qna-tab">
-				<p class="necessary">*필수입력</p>
 			</div>
 		</div>
 

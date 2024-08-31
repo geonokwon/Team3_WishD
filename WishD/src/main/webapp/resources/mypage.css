@@ -1,6 +1,30 @@
+/* 버튼가져오기 */
+@import url(https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700);
+
+a.button {
+  display: block;
+  position: relative;
+  float: left;
+  width: 120px;
+  padding: 0;
+  margin: 30px 20px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+}
+.btnPurple {
+  background: #6F40C8;
+}
+.btnFade.btnPurple:hover {
+  background: #5e36a8;
+}
+
 #myContainer {
-	margin: 150px auto;
-	max-width: 1000px;
+	margin: 100px auto;
+	max-width: 800px;
 	border: 1px solid;
 	border-radius: 10px;
 	padding: 20px;
@@ -12,7 +36,7 @@
 }
 
 .tab-content {
-	margin: 0 auto;
+    padding: 20px 30px 30px 60px; /* 패딩 추가 */
 }
 
 .nav-link {
@@ -20,7 +44,10 @@
 }
 
 .tab-content {
-	padding: 10px 20px 50px 50px;
+	margin: 10px auto;
+	
+	display: flex;
+	justify-content: center; /* 세로 중앙 정렬 */
 }
 
 .necessary {
@@ -28,25 +55,28 @@
 	font-size: 12px;
 }
 
-form {
+.my-form {
     display: flex;
     flex-wrap: wrap; /* Wrap items to the next line if necessary */
-    gap: 40px; /* 폼사이 거리 */
+    gap: 20px; /*  */
 }
 
 .form-row {
     display: flex;
     flex-wrap: wrap; /* Wrap items to the next line if necessary */
-    gap: 20px; /* Space between form elements */
+    gap: 100px; /* 폼사이 거리 */
+    
+/*     margin: 0 auto; */
+/*     justify-content: center; 버튼을 가로로 중앙 정렬 */
 }
 
 .form-group {
-    flex: 1 1 200px; /* Grow and shrink, with a minimum width */
+/*     flex: 1 1 200px; Grow and shrink, with a minimum width */
     display: flex;
     flex-direction: column;
 }
 
-label {
+.my-label {
     margin-bottom: 5px;
     font-weight: bold;
 }
@@ -55,8 +85,15 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"] {
-    width: 70%; /* Full width of the form-group */
+    width: 260px; /* Full width of the form-group */
     padding: 8px;
     border: 1px solid;
     border-radius: 10px;
+}
+
+.button-container {
+	display: flex;
+    gap: 10px; /* 버튼 사이의 간격 */
+    margin-top: 20px; /* 버튼과 폼 사이의 여백 */
+    justify-content: center; /* 버튼을 가로로 중앙 정렬 */
 }
