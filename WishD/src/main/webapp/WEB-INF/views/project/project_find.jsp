@@ -65,7 +65,7 @@
             <!-- 검색 창 -->
             <div class="col-auto ms-auto">
                 <div class="input-group">
-                    <input type="text" class="form-control text border-0 bg-primary" style="width: 200px" placeholder="프로젝트명 검색" />
+                    <input type="text" class="form-control text border-0 bg-primary" style="width: 200px; color: white" placeholder="프로젝트명 검색" />
                     <button class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project_find/svg/search.svg" alt="Search" /></button>
                 </div>
             </div>
@@ -74,8 +74,10 @@
 
     <div class="col-12 mt-4 mb-2 px-5">
         <div class="d-flex">
-            <div class="ms-1 me-3">프로젝트 52개</div>
+            <!-- 총 프로젝트 등록 개수 가져오기 -->
+            <div class="ms-1 me-3">프로젝트 00개</div>
             <div class="me-4">|</div>
+            <!-- 정렬 방식 변경 -->
             <a class="me-4 nav-link" href="#">최신 순</a>
             <img src="${pageContext.request.contextPath}/resources/project_find/svg/down.svg" alt="Sort" />
         </div>
@@ -130,10 +132,9 @@
     });
 
     function skillSelect() {
-        //.dropdown-item 클래스의 클릭된 요소 가져오기
-        let select = this.textContent;
+        // this.textContent = .dropdown-item 클래스의 클릭된 요소 가져오기;
         // 클릭된 요소를 가져와 버튼 안의 값으로 변경
-        document.querySelector("#skillMenuButton").innerText = select;
+        document.querySelector("#skillMenuButton").innerText = this.textContent;
     }
 </script>
 </body>

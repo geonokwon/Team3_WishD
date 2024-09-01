@@ -1,8 +1,35 @@
 :root {
-    --bs-primary: #141826; /* 색상 변경 */
+    --bs-primary: #141826; /* 색상 변경(카드색상) */
+    --bs-dark: #0e1117;
 }
+
+/* input date 아이콘 삭제 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+/* 사용자 정의 버튼 스타일링 */
+input[type="file"]::file-selector-button {
+    display: none;
+}
+input[type="file"]::file-selector-button:hover {
+    background-color: #5e36a8;
+}
+
 .bg-primary {
     background-color: var(--bs-primary) !important; /* 변수를 사용하여 색상 적용 */
+}
+.bg-dark {
+    background-color: var(--bs-dark) !important;
+}
+
+.form-select,
+.form-control,
+.form-control:focus {
+    border: none;
+    color: #fff;
+}
+.form-control:active {
+    background-color: #0e1117;
 }
 
 body {
