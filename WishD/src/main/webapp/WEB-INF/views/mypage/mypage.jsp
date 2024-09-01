@@ -28,7 +28,10 @@
 	<jsp:include page="../include/heard.jsp" />
 
 	<!-- Main Content -->
-
+<!-- 	로그인 세션 체크 -->
+	<c:if test="${ empty sessionScope.user_no }">
+<%-- 		<c:redirect url="/"></c:redirect> --%>
+	</c:if>
 	<div id="myContainer">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -70,15 +73,18 @@
 								name="user_name" value="${memberDTO.user_name }" readonly>
 						</div>
 						<div class="form-group">
-							<label for="user_id" class="my-label">아이디 <span class="necessary2">*</span></label> <input type="text" id="user_id"
-								name="user_id" value="${memberDTO.user_id }" readonly>
-						</div>
-					</div>
-					 
-					<div class="form-row">
-						<div class="form-group">
 							<label for="email" class="my-label">이메일 <span class="necessary2">*</span></label> <input type="email" id="email"
 								name="email" value="${memberDTO.email }">
+						</div>
+						
+					</div>
+					
+<!-- 					간편유저는 가리는 정보 -->
+					<c:if test="${ memberDTO.user_type == 'notsim' }">
+					<div class="form-row">
+						<div class="form-group">
+							<label for="user_id" class="my-label">아이디 <span class="necessary2">*</span></label> <input type="text" id="user_id"
+								name="user_id" value="${memberDTO.user_id }" readonly>
 						</div>
 						<div class="form-group">
 							<label for="password" class="my-label">비밀번호 <span class="necessary2">*</span></label><input type="password"
@@ -92,11 +98,13 @@
 								name="user_phone" value="${memberDTO.user_phone }">
 						</div>
 					</div>
-					
+					</c:if>
 				</form>
 				<div class="button-container">
+<!-- 				간편유저는 정보수정 버튼 가림 -->
+					<c:if test="${ memberDTO.user_type == 'notsim' }">
 <!-- 				javascript:document.fr.submit(); 대신 document.fr.submit();로 폼전달 -->
-					<a href="#" class="button btnFade btnPurple" id="mysubmitbtn">정보수정</a>
+					<a href="#" class="button btnFade btnPurple" id="mysubmitbtn">정보수정</a></c:if>
 					<a href="#" class="button btnFade btnPurple" id="mydeletebtn">회원탈퇴</a>
 				</div>
 			</div>
