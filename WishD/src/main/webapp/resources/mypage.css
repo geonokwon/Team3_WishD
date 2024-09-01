@@ -1,6 +1,9 @@
 /* 버튼가져오기 */
 @import url(https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700);
 
+a,a:visited {
+  text-decoration: none; /* 밑줄제거 */
+}
 a.button {
   display: block;
   position: relative;
@@ -21,7 +24,9 @@ a.button {
 .btnFade.btnPurple:hover {
   background: #5e36a8;
 }
+/* 버튼가져오기 끝 */
 
+/* 탭과내용 */
 #myContainer {
 	margin: 100px auto;
 	max-width: 800px;
@@ -30,57 +35,66 @@ a.button {
 	padding: 20px;
 }
 
+/* 탭설정 */
 #myTab {
 	margin: 10px;
 	max-width: 1000px;
 }
 
-.tab-content {
-    padding: 20px 30px 30px 60px; /* 패딩 추가 */
-}
-
+/* 탭글자색 */
 .nav-link {
 	color: #ffffff;
+/* 	color: red; */
 }
 
+/* 탭내용 위치설정 */
 .tab-content {
 	margin: 10px auto;
-	
+	padding: 20px 30px 30px 60px; /* 패딩 추가 */
 	display: flex;
 	justify-content: center; /* 세로 중앙 정렬 */
 }
 
+/*  상단* */
 .necessary {
 	color: red;
 	font-size: 12px;
 }
+/*  폼옆* */
+.necessary2 {
+	color: red;
+	font-size: 16px;
+}
 
+/* 폼위치 */
 .my-form {
     display: flex;
     flex-wrap: wrap; /* Wrap items to the next line if necessary */
     gap: 20px; /*  */
 }
 
+/* 폼 열 */
 .form-row {
     display: flex;
     flex-wrap: wrap; /* Wrap items to the next line if necessary */
     gap: 100px; /* 폼사이 거리 */
-    
 /*     margin: 0 auto; */
 /*     justify-content: center; 버튼을 가로로 중앙 정렬 */
 }
-
+/* 폼 2개씩 나누기 */
 .form-group {
 /*     flex: 1 1 200px; Grow and shrink, with a minimum width */
     display: flex;
     flex-direction: column;
 }
 
+/* 폼 label */
 .my-label {
     margin-bottom: 5px;
     font-weight: bold;
 }
 
+/* 폼크기 */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -91,6 +105,7 @@ input[type="number"] {
     border-radius: 10px;
 }
 
+/* 버튼 묶음 */
 .button-container {
 	display: flex;
     gap: 10px; /* 버튼 사이의 간격 */

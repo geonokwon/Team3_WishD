@@ -60,45 +60,47 @@
 				aria-labelledby="profile-tab">
 				
 				<p class="necessary">*필수입력</p>
+				
+<!-- 			내정보탭 -->
 <!-- 			${pageContext.request.contextPath}/ updatepro에 전달-->
-				<form action="#" class="my-form" method="post" name="fr">
+				<form action="${pageContext.request.contextPath}/mypage/mypageUpdatePro" class="my-form" id="my-form" method="post" name="fr">
 					<div class="form-row">
 						<div class="form-group">
-							<label for="name" class="my-label">이름</label> <input type="text" id="name"
-								name="user_name" value="${memberDTO.user_name }">
+							<label for="name" class="my-label">이름 <span class="necessary2">*</span></label> <input type="text" id="name"
+								name="user_name" value="${memberDTO.user_name }" readonly>
 						</div>
 						<div class="form-group">
-							<label for="user_id" class="my-label">아이디</label> <input type="text" id="user_id"
-								name="user_id" value="${memberDTO.user_id }">
+							<label for="user_id" class="my-label">아이디 <span class="necessary2">*</span></label> <input type="text" id="user_id"
+								name="user_id" value="${memberDTO.user_id }" readonly>
 						</div>
 					</div>
-					
+					 
 					<div class="form-row">
 						<div class="form-group">
-							<label for="email" class="my-label">이메일</label> <input type="email" id="email"
+							<label for="email" class="my-label">이메일 <span class="necessary2">*</span></label> <input type="email" id="email"
 								name="email" value="${memberDTO.email }">
 						</div>
 						<div class="form-group">
-							<label for="password" class="my-label">비밀번호</label> <input type="password"
+							<label for="password" class="my-label">비밀번호 <span class="necessary2">*</span></label><input type="password"
 								id="password" name="user_pass" value="${memberDTO.user_pass }" placeholder="정보수정, 회원탈퇴시 필수입력">
 						</div>
 					</div>
 					
 					<div class="form-row">
 						<div class="form-group">
-							<label for="phone" class="my-label">연락처</label> <input type="number" id="phone"
+							<label for="phone" class="my-label">연락처 <span class="necessary2">*</span></label> <input type="number" id="phone"
 								name="user_phone" value="${memberDTO.user_phone }">
 						</div>
 					</div>
 					
 				</form>
 				<div class="button-container">
-				<a href="javascript:document.fr.submit();" class="button btnFade btnPurple">정보수정</a>
-				<a href="" class="button btnFade btnPurple">회원탈퇴</a>
+<!-- 				javascript:document.fr.submit(); 대신 document.fr.submit();로 폼전달 -->
+					<a href="#" class="button btnFade btnPurple" id="mysubmitbtn">정보수정</a>
+					<a href="#" class="button btnFade btnPurple" id="mydeletebtn">회원탈퇴</a>
 				</div>
 			</div>
-
-
+<!-- 			내정보탭 끝 -->
 
 			<div class="tab-pane" id="freelancer" role="tabpanel"
 				aria-labelledby="freelancer-tab">
@@ -118,6 +120,66 @@
 
 	</div>
 
+	<script>
+	let mysubmitbtn = document.getElementById("mysubmitbtn");
+	mysubmitbtn.addEventListener("click", mysubmitbtnClick, false);
+	
+	function mysubmitbtnClick() {
+		let email = document.getElementById("email");
+		if(email.value == ""){
+			alert("이메일을 입력해주세요.");
+			email.focus();
+			return false;
+		}
+	
+		let phone = document.getElementById("phone");
+		if(phone.value == ""){
+			alert("전화번호를 입력해주세요.");
+			phone.focus();
+			return false;
+		}
+		
+		let password = document.getElementById("password");
+		if(password.value == ""){
+			alert("정보수정 시 비밀번호가 필요합니다.");
+			password.focus();
+			return false;
+		}
+		
+		document.fr.submit();
+	}
+	
+	
+	let mydeletebtn = document.getElementById("mydeletebtn");
+	mydeletebtn.addEventListener("click", mydeletebtnClick, false);
+	
+	function mydeletebtnClick() {
+		let email = document.getElementById("email");
+		if(email.value == ""){
+			alert("이메일을 입력해주세요.");
+			email.focus();
+			return false;
+		}
+	
+		let phone = document.getElementById("phone");
+		if(phone.value == ""){
+			alert("전화번호를 입력해주세요.");
+			phone.focus();
+			return false;
+		}
+		
+		let password = document.getElementById("password");
+		if(password.value == ""){
+			alert("회원 탈퇴 시 비밀번호가 필요합니다.");
+			password.focus();
+			return false;
+		} 
+	
+		document.fr.action = "${pageContext.request.contextPath}/mypage/myuserDeletePro";
+		document.fr.submit();
+	}
+	
+	</script>
 
 
 	<!-- Footer -->
