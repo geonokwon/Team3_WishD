@@ -269,7 +269,7 @@
             updateHiddenInput();
         } else {
             const badge = document.createElement("p");
-            badge.className = "badge mb-1 me-2";
+            badge.className = "badge rounded-pill mb-1 me-2";
             badge.textContent = this.value;
             badgeContainer.appendChild(badge);
             // 숨겨진 입력 필드 업데이트
