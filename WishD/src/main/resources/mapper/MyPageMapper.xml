@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.teamproject.wishd.mapper.MyPageMapper">
+<mapper namespace="com.teamproject.mapper.MyPageMapper">
 
-	<select id="getMember" resultType="com.teamproject.wishd.domain.MemberDTO">
+	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join simple_user join user
 		on user_info.user_no = simple_user.user_no = user.user_no
 		where user_info.user_no = 1; <!-- #{user_no} -->
 	</select>
 	
-	<select id="userCheck" resultType="com.teamproject.wishd.domain.MemberDTO">
+	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join user
 		on user_info.user_no = user.user_no
 		where user_info.user_no = 1 and user.user_pass = 1234; <!-- #{user_no} #{user_pass} -->
