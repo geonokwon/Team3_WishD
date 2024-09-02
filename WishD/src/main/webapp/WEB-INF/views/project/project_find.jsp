@@ -18,7 +18,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project_find/project.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
@@ -33,7 +33,7 @@
             <!-- 제목 -->
             <div class="col">
                 <div class="d-flex align-items-center">
-                    <img class="float-start" src="${pageContext.request.contextPath}/resources/project_find/images/speaker.png" />
+                    <img class="float-start" src="${pageContext.request.contextPath}/resources/project/images/speaker.png" alt="speaker"/>
                     <h2 class="ms-2 mb-0">구인 중인 프로젝트</h2>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="col-auto ms-auto">
                 <div class="input-group">
                     <input type="text" class="form-control text border-0 bg-primary" style="width: 200px; color: white" placeholder="프로젝트명 검색" />
-                    <button class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project_find/svg/search.svg" alt="Search" /></button>
+                    <button class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
             <div class="me-4">|</div>
             <!-- 정렬 방식 변경 -->
             <a class="me-4 nav-link" href="#">최신 순</a>
-            <img src="${pageContext.request.contextPath}/resources/project_find/svg/down.svg" alt="Sort" />
+            <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" />
         </div>
     </div>
 

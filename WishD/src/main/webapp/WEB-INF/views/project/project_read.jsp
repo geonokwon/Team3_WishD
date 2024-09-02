@@ -221,6 +221,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 끝단 -->
+
                     <!-- 로그인시 -->
                     <div class="card">
                         <button type="button" class="btn btn-primary" id="matching_button">매칭하기</button>
@@ -233,11 +235,9 @@
                         <button class="btn btn-primary my-2 mx-4" style="display: none">로그인 / 회원가입</button>
                     </div>
 
-                    <!-- 끝단 -->
                 </div>
             </div>
             <!-- side rquest-form end-->
-
         </div>
     </div>
 </div>
