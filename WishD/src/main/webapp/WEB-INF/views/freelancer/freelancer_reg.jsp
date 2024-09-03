@@ -36,9 +36,10 @@
 .freelancer_reg{
 	
 	border: 0px solid #141826;
-	padding: 20px 0px 20px 20px;
+	padding: 20px;
 	width : 1000px;
-	height : 2000px;
+	display: flex;
+	flex-direction : column;
 	margin: 0px auto 100px auto;
 	background-color: #141826;
 	border-radius: 20px;
@@ -46,11 +47,11 @@
 }
 
 .temp{
-	width : 980px;
+	width : 960px;
 	float:left; 
-	padding: 20px;
-	margin: 0px 0px 20px 0px;
-	
+	padding: 20px 20px 80px 20px;
+
+	border-bottom: 1px solid rgba(128,128,128,0.5);
 
 }
 
@@ -65,8 +66,10 @@
  	float:left; 
 	padding: 20px 0px 0px 0px;
 	
-	width : 440px;
+	width : 420px;
 }
+
+
 
 </style>
 
@@ -93,13 +96,13 @@
 				<h6 class="red"> *필수입력</h6>
 				<h5><b>1)근무조건을 선택해 주세요.</b></h5>
 				<div class="mini_temp1">
-					<h6><b>희망 월급 <span class="red">*</span></b></h6>
+					<h6><b>희망 월급<span class="red">*</span></b></h6>
 					<input type = "number" min= "10" name = "freelancer_salary" step="10"  required> 만원
 					
 				</div>
 				
 				<div class="mini_temp2">
-					<h6><b>프로젝트 시작 가능일 <span class="red">*</span></b></h6>
+					<h6><b>프로젝트 시작 가능일<span class="red">*</span></b></h6>
 					<input type = "date" name = "freelancer_effective_date">
 				</div>
 			
@@ -108,7 +111,29 @@
 			<!-- 두번째 박스 -->
 			<div class="temp">
 				<h5><b>2)경력 및 보유 스킬을 입력해 주세요.</b></h5>
-
+				
+				<div class="mini_temp1">
+					<h6><b>프리랜서 경험<span class="red">*</span></b></h6>
+						<input type = "radio" name = "freelancer_exp"  value = "yes" />있음
+						<input type = "radio" name = "freelancer_exp"  value = "no" />없음
+					
+					<br><br><br>
+					<h6><b>직무<span class="red">*</span></b></h6>
+						  <select name="languages" id="lang" >
+						      <option value="">직무를 선택하세요</option>
+						      <option value="front">프론트</option>
+						      <option value="backend">백엔드</option>
+						      <option value="app">앱 개발자</option>
+						      <option value="web">웹 개발자</option>
+						      <option value="data-science">데이터 사이언스</option>
+						      <option value="detect">보안</option>
+						  </select>
+				</div>
+				
+				<div class="mini_temp2">
+					<h6><b>개발자 경력<span class="red">*</span></b></h6>
+					<input type = "number" min= "0" name = "dev_exp" step="1"  required> 년
+				</div>
 			
 			</div>
 			
@@ -126,6 +151,7 @@
 		</div>
 	</form>
 	
+
 	
 	
 	
@@ -134,7 +160,7 @@
 	
 	
 	
-	
+	<a href="${pageContext.request.contextPath}/freelancer/freelancer_regPro">등록</a>
 	
 	<!-- Footer -->
 	<jsp:include page="../include/footer.jsp"/>
