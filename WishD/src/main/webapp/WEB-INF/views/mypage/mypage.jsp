@@ -28,166 +28,187 @@
 	<jsp:include page="../include/heard.jsp" />
 
 	<!-- Main Content -->
-<!-- 	로그인 세션 체크 -->
-	<c:if test="${ empty sessionScope.user_no }">
-<%-- 		<c:redirect url="/"></c:redirect> --%>
+	<!-- 	로그인 세션 체크 -->
+	<c:if
+		test="${ empty sessionScope.user_id || empty sessionScope.access_Token }">
+		<%-- 		<c:redirect url="/login"></c:redirect> --%>
 	</c:if>
-	<div id="myContainer">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li class="my_nav-item" role="presentation">
-				<button class="nav-link active" id="profile-tab"
-					data-bs-toggle="tab" data-bs-target="#profile" type="button"
-					role="tab" aria-controls="profile" aria-selected="true">기본정보</button>
-			</li>
-			<li class="my_nav-item" role="presentation">
-				<button class="nav-link" id="freelancer-tab" data-bs-toggle="tab"
-					data-bs-target="#freelancer" type="button" role="tab"
-					aria-controls="freelancer" aria-selected="false">프리랜서 정보</button>
-			</li>
-			<li class="my_nav-item" role="presentation">
-				<button class="nav-link" id="project-tab" data-bs-toggle="tab"
-					data-bs-target="#project" type="button" role="tab"
-					aria-controls="project" aria-selected="false">프로젝트 정보</button>
-			</li>
-			<li class="my_nav-item" role="presentation">
-				<button class="nav-link" id="qna-tab" data-bs-toggle="tab"
-					data-bs-target="#qna" type="button" role="tab" aria-controls="qna"
-					aria-selected="false">QnA</button>
-			</li>
-		</ul>
+
+	<!-- 	상단 내정보와 폼 부분 -->
+	<div id="profile-top">
+
+		<form
+			action="${pageContext.request.contextPath}/mypage/mypageUpdatePro"
+			class="my-form" id="my-form" method="post">
+			<h2 id="my-title">내 정보</h2>
+			<p class="necessary">*필수입력</p>
+
+
+			<div class="form-row">
+
+				<div class="form-group">
+					<label for="name" class="my-label">이름 <span
+						class="necessary2">*</span></label> <input type="text" id="name"
+						name="user_name" value="${memberDTO.user_name }" readonly>
+				</div>
+
+				<div class="form-group">
+					<label for="email" class="my-label">이메일 <span
+						class="necessary2">*</span></label> <input type="email" id="email"
+						name="email" value="${memberDTO.email }">
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label for="user_id" class="my-label">아이디 <span
+						class="necessary2">*</span></label> <input type="text" id="user_id"
+						name="user_id" value="${memberDTO.user_id }" readonly>
+				</div>
+				<div class="form-group">
+					<label for="password" class="my-label">비밀번호 <span
+						class="necessary2">*</span></label> <input type="password" id="password"
+						name="user_pass" value="" placeholder="정보수정, 회원탈퇴시 필수입력">
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group">
+					<label for="phone" class="my-label">연락처 <span
+						class="necessary2">*</span></label> <input type="number" id="phone"
+						name="user_phone" value="${memberDTO.user_phone }">
+				</div>
+			</div>
+
+			<div class="button-container">
+				<a href="#" class="btnFade btnPurple" id="mysubmitbtn">정보수정</a>
+				<a href="#" class="btnFade btnPurple" id="mydeletebtn">회원탈퇴</a>
+			</div>
+		</form>
+	</div>
+	<!-- 상단 내정보와 폼 끝 -->
+
+	<div class="tab-container">
+		<!-- 네비 바 -->
+		<div class="tabs">
+			<button class="tab-button" data-tab="freelancer">프리랜서 글</button>
+			<button class="tab-button" data-tab="project">프로젝트 글</button>
+			<button class="tab-button" data-tab="qna">QnA</button>
+		</div>
 
 		<!-- Tab panes -->
 		<div class="tab-content">
-			<div class="tab-pane active" id="profile" role="tabpanel"
-				aria-labelledby="profile-tab">
-				
-				<p class="necessary">*필수입력</p>
-				
-<!-- 			내정보탭 -->
-<!-- 			${pageContext.request.contextPath}/ updatepro에 전달-->
-				<form action="${pageContext.request.contextPath}/mypage/mypageUpdatePro" class="my-form" id="my-form" method="post" name="fr">
-					<div class="form-row">
-						<div class="form-group">
-							<label for="name" class="my-label">이름 <span class="necessary2">*</span></label> <input type="text" id="name"
-								name="user_name" value="${memberDTO.user_name }" readonly>
-						</div>
-						<div class="form-group">
-							<label for="email" class="my-label">이메일 <span class="necessary2">*</span></label> <input type="email" id="email"
-								name="email" value="${memberDTO.email }">
-						</div>
-						
-					</div>
-					
-<!-- 					간편유저는 가리는 정보 -->
-					<c:if test="${ memberDTO.user_type == 'notsim' }">
-					<div class="form-row">
-						<div class="form-group">
-							<label for="user_id" class="my-label">아이디 <span class="necessary2">*</span></label> <input type="text" id="user_id"
-								name="user_id" value="${memberDTO.user_id }" readonly>
-						</div>
-						<div class="form-group">
-							<label for="password" class="my-label">비밀번호 <span class="necessary2">*</span></label><input type="password"
-								id="password" name="user_pass" value="${memberDTO.user_pass }" placeholder="정보수정, 회원탈퇴시 필수입력">
-						</div>
-					</div>
-					
-					<div class="form-row">
-						<div class="form-group">
-							<label for="phone" class="my-label">연락처 <span class="necessary2">*</span></label> <input type="number" id="phone"
-								name="user_phone" value="${memberDTO.user_phone }">
-						</div>
-					</div>
-					</c:if>
-				</form>
-				<div class="button-container">
-<!-- 				간편유저는 정보수정 버튼 가림 -->
-					<c:if test="${ memberDTO.user_type == 'notsim' }">
-<!-- 				javascript:document.fr.submit(); 대신 document.fr.submit();로 폼전달 -->
-					<a href="#" class="button btnFade btnPurple" id="mysubmitbtn">정보수정</a></c:if>
-					<a href="#" class="button btnFade btnPurple" id="mydeletebtn">회원탈퇴</a>
+			<div id="freelancer" class="tab-pane">
+				<div class="container">
+					<c:forEach var="i" begin="1" end="3">
+						<li class="post-item">
+							<div class="post-title">글 제목 ${i}</div>
+							<div class="tech-stack">
+								<span>기술A</span> <span>기술B</span> <span>기술C</span>
+							</div>
+							<p class="post-summary">이 글은 ${i} 번째 글의 요약에 해당하며, 주제에 대한 간략한
+								설명이 포함됩니다.</p>
+							<div class="button-group">
+								<a href="#" class="btn-read-more">자세히 보기</a> <a href="#"
+									class="btn-extra">글 수정</a>
+							</div>
+						</li>
+					</c:forEach>
 				</div>
 			</div>
-<!-- 			내정보탭 끝 -->
 
-			<div class="tab-pane" id="freelancer" role="tabpanel"
-				aria-labelledby="freelancer-tab">
+			<div id="project" class="tab-pane">
 				<p class="necessary">*필수입력</p>
+				<!-- 프로젝트 정보 내용 -->
 			</div>
 
-			<div class="tab-pane" id="project" role="tabpanel"
-				aria-labelledby="project-tab">
-				<p class="necessary">*필수입력</p>
+			<div id="qna" class="tab-pane">
+				<!-- QnA 내용 -->
 			</div>
 
-			<div class="tab-pane" id="qna" role="tabpanel"
-				aria-labelledby="qna-tab">
-			</div>
 		</div>
-
-
 	</div>
 
 	<script>
-	let mysubmitbtn = document.getElementById("mysubmitbtn");
-	mysubmitbtn.addEventListener("click", mysubmitbtnClick, false);
-	
-	function mysubmitbtnClick() {
-		let email = document.getElementById("email");
-		if(email.value == ""){
-			alert("이메일을 입력해주세요.");
-			email.focus();
-			return false;
-		}
-	
-		let phone = document.getElementById("phone");
-		if(phone.value == ""){
-			alert("전화번호를 입력해주세요.");
-			phone.focus();
-			return false;
-		}
-		
-		let password = document.getElementById("password");
-		if(password.value == ""){
-			alert("정보수정 시 비밀번호가 필요합니다.");
-			password.focus();
-			return false;
-		}
-		
-		document.fr.submit();
-	}
-	
-	
-	let mydeletebtn = document.getElementById("mydeletebtn");
-	mydeletebtn.addEventListener("click", mydeletebtnClick, false);
-	
-	function mydeletebtnClick() {
-		let email = document.getElementById("email");
-		if(email.value == ""){
-			alert("이메일을 입력해주세요.");
-			email.focus();
-			return false;
-		}
-	
-		let phone = document.getElementById("phone");
-		if(phone.value == ""){
-			alert("전화번호를 입력해주세요.");
-			phone.focus();
-			return false;
-		}
-		
-		let password = document.getElementById("password");
-		if(password.value == ""){
-			alert("회원 탈퇴 시 비밀번호가 필요합니다.");
-			password.focus();
-			return false;
-		} 
-	
-		document.fr.action = "${pageContext.request.contextPath}/mypage/myuserDeletePro";
-		document.fr.submit();
-	}
-	
-	</script>
+		// 가져온 코드, 존재해야 버튼이벤트 작동
+        document.addEventListener('DOMContentLoaded', function() {
+            // 탭 버튼 클릭 이벤트
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+
+                    // 모든 탭 버튼과 콘텐츠의 active 클래스를 제거합니다.
+                    document.querySelectorAll('.tab-button.active').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-pane.active').forEach(pane => pane.classList.remove('active'));
+
+                    // 클릭한 탭 버튼을 활성화합니다.
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // 정보수정 버튼 클릭 이벤트
+            document.getElementById("mysubmitbtn").addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const form = document.getElementById("my-form");
+                let email = document.getElementById("email");
+                if (email.value == "") {
+                    alert("이메일을 입력해주세요.");
+                    email.focus();
+                    return;
+                }
+
+                let phone = document.getElementById("phone");
+                if (phone.value == "") {
+                    alert("전화번호를 입력해주세요.");
+                    phone.focus();
+                    return;
+                }
+
+                let password = document.getElementById("password");
+                if (password.value == "") {
+                    alert("정보수정 시 비밀번호가 필요합니다.");
+                    password.focus();
+                    return;
+                }
+				
+                document.getElementById("my-form").action = "${pageContext.request.contextPath}/mypage/mypageUpdatePro";
+                document.getElementById("my-form").submit();
+            });
+
+            // 회원탈퇴 버튼 클릭 이벤트
+            document.getElementById("mydeletebtn").addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const form = document.getElementById("my-form");
+                let email = document.getElementById("email");
+                if (email.value == "") {
+                    alert("이메일을 입력해주세요.");
+                    email.focus();
+                    return;
+                }
+
+                let phone = document.getElementById("phone");
+                if (phone.value == "") {
+                    alert("전화번호를 입력해주세요.");
+                    phone.focus();
+                    return;
+                }
+
+                let password = document.getElementById("password");
+                if (password.value == "") {
+                    alert("회원 탈퇴 시 비밀번호가 필요합니다.");
+                    password.focus();
+                    return;
+                }
+
+                document.getElementById("my-form").action = "${pageContext.request.contextPath}/mypage/myuserDeletePro";
+                document.getElementById("my-form").submit();
+            });
+        });
+    </script>
+
 
 
 	<!-- Footer -->
