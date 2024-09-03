@@ -2,8 +2,12 @@ package com.teamproject.domain;
 
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class ProjectDTO {
+
     private Long pboard_id;
     private Long user_id;
     private String pboard_title;
@@ -13,11 +17,12 @@ public class ProjectDTO {
     private Timestamp pboard_startDate;
     private int pboard_rangeMonth;
     private String pboard_job;
-    private Long pboard_skill;
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
 
+    //pboard_id 값에 따른 skill 등록한것 가져오기
+    private List<ProjectSkillDTO> skills;
 
     public Long getPboard_id() {
         return pboard_id;
@@ -59,16 +64,19 @@ public class ProjectDTO {
         this.pboard_content = pboard_content;
     }
 
-    public int getPboard_money() {
-        return pboard_money;
+    public String getPboard_money() {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        return decimalFormat.format(pboard_money);
     }
 
     public void setPboard_money(int pboard_money) {
         this.pboard_money = pboard_money;
     }
 
-    public Timestamp getPboard_startDate() {
-        return pboard_startDate;
+    public String getPboard_startDate() {
+        //년 월 일 로바꿔서 반환
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        return dateFormat.format(this.pboard_startDate);
     }
 
     public void setPboard_startDate(Timestamp pboard_startDate) {
@@ -89,14 +97,6 @@ public class ProjectDTO {
 
     public void setPboard_job(String pboard_job) {
         this.pboard_job = pboard_job;
-    }
-
-    public Long getPboard_skill() {
-        return pboard_skill;
-    }
-
-    public void setPboard_skill(Long pboard_skill) {
-        this.pboard_skill = pboard_skill;
     }
 
     public String getPboard_state() {
@@ -122,4 +122,12 @@ public class ProjectDTO {
     public void setPboard_update(Timestamp pboard_update) {
         this.pboard_update = pboard_update;
     }
+
+    public List<ProjectSkillDTO> getSkills() {
+        return skills;
+    }
+    public void setSkills(List<ProjectSkillDTO> skills) {
+        this.skills = skills;
+    }
+
 }

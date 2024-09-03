@@ -5,8 +5,23 @@
 
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
+    <!-- 전체 프로젝트 등록 개수 가져오기 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
-        SELECT * FROM project_board;
+        SELECT *
+        FROM project_board
+        ORDER BY pboard_date DESC;
     </select>
 
+    <!-- 프로젝트 당 등록된 전체 스킬 반환 -->
+    <select id="selectProjectSkill_all" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT s.skill_id, s.skill_name
+        FROM project_skill p JOIN skills s
+        ON p.skill_id = s.skill_id
+        WHERE p.pboard_id = #{pboard_id};
+    </select>
+
+    <!-- 전체 프로젝트 등록 개수 반환 -->
+    <select id="getProjectCount" resultType="int">
+        SELECT count(*) FROM project_board;
+    </select>
 </mapper>

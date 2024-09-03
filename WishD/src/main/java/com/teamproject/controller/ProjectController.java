@@ -1,6 +1,7 @@
 package com.teamproject.controller;
 
 import com.teamproject.domain.ProjectDTO;
+import com.teamproject.domain.ProjectSkillDTO;
 import com.teamproject.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,9 @@ public class ProjectController {
     @GetMapping("projectFind")
     public String projectFind(Model model){
         //페이지네이션 처리도 함께 들어가야함
-//        List<ProjectDTO> projectDTOList = projectService.getProject();
-//        model.addAttribute("projectDTOList", projectDTOList);
+        List<ProjectDTO> projectDTOList = projectService.getProject();
+        model.addAttribute("projectDTOList", projectDTOList);
+        model.addAttribute("projectCount", projectService.getProjectCount());
         return "/project/project_find";
     }
     @GetMapping("projectRead")

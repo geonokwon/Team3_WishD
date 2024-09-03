@@ -26,7 +26,7 @@
 <jsp:include page="../include/heard.jsp"/>
 
 <!-- Main Content -->
-<div class="container my-4 mx-5 px-5 py-5" style="min-height: 100vh;">
+<div class="container my-4 mx-5 px-5 py-5" style="min-height: 100vh; width: 1040px;">
     <!-- header -->
     <div class="container">
         <div class="row align-items-center px-4">
@@ -75,7 +75,7 @@
     <div class="col-12 mt-4 mb-2 px-5">
         <div class="d-flex">
             <!-- 총 프로젝트 등록 개수 가져오기 -->
-            <div class="ms-1 me-3">프로젝트 00개</div>
+            <div class="ms-1 me-3">프로젝트 ${requestScope.projectCount} 개</div>
             <div class="me-4">|</div>
             <!-- 정렬 방식 변경 -->
             <a class="me-4 nav-link" href="#">최신 순</a>
@@ -85,27 +85,55 @@
 
     <!-- Project Cards -->
     <div class="row">
+
         <!-- 반복되는 프로젝트 카드 -->
+        <c:forEach items="${projectDTOList}" var="projectDTO">
         <div class="container mb-4 px-5">
             <div class="card h-100 p-2" style="height: 200px">
-                <div class="card-body">
+                <div class="card-body position-relative">
+                    <!-- 현재 상태 -->
+                    <!-- 모집중 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '모집중'}">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                            ${projectDTO.getPboard_state()}
+                    </span>
+                    </c:if>
+                    <!-- 진행중 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '진행중'}">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                            ${projectDTO.getPboard_state()}
+                    </span>
+                    </c:if>
+                    <!-- 완료 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '완료'}">
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                            ${projectDTO.getPboard_state()}
+                    </span>
+                    </c:if>
+
                     <!-- 타이틀 -->
-                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">(반상주 / 판교) HR SaaS 솔루션 인사/조직 관리 백앤드 개발</a>
+                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">${projectDTO.getPboard_title()}</a>
                     <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
-                        <span class="badge me-2"># Java</span>
-                        <span class="badge me-2"># spring</span>
-                        <span class="badge me-2"># spring boot</span>
+                        <!-- 반복되는 스킬배지 -->
+                        <c:forEach items="${projectDTO.getSkills()}" var="projectSkill">
+                        <span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
+                        </c:forEach>
                     </div>
                     <!-- 예상 금액 -->
-                    <p class="card-text mb-1">예상 금액: 450만원 ~ 520만원</p>
-                    <!-- 시작 예정일 -->
-                    <p class="card-text mb-1">시작 예정일: 2024년 08월 01일</p>
-                    <!-- 예상 기간 -->
-                    <p class="card-text">예상 기간: 10 개월</p>
+                    <p class="col-auto card-text mb-1">예상 금액: ${projectDTO.getPboard_money()} 만원</p>
+                    <div class="row d-flex">
+                        <!-- 시작 예정일 -->
+                        <p class="col-4 card-text mb-1">시작 예정일: ${projectDTO.getPboard_startDate()}</p>
+                        <!-- 예상 기간 -->
+                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
+                    </div>
+
                 </div>
             </div>
         </div>
+        </c:forEach>
+        <!-- 반복 end -->
     </div>
     <!-- Pagination -->
     <nav aria-label="Page navigation">

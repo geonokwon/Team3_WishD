@@ -21,7 +21,6 @@ input[type="file"]::file-selector-button:hover {
 .bg-dark {
     background-color: var(--bs-dark) !important;
 }
-
 .form-select,
 .form-control,
 .form-control:focus {
