@@ -1,0 +1,159 @@
+
+/* 로그인 화면 배경 */
+.login {
+  height: 1000px;
+  width: 100%;
+  background-color: #0e1117;
+}
+
+/* 로그인 입력란 폼 영역 */
+.login_box {
+  width: 1050px;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  display: flex;
+}
+
+/* 로그인 폼 영역 */
+.login_box .left {
+  width: 55%;
+  height: 100%;
+  padding: 25px 25px;
+}
+
+/* 오른쪽 홍보 구간 */
+.login_box .right {
+  width: 59%;
+  height: 100%;
+}
+
+.left .contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 100%;
+  width: 60%;
+  margin: auto;
+}
+
+.left h3 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 아이디, 비밀번호 입력 text 박스*/
+
+.user_1 {
+  border: none;
+  width: 80%;
+  margin: 15px 23px;
+  border-bottom: 1px solid #6f40c8;
+  padding: 8px;
+  width: 85%;
+  overflow: hidden;
+  font-weight: 600; /* 글자 굵기 */
+  font-size: 12px;
+  color: #fff;
+  background: #0e1117;
+}
+
+.user {
+  text-align: center;
+  margin: -2px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* 로그인 폼  */
+.left {
+  background-color: #141826;
+  color: #fff;
+}
+
+/* 로그인 버튼 */
+.submit {
+  border: none;
+  padding: 15px 70px;
+  border-radius: 8px;
+  display: block;
+  /* margin: auto; */
+  margin-top: 20px;
+  background: #6f40c8;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 로그인 버튼 위에 올렸을 때 */
+.submit:hover {
+  background-color: #5e36a8;
+}
+
+/* 아이디, 비밀번호찾기, 회원가입 */
+.nav-link {
+  color: #fff;
+  font-size: 12px;
+}
+
+/*  아이디, 비밀번호찾기, 회원가입 -> 커서 올렸을 때 */
+.nav-link:hover {
+  color: #5e36a8;
+}
+
+#idSaveCheck {
+  text-align: center;
+  margin: -2px;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* 오른쪽 홍보 영역  */
+.right {
+  background: linear-gradient(
+      10.38deg,
+      rgba(0, 50, 50, 0.7) 0%,
+      rgba(55, 30, 90, 0.5) 1%
+    ),
+    url(https://static.seattletimes.com/wp-content/uploads/2019/01/web-typing-ergonomics-1020x680.jpg);
+  color: #fff;
+  position: relative;
+}
+
+.right .right-text {
+  height: 100%;
+  position: relative;
+  transform: translate(0%, 45%);
+}
+.right-text h2 {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 500;
+}
+.right-text h5 {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.right .right-inductor {
+  position: absolute;
+  width: 70px;
+  height: 7px;
+  background: #fff0;
+  left: 50%;
+  bottom: 70px;
+  transform: translate(-50%, 0%);
+}
+.top_link img {
+  width: 28px;
+  padding-right: 7px;
+  margin-top: -3px;
+}
