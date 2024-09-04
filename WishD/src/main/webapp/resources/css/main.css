@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+a, a:visited {
+	text-decoration: none;
+}
+
+/* div 가운데 정렬 */
+.wrap{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+/* 대문 */
+.gate{
+	border:1px solid white;
+	width:1400px; height:500px;
+	margin:100px;
+}
+
+.tab p{
+	font-size:2em;
+	font-weight:bold;
+	text-align:center;
+}
+
+/* 탭 */
+ul{
+	display:flex;
+}
+
+.tab__list__item{
+	list-style:none;
+	border:1px solid white; border-radius:10px 10px 0px 0px;
+	padding:5px;
+}
+
+/* 활성 탭 디자인 */
+li.active{
+	font-weight:bold;
+	color:red;
+}
+
+.tab__contents{
+	display:none;
+	width:568px; height:330px;
+	padding:10px; margin-top:10px;
+	border:1px solid white;
+}
+
+/* 탭 활성화 */
+.tab__contents.show{
+	display:block;
+}
+
+/* 기술 스택 항목들 */
+.stack{
+	width:250px; height:80px; margin:10px;
+	border:1px solid white; border-radius:20px;
+	text-align:center;
+	padding: 25px 0;
+	float:left;
+}
+
+/* 소형 리스트 */
+.instant-list{
+	display:flex;
+}
+
+.instant-list div{
+	margin:200px;
+	border:1px solid white;
+	width:350px; height:300px;
+}
+
+.instant-table{
+	width:346px; height:200px;
+}
+
+table, tr, td{
+	border:1px solid white;
+}

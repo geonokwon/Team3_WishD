@@ -19,11 +19,15 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerAside.css">
 
 </head>
 <body class="text-light">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
+
+<!-- Aside -->
+<jsp:include page="../include/managerAside.jsp"/>
 
 <!-- Main Content -->
 
