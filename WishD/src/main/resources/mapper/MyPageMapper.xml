@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.mapper.MyPageMapper">
+
+	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info join simple_user join user
+		on user_info.user_no = simple_user.user_no = user.user_no
+		where user_info.user_no = 1; <!-- #{user_no} -->
+	</select>
+	
+	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info join user
+		on user_info.user_no = user.user_no
+		where user_info.user_no = 1 and user.user_pass = 1234; <!-- #{user_no} #{user_pass} -->
+	</select>
+	
+	<update id="updateMember">
+		update user_info
+		set email = #{email}, user_phone = #{user_phone}, user_pass = #{user_pass}
+		where user_no = #{user_no}
+	</update>
+	
+  
+</mapper>
