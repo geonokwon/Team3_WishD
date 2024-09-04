@@ -21,23 +21,23 @@
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<!-- 로그인 외부 CSS 연결 -->
-	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/resources/login.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/login/login.css">
 </head>
 <body class="text-light">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
 
- <!-- Main Content -->
+  <!-- Main Content -->
 
     <!-- <div class="container justify-content"> -->
     <section class="container justify-content login">
       <div class="row login_box">
 
-       <!-- 왼쪽 로그인 영역 -->
+        <!-- 왼쪽 로그인 영역 -->
         <div class="col left">
           <div class="contact">
-            <form action="#">
+            <form action="${pageContext.request.contextPath }/login/loginPro">
               <h3>Login</h3>
 
 
@@ -49,6 +49,12 @@
               <p class="user">비밀번호</p>
               <input  class="user_1"type="text" placeholder="비밀번호를 입력하세요." />
 
+              <!--  아이디 기억하기 체크박스 -->
+              <div class="rememberId">
+                <input type="checkbox" class="rememberId">
+                <label>아이디 기억하기</label>
+              </div>
+
               <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
               <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -58,42 +64,36 @@
                   <a class="nav-link" href="#">비밀번호 찾기</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">회원가입</a>
+                  <a class="nav-link" href="${pageContext.request.contextPath}/insert/insert">회원가입</a>
                 </li>
 
               <!--  로그인 버튼 -->
               <button class="submit">로그인</button>
 
-              <!--  아이디 기억하기 체크박스 -->
-              <div class="rememberId">
-                <input type="checkbox" class="rememberId">
-                <label>아이디 기억하기</label>
-              </div>
+              
             </form>
           
+
+
             <form>
-
-         
-              <div>
- 
               <!--  카카오 로그인 버튼 -->
-              <a id="kakao-login-btn" href="#" class="simpleLog">
-                <img
-                  src="${pageContext.request.contextPath}/resources/images/kakaoLog.png"
-                  alt="카카오간편로그인"
-                />
-              </a>
-              
-			  <!--  네이버 로그인 버튼 -->
+              <div>
+                <a id="kakao-login-btn" href="#" class="simpleLog">
+                  <img
+                    src="${pageContext.request.contextPath}/resources/login/images/kakaoLog.png"
+                    alt="카카오간편로그인"
+                  />
+                </a>
+                
+             <!--  네이버 로그인 버튼 -->
                <a id="naver-login-btn" href="#" class="simpleLog">
-                <img
-                  src="${pageContext.request.contextPath}/resources/images/naverLog.png"
-                  alt="네이버간편로그인"
-                />
-              </a>
-              
-			</div>
-
+                  <img
+                    src="${pageContext.request.contextPath}/resources/login/images/naverLog.png"
+                    alt="네이버간편로그인"
+                  />
+                </a>
+                
+        </div>
 
             </form>
           </div>
@@ -106,17 +106,14 @@
             <h5>당신의 위한 맞춤 인재와 매칭해보세요!</h5>
           </div>
           <div class="right-inductor">
-            <img
-              src="https://lh3.googleusercontent.com/fife/ABSRlIoGiXn2r0SBm7bjFHea6iCUOyY0N2SrvhNUT-orJfyGNRSMO2vfqar3R-xs5Z4xbeqYwrEMq2FXKGXm-l_H6QAlwCBk9uceKBfG-FjacfftM0WM_aoUC_oxRSXXYspQE3tCMHGvMBlb2K1NAdU6qWv3VAQAPdCo8VwTgdnyWv08CmeZ8hX_6Ty8FzetXYKnfXb0CTEFQOVF4p3R58LksVUd73FU6564OsrJt918LPEwqIPAPQ4dMgiH73sgLXnDndUDCdLSDHMSirr4uUaqbiWQq-X1SNdkh-3jzjhW4keeNt1TgQHSrzW3maYO3ryueQzYoMEhts8MP8HH5gs2NkCar9cr_guunglU7Zqaede4cLFhsCZWBLVHY4cKHgk8SzfH_0Rn3St2AQen9MaiT38L5QXsaq6zFMuGiT8M2Md50eS0JdRTdlWLJApbgAUqI3zltUXce-MaCrDtp_UiI6x3IR4fEZiCo0XDyoAesFjXZg9cIuSsLTiKkSAGzzledJU3crgSHjAIycQN2PH2_dBIa3ibAJLphqq6zLh0qiQn_dHh83ru2y7MgxRU85ithgjdIk3PgplREbW9_PLv5j9juYc1WXFNW9ML80UlTaC9D2rP3i80zESJJY56faKsA5GVCIFiUtc3EewSM_C0bkJSMiobIWiXFz7pMcadgZlweUdjBcjvaepHBe8wou0ZtDM9TKom0hs_nx_AKy0dnXGNWI1qftTjAg=w1920-h979-ft"
-              alt=""
-            />
-              </a>
+            <img src="">
           </div>
         </div>
       </div>
     </section>
 
-
+    
+        
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 

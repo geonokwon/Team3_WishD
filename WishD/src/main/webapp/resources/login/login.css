@@ -76,11 +76,11 @@
 /* 로그인 버튼 */
 .submit {
   border: none;
-  padding: 10px 75px; 
+  padding: 15px 70px;
   border-radius: 8px;
   display: block;
-  margin: 40px;
-  margin-bottom: 0.5px;
+  /* margin: auto; */
+  margin-top: 20px;
   background: #6f40c8;
   color: #fff;
   font-weight: bold;
@@ -95,7 +95,7 @@
 .nav-link {
   color: #fff;
   font-size: 12px;
-  line-height: 0.1;
+  line-height: 4;
 }
 
 /*  아이디, 비밀번호찾기, 회원가입 -> 커서 올렸을 때 */
@@ -105,19 +105,18 @@
 
 /* 아이디 기억하기 체크박스 */
 .rememberId {
-
   font-size: 12px;
-  margin-top: 2.5px;
-  margin-bottom: 15px;
-
+  line-height: 1.5;
+  text-align: center;
 }
 
 /* 간편로그인 */
 .simpleLog {
-	
+
 margin: 13px;
 display: block;
 }
+
 
 
 /* 오른쪽 홍보 영역  */
