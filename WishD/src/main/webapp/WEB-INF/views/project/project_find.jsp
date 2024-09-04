@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,11 +14,7 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-    ></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
 
 </head>
@@ -31,7 +28,7 @@
     <div class="container">
         <div class="row align-items-center px-4">
             <!-- 제목 -->
-            <div class="col">
+            <div class="col" onclick="location.href='${pageContext.request.contextPath}/projectFind?pageNum='">
                 <div class="d-flex align-items-center">
                     <img class="float-start" src="${pageContext.request.contextPath}/resources/project/images/speaker.png" alt="speaker"/>
                     <h2 class="ms-2 mb-0">구인 중인 프로젝트</h2>
@@ -51,23 +48,23 @@
                     >스킬 선택
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="skillMenuButton">
-                        <li><a class="dropdown-item" href="#">Java</a></li>
-                        <li><a class="dropdown-item" href="#">JavaScript</a></li>
-                        <li><a class="dropdown-item" href="#">Spring</a></li>
-                        <li><a class="dropdown-item" href="#">Spring Boot</a></li>
-                        <li><a class="dropdown-item" href="#">TypeScript</a></li>
-                        <li><a class="dropdown-item" href="#">React</a></li>
-                        <li><a class="dropdown-item" href="#">Nest.js</a></li>
+                        <c:forEach items="${projectSkillList}" var="skill">
+                            <li><a class="dropdown-item" href="#">${skill.getSkill_name()}</a></li>
+                        </c:forEach>
+
+
                     </ul>
                 </div>
             </div>
 
             <!-- 검색 창 -->
             <div class="col-auto ms-auto">
-                <div class="input-group">
-                    <input type="text" class="form-control text border-0 bg-primary" style="width: 200px; color: white" placeholder="프로젝트명 검색" />
-                    <button class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
-                </div>
+                <form action="${pageContext.request.contextPath}/projectFind" method="get">
+                    <div class="input-group">
+                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" />
+                        <button type="submit" class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -75,7 +72,7 @@
     <div class="col-12 mt-4 mb-2 px-5">
         <div class="d-flex">
             <!-- 총 프로젝트 등록 개수 가져오기 -->
-            <div class="ms-1 me-3">프로젝트 ${requestScope.projectCount} 개</div>
+            <div class="ms-1 me-3">프로젝트 ${requestScope.projectPageDTOList.getCount()} 개</div>
             <div class="me-4">|</div>
             <!-- 정렬 방식 변경 -->
             <a class="me-4 nav-link" href="#">최신 순</a>
@@ -112,7 +109,7 @@
                     </c:if>
 
                     <!-- 타이틀 -->
-                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">${projectDTO.getPboard_title()}</a>
+                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead?${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
                     <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
                         <!-- 반복되는 스킬배지 -->
@@ -124,11 +121,10 @@
                     <p class="col-auto card-text mb-1">예상 금액: ${projectDTO.getPboard_money()} 만원</p>
                     <div class="row d-flex">
                         <!-- 시작 예정일 -->
-                        <p class="col-4 card-text mb-1">시작 예정일: ${projectDTO.getPboard_startDate()}</p>
+                        <p class="col-4 card-text mb-1">시작 예정일: <fmt:formatDate value="${projectDTO.getPboard_startDate()}" pattern="yyyy년 MM월 dd일" /> </p>
                         <!-- 예상 기간 -->
                         <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -138,33 +134,41 @@
     <!-- Pagination -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${projectPageDTOList.startPage > projectPageDTOList.pageBlock}">
             <li class="page-item">
-                <a class="page-link" href="#"></a>
+                <a class="page-link" href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.startPage - 10}"></a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </c:if>
+
+            <c:forEach begin="${projectPageDTOList.startPage}" end="${projectPageDTOList.endPage}" var="page">
+                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/projectFind?pageNum=${page}">${page}</a></li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${projectPageDTOList.endPage < projectPageDTOList.pageCount}">
             <li class="page-item">
-                <a class="page-link" href="#"></a>
+                <a class="page-link" href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.endPage + 10}"></a>
             </li>
+            </c:if>
         </ul>
     </nav>
+
+    <div class="noite"></div>
+
+    <div class="constelacao"></div>
+
+    <div class="chuvaMeteoro"></div>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
-<script>
-    //드롭다운 클래스를 가진 애들이 클릭시 이벤트 추가
-    document.querySelectorAll(".dropdown-item").forEach(function (item) {
-        item.addEventListener("click", skillSelect);
-    });
-
-    function skillSelect() {
-        // this.textContent = .dropdown-item 클래스의 클릭된 요소 가져오기;
-        // 클릭된 요소를 가져와 버튼 안의 값으로 변경
-        document.querySelector("#skillMenuButton").innerText = this.textContent;
-    }
-</script>
+<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+></script>
 </body>
 </html>
 

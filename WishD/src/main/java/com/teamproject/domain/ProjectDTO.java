@@ -73,10 +73,8 @@ public class ProjectDTO {
         this.pboard_money = pboard_money;
     }
 
-    public String getPboard_startDate() {
-        //년 월 일 로바꿔서 반환
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-        return dateFormat.format(this.pboard_startDate);
+    public Timestamp getPboard_startDate() {
+        return pboard_startDate;
     }
 
     public void setPboard_startDate(Timestamp pboard_startDate) {

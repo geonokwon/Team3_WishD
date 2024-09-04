@@ -31,7 +31,7 @@
     <div class="container">
         <div class="container row align-items-start">
             <!-- project Read card -->
-            <div class="card col-7 bg-primary rounded-lg me-2 p-3 h-100">
+            <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
                 <div class="card-body project-details" style="height: 1000px">
                     <!-- 타이틀 -->
                     <p class="card-title fs-3" style="height: 90px">[웹개발] HR SaaS 솔루션 인사/조직 관리 백앤드 개발</p>
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <!-- side request-form card -->
-            <div class="card col-4 bg-primary rounded-lg me-2 p-3">
+            <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3">
                 <div class="card-body" id="sideCardBody_background">
                     <div id="matching_Title">
                         <p class="card-title fs-5">해당 프로젝트가 마음에 드시나요?</p>
@@ -244,70 +244,7 @@
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
-<script>
-    //숫자만 입력할수 있는 (input text 타입)
-    document.getElementById("request_job_history").addEventListener("keypress", function (event) {
-        //숫자가 아닐 경우
-        if (!/\d/.test(event.key)) {
-            // 입력을 방지
-            event.preventDefault();
-        }
-    });
-
-    const selectElement = document.getElementById("request_skill");
-    const badgeContainer = document.getElementById("badge_container");
-    const hiddenInput = document.getElementById("selected-skills");
-
-    selectElement.addEventListener("change", function () {
-        const selectValue = this.value;
-
-        //이미 선택된 배지인지 확인
-        const existingBadges = Array.from(badgeContainer.getElementsByClassName("badge"));
-        const existingBadge = existingBadges.find((badge) => badge.textContent === this.value);
-        if (existingBadge) {
-            existingBadge.remove();
-            updateHiddenInput();
-        } else {
-            const badge = document.createElement("p");
-            badge.className = "badge rounded-pill mb-1 me-2";
-            badge.textContent = this.value;
-            badgeContainer.appendChild(badge);
-            // 숨겨진 입력 필드 업데이트
-            updateHiddenInput();
-        }
-        // 선택 초기화 (다시 처음 상태로)
-        selectElement.selectedIndex = 0;
-    });
-
-    //나중에 어떻게 보낼지 생각해봐야함!
-    //현재는 배열에 저장하고 있음
-    function updateHiddenInput() {
-        const badges = Array.from(badgeContainer.getElementsByClassName("badge"));
-        const selectedSkills = badges.map((badge) => badge.textContent);
-
-        let result_skill = "";
-        for (let i = 0; i < selectedSkills.length; i++) {
-            if (i === selectedSkills.length - 1) {
-                result_skill += selectedSkills[i];
-            } else {
-                result_skill += selectedSkills[i] + ",";
-            }
-        }
-
-        console.log(selectedSkills);
-        console.log(result_skill);
-        //나중에 넘겨줄 값은 result_skill String 값으로 hidden 으로 넘겨주고 java 단에서 ',' 로 나눠서 배열에 담고 배열 갯수만큼 스킬 저장
-    }
-
-    //로그인 되고 나서 매칭시 버튼 클릭시 폼 보여주기
-    document.getElementById("matching_button").addEventListener("click", () => {
-        document.querySelector("#sideCardBody_background").style.height = "1000px";
-        document.querySelector("#matching_Title").style.display = "none";
-        document.querySelector("#requestForm").style.display = "block";
-        document.querySelector("#matching_button").style.display = "none";
-        document.querySelector("#agree_button").style.display = "block";
-    });
-</script>
+<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
 </body>
 </html>
 
