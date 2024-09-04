@@ -1,0 +1,369 @@
+:root {
+    --bs-primary: #141826; /* 색상 변경(카드색상) */
+    --bs-dark: #0e1117;
+}
+#search {
+    width: 180px;
+}
+/* input date 아이콘 삭제 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+/* 사용자 정의 버튼 스타일링 */
+input[type="file"]::file-selector-button {
+    display: none;
+}
+input[type="file"]::file-selector-button:hover {
+    background-color: #5e36a8;
+}
+
+.bg-primary {
+    background-color: var(--bs-primary) !important; /* 변수를 사용하여 색상 적용 */
+}
+.bg-dark {
+    background-color: var(--bs-dark) !important;
+}
+.form-select,
+.form-control,
+.form-control:focus {
+    border: none;
+    color: #fff;
+}
+.form-control:active {
+    background-color: #0e1117;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 (전체 화면일 때) */
+    min-height: 100vh;
+    background-color: #0e1117; /* 어두운 배경색 */
+    color: #fff; /* 밝은 텍스트 색상 */
+}
+.form-control::placeholder {
+    color: #fff;
+    opacity: 1; /* Firefox */
+}
+.navbar {
+    background-color: #0e1117; /* 네비게이션 바 배경색 */
+}
+.navbar-nav .nav-link {
+    color: #fff; /* 네비게이션 링크 색상 */
+}
+.navbar-nav .nav-link:hover {
+    color: #bfbfbf; /* 네비게이션 링크 호버 색상 */
+}
+
+.btn-primary {
+    /* 버튼 텍스트 색상 */
+    --bs-btn-color: #fff;
+    /* 버튼 배경 색상 */
+    --bs-btn-bg: #6f40c8;
+    /* 버튼 테두리 색상 */
+    --bs-btn-border-color: #6f40c8;
+    /* 버튼 mouse hover text 색상 */
+    --bs-btn-hover-color: #fff;
+    /* 버튼 mouse hover 배경 색상 */
+    --bs-btn-hover-bg: #5e36a8;
+    /* 버튼 mouse hover 테두리 색상 */
+    --bs-btn-hover-border-color: #5e36a8;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    /* 버튼 mouse click text 색상 */
+    --bs-btn-active-color: #fff;
+    /* 버튼 mouse click 배경 색상 */
+    --bs-btn-active-bg: #5e36a8;
+    /* 버튼 mouse click 테두리 색상 */
+    --bs-btn-active-border-color: #5e36a8;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.dropdown-menu {
+    /* 드롭다운시 배경 색상 */
+    --bs-dropdown-bg: #141826;
+    /* 드롭다운 link 폰트 색상 */
+    --bs-dropdown-link-color: #fff;
+    /* 드롭다운 link hover 폰트 색상 */
+    --bs-dropdown-link-hover-color: #fff;
+    /* 드롭다운 link hover 배경 색상 */
+    --bs-dropdown-link-hover-bg: #1e243a;
+    /* 드롭다운 link click 폰트 색상 */
+    --bs-dropdown-link-active-color: #fff;
+    /* 드롭다운 link click 배경 색상 */
+    --bs-dropdown-link-active-bg: #1e243a;
+}
+
+.card {
+    background-color: #141826; /* 카드 배경색 */
+    color: #e0e0e0; /* 카드 텍스트 색상 */
+}
+.card .card-title {
+    color: #ffffff; /* 카드 제목 색상 */
+}
+.badge {
+    background-color: #6f40c8;
+    font-weight: normal;
+}
+
+.footer {
+    background-color: #333; /* 푸터 배경색 */
+}
+.footer a {
+    color: #f8f9fa; /* 푸터 링크 색상 */
+}
+.footer a:hover {
+    color: #e0e0e0; /* 푸터 링크 호버 색상 */
+}
+.pagination .page-link {
+    color: #007bff; /* 페이지네이션 링크 색상 */
+}
+.pagination .page-link:hover {
+    color: #0056b3; /* 페이지네이션 링크 호버 색상 */
+}
+.custom-hr {
+    border: none;
+    /* 색상, 두께 설정 */
+    border-top: 3px solid #445283;
+}
+
+
+/* 별 배경 */
+
+.noite {
+    z-index: -1;
+    background: #0e1117;
+    width: 100vw; /* 뷰포트 너비 */
+    height: 100vh; /* 뷰포트 높이 */
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.constelacao {
+    z-index: -1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: rotate 600s infinite linear;
+}
+
+.estrela {
+    position: fixed;
+    z-index: -1;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    animation-name: estrela;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* 스타일 및 애니메이션에 대한 클래스는 그대로 유지 */
+.estrela.style1 {
+    animation-duration: 0.5s;
+}
+
+.estrela.style2 {
+    animation-duration: 1s;
+}
+
+.estrela.style3 {
+    animation-duration: 1.5s;
+}
+
+.estrela.style4 {
+    animation-duration: 2s;
+    animation-name: estrelaDestacada;
+}
+
+.estrela.tam1 {
+    width: 1px;
+    height: 1px;
+}
+
+.estrela.tam2 {
+    width: 2px;
+    height: 2px;
+}
+
+.estrela.tam3 {
+    width: 3px;
+    height: 3px;
+}
+
+.estrela.opacity1 {
+    opacity: 1;
+}
+
+.estrela.opacity2 {
+    opacity: 0.5;
+}
+
+.estrela.opacity3 {
+    opacity: 0.1;
+}
+
+.meteoro {
+    position: fixed;
+    background-color: #fff;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    transform: rotate(-35deg);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+.meteoro:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 0;
+    height: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-left: 85px solid white;
+    position: absolute;
+    left: 2px;
+    top: 0;
+}
+
+.meteoro.style1 {
+    animation-name: meteoroStyle1;
+}
+
+.meteoro.style2 {
+    animation-name: meteoroStyle2;
+}
+
+.meteoro.style3 {
+    animation-name: meteoroStyle3;
+}
+
+.meteoro.style4 {
+    animation-name: meteoroStyle4;
+}
+
+@keyframes escurecer {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes estrela {
+    0% {
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
+    }
+}
+
+@keyframes estrelaDestacada {
+    0% {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 1);
+    }
+    20% {
+        background-color: #ffc4c4;
+        box-shadow: 0 0 10px 0px rgb(255, 196, 196, 1);
+    }
+    80% {
+        background-color: #c4cfff;
+        box-shadow: 0 0 10px 0px rgb(196, 207, 255, 1);
+    }
+    100% {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.2);
+    }
+}
+
+@keyframes meteoroStyle1 {
+    0% {
+        opacity: 0;
+        right: 300px;
+        top: 100px;
+    }
+    30% {
+        opacity: 0.3;
+    }
+    60% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        right: 1000px;
+        top: 600px;
+    }
+}
+
+@keyframes meteoroStyle2 {
+    0% {
+        opacity: 0;
+        right: 700px;
+        top: 100px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1400px;
+        top: 600px;
+    }
+}
+
+@keyframes meteoroStyle3 {
+    0% {
+        opacity: 0;
+        right: 300px;
+        top: 300px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1000px;
+        top: 800px;
+    }
+}
+
+@keyframes meteoroStyle4 {
+    0% {
+        opacity: 0;
+        right: 700px;
+        top: 300px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1400px;
+        top: 800px;
+    }
+}
+
