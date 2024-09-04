@@ -1,11 +1,11 @@
-package com.teamproject.wishd.dao;
+package com.teamproject.dao;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.teamproject.wishd.domain.MemberDTO;
+import com.teamproject.domain.MemberDTO;
 
 @Repository
 public class MyPageDAO {
@@ -13,7 +13,7 @@ public class MyPageDAO {
 	@Inject
 	private SqlSession sqlSession;
 	
-	private static final String namespace="com.teamproject.wishd.mapper.MyPageMapper";
+	private static final String namespace="com.teamproject.mapper.MyPageMapper";
 	
 	public MemberDTO getMember(String user_no) {
 		return sqlSession.selectOne(namespace + ".getMember", user_no);
