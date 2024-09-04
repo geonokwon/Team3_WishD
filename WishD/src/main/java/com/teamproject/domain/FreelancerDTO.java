@@ -1,10 +1,14 @@
 package com.teamproject.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class FreelancerDTO {
-
+	
+	
+	private int freelancer_id;
 	private int user_id;
+	
 	private int freelancer_salary;
 	private Timestamp freelancer_startdate;
 	private boolean freelancer_exp; //프리랜서 경험 유무
@@ -16,8 +20,15 @@ public class FreelancerDTO {
 	private Timestamp freelancer_date;
 	private Timestamp freelancer_update;
 	
+    //freelancer_id 값에 따른 skill 가져오기
+    private List<FreelancerSkillDTO> skills;
 	
-	
+	public int getFreelancer_id() {
+		return freelancer_id;
+	}
+	public void setFreelancer_id(int freelancer_id) {
+		this.freelancer_id = freelancer_id;
+	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -83,6 +94,12 @@ public class FreelancerDTO {
 	}
 	public void setFreelancer_update(Timestamp freelancer_update) {
 		this.freelancer_update = freelancer_update;
+	}
+	public List<FreelancerSkillDTO> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<FreelancerSkillDTO> skills) {
+		this.skills = skills;
 	}
 	
 	

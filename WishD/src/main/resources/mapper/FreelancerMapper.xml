@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.mapper.FreelancerMapper">
+
+<!-- 프리랜서 DB쿼리 -->
+
+<!-- 	프리랜서 등록 -->
+	<insert id="resistFreelancer">
+		insert into freelancer
+		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introdution},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update})
+	</insert>
+	
+<!-- 	프리랜서의 스킬들 등록 -->
+	<insert id="registFreelancerSkills">
+        INSERT INTO freelancer_skill (freelancer_id, skill_id)
+        VALUES 
+        <foreach collection="skills" item="skill" separator=",">
+            (#{userId}, (SELECT skill_id FROM skills WHERE skill_name = #{skill}))
+        </foreach>
+    </insert>
+
+	
+  
+</mapper>

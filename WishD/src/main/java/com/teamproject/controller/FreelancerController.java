@@ -1,6 +1,10 @@
 package com.teamproject.controller;
 
+import java.net.http.HttpRequest;
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamproject.domain.FreelancerDTO;
+import com.teamproject.domain.FreelancerSkillDTO;
 import com.teamproject.service.FreelancerService;
 
 
@@ -29,17 +34,17 @@ public class FreelancerController {
 	}
 	
 	// 프리랜서 등록 처리
-	@GetMapping("/freelancer_regPro") 
+	@PostMapping("/freelancer_regPro") 
 		public String freelancer_regPro(FreelancerDTO freelancerDTO) {
 		System.out.println("freelancer_controller freelancer_regPro()");
+	
+
 		
 		// 프리랜서 등록 처리
 		freelancerService.registFreelancer(freelancerDTO);
 		
 		return "redirect:/freelancer/freelancer_reg";
 	}
-	
-	
 	
 	
 	

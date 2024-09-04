@@ -32,7 +32,7 @@
 
 }
 
-
+/* 등록 양식 스타일 */
 .freelancer_reg{
 	
 	border: 0px solid #141826;
@@ -46,15 +46,15 @@
 	
 }
 
+
 .temp{
 	width : 960px;
 	float:left; 
 	padding: 20px 20px 80px 20px;
-
 	border-bottom: 1px solid rgba(128,128,128,0.5);
-
 }
 
+/* 큰 화면에서 왼쪽 블럭 */
 .mini_temp1{
  	float:left; 
 	padding: 20px 0px 0px 0px;
@@ -62,6 +62,7 @@
 	width : 460px;
 }
 
+/* 큰 화면에서 오른쪽 블럭 */
 .mini_temp2{
  	float:left; 
 	padding: 20px 0px 0px 0px;
@@ -69,10 +70,64 @@
 	width : 420px;
 }
 
+input, select{
+	background-color : #0e1117;
+	color : #fff;
+}
 
+/* 작은 화면에서는 한 줄에 하나씩 배치되도록 설정 */
+@media (max-width: 768px) {
+	.freelancer_reg {
+		width: 100%;
+	}
+
+	.temp {
+		width: 100%;
+		padding: 20px 20px 80px 20px;
+
+	}
+
+	.mini_temp1,
+	.mini_temp2 {
+		min-width: 100%;
+		padding: 20px 0px;
+	}
+}
 
 </style>
+    <style>
+        #selected-items {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            min-height: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
+        .selected-item {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .selected-item span {
+            cursor: pointer;
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        #item-input {
+            margin-top: 10px;
+        }
+    </style>
 
 
 </head>
@@ -87,7 +142,7 @@
 	<span id="top"><h1>프리랜서 등록</h1></span>
 	
 	<br><br><br><br>
-	<form action="${pageContext.request.contextPath}/member/freelancer_reg_Pro" method="post">
+	<form action="${pageContext.request.contextPath}/freelancer/freelancer_regPro" class="appForm" method="post" name="fr">
 		<div class="freelancer_reg">
 			<br>
 			
@@ -119,7 +174,7 @@
 					
 					<br><br><br>
 					<h6><b>직무<span class="red">*</span></b></h6>
-						  <select name="languages" id="lang" >
+						  <select name="freelancer_job" >
 						      <option value="">직무를 선택하세요</option>
 						      <option value="front">프론트</option>
 						      <option value="backend">백엔드</option>
@@ -132,8 +187,21 @@
 				
 				<div class="mini_temp2">
 					<h6><b>개발자 경력<span class="red">*</span></b></h6>
-					<input type = "number" min= "0" name = "dev_exp" step="1"  required> 년
+						<input type = "number" min= "0" name = "dev_exp" step="1"  required> 년
+					
+					<h6><b>보유 스킬<span class="red">*</span></b></h6>
+					    <select id="skills" onchange="addSkill()">  
+					        <option value="java">java</option>
+					        <option value="python">python</option>
+					        <option value="php">php</option>
+					        <option value="javascript">javascript</option>
+					        <option value="typescript">typescript</option>
+					        <option value="spring">spring</option>
+					        <option value="springboot">springboot</option>
+					  </select>
 				</div>
+			
+							
 			
 			</div>
 			
@@ -144,14 +212,22 @@
 			
 			</div>
 			
-		
-		
-		
-		
-		</div>
-	</form>
-	
 
+		
+		
+		
+			<a href="javascript:document.fr.submit();">등록</a>
+		</div>
+			
+	</form>
+
+	<script>
+// 		function addskill(){
+// 		let skillValue = document.getElementById("skills");
+// 		alert(skillValue);
+// 		}
+	
+	</script>
 	
 	
 	
@@ -159,9 +235,7 @@
 	
 	
 	
-	
-	<a href="${pageContext.request.contextPath}/freelancer/freelancer_regPro">등록</a>
-	
+		
 	<!-- Footer -->
 	<jsp:include page="../include/footer.jsp"/>
 
