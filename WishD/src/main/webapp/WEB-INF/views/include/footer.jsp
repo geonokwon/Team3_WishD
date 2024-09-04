@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<body>
 <!-- Footer -->
-    <footer class="bg-dark text-light py-4">
+    <footer class="container-fluid text-light mb-0 py-4">
         <div class="container text-center">
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#" class="text-light">프리랜서 이용약관</a></li>
@@ -15,5 +14,6 @@
             <p>© WANTEDLAB, INC.</p>
         </div>
     </footer>
-</body>
+
+
 
