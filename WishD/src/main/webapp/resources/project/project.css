@@ -5,6 +5,19 @@
 #search {
     width: 180px;
 }
+
+/*카드 마우스 호버시*/
+.board_card{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.board_card:hover{
+    transform: translate(-4px, -4px); /* X와 Y 방향으로 -10px 이동 */
+}
+/*end*/
+
+.title:hover h2, .sort:hover{
+    color: rgba(255, 255, 255, 0.75);
+}
 /* input date 아이콘 삭제 */
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;

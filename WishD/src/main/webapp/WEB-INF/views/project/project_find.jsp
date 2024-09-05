@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row align-items-center px-4">
             <!-- 제목 -->
-            <div class="col" onclick="location.href='${pageContext.request.contextPath}/projectFind?pageNum='">
+            <div class="col title" onclick="location.href='${pageContext.request.contextPath}/projectFind?pageNum='">
                 <div class="d-flex align-items-center">
                     <img class="float-start" src="${pageContext.request.contextPath}/resources/project/images/speaker.png" alt="speaker"/>
                     <h2 class="ms-2 mb-0">구인 중인 프로젝트</h2>
@@ -49,7 +49,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="skillMenuButton">
                         <c:forEach items="${projectSkillList}" var="skill">
-                            <li><a class="dropdown-item" href="#">${skill.getSkill_name()}</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/projectFind?skill=${skill.getSkill_id()}">${skill.getSkill_name()}</a></li>
                         </c:forEach>
 
 
@@ -75,8 +75,16 @@
             <div class="ms-1 me-3">프로젝트 ${requestScope.projectPageDTOList.getCount()} 개</div>
             <div class="me-4">|</div>
             <!-- 정렬 방식 변경 -->
-            <a class="me-4 nav-link" href="#">최신 순</a>
-            <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" />
+            <c:if test="${requestScope.sortState == 0}">
+                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
+                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
+            </c:if>
+            <c:if test="${requestScope.sortState == 1}">
+                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
+                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
+            </c:if>
+
+
         </div>
     </div>
 
@@ -86,7 +94,7 @@
         <!-- 반복되는 프로젝트 카드 -->
         <c:forEach items="${projectDTOList}" var="projectDTO">
         <div class="container mb-4 px-5">
-            <div class="card h-100 p-2" style="height: 200px">
+            <div class="board_card card h-100 p-2" style="height: 200px">
                 <div class="card-body position-relative">
                     <!-- 현재 상태 -->
                     <!-- 모집중 일때 -->
@@ -109,7 +117,7 @@
                     </c:if>
 
                     <!-- 타이틀 -->
-                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">${projectDTO.getPboard_title()}</a>
+                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead?pageNum=${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
                     <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
                         <!-- 반복되는 스킬배지 -->
@@ -162,13 +170,14 @@
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
-
-<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
+
+<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
+
 </body>
 </html>
 

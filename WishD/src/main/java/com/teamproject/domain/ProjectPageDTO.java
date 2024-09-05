@@ -17,7 +17,27 @@ public class ProjectPageDTO {
 
     //검색어
     private String search;
+    //스킬 id
+    private Integer skill_id;
 
+    public Integer getCreatedDateFilter() {
+        return createdDateFilter;
+    }
+
+    public void setCreatedDateFilter(Integer createdDateFilter) {
+        this.createdDateFilter = createdDateFilter;
+    }
+
+    //날짜별 필터
+    private Integer createdDateFilter;
+
+    public Integer getSkill_id() {
+        return skill_id;
+    }
+
+    public void setSkill_id(Integer skill_id) {
+        this.skill_id = skill_id;
+    }
 
     public String getSearch() {
         return search;

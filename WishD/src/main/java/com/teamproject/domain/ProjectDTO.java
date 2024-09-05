@@ -24,6 +24,7 @@ public class ProjectDTO {
     //pboard_id 값에 따른 skill 등록한것 가져오기
     private List<ProjectSkillDTO> skills;
 
+
     public Long getPboard_id() {
         return pboard_id;
     }

@@ -8,24 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 @Service
 public class ProjectService {
-
+    public static final Logger logger = Logger.getLogger(ProjectService.class.getName());
     @Autowired
     private ProjectDAO projectDAO;
 
     //전체 프로젝트 등록 List 불러오기
     public List<ProjectDTO> getProject(ProjectPageDTO projectPageDTO){
-        System.out.println("projectService -> getProject()");
-        //시작하는 행 번호 구하기
-        int startRow = (projectPageDTO.getCurrentPage() - 1) * projectPageDTO.getPageSize() + 1;
-        //끝나는 행 번호 구하기
-        int endRow = startRow + projectPageDTO.getPageSize() - 1;
-        //DB 에 Limit 시작하는 행번호 - 1, 글개수
-        projectPageDTO.setStartRow(startRow - 1);
-        projectPageDTO.setEndRow(endRow);
-
+        logger.info("-> getProject()");
         //projectDTO 사용자가 등록한 board 를 가져옴
         List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
         for (ProjectDTO projectDTO : projectDTOList) {
@@ -39,10 +32,12 @@ public class ProjectService {
 
     //총 프로젝트 등록 개수 가져오기
     public int getProjectCount(ProjectPageDTO projectPageDTO){
-        System.out.println("projectService -> getProjectCount()");
+        logger.info("-> getProjectCount()");
         return projectDAO.getProjectCount(projectPageDTO);
     }
+    //전체 스킬 리스트 가져오기
     public List<ProjectSkillDTO> getSkillList() {
+        logger.info("-> getSkillList()");
         return projectDAO.getProjectSkillList();
     }
 }

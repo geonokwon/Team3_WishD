@@ -124,65 +124,26 @@
 
             <!-- 등록하기 버튼 -->
             <div class="row container mt-5 px-5 justify-content-center">
-                <button type="button" class="col-4 me-3 btn btn-primary" id="matching_button">등록하기</button>
-
-                <button type="button" class="col-2 btn btn-primary" id="matching_button">돌아가기</button>
+                <button type="button" class="col-4 me-3 btn btn-primary" >등록하기</button>
+                <button type="button" class="col-2 btn btn-primary" >돌아가기</button>
             </div>
         </div>
     </div>
+    <div class="noite"></div>
+
+    <div class="constelacao"></div>
+
+    <div class="chuvaMeteoro"></div>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
-<script>
-    const selectElement = document.getElementById("skill");
-    const badgeContainer = document.getElementById("badge_container");
-    const hiddenInput = document.getElementById("selected-skills");
 
-    selectElement.addEventListener("change", function () {
-        const selectValue = this.value;
-
-        //이미 선택된 배지인지 확인
-        const existingBadges = Array.from(badgeContainer.getElementsByClassName("badge"));
-        const existingBadge = existingBadges.find((badge) => badge.textContent === this.value);
-        if (existingBadge) {
-            existingBadge.remove();
-            updateHiddenInput();
-        } else {
-            const badge = document.createElement("p");
-            badge.className = "badge rounded-pill mb-1 me-2";
-            badge.textContent = this.value;
-            badgeContainer.appendChild(badge);
-            // 숨겨진 입력 필드 업데이트
-            updateHiddenInput();
-        }
-        // 선택 초기화 (다시 처음 상태로)
-        selectElement.selectedIndex = 0;
-    });
-    //나중에 어떻게 보낼지 생각해봐야함!
-    //현재는 배열에 저장하고 있음
-    function updateHiddenInput() {
-        const badges = Array.from(badgeContainer.getElementsByClassName("badge"));
-        const selectedSkills = badges.map((badge) => badge.textContent);
-
-        let result_skill = "";
-        for (let i = 0; i < selectedSkills.length; i++) {
-            if (i === selectedSkills.length - 1) {
-                result_skill += selectedSkills[i];
-            } else {
-                result_skill += selectedSkills[i] + ",";
-            }
-        }
-
-        console.log(selectedSkills);
-        console.log(result_skill);
-        //나중에 넘겨줄 값은 result_skill String 값으로 hidden 으로 넘겨주고 java 단에서 ',' 로 나눠서 배열에 담고 배열 갯수만큼 스킬 저장
-    }
-</script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
+<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
 </body>
 </html>
 
