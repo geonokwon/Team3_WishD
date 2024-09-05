@@ -70,9 +70,13 @@ public class ProjectController {
         return "/project/project_find";
     }
 
-    @GetMapping("projectRead/{pboard_id}")
-    public String projectRead(@PathVariable Long pboard_id, Model model){
+    @GetMapping("projectRead")
+    public String projectRead(Model model){
         System.out.println("ProjectController -> projectRead()");
         return "/project/project_read";
+    }
+    @GetMapping("projectWrite")
+    public String projectWirte(Model model){
+        return "/project/project_write";
     }
 }

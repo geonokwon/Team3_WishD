@@ -61,7 +61,7 @@
             <div class="col-auto ms-auto">
                 <form action="${pageContext.request.contextPath}/projectFind" method="get">
                     <div class="input-group">
-                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" />
+                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" autocomplete="off" />
                         <button type="submit" class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
                     </div>
                 </form>
@@ -109,7 +109,7 @@
                     </c:if>
 
                     <!-- 타이틀 -->
-                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead?${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
+                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead">${projectDTO.getPboard_title()}</a>
                     <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
                         <!-- 반복되는 스킬배지 -->
