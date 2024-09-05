@@ -20,8 +20,8 @@ public class FreelancerDTO {
 	private Timestamp freelancer_date;
 	private Timestamp freelancer_update;
 	
-    //freelancer_id 값에 따른 skill 가져오기
-    private List<FreelancerSkillDTO> skills;
+    //freelancer_skill 테이블에 넣을 스킬
+    private List<String> skills;
 	
 	public int getFreelancer_id() {
 		return freelancer_id;
@@ -95,12 +95,14 @@ public class FreelancerDTO {
 	public void setFreelancer_update(Timestamp freelancer_update) {
 		this.freelancer_update = freelancer_update;
 	}
-	public List<FreelancerSkillDTO> getSkills() {
+	
+	public List<String> getSkills() {
 		return skills;
 	}
-	public void setSkills(List<FreelancerSkillDTO> skills) {
+	public void setSkills(List<String> skills) {
 		this.skills = skills;
 	}
+
 	
 	
 
