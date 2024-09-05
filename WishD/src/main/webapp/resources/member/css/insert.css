@@ -1,0 +1,131 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 20;
+  background-color: #0e1117;
+}
+
+.signup-container {
+  background-color: #141826;
+  padding: 80px;
+  border-radius: 10px;
+  width: 700px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin: 30px;
+  color: #ffffff;
+  padding: 30px;
+}
+
+.form-group {
+  /* margin-bottom: 25px; /* 간격을 늘렸습니다 */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center; /*텍스트 상자를 가운데로 위치 */
+  margin-bottom: 20px;
+}
+
+label {
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 5px;
+  width: 100%; /* 라벨을 전체 너비로 맞춰서 가운데 정렬 효과 */
+  text-align: center; /* 라벨 텍스트를 가운데 정렬 */
+}
+
+.input-with-button {
+  display: flex;
+  width: 100%; /* 부모 요소가 전체 너비를 차지하게 설정 */
+  align-items: center;
+}
+
+/* 텍스트 입력 상자  */
+.form-input {
+  border: none;
+  width: 55%;
+  margin: 15px 23px;
+  border-bottom: 1px solid #6f40c8;
+  padding: 15px;
+  overflow: hidden;
+  font-weight: 600; /* 글자 굵기 */
+  font-size: 13px;
+  color: #fff;
+  background-color: #141826;
+}
+
+/* 중복확인, 인증코드 확인 버튼 */
+.check-button {
+  flex-shrink: 0; /* 버튼이 작아지지 않도록 설정 */
+  padding: 10px;
+  background-color: #6f40c8;
+  color: #ffffff;
+  border: 1px solid #6f40c8;
+  /* border-radius: 0 5px 5px 0; */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 12px; /* 버튼을 작게 만듭니다 */
+  margin-left: 2px; /* 버튼과 입력 필드 사이에 경계선을 맞추기 위함 */
+  width: auto;
+  white-space: nowrap;
+  box-sizing: border-box; /* padding과 border가 요소의 크기에 포함되도록 설정 */
+}
+
+/* 중복확인, 인증코드 확인 버튼 올렸을때 */
+.check-button:hover {
+  background-color: #5b33a4;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* 회원가입 버튼  */
+.submit-button {
+  position: relative;
+  left: 40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  margin-left: 53px;
+  width: 50%;
+  height: 40px;
+  background: linear-gradient(125deg, #9a8eaf, #6f40c8, #8c64a7);
+  /* background-position: left; */
+  background-size: 250%;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.4s;
+  display: inline;
+  border-radius: 5px;
+}
+
+/* 회원가입 버튼 올렸을때 */
+.submit-button:hover {
+  background-color: #5b33a4;
+  background-position: right;
+}
+
+.check-result {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
