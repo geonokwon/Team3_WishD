@@ -22,7 +22,7 @@ public class MyPageController {
 	@GetMapping("mypage")
 	public String mypage(HttpSession session, Model model) {
 //		System.out.println("MyPageController - mypage");
-		MemberDTO memberDTO = myPageService.getMember((String)session.getAttribute("user_no"));
+		MemberDTO memberDTO = myPageService.getMember("1"); //(String)session.getAttribute("user_no")
 		model.addAttribute("memberDTO", memberDTO);
 		return "/mypage/mypage";
 	}
@@ -30,9 +30,9 @@ public class MyPageController {
 	@PostMapping("mypage/mypageUpdatePro")
 	public String mypageUpdatePro(HttpSession session, MemberDTO memberDTO) {
 //		System.out.println("MyPageController - mypageUpdatePro");
-		memberDTO.setUser_no((int)(1)); // "session.getAttribute(user_no)"
-		MemberDTO memberDTO2 = myPageService.userCheck(memberDTO);
-		if(memberDTO2 != null) {
+		memberDTO.setUser_no(1); // "session.getAttribute(user_no)"
+		memberDTO = myPageService.userCheck(memberDTO);
+		if(memberDTO != null) {
 			myPageService.updateMember(memberDTO);
 			return "redirect:/mypage";
 		}
@@ -40,7 +40,7 @@ public class MyPageController {
 	}
 	
 	@PostMapping("mypage/myuserDeletePro")
-	public String myuserDeletePro() { //HttpServletRequest request�׽�Ʈ
+	public String myuserDeletePro() { //HttpServletRequest request�׽�Ʈ
 //		System.out.println(request.getParameter("email")); 
 		System.out.println("MyPageController - myuserDeletePro");
 

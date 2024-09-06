@@ -8,18 +8,18 @@
 	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join simple_user join user
 		on user_info.user_no = simple_user.user_no = user.user_no
-		where user_info.user_no = 1; <!-- #{user_no} -->
+		where user_info.user_no = #{user_no}
 	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join user
 		on user_info.user_no = user.user_no
-		where user_info.user_no = 1 and user.user_pass = 1234; <!-- #{user_no} #{user_pass} -->
+		where user_info.user_no = #{user_no} and user.user_pass = #{user_pass}
 	</select>
 	
 	<update id="updateMember">
 		update user_info
-		set email = #{email}, user_phone = #{user_phone}, user_pass = #{user_pass}
+		set user_pass = #{user_pass}
 		where user_no = #{user_no}
 	</update>
 	
