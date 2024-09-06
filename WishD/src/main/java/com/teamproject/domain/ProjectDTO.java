@@ -2,8 +2,6 @@ package com.teamproject.domain;
 
 
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ProjectDTO {
@@ -13,17 +11,30 @@ public class ProjectDTO {
     private String pboard_title;
     private String pboard_name;
     private String pboard_content;
-    private int pboard_money;
+    private Integer pboard_money;
     private Timestamp pboard_startDate;
-    private int pboard_rangeMonth;
+    private Integer pboard_rangeMonth;
     private String pboard_job;
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
 
+
+
+
+    //skill String 으로 가져와서 배열로 나누는 값
+    private String skillList;
     //pboard_id 값에 따른 skill 등록한것 가져오기
     private List<ProjectSkillDTO> skills;
 
+
+    public String getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(String skillList) {
+        this.skillList = skillList;
+    }
 
     public Long getPboard_id() {
         return pboard_id;
@@ -65,12 +76,11 @@ public class ProjectDTO {
         this.pboard_content = pboard_content;
     }
 
-    public String getPboard_money() {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###");
-        return decimalFormat.format(pboard_money);
+    public Integer getPboard_money() {
+        return pboard_money;
     }
 
-    public void setPboard_money(int pboard_money) {
+    public void setPboard_money(Integer pboard_money) {
         this.pboard_money = pboard_money;
     }
 
@@ -82,11 +92,11 @@ public class ProjectDTO {
         this.pboard_startDate = pboard_startDate;
     }
 
-    public int getPboard_rangeMonth() {
+    public Integer getPboard_rangeMonth() {
         return pboard_rangeMonth;
     }
 
-    public void setPboard_rangeMonth(int pboard_rangeMonth) {
+    public void setPboard_rangeMonth(Integer pboard_rangeMonth) {
         this.pboard_rangeMonth = pboard_rangeMonth;
     }
 
@@ -129,4 +139,22 @@ public class ProjectDTO {
         this.skills = skills;
     }
 
+    @Override
+    public String toString() {
+        return "ProjectDTO{" +
+                "pboard_id=" + pboard_id +
+                ", user_id=" + user_id +
+                ", pboard_title='" + pboard_title + '\'' +
+                ", pboard_name='" + pboard_name + '\'' +
+                ", pboard_content='" + pboard_content + '\'' +
+                ", pboard_money=" + pboard_money +
+                ", pboard_startDate=" + pboard_startDate +
+                ", pboard_rangeMonth=" + pboard_rangeMonth +
+                ", pboard_job='" + pboard_job + '\'' +
+                ", pboard_state='" + pboard_state + '\'' +
+                ", pboard_date=" + pboard_date +
+                ", pboard_update=" + pboard_update +
+                ", skills=" + skills +
+                '}';
+    }
 }

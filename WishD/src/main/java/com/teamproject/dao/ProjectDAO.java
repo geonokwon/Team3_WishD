@@ -42,4 +42,15 @@ public class ProjectDAO {
         logger.info("-> getProjectSkillList()");
         return sqlSession.selectList(nameSpace + "getProjectSkillList");
     }
+
+    //선택된 프로젝트 가져오기
+    public ProjectDTO getProject(Long pboard_id){
+        logger.info("-> getProject()");
+        return sqlSession.selectOne(nameSpace + "getProject", pboard_id);
+    }
+
+    public List<ProjectSkillDTO> getSkill(Long pboard_id) {
+        logger.info("-> getSkill()");
+        return sqlSession.selectList(nameSpace + "getSkill", pboard_id);
+    }
 }

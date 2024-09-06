@@ -15,6 +15,14 @@
 }
 /*end*/
 
+.modal {
+    --bs-modal-header-border-color: none;
+    --bs-modal-header-border-width: none;
+    --bs-modal-footer-border-color: none;
+}
+
+
+
 .title:hover h2, .sort:hover{
     color: rgba(255, 255, 255, 0.75);
 }

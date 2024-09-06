@@ -1,23 +1,32 @@
+//버튼 이동 관련
+const disagree_btn = document.getElementById("disagree_btn");
+if (disagree_btn){
+    disagree_btn.addEventListener("click", () => {
+        location.href = `${basePath}/projectFind`;
+    })
+}
+//버튼 이동 관련 end
 
+//스킬 추가 관련
 const selectElement = document.getElementById("req_skill") || document.getElementById("skill");
 const badgeContainer = document.getElementById("badge_container");
-const hiddenInput = document.getElementById("selected-skills");
-
 
 if (selectElement){
     selectElement.addEventListener("change", function () {
         //현재 선택된 값
+        const selectText = this.options[this.selectedIndex].text;
         const selectValue = this.value;
 
         //이미 선택된 배지인지 확인
         const existingBadges = Array.from(badgeContainer.getElementsByClassName("badge"));
-        const existingBadge = existingBadges.find((badge) => badge.textContent === this.value);
+        const existingBadge = existingBadges.find((badge) => badge.dataset.skillId === this.value);
         if (existingBadge) {
             existingBadge.remove();
         } else {
             const badge = document.createElement("p");
             badge.className = "badge rounded-pill mb-1 me-2";
-            badge.textContent = selectValue;
+            badge.textContent = selectText;
+            badge.dataset.skillId = selectValue;
             badgeContainer.appendChild(badge);
         }
         // 숨겨진 입력 필드 업데이트
@@ -30,14 +39,14 @@ if (selectElement){
 //현재는 배열에 저장하고 있음
 function updateHiddenInput() {
     const badges = Array.from(badgeContainer.getElementsByClassName("badge"));
-    const selectedSkills = badges.map((badge) => badge.textContent);
-    let result_skill = selectedSkills.join(",")
-
+    const selectedSkills = badges.map((badge) => badge.dataset.skillId);
+    let skillList = selectedSkills.join(",")
+    document.getElementById("skillList").value = skillList;
     console.log(selectedSkills);
-    console.log(result_skill);
+    console.log(skillList);
     //나중에 넘겨줄 값은 result_skill String 값으로 hidden 으로 넘겨주고 java 단에서 ',' 로 나눠서 배열에 담고 배열 갯수만큼 스킬 저장
 }
-
+//스킬 추가 관련 end
 
 
 //드롭다운 클래스를 가진 애들이 클릭시 이벤트 추가
@@ -100,7 +109,6 @@ function init() {
 
     setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
 }
-
 window.onload = init;
 
 

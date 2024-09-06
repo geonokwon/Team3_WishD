@@ -9,19 +9,39 @@
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
-        SELECT DISTINCT p.*
+<!--        SELECT DISTINCT p.*-->
+<!--        FROM project_board p LEFT JOIN project_skill ps-->
+<!--        ON p.pboard_id = ps.pboard_id-->
+<!--        <where>-->
+<!--            &lt;!&ndash; 스킬 필터가 있을 경우 &ndash;&gt;-->
+<!--            <if test="skill_id != null">-->
+<!--                ps.skill_id = #{skill_id}-->
+<!--            </if>-->
+<!--            &lt;!&ndash; 검색어가 있을 경우 &ndash;&gt;-->
+<!--            <if test="search != null">-->
+<!--                p.pboard_title LIKE CONCAT('%', #{search}, '%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        ORDER BY p.pboard_date-->
+<!--        <if test="createdDateFilter == 1">-->
+<!--            ASC-->
+<!--        </if>-->
+<!--        <if test="createdDateFilter != 1">-->
+<!--            DESC-->
+<!--        </if>-->
+<!--        LIMIT #{startRow}, #{endRow};-->
+        SELECT p.*
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
         <where>
-            <!-- 스킬 필터가 있을 경우 -->
             <if test="skill_id != null">
                 ps.skill_id = #{skill_id}
             </if>
-            <!-- 검색어가 있을 경우 -->
             <if test="search != null">
                 p.pboard_title LIKE CONCAT('%', #{search}, '%')
             </if>
         </where>
+        GROUP BY p.pboard_id
         ORDER BY p.pboard_date
         <if test="createdDateFilter == 1">
             ASC
@@ -66,6 +86,20 @@
         FROM skills;
     </select>
 
+    <!-- pboard_id 에 해당하는 프로젝트 불러오기 -->
+    <select id="getProject" resultType="com.teamproject.domain.ProjectDTO">
+        SELECT *
+        FROM project_board
+        WHERE pboard_id = #{pboard_id};
+    </select>
+
+    <!-- pboard_id 에 해당하는 프로젝트가 선택한 스킬 불러오기 -->
+    <select id="getSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT s.*
+        FROM project_skill ps JOIN skills s
+        ON ps.skill_id = s.skill_id
+        WHERE ps.pboard_id = #{pboard_id};
+    </select>
 
 
 </mapper>

@@ -17,19 +17,17 @@ public class ProjectService {
     private ProjectDAO projectDAO;
 
     //전체 프로젝트 등록 List 불러오기
-    public List<ProjectDTO> getProject(ProjectPageDTO projectPageDTO){
-        logger.info("-> getProject()");
+    public List<ProjectDTO> getProjectList(ProjectPageDTO projectPageDTO){
+        logger.info("-> getProjectList()");
         //projectDTO 사용자가 등록한 board 를 가져옴
         List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
         for (ProjectDTO projectDTO : projectDTOList) {
             //가져온 projectDTO.getPboard() board에 선택된 스킬들을 List 형태로 받음
-            List<ProjectSkillDTO> projectSkillDTOList = projectDAO.getProjectSkill(projectDTO.getPboard_id());
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
-            projectDTO.setSkills(projectSkillDTOList);
+            projectDTO.setSkills(projectDAO.getProjectSkill(projectDTO.getPboard_id()));
         }
         return projectDTOList;
     }
-
     //총 프로젝트 등록 개수 가져오기
     public int getProjectCount(ProjectPageDTO projectPageDTO){
         logger.info("-> getProjectCount()");
@@ -39,5 +37,12 @@ public class ProjectService {
     public List<ProjectSkillDTO> getSkillList() {
         logger.info("-> getSkillList()");
         return projectDAO.getProjectSkillList();
+    }
+    //선택한 프로젝트 와 선택된 프로젝트 pboard_id 기준으로 선택된 skill 가져오가
+    public ProjectDTO getProject(Long pboard_id) {
+        logger.info("-> getProject()");
+        ProjectDTO projectDTO = projectDAO.getProject(pboard_id);
+        projectDTO.setSkills(projectDAO.getSkill(pboard_id));
+        return projectDTO;
     }
 }
