@@ -21,8 +21,14 @@ public class MyPageController {
 	
 	@GetMapping("mypage")
 	public String mypage(HttpSession session, Model model) {
-//		System.out.println("MyPageController - mypage");
-		MemberDTO memberDTO = myPageService.getMember("1"); //(String)session.getAttribute("user_no")
+		MemberDTO memberDTO = myPageService.getMember("1");
+		// 세션에서 user_id, access_Token 인지 체크 (마이페이지만 테스트시 비활성)
+//		MemberDTO memberDTO = null;
+//		if(session.getAttribute("user_id") != "") {
+//			memberDTO = myPageService.getMember((String)session.getAttribute("user_id"));
+//		} else if(session.getAttribute("access_Token") != "") {
+//			memberDTO = myPageService.getMember((String)session.getAttribute("access_Token"));
+//		}
 		model.addAttribute("memberDTO", memberDTO);
 		return "/mypage/mypage";
 	}
@@ -32,6 +38,7 @@ public class MyPageController {
 //		System.out.println("MyPageController - mypageUpdatePro");
 		memberDTO.setUser_no(1); // "session.getAttribute(user_no)"
 		memberDTO = myPageService.userCheck(memberDTO);
+		System.out.println("mypageUpdatePro : " + memberDTO);
 		if(memberDTO != null) {
 			myPageService.updateMember(memberDTO);
 			return "redirect:/mypage";
