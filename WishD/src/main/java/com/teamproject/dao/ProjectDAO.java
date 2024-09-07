@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Repository
@@ -43,14 +45,30 @@ public class ProjectDAO {
         return sqlSession.selectList(nameSpace + "getProjectSkillList");
     }
 
-    //선택된 프로젝트 가져오기
+    //projectRead 선택된 프로젝트 가져오기
     public ProjectDTO getProject(Long pboard_id){
         logger.info("-> getProject()");
         return sqlSession.selectOne(nameSpace + "getProject", pboard_id);
     }
-
+    //projectRead 선택된 프로젝트에 등록된 스킬 가져오기
     public List<ProjectSkillDTO> getSkill(Long pboard_id) {
         logger.info("-> getSkill()");
         return sqlSession.selectList(nameSpace + "getSkill", pboard_id);
+    }
+
+    //projectWrite 프로젝트 등록하기
+    public int insertProject(ProjectDTO projectDTO) {
+        logger.info("-> getProject()");
+        //현재 등록시간
+        projectDTO.setPboard_date(new Timestamp(System.currentTimeMillis()));
+        //처음 등록시 업데이트도 같은 시간 등록
+        projectDTO.setPboard_update(new Timestamp(System.currentTimeMillis()));
+        sqlSession.insert(nameSpace + "insertProject", projectDTO);
+
+        return sqlSession.selectOne(nameSpace + "getLastInsertID");
+    }
+    //프로젝트 등록시 선택 스킬 projectSkill table 에 삽입
+    public void insertProjectSkill(Map<String, Integer> projectSkill) {
+        sqlSession.insert(nameSpace + "insertProjectSkill", projectSkill);
     }
 }

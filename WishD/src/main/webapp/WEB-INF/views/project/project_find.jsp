@@ -93,25 +93,26 @@
                     <!-- 현재 상태 -->
                     <!-- 모집중 일때 -->
                     <c:if test="${projectDTO.getPboard_state() == '모집중'}">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                            ${projectDTO.getPboard_state()}
-                    </span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                                ${projectDTO.getPboard_state()}
+                        </span>
                     </c:if>
                     <!-- 진행중 일때 -->
                     <c:if test="${projectDTO.getPboard_state() == '진행중'}">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                            ${projectDTO.getPboard_state()}
-                    </span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                ${projectDTO.getPboard_state()}
+                        </span>
                     </c:if>
                     <!-- 완료 일때 -->
                     <c:if test="${projectDTO.getPboard_state() == '완료'}">
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                            ${projectDTO.getPboard_state()}
-                    </span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                                ${projectDTO.getPboard_state()}
+                        </span>
                     </c:if>
 
                     <!-- 타이틀 -->
                     <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead/${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
+
                     <!-- 필요 스킬 -->
                     <div class="d-flex mb-2">
                         <!-- 반복되는 스킬배지 -->
@@ -119,13 +120,18 @@
                         <span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
                         </c:forEach>
                     </div>
+
                     <!-- 예상 금액 -->
                     <p class="col-auto card-text mb-1">예상 금액:  <fmt:formatNumber value="${projectDTO.getPboard_money()}" pattern="###,###,###"/>  만원</p>
+
                     <div class="row d-flex">
                         <!-- 시작 예정일 -->
-                        <p class="col-4 card-text mb-1">시작 예정일: <fmt:formatDate value="${projectDTO.getPboard_startDate()}" pattern="yyyy년 MM월 dd일" /> </p>
+                        <p class="col-4 card-text mb-1">시작 예정일:
+                            <fmt:parseDate value="${projectDTO.getPboard_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                            <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
+                        </p>
                         <!-- 예상 기간 -->
-                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
+                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangemonth()} 개월</p>
                     </div>
                 </div>
             </div>
@@ -133,6 +139,7 @@
         </c:forEach>
         <!-- 반복 end -->
     </div>
+
     <!-- Pagination -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
@@ -161,6 +168,7 @@
         </ul>
     </nav>
 
+    <!-- backGround-star -->
     <div class="noite"></div>
 
     <div class="constelacao"></div>

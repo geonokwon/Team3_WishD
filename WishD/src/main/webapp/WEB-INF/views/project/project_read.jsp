@@ -31,8 +31,10 @@
                 <div class="card-body project-details" style="height: 1000px">
                     <!-- 타이틀 -->
                     <p class="card-title fs-3" style="height: 90px">${projectDTO.getPboard_title()}</p>
+
                     <!-- 현재 상태 -->
                     <p class="badge fs-7">${projectDTO.getPboard_state()}</p>
+
                     <!-- 예상 금액 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
@@ -43,6 +45,7 @@
                             <p class="mb-0"><span class="money_min"><fmt:formatNumber value="${projectDTO.getPboard_money()}" pattern="###,###,###"/></span> 만원</p>
                         </div>
                     </div>
+
                     <!-- 시작 예정일 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
@@ -50,9 +53,13 @@
                             <p class="mb-0">시작 예정일</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"> <fmt:formatDate value="${projectDTO.getPboard_startDate()}" pattern="yyyy년 MM월 dd일" /> </p>
+                            <p class="mb-0">
+                                <fmt:parseDate value="${projectDTO.getPboard_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
+                            </p>
                         </div>
                     </div>
+
                     <!-- 예상 기간 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
@@ -60,9 +67,10 @@
                             <p class="mb-0">예상 기간</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangeMonth()}</span> 개월</p>
+                            <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangemonth()}</span> 개월</p>
                         </div>
                     </div>
+
                     <!-- 직군 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
@@ -73,6 +81,7 @@
                             <p class="mb-0">${projectDTO.getPboard_job()}</p>
                         </div>
                     </div>
+
                     <!-- 필요경력 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
@@ -83,6 +92,7 @@
                             <p class="mb-0">2 년차</p>
                         </div>
                     </div>
+
                     <!-- 필요스킬 -->
                     <!-- 포문으로 skill 전부 다가져오기 -->
                     <div class="mb-3">
@@ -106,6 +116,7 @@
                     <!-- 끝단 -->
                 </div>
             </div>
+
             <!-- side request-form card -->
             <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3">
                 <div class="card-body" id="sideCardBody_background">
@@ -130,6 +141,7 @@
                                     autocomplete="off"
                             />
                         </div>
+
                         <!-- 직무 선택(selected) -->
                         <div class="mb-4">
                             <label for="request_jobGroup" class="mb-1">직무(선택)</label>
@@ -140,6 +152,7 @@
                                 <option value="3">시스템 개발자</option>
                             </select>
                         </div>
+
                         <!-- 경력(년차) 입력(숫자만 입력하기) -->
                         <div class="row d-flex align-items-center mb-4">
                             <label for="request_job_history" class="mb-1">경력</label>
@@ -148,6 +161,7 @@
                             </div>
                             <div class="col-4">년차</div>
                         </div>
+
                         <!-- 보유 스킬 -->
                         <div class="mb-4">
                             <label for="req_skill" class="mb-1">보유스킬</label>

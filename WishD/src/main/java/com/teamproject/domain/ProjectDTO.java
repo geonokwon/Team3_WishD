@@ -9,21 +9,18 @@ public class ProjectDTO {
     private Long pboard_id;
     private Long user_id;
     private String pboard_title;
-    private String pboard_name;
     private String pboard_content;
-    private Integer pboard_money;
-    private Timestamp pboard_startDate;
-    private Integer pboard_rangeMonth;
+    private int pboard_money;
+    private String pboard_startdate;
+    private int pboard_rangemonth;
     private String pboard_job;
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
 
-
-
-
     //skill String 으로 가져와서 배열로 나누는 값
     private String skillList;
+
     //pboard_id 값에 따른 skill 등록한것 가져오기
     private List<ProjectSkillDTO> skills;
 
@@ -60,14 +57,6 @@ public class ProjectDTO {
         this.pboard_title = pboard_title;
     }
 
-    public String getPboard_name() {
-        return pboard_name;
-    }
-
-    public void setPboard_name(String pboard_name) {
-        this.pboard_name = pboard_name;
-    }
-
     public String getPboard_content() {
         return pboard_content;
     }
@@ -76,28 +65,28 @@ public class ProjectDTO {
         this.pboard_content = pboard_content;
     }
 
-    public Integer getPboard_money() {
+    public int getPboard_money() {
         return pboard_money;
     }
 
-    public void setPboard_money(Integer pboard_money) {
+    public void setPboard_money(int pboard_money) {
         this.pboard_money = pboard_money;
     }
 
-    public Timestamp getPboard_startDate() {
-        return pboard_startDate;
+    public String getPboard_startdate() {
+        return pboard_startdate;
     }
 
-    public void setPboard_startDate(Timestamp pboard_startDate) {
-        this.pboard_startDate = pboard_startDate;
+    public void setPboard_startdate(String pboard_startdate) {
+        this.pboard_startdate = pboard_startdate;
     }
 
-    public Integer getPboard_rangeMonth() {
-        return pboard_rangeMonth;
+    public int getPboard_rangemonth() {
+        return pboard_rangemonth;
     }
 
-    public void setPboard_rangeMonth(Integer pboard_rangeMonth) {
-        this.pboard_rangeMonth = pboard_rangeMonth;
+    public void setPboard_rangemonth(int pboard_rangemonth) {
+        this.pboard_rangemonth = pboard_rangemonth;
     }
 
     public String getPboard_job() {
@@ -145,16 +134,15 @@ public class ProjectDTO {
                 "pboard_id=" + pboard_id +
                 ", user_id=" + user_id +
                 ", pboard_title='" + pboard_title + '\'' +
-                ", pboard_name='" + pboard_name + '\'' +
                 ", pboard_content='" + pboard_content + '\'' +
                 ", pboard_money=" + pboard_money +
-                ", pboard_startDate=" + pboard_startDate +
-                ", pboard_rangeMonth=" + pboard_rangeMonth +
+                ", pboard_startDate='" + pboard_startdate + '\'' +
+                ", pboard_rangeMonth=" + pboard_rangemonth +
                 ", pboard_job='" + pboard_job + '\'' +
                 ", pboard_state='" + pboard_state + '\'' +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +
-                ", skills=" + skills +
+                ", skillList='" + skillList + '\'' +
                 '}';
     }
 }

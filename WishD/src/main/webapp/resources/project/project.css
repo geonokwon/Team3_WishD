@@ -127,6 +127,9 @@ body {
     background-color: #6f40c8;
     font-weight: normal;
 }
+#skillSelectBadge:hover{
+    background-color: #5e36a8;
+}
 
 .footer {
     background-color: #333; /* 푸터 배경색 */

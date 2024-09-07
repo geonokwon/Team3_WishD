@@ -6,6 +6,7 @@ import com.teamproject.domain.ProjectPageDTO;
 import com.teamproject.domain.ProjectSkillDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -38,11 +39,29 @@ public class ProjectService {
         logger.info("-> getSkillList()");
         return projectDAO.getProjectSkillList();
     }
-    //선택한 프로젝트 와 선택된 프로젝트 pboard_id 기준으로 선택된 skill 가져오가
+
+    //projectRead > 선택한 프로젝트 와 선택된 프로젝트 pboard_id 기준으로 선택된 skill 가져오가
     public ProjectDTO getProject(Long pboard_id) {
         logger.info("-> getProject()");
         ProjectDTO projectDTO = projectDAO.getProject(pboard_id);
         projectDTO.setSkills(projectDAO.getSkill(pboard_id));
         return projectDTO;
+    }
+
+    //프로젝트 등록(insertProject)
+    @Transactional
+    public void insertProject(ProjectDTO projectDTO) {
+        logger.info("-> getProject()");
+        //등록하고 등록한 pboard_id값 반환받아서 그 아이디 값으로 project_skill 테이블에 저장
+        int pboard_id = projectDAO.insertProject(projectDTO);
+
+        String[] skillList = projectDTO.getSkillList().split(",");
+
+        for (String skill_id : skillList) {
+            Map<String, Integer> projectSkillSet = new HashMap<>();
+            projectSkillSet.put("pboard_id", pboard_id);
+            projectSkillSet.put("skill_id", Integer.parseInt(skill_id));
+            projectDAO.insertProjectSkill(projectSkillSet);
+        }
     }
 }

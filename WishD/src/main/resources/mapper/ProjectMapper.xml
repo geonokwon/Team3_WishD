@@ -5,31 +5,37 @@
 
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
+
+    <!-- 프로젝트 등록 -->
+    <insert id="insertProject">
+        INSERT INTO project_board
+        VALUES (
+            #{pboard_id}, 1,
+            #{pboard_title}, #{pboard_content},
+            #{pboard_money},
+            STR_TO_DATE(#{pboard_startdate}, '%Y-%m-%d'),
+            #{pboard_rangemonth}, #{pboard_job},
+            #{pboard_state}, #{pboard_date},
+            #{pboard_update}
+        );
+    </insert>
+    <!-- 마지막 등로된 아이디값 반환 받기 -->
+    <!-- MySQL에서 사용되는 함수로, 마지막으로 삽입된 AUTO_INCREMENT 컬럼의 값을 반환 -->
+    <select id="getLastInsertID" resultType="int">
+    <!-- SELECT LAST_INSERT_ID(); -->
+
+    </select>
+    <!-- 프로젝트 등록 id 값으로 projectSkill 테이블 등록 -->
+    <insert id="insertProjectSkill">
+        INSERT INTO project_skill
+        VALUES ( #{pboard_id}, #{skill_id} );
+    </insert>
+
+
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
-<!--        SELECT DISTINCT p.*-->
-<!--        FROM project_board p LEFT JOIN project_skill ps-->
-<!--        ON p.pboard_id = ps.pboard_id-->
-<!--        <where>-->
-<!--            &lt;!&ndash; 스킬 필터가 있을 경우 &ndash;&gt;-->
-<!--            <if test="skill_id != null">-->
-<!--                ps.skill_id = #{skill_id}-->
-<!--            </if>-->
-<!--            &lt;!&ndash; 검색어가 있을 경우 &ndash;&gt;-->
-<!--            <if test="search != null">-->
-<!--                p.pboard_title LIKE CONCAT('%', #{search}, '%')-->
-<!--            </if>-->
-<!--        </where>-->
-<!--        ORDER BY p.pboard_date-->
-<!--        <if test="createdDateFilter == 1">-->
-<!--            ASC-->
-<!--        </if>-->
-<!--        <if test="createdDateFilter != 1">-->
-<!--            DESC-->
-<!--        </if>-->
-<!--        LIMIT #{startRow}, #{endRow};-->
         SELECT p.*
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
@@ -100,6 +106,7 @@
         ON ps.skill_id = s.skill_id
         WHERE ps.pboard_id = #{pboard_id};
     </select>
+
 
 
 </mapper>

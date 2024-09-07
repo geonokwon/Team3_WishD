@@ -27,7 +27,7 @@
         <h2 class="ms-2 mb-0">프로젝트 정보를 입력해 주세요</h2>
     </div>
     <!-- 폼 태그 시작 -->
-    <form action="${pageContext.request.contextPath}/projectWritePro" method="post">
+    <form action="${pageContext.request.contextPath}/projectWrite" method="post" id="projectWrite">
         <div class="card p-2 mt-2">
             <div class="row card-body bg-primary">
                 <p style="font-size: 14px">
@@ -46,13 +46,14 @@
                             placeholder="프로젝트 타이틀을 입력해 주세요."
                             autocomplete="off"
                             style="width: 600px"
+                            required
                     />
                 </div>
 
                 <!-- 직무 선택 -->
                 <div class="ms-2 mb-4">
                     <label for="jobGroup" class="mb-1">직무(선택)</label>
-                    <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px">
+                    <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px" required>
                         <option value="" disabled selected>직무를 선택하세요</option>
                         <option value="앱 개발자">앱 개발자</option>
                         <option value="웹 개발자">웹 개발자</option>
@@ -65,7 +66,7 @@
                     <label for="skill" class="mb-1">프로젝트 에 필요한 스킬을 선택</label>
                     <p style="font-size: 14px">(필요 스킬 복수 선택 가능)</p>
                     <select class="form-select bg-dark mb-2" id="skill" >
-                        <option value="" selected>스킬선택</option>
+                        <option value="" disabled selected>스킬선택</option>
                         <c:forEach items="${projectSkillList}" var="skill">
                         <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
                         </c:forEach>
@@ -74,7 +75,7 @@
                         <!--클릭시 베지 추가-->
                     </div>
                     <!-- 자바단으로 넘겨줄떼 히든으로 text 값 그대로 넘겨줄지 고민-->
-                    <input type="hidden" name="skillList" id="skillList" />
+                    <input type="hidden" name="skillList" id="skillList" required/>
                 </div>
 
                 <!-- 프로젝트 보수 -->
@@ -88,7 +89,9 @@
                                    id="money"
                                    name="pboard_money"
                                    placeholder="프로젝트 단위 금액"
-                                   autocomplete="off" />
+                                   autocomplete="off"
+                                   required
+                            />
                         </div>
                         <div class="col-auto ms-2">
                             <label for class="mb-0">만원</label>
@@ -97,10 +100,10 @@
                 </div>
 
                 <!-- 프로젝트 시작 날짜 -->
-<%--                <div class="col-4 ms-2 me-5 mb-4">--%>
-<%--                    <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>--%>
-<%--                    <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startDate" />--%>
-<%--                </div>--%>
+                <div class="col-4 ms-2 me-5 mb-4">
+                    <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
+                    <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startdate" required />
+                </div>
 
                 <!-- 프로젝트 진행 예상 기간-->
                 <div class="col-4 ms-2 mb-4">
@@ -112,7 +115,9 @@
                                    id="range_month"
                                    name="pboard_rangeMonth"
                                    placeholder="개월 수"
-                                   autocomplete="off" />
+                                   autocomplete="off"
+                                   required
+                            />
                         </div>
                         <div class="col-auto ms-2">
                             <label for class="mb-0">개월</label>
@@ -123,7 +128,11 @@
                 <!-- 프로젝트 세부 내용 -->
                 <div class="col-10 ms-2 mb-4">
                     <label for="contnet" class="form-label">프로젝트 세부 내용</label>
-                    <textarea class="form-control bg-dark" id="contnet" name="pboard_content" style="height: 300px; resize: none"></textarea>
+                    <textarea class="form-control bg-dark"
+                              id="contnet"
+                              name="pboard_content"
+                              style="height: 300px; resize: none"
+                              required ></textarea>
                 </div>
 
                 <!-- 경계선 -->
@@ -131,21 +140,33 @@
                 <p style="font-size: 14px">여기서 부터 입력하신 정보는 노출되지 않는 정보입니다.</p>
 
                 <!--기업 및 사업자 명-->
-                <div class="col-4 ms-2 me-5 mb-5">
-                    <label for="companyName" class="mb-1 ms-2">기업 및 사업자 명</label>
-                    <input type="text" class="form-control bg-dark" id="companyName" placeholder="ex) (주)WhisD." autocomplete="off" />
-                </div>
+<%--                <div class="col-4 ms-2 me-5 mb-5">--%>
+<%--                    <label for="companyName" class="mb-1 ms-2">기업 및 사업자 명</label>--%>
+<%--                    <input type="text"--%>
+<%--                           class="form-control bg-dark"--%>
+<%--                           id="companyName"--%>
+<%--                           placeholder="ex) (주)WhisD."--%>
+<%--                           autocomplete="off"--%>
+<%--                           required />--%>
+<%--                </div>--%>
+
                 <!-- 프로젝트 등록 담당자 연락처 -->
-                <div class="col-4 ms-2 mb-5">
-                    <label for="companyManager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>
-                    <input type="text" class="form-control bg-dark" id="companyManager_phone" placeholder=" ‘-’ 까지 작성해 주세요." autocomplete="off" />
-                </div>
+<%--                <div class="col-4 ms-2 mb-5">--%>
+<%--                    <label for="companyManager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>--%>
+<%--                    <input type="text"--%>
+<%--                           class="form-control bg-dark"--%>
+<%--                           id="companyManager_phone"--%>
+<%--                           placeholder=" ‘-’ 까지 작성해 주세요."--%>
+<%--                           autocomplete="off"--%>
+<%--                           required />--%>
+<%--                </div>--%>
 
                 <!-- 등록하기 버튼 -->
                 <div class="row container mt-5 px-5 justify-content-center">
                     <button type="button" class="col-4 me-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#agreeSave">등록하기</button>
                     <button type="button" class="col-2 btn btn-secondary" data-bs-toggle="modal" data-bs-target="#disagree" >돌아가기</button>
                 </div>
+
                 <!-- 등록버튼 확인 모달창 -->
                 <div class="modal fade mt-5" id="agreeSave" tabindex="-1"  aria-hidden="true">
                     <div class="modal-dialog">
@@ -154,12 +175,13 @@
                                 <h1 class="modal-title fs-6" id="agreeTitle">현재 상태로 등록하시겠습니까 ?</h1>
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-sm btn-primary" value="등록하기">
+                                <input type="submit" class="btn btn-sm btn-primary" id="agree_btn" value="등록하기">
                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- 돌아가기 버튼 확인 모달창 -->
                 <div class="modal fade mt-5" id="disagree" tabindex="-1"  aria-hidden="true">
                     <div class="modal-dialog">
@@ -180,6 +202,8 @@
         </div>
     </form>
     <!-- 폼 태그 끝 -->
+
+    <!-- backGround-star -->
     <div class="noite"></div>
 
     <div class="constelacao"></div>

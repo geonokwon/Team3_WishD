@@ -80,10 +80,15 @@ public class ProjectController {
         model.addAttribute("projectSkillList", projectService.getSkillList());
         return "/project/project_write";
     }
-    @PostMapping("/projectWritePro")
-    public String projectWirtePro(ProjectDTO projectDTO, Model model){
+
+    @PostMapping("/projectWrite")
+    public String projectWrite(ProjectDTO projectDTO, Model model){
         logger.info("-> projectWrite()");
         System.out.println(projectDTO.toString());
+
+        projectService.insertProject(projectDTO);
+
+
 
         return "redirect:/projectFind";
     }
