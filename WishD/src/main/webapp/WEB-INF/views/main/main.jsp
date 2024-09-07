@@ -30,9 +30,32 @@
 
 <!-- 사이트 대문 -->
 <div class="wrap">
-<div class="gate">
-
+	<div class="gate1">
+	<div class="gate2">
+		<div class="gate_text">
+			<p class="praise">검증된 개발자 프리랜서들이 있는 곳, WishD</p>
+			<p>평균 2년 차 이상의 경력 많은 프리랜서를 만나보세요</p>
+		</div>
+	</div>
+	</div>
 </div>
+
+<div class="wrap">
+	<p class="pre-intro">WishD를 사용해야 하는 이유</p>
+</div>
+<div class="wrap">
+	<div class="intro">
+		<div class="intro-head">100% FREE</div>
+		<p class="intro-text">검색과 프리랜서 찾기, 프로젝트 찾기는 돈이 들지 않아요!</p>
+	</div>
+	<div class="intro">
+		<div class="intro-head">100% 인증</div>
+		<p class="intro-text">게시글을 작성할 시 100% 운영자 인증 완료 후 게시해요!</p>
+	</div>
+	<div class="intro">
+		<div class="intro-head">검증된 프리랜서</div>
+		<p class="intro-text">경력 10년 이상의 매칭 매니저가 평가 데이터 및 정성/정량 평가서를 기반으로 프리랜서를 정교하게 검증합니다!</p>
+	</div>
 </div>
 
 <!-- 기술 스택별로 프로젝트/프리랜서 찾기 -->
@@ -47,12 +70,12 @@
 	
 <!-- 	기술 스택별 프로젝트 찾기 -->
 	<div class="tab__contents show" data-order="1">
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack1</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack2</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack3</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack4</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack5</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack6</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">JAVA</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">Python</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">C++</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">JavaScript</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">Kotlin</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">PHP</div>
 	</div>
 	
 <!-- 	기술 스택별 프리랜서 찾기 -->
@@ -72,62 +95,62 @@
 <div class="instant-list">
 <!-- 	프로젝트 리스트 -->
 	<div class="project-list">
-		<p><a href="#">프로젝트 목록</a></p>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='projectFind';">프로젝트 목록</div>
 		<table class="instant-table">
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 		</table>
 	</div>
 	
 <!-- 	프리랜서 리스트 -->
 	<div class="freelancer-list">
-		<p><a href="#">프리랜서 목록</a></p>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='#';">프리랜서 목록</div>
 		<table class="instant-table">
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 			<tr>
-				<td>ㅁㄴㅇㄹ</td>
+				<td><p>ㅁㄴㅇㄹ</p></td>
 			</tr>
 		</table>
 	</div>
@@ -148,13 +171,18 @@ const showing = document.querySelector("show");
 tab.addEventListener("click", (e) => {
 	const ListOrder = e.target.dataset.list;
 	tabListItem.forEach(function(e){
-		e.classList.remove("active");
+		if(ListOrder!=null){
+			e.classList.remove("active");
+		}
 	});
 	e.target.classList.add("active");
+
 	tabContent.forEach(function(event){
-		if(event.dataset.order == ListOrder) {
-			event.classList.add("show");
-		} else event.classList.remove("show");
+		if(ListOrder!=null){
+			if(event.dataset.order == ListOrder) {
+				event.classList.add("show");
+			} else event.classList.remove("show");
+		}
 	});
 });
 </script>
