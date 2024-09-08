@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #0e1117; /* 네비게이션 바 배경색 */
+	background-color: #0e1117; /* 네비게이션 바 배경색 */
 }
 
 /* 전체 컨테이너 스타일 */
@@ -7,7 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
+	height: 100%;
 	justify-content: center;
 	padding: 20px;
 	box-sizing: border-box;
@@ -15,6 +15,7 @@
 
 /* 폼 컨테이너의 래퍼 스타일 */
 .form-container-wrapper {
+	margin-top: 50px;
 	width: 100%;
 	max-width: 600px;
 	margin-bottom: 20px;
@@ -60,8 +61,8 @@
 }
 
 /* 입력 필드 포커스 및 비어있지 않은 상태 스타일 */
-.text-form-container input:focus, 
-.text-form-container input:not(:placeholder-shown) {
+.text-form-container input:focus, .text-form-container input:not(:placeholder-shown)
+	{
 	border-color: #ffff; /* 입력 필드 테두리 색상 */
 }
 
@@ -99,9 +100,9 @@
 }
 
 /* 입력 필드 포커스 및 비어있지 않은 상태에서 레이블 스타일 */
-.input-group input:focus + label, 
-.input-group input:not(:placeholder-shown) + label {
-	top: -17px; 
+.input-group input:focus+label, .input-group input:not(:placeholder-shown)+label
+	{
+	top: -17px;
 	left: 2px;
 	font-size: 12px;
 	color: #ffff; /* 레이블 글자 색상 */
@@ -151,8 +152,6 @@
 .tabs {
 	width: 100%;
 	max-width: 1000px;
-	height: 250px;
-/* 	background: #141826; */
 	padding: 20px 30px;
 	overflow: hidden;
 	border-radius: 50px;
@@ -162,6 +161,7 @@
 
 /* 탭 헤더 스타일 */
 .tabs .tab-header {
+	padding-bottom: 20px;
 	height: 60px;
 	display: flex;
 	align-items: center;
@@ -170,8 +170,8 @@
 }
 
 /* 탭 헤더의 각 탭 스타일 */
-.tabs .tab-header > div {
-	width: calc(100% / 3);
+.tabs .tab-header>div {
+	width: calc(100%/ 3);
 	text-align: center;
 	color: #ffffff;
 	font-weight: 600;
@@ -183,48 +183,58 @@
 }
 
 /* 탭 헤더의 각 탭 아이콘 스타일 */
-.tabs .tab-header > div > i {
+.tabs .tab-header>div>i {
 	display: block;
 	margin-bottom: 5px;
 }
 
 /* 활성화된 탭 스타일 */
-.tabs .tab-header > div.active {
+.tabs .tab-header>div.active {
 	color: #00acee;
 	transform: scale(1.05);
- 	background-color: #0e1117;
- 	border-radius: 50px;
+	background-color: #0e1117;
+	border-radius: 50px;
 }
 
 /* 활성화된 탭의 인디케이터 스타일 */
-.tabs .tab-header > div.active::after {
-    content: '';
-    display: block;
-    width: calc(100% - 50px); /* 양쪽 여백을 고려한 길이 조정 */
-    height: 3px;
-    background-color: #00acee;
-    position: absolute;
-    bottom: 0;
-    left: 25px; /* 왼쪽 여백 */
-    right: 25px; /* 오른쪽 여백 */
-    border-radius: 10px; /* 둥근 모서리 */
+.tabs .tab-header>div.active::after {
+	content: '';
+	display: block;
+	width: calc(100% - 50px); /* 양쪽 여백을 고려한 길이 조정 */
+	height: 3px;
+	background-color: #00acee;
+	position: absolute;
+	bottom: 0;
+	left: 25px; /* 왼쪽 여백 */
+	right: 25px; /* 오른쪽 여백 */
+	border-radius: 10px; /* 둥근 모서리 */
 }
 
 /* 탭 헤더의 탭 호버 스타일 */
-.tabs .tab-header > div:hover {
+.tabs .tab-header>div:hover {
 	transform: scale(1.05);
+}
+
+.tab-content {
+	display: none; /* 모든 탭 내용을 숨깁니다. */
+}
+
+.tab-content.active {
+	display: block; /* 활성화된 탭 내용만 표시합니다. */
 }
 
 /* 탭 바디 스타일 */
 .tabs .tab-body {
 	position: relative;
-	height: calc(100% - 60px);
+	/* 	height: calc(100% - 60px); */
+	height: auto;
 	padding: 10px 5px;
+	/* 	overflow: hidden; */
 }
 
 /* 탭 바디의 각 콘텐츠 스타일 */
-.tabs .tab-body > div {
-	position: absolute;
+.tabs .tab-body>div {
+	position: relative;
 	top: -200%;
 	opacity: 0;
 	transform: scale(0.9);
@@ -232,7 +242,7 @@
 }
 
 /* 활성화된 탭 콘텐츠 스타일 */
-.tabs .tab-body > div.active {
+.tabs .tab-body>div.active {
 	top: 0;
 	opacity: 1;
 	transform: scale(1);

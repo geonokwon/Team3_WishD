@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.ProjectPageDTO;
@@ -16,7 +15,6 @@ import com.teamproject.service.MyPageService;
 import com.teamproject.service.ProjectService;
 
 @Controller
-@RequestMapping("/")
 public class MyPageController {
 	
 	@Inject
@@ -26,12 +24,12 @@ public class MyPageController {
 	
 	@GetMapping("mypage")
 	public String mypage(HttpSession session, Model model, HttpServletRequest reuqest) {
-		session.setAttribute("user_id", "1000");
+//		session.setAttribute("user_id", "1000");
 //		session.setAttribute("access_Token", "5rxVHJROyK3JRx9d7muAJzD4ZzsZk6jKK85EoQh09tpahRgdmxYb3MqYJT3oDiiZ");
 		
 		// 세션에서 user_id, access_Token 인지 체크
-		MemberDTO memberDTO = null;
 		// 세션에 저장된 값에 따른 회원정보 찾기 분기
+		MemberDTO memberDTO = null;
 		if(session.getAttribute("user_id") != null) {
 			memberDTO = myPageService.getNormalMember((String)session.getAttribute("user_id"));
 		} else if(session.getAttribute("access_Token") != null) {
@@ -44,9 +42,9 @@ public class MyPageController {
         }
 		int pageNum = 1;
 		//한 화면에 보여줄 글 개수 설정
-        int pageSize = 10;
+        int pageSize = 5;
         //한 화면에 보여줄 페이지 개수 10 설정
-        int pageBlock = 10;
+        int pageBlock = 5;
         //PageDTO 객체 생성
         ProjectPageDTO projectPageDTO = new ProjectPageDTO();
         //pageNum, currentPage, pageSize => 값 저장
@@ -105,6 +103,5 @@ public class MyPageController {
 
 		return "";
 	}
-	
 	
 }
