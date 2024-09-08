@@ -29,77 +29,11 @@
     gap: 10px; /* 아이템 간의 간격 설정 */
     max-width: 100%; /* 부모 요소의 최대 크기를 지정 */
 }
-/* #main_context { */
-/* 	text-align: center; */
-
-/* } */
-
-/* .red{ */
-/* 	color : red; */
-
-/* } */
-
-/* 등록 양식 스타일 */
-/* .freelancer_reg{ */
-	
-/* 	border: 0px solid #141826; */
-/* 	padding: 20px; */
-/* 	width : 100%; */
-/* 	display: flex; */
-/* 	flex-direction : column; */
-/* 	margin: 0px auto 100px auto; */
-/* 	background-color: #141826; */
-/* 	border-radius: 20px; */
-	
-/* } */
-
-
-/* .temp1{ */
-/* 	width : 960px; */
-/* 	float:left;  */
-/* 	padding: 20px 20px 80px 20px; */
-/* 	border-bottom: 1px solid rgba(128,128,128,0.5); */
-/* } */
-
-/* /* 큰 화면에서 왼쪽 블럭 */ */
-/* .mini_temp1{ */
-/*  	float:left;  */
-/* 	padding: 20px 0px 0px 0px; */
-/* 	margin-right: 40px; */
-/* 	width : 460px; */
-/* } */
-
-/* /* 큰 화면에서 오른쪽 블럭 */ */
-/* .mini_temp2{ */
-/*  	float:left;  */
-/* 	padding: 20px 0px 0px 0px; */
-	
-/* 	width : 420px; */
-/* } */
-
-
-
-/* /* 작은 화면에서는 한 줄에 하나씩 배치되도록 설정 */ */
-/* @media (max-width: 768px) { */
-/* 	.freelancer_reg { */
-/* 		width: 100%; */
-/* 	} */
-
-/* 	.temp1 { */
-/* 		width: 100%; */
-/* 		padding: 20px 20px 80px 20px; */
-
-/* 	} */
-
-/* 	.mini_temp1, */
-/* 	.mini_temp2 { */
-/* 		min-width: 100%; */
-/* 		padding: 20px 0px; */
-/* 	} */
-/* } */
 
 </style>
     <style>
+
+    
         #selected-items {
             margin-top: 10px;
             padding: 10px;
@@ -113,6 +47,7 @@
         }
 		.form-control{
 			width:50%;
+			display:inline;
 		}
         .selected-item {
             background-color: #212529;
@@ -144,29 +79,32 @@
 	<jsp:include page="../include/heard.jsp"/>
 	
 <!--     main content -->
-    <div class="container pt-4 mt-5 border">
-		<form action="${pageContext.request.contextPath}/freelancer/freelancer_regPro" class="appForm" method="post" name="fr">
+	
+	<div class="container px-5" style="margin-top:200px;" ><span><h1>프리랜서 등록</h1></span></div>
+		
+	
+    <div class="container pt-4 mt-5">
+    	
+    		
+    	
+		<form action="${pageContext.request.contextPath}/freelancer_regPro" class="appForm" method="post" name="fr">
 		
 			<!-- 1) 근무조건 -->
-	    	<div class="row m-4 py-3" style="border-bottom: 1px solid grey;">
-	    		<h6 style="color:red;"> *필수입력</h6>
+	    	<div class="row mx-4 my-4 py-5" style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+	    		<h6 style="color:red; margin-bottom:20px;"> *필수입력</h6>
 	    		
 	    		<h5><b>1)근무조건을 선택해 주세요.</b></h5>
 	    		
 	    		<!-- 1-1) 희망 월급 -->
-	    		<div class="col-md-6 py-3">
-	    				
-						
-						<div class="mini_temp1">
-							<h6><b>희망 월급<span style="color:red;">*</span></b></h6>
-							<input type = "number" class="bg-dark form-control" min= "10" name = "freelancer_salary" step="10"  required> 만원
-						</div>
+	    		<div class="col-md-6 my-5 p-4">
+						<h6><b>희망 월급<span style="color:red;"> *</span></b></h6>
+						<span><input type = "number" name="freelancer_salary" class="bg-dark form-control" style="color:white;" min= "10" name = "freelancer_salary" step="10"  required> 만원</span>
 	    		</div>
 	    		<!-- 1-2) 프로젝트 시작 가능일 -->
-	    		<div class="col-md-6 py-3">
+	    		<div class="col-md-6 my-5 p-4">
 	    				<div class="mini_temp2">
-							<h6><b>프로젝트 시작 가능일<span style="color:red;">*</span></b></h6>
-							<input type = "date" id="date" name = "freelancer_effective_date"class="form-control bg-dark" style="color:white;">
+							<h6><b>프로젝트 시작 가능일<span style="color:red;"> *</span></b></h6>
+							<input type = "date" id="date" name = "freelancer_startdate"class="form-control bg-dark" style="color:white;">
 						</div>
 	    		</div>
 	    
@@ -174,14 +112,14 @@
 	    
 	    
 			<!-- 2) 경력 및 보유 스킬 -->
-	        <div class="row m-4" style="border-bottom: 1px solid grey;">
-	    		<h5><b>2)경력 및 보유 스킬을 입력해 주세요.</b></h5>
+	        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid grey;">
+	    		<h5 style="margin-bottom:20px;"><b>2)경력 및 보유 스킬을 입력해 주세요.</b></h5>
 
 				<!-- 2-1) 프리랜서 경험 -->
-	    		<div class="col-md-6 py-3"> 
-	    			<h6><b>프리랜서 경험<span style="color:red;">*</span></b></h6>
+	    		<div class="col-md-6 my-5 p-4"> 
+	    			<h6><b>프리랜서 경험<span style="color:red;"> *</span></b></h6>
 		    		<span class="form-check">
-						<input type="radio" class="form-check-input" id="radio1" name="freelancer_exp" value="true" checked>
+						<input type="radio" class="form-check-input" id="radio1" name="freelancer_exp" value="true">
 						<label class="form-check-label" for="radio1">있음</label>
 					</span>
 					<span class="form-check">
@@ -191,8 +129,8 @@
 	    		</div>
 	    		
 	    		<!-- 2-2) 직무 -->
-	    		<div class="col-md-6 py-3">
-					<h6><b>직무<span style="color:red;">*</span></b></h6>
+	    		<div class="col-md-6 my-5 p-4">
+					<h6><b>직무<span style="color:red;"> *</span></b></h6>
 						<select name="freelancer_job" class="form-select bg-dark form-control" style="color:white;" >
 							<option selected>직무를 선택하세요</option>
 							<option value="front">프론트</option>
@@ -204,17 +142,19 @@
 						</select>    		
 	    		</div>
 	    		
-	    		<div class="col-md-6 py-3">
+				<!-- 2-3) 개발자 경력 -->
+	    		<div class="col-md-6 my-5 p-4">
 					<div class="mini_temp2">
-						<h6><b>개발자 경력<span class="red">*</span></b></h6>
-							<input type = "number" class="bg-dark" min= "0" name = "dev_exp" step="1"  required> 년
+						<h6><b>개발자 경력<span style="color:red;"> *</span></b></h6>
+							<input type = "number" name = "dev_exp" class="bg-dark form-control" style="color:white;" min= "0" step="1"  required> 년
 	    			</div>
 	    		</div>
 	    		
-	    		<div class="col-md-6 py-3">
-					<h6><b>보유 스킬<span class="red">*</span></b></h6>
+				<!-- 2-4) 보유 스킬 -->
+	    		<div class="col-md-6 my-5 p-4">
+					<h6><b>보유 스킬<span style="color:red;"> *</span></b></h6>
 					<!-- 스킬을 선택할때마다 하단에 있는 영역에 스킬추가 -->
-				    <select id="skill" class="form-select bg-dark" style="color:white;" onchange="addSkill()" >
+				    <select id="skill" class="form-select bg-dark" style="color:white; width:50%;" onchange="addSkill()" >
 				    	<option value="">스킬을 선택하세요</option>
 				        <option value="java">java</option>
 				        <option value="python">python</option>
@@ -235,26 +175,36 @@
 	    	</div>
 	    
 			<!-- 3)상세 경력 -->
-	        <div class="row m-4" style="border-bottom: 1px solid grey;">
+	        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid grey;">
 	    		<h5><b>3)상세경력을 입력해 주세요.</b></h5>
 	    		
-	    		<div class="col-md-6">1</div>
-	    		<div class="col-md-6">2</div>
-	    		<div class="col-md-6">3</div>
-	    		<div class="col-md-6">4</div>
+				<!-- 3-1) 상세 소개 -->
+	    		<div class="col-md-12 my-5 p-4">
+						<h6><b>상세 소개</b></h6>
+						 <textarea class="form-control bg-dark" name="freelancer_introdution" style="color:white; height:200px; width:100%;" rows="20" cols="20" maxlength="5000"></textarea>
+	    		</div>
+	    		
+				<!-- 3-2) 링크 -->
+	    		<div class="col-md-12 my-5 p-4">
+						<h6><b>링크<span style="color:rgba(128,128,128,0.5);">(깃헙, 포트폴리오, 노션 등)</span></b></h6>
+						 <input type="text" class="form-control bg-dark" name="freelancer_link" style="color:white;" placeholder="sdsd">
+	    		</div>
 	    
 	    	</div>
 	    	
-	    	<div>
-                <button type="button" class="btn btn-primary" id="registration_button" onclick="">등록</button>
+			<!-- 등록 버튼 -->
+	    	<div class="container px-5 mb-5" style="height:50px;">
+                <button type="button" class="btn btn-primary btn-lg" id="registration_button" style="float: right;" onclick="submitForm()">등록</button>
             </div>
 	    	
 	    </form>
+		
     </div>
 	
 	<script>
 	    var selectedSkills = [];  // 선택된 스킬을 저장할 배열
 	
+	    // 스킬 추가 함수
 	    function addSkill() {
 	        var skillSelect = document.getElementById("skill");
 	        var selectedSkill = skillSelect.value;
@@ -274,14 +224,15 @@
 	            document.getElementById("skills_hidden").value = selectedSkills.join(",");
 	        }
 	    }
-	
+	    
+		// 스킬 제거 함수
 	    function removeSkill(skill) {
-	        // 배열에서 스킬 제거
+	        
 	        selectedSkills = selectedSkills.filter(function(item) {
 	            return item !== skill;
 	        });
 	
-	        // 숨겨진 input 필드 업데이트
+	        // 숨겨진 input 스킬필드 업데이트
 	        document.getElementById("skills_hidden").value = selectedSkills.join(",");
 	
 	        // 선택된 스킬 표시 업데이트
@@ -295,14 +246,22 @@
 	            selectedItemsDiv.appendChild(skillItem);
 	        });
 	    }
+	
+		
+		//현재 날짜 구하기
+		let currentDate = Date.now()
+		let timeOff = new Date().getTimezoneOffset()*60000;
+		let today = new Date(currentDate-timeOff).toISOString().split("T")[0];
+		document.getElementById("date").setAttribute("min", today);
+		
+		//양식을 controller로 제출
+		function submitForm() {
+		    // 추가적인 유효성 검사 등을 할 수 있음
+		    var form = document.forms['fr'];
+		    
+		    form.submit(); // 폼 제출
+		}
 	</script>
-		<script>
-			//현재 날짜 구하기
-			let currentDate = Date.now()
-			let timeOff = new Date().getTimezoneOffset()*60000;
-			let today = new Date(currentDate-timeOff).toISOString().split("T")[0];
-			document.getElementById("date").setAttribute("min", today);
-		</script>
 	
 		
 	<!-- Footer -->
