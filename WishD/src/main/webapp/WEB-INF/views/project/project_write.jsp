@@ -21,10 +21,10 @@
 <jsp:include page="../include/heard.jsp"/>
 
 <!-- Main Content -->
-<div class="container-sm my-4 mx-5 px-5 pt-5" style="width: 1040px">
-    <div class="d-flex align-items-start">
+<div class="container-sm my-5 mx-5 px-5 pt-5" style="width: 1040px">
+    <div class="d-flex align-items-start mt-5 ">
         <img class="float-start mt-1" src="${pageContext.request.contextPath}/resources/project/images/speaker.png" />
-        <h2 class="ms-2 mb-0">프로젝트 정보를 입력해 주세요</h2>
+        <h2 class="ms-2 mb-2">프로젝트 정보를 입력해 주세요</h2>
     </div>
     <!-- 폼 태그 시작 -->
     <form action="${pageContext.request.contextPath}/projectWrite" method="post" id="projectWrite">
@@ -102,7 +102,7 @@
                 <!-- 프로젝트 시작 날짜 -->
                 <div class="col-4 ms-2 me-5 mb-4">
                     <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
-                    <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startdate" required />
+                    <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startDate" required />
                 </div>
 
                 <!-- 프로젝트 진행 예상 기간-->

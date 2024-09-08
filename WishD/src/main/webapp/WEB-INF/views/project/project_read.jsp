@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,7 +25,7 @@
 <!-- Main Content -->
 <div class="container my-4 mx-5 px-5 py-5">
     <!-- main -->
-    <div class="container">
+    <div class="container mt-5">
         <div class="container row align-items-start">
             <!-- project Read card -->
             <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
@@ -54,7 +55,7 @@
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
                             <p class="mb-0">
-                                <fmt:parseDate value="${projectDTO.getPboard_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                <fmt:parseDate value="${projectDTO.getPboard_startDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
                                 <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
                             </p>
                         </div>
@@ -67,7 +68,7 @@
                             <p class="mb-0">예상 기간</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangemonth()}</span> 개월</p>
+                            <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangeMonth()}</span> 개월</p>
                         </div>
                     </div>
 
@@ -110,7 +111,8 @@
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
                             <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
-                        <p class="card-text">${projectDTO.getPboard_content()}</p>
+                        <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
+                        <pre class="card-text">${projectDTO.getPboard_content()}</pre>
                     </div>
 
                     <!-- 끝단 -->

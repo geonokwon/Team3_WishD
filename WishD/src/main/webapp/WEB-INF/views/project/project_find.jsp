@@ -25,7 +25,7 @@
 <!-- Main Content -->
 <div class="container my-4 mx-5 px-5 py-5" style="min-height: 100vh; width: 1100px;">
     <!-- header -->
-    <div class="container">
+    <div class="container mt-5 mb-5 ">
         <div class="row align-items-center px-4">
             <!-- 제목 -->
             <div class="col title" onclick="location.href='${pageContext.request.contextPath}/projectFind?pageNum='">
@@ -54,7 +54,7 @@
             </div>
 
             <!-- 검색 창 -->
-            <div class="col-auto ms-auto">
+            <div class="col-auto ">
                 <form action="${pageContext.request.contextPath}/projectFind" method="get">
                     <div class="input-group">
                         <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" autocomplete="off" />
@@ -127,11 +127,11 @@
                     <div class="row d-flex">
                         <!-- 시작 예정일 -->
                         <p class="col-4 card-text mb-1">시작 예정일:
-                            <fmt:parseDate value="${projectDTO.getPboard_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                            <fmt:parseDate value="${projectDTO.getPboard_startDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
                             <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
                         </p>
                         <!-- 예상 기간 -->
-                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangemonth()} 개월</p>
+                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
                     </div>
                 </div>
             </div>

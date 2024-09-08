@@ -22,7 +22,6 @@
 }
 
 
-
 .title:hover h2, .sort:hover{
     color: rgba(255, 255, 255, 0.75);
 }
@@ -69,7 +68,7 @@ body {
     opacity: 1; /* Firefox */
 }
 .navbar {
-    background-color: #0e1117; /* 네비게이션 바 배경색 */
+    background-color: #141826; /* 네비게이션 바 배경색 */
 }
 .navbar-nav .nav-link {
     color: #fff; /* 네비게이션 링크 색상 */

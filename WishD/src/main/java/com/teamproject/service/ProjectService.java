@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -53,15 +54,19 @@ public class ProjectService {
     public void insertProject(ProjectDTO projectDTO) {
         logger.info("-> getProject()");
         //등록하고 등록한 pboard_id값 반환받아서 그 아이디 값으로 project_skill 테이블에 저장
-        int pboard_id = projectDAO.insertProject(projectDTO);
+        projectDAO.insertProject(projectDTO);
 
-        String[] skillList = projectDTO.getSkillList().split(",");
+        //map(Integer::parseInt) -> 각 문자열을 Integer로 변환하는 기능 (Stream<String> 을 Stream<Integer>로 변환
+        //collect -> 스트림 결과를 List<Integer> 로 변환.
+        List<Integer> skillList = Arrays.stream(projectDTO.getSkillList().split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
 
-        for (String skill_id : skillList) {
-            Map<String, Integer> projectSkillSet = new HashMap<>();
-            projectSkillSet.put("pboard_id", pboard_id);
-            projectSkillSet.put("skill_id", Integer.parseInt(skill_id));
-            projectDAO.insertProjectSkill(projectSkillSet);
-        }
+        //map 에 object 타입은 getPboard_id 는 int를 가지고, skillList는 List<integer>를 가진다 .
+        Map<String, Object> projectSkillSet = new HashMap<>();
+        projectSkillSet.put("pboard_id", projectDTO.getPboard_id());
+        projectSkillSet.put("skill_id", skillList);
+        projectDAO.insertProjectSkill(projectSkillSet);
+
     }
 }

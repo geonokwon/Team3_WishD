@@ -145,9 +145,7 @@ function onlyNumber (event){
 const inputJob_History = document.getElementById("request_job_history");
 if (inputJob_History) {  // 요소가 존재하는지 확인
     inputJob_History.addEventListener("keypress", (event) => {
-        if (!/\d/.test(event.key)){
-            event.preventDefault();
-        }
+        onlyNumber(event);
     })
 }
 
@@ -155,16 +153,11 @@ if (inputJob_History) {  // 요소가 존재하는지 확인
 const inputMoney = document.getElementById("money");
 const inputRange_month = document.getElementById("range_month");
 if (inputMoney){
-    inputMoney.addEventListener("keypress", (event) => {
-        if (!/\d/.test(event.key)){
-            event.preventDefault();
-        }
-    });
+    inputMoney.addEventListener("keypress", onlyNumber);
 }
 if (inputRange_month){
-    inputRange_month.addEventListener("keypress", (event) => {
-        onlyNumber(event);
-    });
+    inputRange_month.addEventListener("keypress", onlyNumber);
+
 }
 
 

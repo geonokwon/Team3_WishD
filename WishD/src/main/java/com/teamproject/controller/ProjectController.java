@@ -73,6 +73,11 @@ public class ProjectController {
         return "/project/project_read";
     }
 
+    @PostMapping("/projectRead")
+    public String projectReadRequest(){
+        return "redirect:/projectRead";
+    }
+
     @GetMapping("/projectWrite")
     public String projectWrite(Model model){
         logger.info("-> projectWrite()");
@@ -85,11 +90,7 @@ public class ProjectController {
     public String projectWrite(ProjectDTO projectDTO, Model model){
         logger.info("-> projectWrite()");
         System.out.println(projectDTO.toString());
-
         projectService.insertProject(projectDTO);
-
-
-
         return "redirect:/projectFind";
     }
 }

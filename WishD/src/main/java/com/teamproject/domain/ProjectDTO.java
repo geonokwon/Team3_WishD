@@ -11,8 +11,8 @@ public class ProjectDTO {
     private String pboard_title;
     private String pboard_content;
     private int pboard_money;
-    private String pboard_startdate;
-    private int pboard_rangemonth;
+    private String pboard_startDate;
+    private int pboard_rangeMonth;
     private String pboard_job;
     private String pboard_state;
     private Timestamp pboard_date;
@@ -73,20 +73,20 @@ public class ProjectDTO {
         this.pboard_money = pboard_money;
     }
 
-    public String getPboard_startdate() {
-        return pboard_startdate;
+    public String getPboard_startDate() {
+        return pboard_startDate;
     }
 
-    public void setPboard_startdate(String pboard_startdate) {
-        this.pboard_startdate = pboard_startdate;
+    public void setPboard_startDate(String pboard_startdate) {
+        this.pboard_startDate = pboard_startdate;
     }
 
-    public int getPboard_rangemonth() {
-        return pboard_rangemonth;
+    public int getPboard_rangeMonth() {
+        return pboard_rangeMonth;
     }
 
-    public void setPboard_rangemonth(int pboard_rangemonth) {
-        this.pboard_rangemonth = pboard_rangemonth;
+    public void setPboard_rangeMonth(int pboard_rangemonth) {
+        this.pboard_rangeMonth = pboard_rangemonth;
     }
 
     public String getPboard_job() {
@@ -136,8 +136,8 @@ public class ProjectDTO {
                 ", pboard_title='" + pboard_title + '\'' +
                 ", pboard_content='" + pboard_content + '\'' +
                 ", pboard_money=" + pboard_money +
-                ", pboard_startDate='" + pboard_startdate + '\'' +
-                ", pboard_rangeMonth=" + pboard_rangemonth +
+                ", pboard_startDate='" + pboard_startDate + '\'' +
+                ", pboard_rangeMonth=" + pboard_rangeMonth +
                 ", pboard_job='" + pboard_job + '\'' +
                 ", pboard_state='" + pboard_state + '\'' +
                 ", pboard_date=" + pboard_date +
