@@ -19,7 +19,7 @@ import com.teamproject.service.FreelancerService;
 
 
 @Controller
-@RequestMapping("/freelancer/*")
+@RequestMapping("/*")
 public class FreelancerController {
 
 	@Inject
@@ -37,13 +37,13 @@ public class FreelancerController {
 	@PostMapping("/freelancer_regPro") 
 		public String freelancer_regPro(FreelancerDTO freelancerDTO) {
 		System.out.println("freelancer_controller freelancer_regPro()");
-	
+		System.out.println(freelancerDTO);
 
 		
 		// 프리랜서 등록 처리
-		freelancerService.registFreelancer(freelancerDTO);
+//		freelancerService.registFreelancer(freelancerDTO);
 		
-		return "redirect:/freelancer/freelancer_reg";
+		return "redirect:/freelancer_reg";
 	}
 	
 	
