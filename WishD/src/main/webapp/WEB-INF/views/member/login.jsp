@@ -64,12 +64,10 @@
                     <!-- 간편 로그인 버튼 -->
                     <div class="social-login">
                         <a href="#" class="social-btn">
-                            <img src="카카오.png">
-                            <!-- <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image"> -->
+                            <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image">
                         </a>
                         <a href="#" class="social-btn">
-                            <img src="네이버.png">
-                            <!-- <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image"> -->
+                            <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image">
                         </a>
                     </div>
 
@@ -79,9 +77,8 @@
             <!-- 오른쪽 이미지 영역 -->
             <div class="login-right">
                 <div class="image-container">
-                    <img src="WishD.png">
-                    <!-- <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image"> -->
-                   <div class="image-text">WishD에 오신 것을 환영합니다!</div>
+                    <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image">
+                    <div class="image-text">WishD에 오신 것을 환영합니다!</div>
 				</div> 
                 <div class="stars"></div>
                 </div>
