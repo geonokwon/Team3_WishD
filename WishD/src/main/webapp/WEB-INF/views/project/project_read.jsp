@@ -132,105 +132,115 @@
                         <div>
                             <p class="fs-5">요청서를 작성하세요</p>
                         </div>
-                        <!-- 한줄 자기소개 -->
-                        <div class="mb-4">
-                            <label for="request_title" class="mb-1">소개(타이틀)</label>
-                            <input
-                                    type="text"
-                                    class="form-control bg-dark"
-                                    id="request_title"
-                                    placeholder="한줄로 자신을 소개해 주세요."
-                                    autocomplete="off"
-                            />
-                        </div>
 
-                        <!-- 직무 선택(selected) -->
-                        <div class="mb-4">
-                            <label for="request_jobGroup" class="mb-1">직무(선택)</label>
-                            <select class="form-select bg-dark" aria-label="Default select example" id="request_jobGroup">
-                                <option selected>직무를 선택하세요</option>
-                                <option value="1">앱 개발자</option>
-                                <option value="2">웹 개발자</option>
-                                <option value="3">시스템 개발자</option>
-                            </select>
-                        </div>
+                        <!-- 폼 시작 -->
+                        <form action="#" method="post" id="projectRead">
+                            <!-- 한줄 자기소개 -->
+                            <div class="mb-4">
+                                <label for="request_title" class="mb-1">소개(타이틀)</label>
+                                <input
+                                        type="text"
+                                        class="form-control bg-dark"
+                                        id="request_title"
+                                        name="f_request_title"
+                                        placeholder="한줄로 자신을 소개해 주세요."
+                                        autocomplete="off"
+                                />
+                            </div>
 
-                        <!-- 경력(년차) 입력(숫자만 입력하기) -->
-                        <div class="row d-flex align-items-center mb-4">
-                            <label for="request_job_history" class="mb-1">경력</label>
-                            <div class="col-4">
-                                <input type="text" class="form-control bg-dark" id="request_job_history" placeholder="숫자" autocomplete="off" />
+                            <!-- 직무 선택(selected) -->
+                            <div class="mb-4">
+                                <label for="request_jobGroup" class="mb-1">직무(선택)</label>
+                                <select class="form-select bg-dark" id="request_jobGroup" name="f_request_job">
+                                    <option value="" disabled selected>직무를 선택하세요</option>
+                                    <option value="1">앱 개발자</option>
+                                    <option value="2">웹 개발자</option>
+                                    <option value="3">시스템 개발자</option>
+                                </select>
                             </div>
-                            <div class="col-4">년차</div>
-                        </div>
 
-                        <!-- 보유 스킬 -->
-                        <div class="mb-4">
-                            <label for="req_skill" class="mb-1">보유스킬</label>
-                            <select class="form-select bg-dark mb-2" id="req_skill">
-                                <option value="" selected>스킬선택</option>
-                                <option value="Java">Java</option>
-                                <option value="Python">Python</option>
-                                <option value="JavaScript">JavaScript</option>
-                            </select>
-                            <div id="badge_container">
-                                <!--클릭시 베지 추가-->
+                            <!-- 경력(년차) 입력(숫자만 입력하기) -->
+                            <div class="row d-flex align-items-center mb-4">
+                                <label for="request_job_history" class="mb-1">경력</label>
+                                <div class="col-4">
+                                    <input type="text"
+                                           class="form-control bg-dark"
+                                           id="request_job_history"
+                                           name="f_request_history"
+                                           placeholder="숫자"
+                                           autocomplete="off" />
+                                </div>
+                                <div class="col-4">년차</div>
                             </div>
-                            <!-- 자바단으로 넘겨줄떼 히든으로 text 값 그대로 넘겨줄지 고민-->
-                            <input type="hidden" id="" name="" />
-                        </div>
 
-                        <!-- 프리랜서 경험 -->
-                        <div class="mb-4">
-                            <label class="request_experience d-block mb-1">프리랜서 경험</label>
-                            <div class="form-check form-check-inline mx-3">
-                                <input type="radio" class="form-check-input" name="experience" id="experience_true" value="true" />
-                                <label for="experience_true" class="form-check-label">있다</label>
+                            <!-- 보유 스킬 -->
+                            <div class="mb-4">
+                                <label for="skill" class="mb-1">보유스킬</label>
+                                <select class="form-select bg-dark mb-2" id="skill">
+                                    <option value="" selected>스킬선택</option>
+                                    <c:forEach items="${projectSkillList}" var="skill">
+                                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
+                                    </c:forEach>
+                                </select>
+                                <div id="badge_container">
+                                    <!--클릭시 베지 추가-->
+                                </div>
+                                <input type="hidden" id="skillList" name="skillList" />
                             </div>
-                            <div class="form-check form-check-inline ms-3">
-                                <input type="radio" class="form-check-input" name="experience" id="experience_false" value="false" />
-                                <label for="experience_false" class="form-check-label">없다</label>
-                            </div>
-                        </div>
 
-                        <!-- 희망급여-->
-                        <div class="row d-flex align-items-center mb-4">
-                            <label for="request_minMoney" class="mb-1">희망금액</label>
-                            <div class="col-5">
-                                <input type="text" class="form-control bg-dark" id="request_minMoney" placeholder="최소(만원)" autocomplete="off" />
+                            <!-- 프리랜서 경험 -->
+                            <div class="mb-4">
+                                <label class="request_experience d-block mb-1">프리랜서 경험</label>
+                                <div class="form-check form-check-inline mx-3">
+                                    <input type="radio" class="form-check-input" name="experience" id="experience_true" value="true" required/>
+                                    <label for="experience_true" class="form-check-label">있다</label>
+                                </div>
+                                <div class="form-check form-check-inline ms-3">
+                                    <input type="radio" class="form-check-input" name="experience" id="experience_false" value="false" required/>
+                                    <label for="experience_false" class="form-check-label">없다</label>
+                                </div>
                             </div>
-                            <div class="col-1">~</div>
-                            <div class="col-5">
-                                <input type="text" class="form-control bg-dark" id="request_maxMoney" placeholder="최대(만원)" autocomplete="off" />
-                            </div>
-                        </div>
 
-                        <!-- 프로젝트 시작 가능일 -->
-                        <div class="mb-4">
-                            <label for="request_startDate" class="mb-2">프로젝트 시작 가능일</label>
-                            <input type="date" class="form-control bg-dark" id="request_startDate" />
-                        </div>
-
-                        <!-- 이력서 / 경력증명서 / 포토폴리오-->
-                        <div class="mb-4">
-                            <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
-                            <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
-                            <input class="form-control bg-dark" type="file" id="formFile" />
-                        </div>
-
-                        <!-- 약관 동의 -->
-                        <div class="mb-4 pt-5">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="true" id="agree_1" />
-                                <label class="form-check-label" for="agree_1"> [필수] 이용약관 동의합니다. </label>
+                            <!-- 희망급여-->
+                            <div class="row d-flex align-items-center mb-4">
+                                <label for="request_minMoney" class="mb-1">희망금액</label>
+                                <div class="col-5">
+                                    <input type="text" class="form-control bg-dark" id="request_minMoney" placeholder="최소(만원)" autocomplete="off" />
+                                </div>
+                                <div class="col-1">~</div>
+                                <div class="col-5">
+                                    <input type="text" class="form-control bg-dark" id="request_maxMoney" placeholder="최대(만원)" autocomplete="off" />
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="true" id="agree_2" />
-                                <label class="form-check-label" for="agree_2"> [필수] 개인 정보 제 3자 제공 동의 </label>
+
+                            <!-- 프로젝트 시작 가능일 -->
+                            <div class="mb-4">
+                                <label for="request_startDate" class="mb-2">프로젝트 시작 가능일</label>
+                                <input type="date" class="form-control bg-dark" id="request_startDate" />
                             </div>
-                        </div>
+
+                            <!-- 이력서 / 경력증명서 / 포토폴리오-->
+                            <div class="mb-4">
+                                <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
+                                <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
+                                <input class="form-control bg-dark" type="file" id="formFile" />
+                            </div>
+
+                            <!-- 약관 동의 -->
+                            <div class="mb-4 pt-5">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="agree_1" />
+                                    <label class="form-check-label" for="agree_1"> [필수] 이용약관 동의합니다. </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="true" id="agree_2" />
+                                    <label class="form-check-label" for="agree_2"> [필수] 개인 정보 제 3자 제공 동의 </label>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- 폼 end -->
                     </div>
-                    <!-- 끝단 -->
+
 
                     <!-- 로그인시 -->
                     <div class="card">

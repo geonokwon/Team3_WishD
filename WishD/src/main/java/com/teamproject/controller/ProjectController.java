@@ -70,6 +70,7 @@ public class ProjectController {
         //선택된 pboard_id 값으로 프로젝트 등록 글 가져오기
         ProjectDTO projectDTO = projectService.getProject(pboard_id);
         model.addAttribute("projectDTO", projectDTO);
+        model.addAttribute("projectSkillList", projectService.getSkillList());
         return "/project/project_read";
     }
 

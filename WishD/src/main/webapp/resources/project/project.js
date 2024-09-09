@@ -8,7 +8,7 @@ if (disagree_btn){
 //버튼 이동 관련 end
 
 //스킬 추가 관련
-const selectElement = document.getElementById("req_skill") || document.getElementById("skill");
+const selectElement =  document.getElementById("skill");
 const badgeContainer = document.getElementById("badge_container");
 
 if (selectElement){
@@ -53,7 +53,6 @@ function updateHiddenInput() {
 
     console.log(selectedSkills);
     console.log(skillList);
-    //나중에 넘겨줄 값은 result_skill String 값으로 hidden 으로 넘겨주고 java 단에서 ',' 로 나눠서 배열에 담고 배열 갯수만큼 스킬 저장
 
     // skillList에 대한 유효성 검사
     if (skillList === ""){
@@ -178,7 +177,8 @@ if (matching_button){
 
 //project_write 부분 (유효성 검사부분)
 const projectWrite = document.getElementById("projectWrite");
-if (projectWrite) {
+const projectRead = document.getElementById("projectRead");
+if (projectWrite || projectRead) {
     // 스킬 선택은 제외한 모든 input, textarea, select 요소 선택 (select#skill 제외)
     let elements = document.querySelectorAll("input, textarea, select");
 
