@@ -12,20 +12,25 @@ public class MyPageService {
 
 	@Inject
 	private MyPageDAO myPageDAO;
-	
-	public MemberDTO getMember(String user_no) {
-		return myPageDAO.getMember(user_no);		
+
+	public MemberDTO getNormalMember(String user_id) {
+		return myPageDAO.getNormalMember(user_id);
+	}
+	public MemberDTO getSimpleMember(String access_Token) {
+		return myPageDAO.getSimpleMember(access_Token);
 	}
 	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
-		return myPageDAO.userCheck(memberDTO);		
+		return myPageDAO.userCheck(memberDTO);	
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MyPageService - updateMember()");
 		myPageDAO.updateMember(memberDTO);
 	}
+	
 
+	
 	
 
 	
