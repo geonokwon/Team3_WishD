@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
     <!-- 로그인 외부 CSS 연결 -->
     <link
       rel="stylesheet"
-      href="${pageContext.request.contextPath}/resources/login/insert.css"
+      href="${pageContext.request.contextPath}/resources/member/css/insert.css"
     />
   </head>
   <body class="text-light">
@@ -35,136 +35,55 @@ pageEncoding="UTF-8"%>
     <!-- Main Content -->
     
    <div class="signup-container">
-      <h2>회원가입</h2>
-      <form id="signup-form">
-        <div class="form-group">
-          <label for="username">아이디</label>
-          <div class="input-with-button">
-            <input
-              type="text"
-              id="username"
-              name="username"
-              class="form-input"
-              placeholder="아이디를 입력하세요"
-            />
-            <button
-              type="button"
-              class="check-button"
-              onclick="checkUsername()"
-            >
-              중복 확인
-            </button>
-          </div>
-          <div id="username-check-result" class="check-result"></div>
+        <div class="signup-box">
+            <h2>회원가입</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="아이디">
+                    <button type="button" class="check-btn" id="username-check">중복 확인</button>
+                    <div class="error-msg" id="username-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="비밀번호">
+                    <div class="error-msg" id="password-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password-confirm" placeholder="비밀번호 재확인">
+                    <div class="error-msg" id="password-confirm-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="이름">
+                    <div class="error-msg" id="name-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="이메일 주소">
+                    <button type="button" class="check-btn" id="email-check">중복 확인</button>
+                    <div class="error-msg" id="email-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="verification-code" placeholder="이메일 인증 코드">
+                    <button type="button" class="check-btn" id="verification-code-check">인증 코드 확인</button>
+                    <div class="error-msg" id="verification-code-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" placeholder="전화번호">
+                    <div class="error-msg" id="phone-error"></div>
+                </div>
+                <div class="input-group">
+                    <input type="date" id="dob" placeholder="생년월일">
+                    <div class="error-msg" id="dob-error"></div>
+                </div>
+                <div class="agree">
+                    <input type="checkbox" id="privacy-policy">
+                    <label for="privacy-policy">개인정보 수집에 동의합니다.</label>
+                    <div class="error-msg" id="privacy-policy-error"></div>
+                </div>
+                <button class="signup-btn" type="submit">회원가입</button>
+                <div class="success-msg" id="success-msg"></div>
+            </form>
         </div>
-
-        <div class="form-group">
-          <label for="password">비밀번호</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-input"
-            placeholder="비밀번호를 입력하세요"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="confirm-password">비밀번호 재확인</label>
-          <input
-            type="password"
-            id="confirm-password"
-            name="confirm-password"
-            class="form-input"
-            placeholder="비밀번호를 다시 입력하세요"
-          />
-          <div id="password-check-result" class="check-result"></div>
-        </div>
-
-        <div class="form-group">
-          <label for="name">이름</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            class="form-input"
-            placeholder="이름을 입력하세요"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="email">이메일</label>
-          <div class="input-with-button">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-input"
-              placeholder="이메일을 입력하세요"
-            />
-            <button type="button" class="check-button" onclick="checkEmail()">
-              중복 확인
-            </button>
-          </div>
-          <div id="email-check-result" class="check-result"></div>
-        </div>
-
-        <div class="form-group">
-          <label for="email-verification">이메일 인증 코드</label>
-          <div class="input-with-button">
-            <input
-              type="text"
-              id="email-verification"
-              name="email-verification"
-              class="form-input"
-              placeholder="인증 코드를 입력하세요"
-            />
-            <button
-              type="button"
-              class="check-button"
-              onclick="verifyEmailCode()"
-            >
-              인증 코드 확인
-            </button>
-          </div>
-          <div id="email-verification-result" class="check-result"></div>
-        </div>
-
-        <div class="form-group">
-          <label for="phone">전화번호</label>
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            class="form-input"
-            placeholder="전화번호를 입력하세요"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="birthdate">생년월일</label>
-          <input
-            type="date"
-            id="birthdate"
-            name="birthdate"
-            class="form-input"
-          />
-        </div>
-
-        <div class="form-group checkbox-group">
-          <label>
-            <input type="checkbox" id="agree-terms" name="agree-terms" />
-            개인정보 처리방침에 동의합니다.
-          </label>
-          <div id="terms-check-result" class="check-result"></div>
-        </div>
-
-        <button type="submit" class="submit-button">회원가입</button>
-      </form>
     </div>
-
-    <script src="scripts.js"></script>
-   
+    <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script>
     <!-- Footer -->
     <jsp:include page="../include/footer.jsp" />
   </body>

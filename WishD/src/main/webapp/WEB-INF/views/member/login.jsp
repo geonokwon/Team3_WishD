@@ -30,88 +30,65 @@
 
   <!-- Main Content -->
 
-    <!-- <div class="container justify-content"> -->
-    <section class="container justify-content login">
-      <div class="row login_box">
+   <div class="container1">
+        <div class="login-box">
+            <!-- 왼쪽 로그인 영역 -->
+            <div class="login-left">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <input type="text" id="userId" placeholder="아이디를 입력하세요" required>
+                    <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                    
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">아이디 기억하기</label>
+                    </div>
 
-        <!-- 왼쪽 로그인 영역 -->
-        <div class="col left">
-          <div class="contact">
-            <form action="${pageContext.request.contextPath }/login/loginPro">
-              <h3>Login</h3>
+                    <button type="submit" class="login-btn">로그인</button>
 
+                    <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
+                   <ul class="nav1 justify-content-center">
+    			   	  <li class="nav2">
+        				<a class="nav3" aria-current="page" href="#">아이디 찾기</a>
+    				  </li>
+    				  <li class="nav2">
+        				<a class="nav3" href="#">비밀번호 찾기</a>
+    				  </li>
+   					  <li class="nav2">
+       					<a class="nav3" href="#">회원가입</a>
+    				  </li>
+				  </ul>
 
-              <!-- 아이디 입력란 -->
-              <p class="user">아이디</p>
-              <input class="user_1" type="text" placeholder="아이디를 입력하세요." />
+                    <div id="errorMsg" class="error-msg">아이디와 비밀번호가 일치하지 않습니다.</div>
+                    
+                    <!-- 간편 로그인 버튼 -->
+                    <div class="social-login">
+                        <a href="#" class="social-btn">
+                            <img src="카카오.png">
+                            <!-- <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image"> -->
+                        </a>
+                        <a href="#" class="social-btn">
+                            <img src="네이버.png">
+                            <!-- <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image"> -->
+                        </a>
+                    </div>
 
-              <!-- 비밀번호 입련란 -->
-              <p class="user">비밀번호</p>
-              <input  class="user_1"type="text" placeholder="비밀번호를 입력하세요." />
+                </form>
+            </div>
 
-              <!--  아이디 기억하기 체크박스 -->
-              <div class="rememberId">
-                <input type="checkbox" class="rememberId">
-                <label>아이디 기억하기</label>
-              </div>
-
-              <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
-              <ul class="nav justify-content-center">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">아이디 찾기</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">비밀번호 찾기</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/insert/insert">회원가입</a>
-                </li>
-
-              <!--  로그인 버튼 -->
-              <button class="submit">로그인</button>
-
-              
-            </form>
-          
-
-
-            <form>
-              <!--  카카오 로그인 버튼 -->
-              <div>
-                <a id="kakao-login-btn" href="#" class="simpleLog">
-                  <img
-                    src="${pageContext.request.contextPath}/resources/member/images/kakaoLog.png"
-                    alt="카카오간편로그인"
-                  />
-                </a>
-                
-             <!--  네이버 로그인 버튼 -->
-               <a id="naver-login-btn" href="#" class="simpleLog">
-                  <img
-                    src="${pageContext.request.contextPath}/resources/member/images/naverLog.png"
-                    alt="네이버간편로그인"
-                  />
-                </a>
-                
+            <!-- 오른쪽 이미지 영역 -->
+            <div class="login-right">
+                <div class="image-container">
+                    <img src="WishD.png">
+                    <!-- <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image"> -->
+                   <div class="image-text">WishD에 오신 것을 환영합니다!</div>
+				</div> 
+                <div class="stars"></div>
+                </div>
+            </div>
         </div>
-
-            </form>
-          </div>
-        </div>
-
-        <!-- 오른쪽 홍보 영역 -->
-        <div class="col right">
-          <div class="right-text">
-            <h2>WishD</h2>
-            <h5>당신의 위한 맞춤 인재와 매칭해보세요!</h5>
-          </div>
-          <div class="right-inductor">
-            <img src="">
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </div>
+    <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
     
         
 <!-- Footer -->

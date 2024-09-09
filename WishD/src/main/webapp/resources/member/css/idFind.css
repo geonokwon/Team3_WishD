@@ -1,3 +1,4 @@
+/* 기본 스타일 */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,13 +15,13 @@ body {
     height: 100vh; /* 화면 전체 높이 */
 }
 
-.signup-container {
+.find-container {
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.signup-box {
+.find-box {
     width: 100%;
     max-width: 500px; /* 너비 조정 */
     border-radius: 10px;
@@ -28,7 +29,7 @@ body {
     padding: 20px;
 }
 
-.signup-box h2 {
+.find-box h2 {
     font-size: 28px;
     margin-bottom: 20px;
     text-align: center;
@@ -54,24 +55,7 @@ body {
     border: 2px solid #2a2370;
 }
 
-.check-btn {
-    width: 100px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #6F40C8;
-    color: white;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 10px;
-}
-
-.check-btn:hover {
-    background-color: #5a34a1;
-}
-
-.signup-btn {
+.find-btn {
     padding: 12px;
     width: 100%;
     border: none;
@@ -84,7 +68,7 @@ body {
     margin-top: 20px;
 }
 
-.signup-btn:hover {
+.find-btn:hover {
     background-color: #5a34a1;
 }
 
@@ -98,23 +82,4 @@ body {
     color: green;
     font-size: 14px;
     margin-top: 20px;
-}
-
-.agree {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.agree input[type="checkbox"] {
-    margin: 0;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-}
-
-.agree label {
-    margin-left: 8px;
-    margin-bottom: 0;
 }
