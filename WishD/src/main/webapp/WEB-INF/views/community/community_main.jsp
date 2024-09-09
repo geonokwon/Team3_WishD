@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,13 +27,13 @@
 <!-- main content -->
 
 <div class="container-fluid">
-    <!-- 상단 1 섹션 -->
+    <!--상단 1섹션 -->
     <div class="custom-section d-flex flex-column">
-        <!-- 흰색 선 -->
+        <!-- 흰색선  -->
         <div class="white-line">
         </div>
         
-        <!-- 수평 구역 추가 -->
+        <!-- 수평 -->
         <div class="horizontal-sections">
             <div class="col-2 section introtext">
                 <span class="" style="color: rgb(255, 140, 0);">0_</span>WishD
@@ -52,12 +53,12 @@
         </div>
     </div>
 
-     <!-- 상단 2 섹션 -->
+     <!-- 2섹션 -->
     <div class="custom-section-1 d-flex flex-column">
-        <!-- 흰색 선 -->
+        <!-- í°ì ì  -->
         <div class="white-line">
         </div>
-                <!-- 수평 구역 추가 -->
+                <!--수평 -->
         <div class="horizontal-sections">
             <div class="col-2 section introtext">
                 <span class="" style="color: rgb(255, 140, 0);">1_</span>Notice
@@ -65,14 +66,14 @@
 
             <div class="col-8 section" style="height: 400px;">
 
-        <!-- 공지 테이블 -->
+        <!-- 공지 테이블 -->
                 <table class="custom-table table-hover">
                     <tbody>
                         <tr>
                             <td class="custom-title group-left">7월 30일 사전 점검</td>
                             <td class="custom-content group-left">7월 30일에 페이지 점검이 있을 예정입니다어쩌구저쩌구</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@manager</td>
+                            <td class="custom-date group-right">2024.09.08</td>
+                            <td class="custom-writer group-right">@manager</td>
                         </tr>
 
                         <tr>
@@ -120,12 +121,12 @@
     </div>
 
 
-        <!-- 상단 3 섹션 -->
+        <!-- 3섹션 -->
     <div class="custom-section-2 d-flex flex-column">
-        <!-- 흰색 선 -->
+        <!-- í°ì ì  -->
         <div class="white-line">
         </div>
-                <!-- 수평 구역 추가 -->
+                <!-- 큐앤에이 -->
         <div class="horizontal-sections">
             <div class="col-2 section introtext">
                 <span class="" style="color: rgb(255, 140, 0);">2_</span>Q&A
@@ -133,49 +134,49 @@
 
             <div class="col-8 section" style="height: 400px;">
 
-        <!-- QnA 테이블 -->
+        <!-- QnA  -->
                 <table class="custom-table">
                     <tbody>
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right" >2024.09.08</td>
+                            <td class="custom-writer group-right">@djiw****</td>
                         </tr>
 
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right" >2024.09.08</td>
+                            <td class="custom-writer group-right">@djiw****</td>
                         </tr>
 
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right">2024.09.08</td>
+                            <td class="custom-writer group-right">@djiw****</td>
                         </tr>
 
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right" >2024.09.08</td>
+                            <td class="custom-writer group-right">@djiw****</td>
                         </tr>
 
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right" >2024.09.08</td>
+                            <td class="custom-writer group-right" >@djiw****</td>
                         </tr>
                         
                         <tr>
                             <td class="custom-title group-left">문의드립니다</td>
                             <td class="custom-content group-left">비밀글입니다</td>
-                            <td class="custom-date group-right" style="vertical-align: middle;">2024.09.08</td>
-                            <td class="custom-writer group-right" style="vertical-align: middle;">@djiw****</td>
+                            <td class="custom-date group-right">2024.09.08ㅇㅇㅇ</td>
+                            <td class="custom-writer group-right">@djiw****</td>
                         </tr>
 
                     </tbody>
@@ -188,7 +189,7 @@
         </div>
     </div>
 
-        <!-- 흰색 선 -->
+        <!-- 흰색선  -->
         <div class="white-line">
         </div>
         
