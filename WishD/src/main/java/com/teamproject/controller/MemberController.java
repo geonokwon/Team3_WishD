@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/")
-public class LoginController {
+public class MemberController {
 	
 	@GetMapping("/login")
 	public String login() {  
