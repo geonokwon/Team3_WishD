@@ -23,9 +23,10 @@
 	<!-- 로그인 외부 CSS 연결 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/login/login.css">
 </head>
+<jsp:include page="../include/heard.jsp"/>
 <body class="text-light">
 <!-- Header -->
-<jsp:include page="../include/heard.jsp"/>
+<%--<jsp:include page="../include/heard.jsp"/>--%>
 
 
   <!-- Main Content -->

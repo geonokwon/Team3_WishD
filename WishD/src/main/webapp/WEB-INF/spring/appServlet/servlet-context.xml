@@ -25,9 +25,6 @@
 	<context:component-scan base-package="com.teamproject.controller" />
 	<context:component-scan base-package="com.teamproject.service" />
 	<context:component-scan base-package="com.teamproject.dao" />
-	<context:component-scan base-package="com.teamproject.domain" />
-
-
 	
 	
 </beans:beans>

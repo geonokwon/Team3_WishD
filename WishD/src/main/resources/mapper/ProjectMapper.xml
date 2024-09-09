@@ -5,25 +5,76 @@
 
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
+
+    <!-- 프로젝트 등록 start -->
+    <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
+    <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
+        INSERT INTO project_board (user_id, pboard_title, pboard_content, pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
+        VALUES (
+            1,
+            #{pboard_title}, #{pboard_content},
+            #{pboard_money},
+            STR_TO_DATE(#{pboard_startDate}, '%Y-%m-%d'),
+            #{pboard_rangeMonth}, #{pboard_job}
+        );
+    </insert>
+    <!-- 프로젝트 등록 id 값으로 projectSkill 테이블 등록 -->
+    <!-- foreach 문으로 Map에 List를 순회하여 insert 하는 구문 -->
+    <insert id="insertProjectSkill">
+        INSERT INTO project_skill
+        VALUES
+        <foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{pboard_id}, #{skill_id} )
+        </foreach>
+        ;
+    </insert>
+    <!-- 프로젝트 등록 end -->
+
+
+    <!-- project_find - start -->
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
+    <!-- 스킬필터 가 있으면 sql 구문 추가 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
-        SELECT *
-        FROM project_board
-        <if test="search != null">
-            WHERE pboard_title like CONCAT('%', #{search}, '%')
+        SELECT p.*
+        FROM project_board p
+        LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
+        <where>
+            <if test="skill_id != null">
+                ps.skill_id = #{skill_id}
+            </if>
+            <if test="search != null">
+                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>
+        GROUP BY p.pboard_id
+        ORDER BY p.pboard_date
+        <if test="createdDateFilter == 1">
+            ASC
         </if>
-        ORDER BY pboard_date DESC LIMIT #{startRow}, #{endRow};
+        <if test="createdDateFilter != 1">
+            DESC
+        </if>
+        LIMIT #{startRow}, #{endRow};
     </select>
 
     <!-- 전체 프로젝트 등록 개수 반환 -->
     <!-- 검색어 포함 -->
+    <!-- 스킬필터 포함 -->
     <select id="getProjectCount" resultType="int">
-        SELECT count(*)
-        FROM project_board
-        <if test="search != null">
-            WHERE pboard_title like CONCAT('%', #{search}, '%')
-        </if>;
+        SELECT COUNT(DISTINCT p.pboard_id)
+        FROM project_board p
+        LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
+        <where>
+            <!-- 스킬 필터가 있을 경우 -->
+            <if test="skill_id != null">
+                ps.skill_id = #{skill_id}
+            </if>
+            <!-- 검색어가 있을 경우 -->
+            <if test="search != null">
+                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>;
     </select>
 
     <!-- 프로젝트 당 등록된 전체 스킬 반환 -->
@@ -36,40 +87,27 @@
 
     <!-- skills 에 있는 모든값 가져오기 -->
     <select id="getProjectSkillList" resultType="com.teamproject.domain.ProjectSkillDTO">
-        SELECT skill_name
+        SELECT *
         FROM skills;
     </select>
+    <!-- project_find - end -->
 
-<!--    &lt;!&ndash; 특정 스킬이 포함된 프로젝트의 개수 반환 &ndash;&gt;-->
-<!--    <select id="getProjectCountBySkill" resultType="int">-->
-<!--        SELECT count(DISTINCT p.pboard_id)-->
-<!--        FROM project_board p-->
-<!--        LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id-->
-<!--        <where>-->
-<!--            <if test="skill_id != null">-->
-<!--                ps.skill_id = #{skill_id}-->
-<!--            </if>-->
-<!--            <if test="search != null">-->
-<!--                AND p.pboard_title LIKE CONCAT('%', #{search}, '%')-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
+    <!-- project_read - start -->
+    <!-- pboard_id 에 해당하는 프로젝트 불러오기 -->
+    <select id="getProject" resultType="com.teamproject.domain.ProjectDTO">
+        SELECT *
+        FROM project_board
+        WHERE pboard_id = #{pboard_id};
+    </select>
 
-<!--    &lt;!&ndash; 특정 스킬이 포함된 프로젝트 반환 &ndash;&gt;-->
-<!--    <select id="selectProjectsBySkill" resultType="com.teamproject.domain.ProjectDTO">-->
-<!--        SELECT DISTINCT p.*-->
-<!--        FROM project_board p-->
-<!--        LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id-->
-<!--        <where>-->
-<!--            <if test="skill_id != null">-->
-<!--                ps.skill_id = #{skill_id}-->
-<!--            </if>-->
-<!--            <if test="search != null">-->
-<!--                AND p.pboard_title LIKE CONCAT('%', #{search}, '%')-->
-<!--            </if>-->
-<!--        </where>-->
-<!--        ORDER BY p.pboard_date DESC-->
-<!--        LIMIT #{startRow}, #{endRow};-->
-<!--    </select>-->
+    <!-- pboard_id 에 해당하는 프로젝트가 선택한 스킬 불러오기 -->
+    <select id="getSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT s.*
+        FROM project_skill ps JOIN skills s
+        ON ps.skill_id = s.skill_id
+        WHERE ps.pboard_id = #{pboard_id};
+    </select>
+    <!-- project_read - end -->
+
 
 </mapper>

@@ -1,0 +1,288 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0E1117;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 70px; /*네비게이션 바와 충돌하지 않도록 상단 여백 추가
+}
+
+/* 로그인 폼 컨테이너 */
+.container1 {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #1E2229;
+    display: flex;
+}
+
+.login-left {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #2A2E37;
+}
+
+.login-left h2 {
+    font-size: 28px;
+    margin-bottom: 40px; /* h2와 아이디 입력 박스 사이의 간격 */
+    text-align: center;
+}
+
+.login-left input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333743;
+    color: white;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.login-left input:focus {
+    outline: none;
+    border: 2px solid #2a2370;
+}
+
+/* 아이디 기억하기 텍스트와 체크박스를 정확히 정렬 */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px; /* 위아래 간격 */
+    font-size: 11px;
+}
+
+.remember-me input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.remember-me label {
+    margin-left: 8px;
+    margin-bottom: 0;
+    line-height: 10px;
+}
+
+/* 아이디 찾기, 비밀번호 찾기, 회원가입 탭을 나란히 정렬 */
+.nav1 {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 30px 0; /* 위아래 간격 */
+}
+
+.nav2 {
+    margin: 0 15px; /* 간격 조정 */
+}
+
+.nav3 {
+    text-decoration: none;
+    color: #6F40C8;
+    font-size: 14px;
+}
+
+.nav3.active {
+    font-weight: bold;
+}
+
+.nav3:hover {
+    color: #5a34a1;
+}
+
+.login-btn {
+    padding: 12px;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    background-color: #6F40C8;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-btn:hover {
+    background-color: #5a34a1;
+}
+
+.error-msg {
+    display: none;
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* 간편 로그인 버튼 스타일 */
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social-btn {
+    width: 45%; /* 로그인 버튼과 비슷한 너비 */
+    margin: 0 5px; /* 버튼 간 좌우 간격 */
+    transition: opacity 0.3s ease;
+}
+
+.social-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.social-btn:hover .social-image {
+    opacity: 0.8; /* 커서를 올렸을 때 어두워지는 효과 */
+}
+
+.login-right {
+    width: 50%;
+    background-color: #1E2229;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.promo-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: opacity 0.3s ease; /* 부드러운 효과 */
+}
+
+
+.image-container1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container:hover .promo-image {
+    opacity: 0.8; /* 커서를 올렸을 때 어두워지는 효과 */
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #0e1117; /* 어두운 배경색 */
+    color: #fff; /* 밝은 텍스트 색상 */
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #6f40c8;
+    border: #6f40c8;
+}
+
+.btn-primary:hover {
+    background-color: #5e36a8;
+}
+
+/* 네비게이션 링크 스타일 */
+.navbar-nav .nav-link {
+    color: #fff; /* 네비게이션 링크 색상 */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #bfbfbf; /* 네비게이션 링크 호버 색상 */
+}
+
+/* 이미지 컨테이너 */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 이미지 스타일 */
+.promo-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* 이미지 잘리기 방지 */
+    border-radius: 10px;
+    transition: opacity 0.3s ease; /* 부드러운 효과 */
+}
+
+/* 이미지에 커서 올렸을 때 어두워지는 효과 */
+.image-container:hover .promo-image {
+    opacity: 0.7; /* 커서를 올렸을 때 어두워지는 효과 */
+}
+
+/* 이미지 내부 텍스트 스타일 */
+.image-text {
+    position: absolute;
+    bottom: 0; /* 하단에 위치 */
+    left: 0;
+    right: 0;
+    padding: 10px; /* 텍스트와 이미지 간의 간격 */
+    text-align: center;
+    color: white;
+/*     background: rgba(0, 0, 0, 0.5); 배경을 어둡게 해서 텍스트 가독성 향상 */
+    border-radius: 0 0 10px 10px; /* 하단에만 둥근 모서리 */
+    opacity: 0; /* 기본적으로 숨김 */
+    transition: opacity 0.3s ease; /* 부드러운 효과 */
+}
+.image-container:hover .image-text {
+    opacity: 1; /* 커서를 올렸을 때 텍스트 보이기 */
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite;
+    opacity: 0.5;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
