@@ -20,6 +20,9 @@
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerAside.css">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body class="text-light">
