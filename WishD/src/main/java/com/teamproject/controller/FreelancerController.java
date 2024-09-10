@@ -19,7 +19,7 @@ import com.teamproject.service.FreelancerService;
 
 
 @Controller
-@RequestMapping("/*")
+@RequestMapping("/")
 public class FreelancerController {
 
 	@Inject
