@@ -95,7 +95,7 @@
 <div class="instant-list">
 <!-- 	프로젝트 리스트 -->
 	<div class="project-list">
-		<div class="list-head" style="cursor:pointer;" onclick="location.href='projectFind';">프로젝트 목록</div>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind';">프로젝트 목록</div>
 		<table class="instant-table">
 			<tr>
 				<td><p>ㅁㄴㅇㄹ</p></td>

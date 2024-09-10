@@ -15,7 +15,6 @@
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">프로젝트 승인</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">프리랜서 승인</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">비공개 프로젝트 관리</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">비공개 프리랜서 관리</a></li>
           </ul>
         </div>
       </li>
