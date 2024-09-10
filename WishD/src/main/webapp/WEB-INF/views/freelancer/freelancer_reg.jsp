@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>프로젝트 등록</title>
+    <title>프리랜서 등록</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -16,7 +16,6 @@
 	
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/freelancer/freelancer.css">
-
 
 
 
@@ -59,16 +58,14 @@
 		    		
 		    		<!-- 1-2) 프로젝트 시작 가능일 -->
 		    		<div class="col-md-6 my-5 p-4">
-		    				<div class="mini_temp2">
-								<h6>프로젝트 시작 가능일<span style="color:red;"> *</span></h6>
-								<input type = "date" 
-									   id="date" 
-									   name = "freelancer_startdate"
-									   class="form-control bg-dark" 
-									   style="color:white; width:200px;"
-									   onclick="this.showPicker()">
-							</div>
-		    		</div>
+							<h6>프로젝트 시작 가능일<span style="color:red;"> *</span></h6>
+							<input type = "date" 
+								   id="date" 
+								   name = "freelancer_startdate"
+								   class="form-control bg-dark" 
+								   style="color:white; width:200px;"
+								   onclick="this.showPicker()">
+	    			</div>
 		    
 		    	</div>
 		    
@@ -122,22 +119,18 @@
 		    		<div class="col-md-6 my-5 p-4">
 						<h6>보유 스킬<span style="color:red;"> *</span></h6>
 						<!-- 스킬을 선택할때마다 하단에 있는 영역에 스킬추가 -->
-					    <select id="skill" class="form-select bg-dark" style="color:white; width:200px;" onchange="addSkill()" >
-					    	<option value="">스킬을 선택하세요</option>
-					        <option value="java">java</option>
-					        <option value="python">python</option>
-					        <option value="php">php</option>
-					        <option value="javascript">javascript</option>
-					        <option value="typescript">typescript</option>
-					        <option value="spring">spring</option>
-					        <option value="springboot">springboot</option>
-					  	</select>
-					  	
+					  	<select id="skill" class="form-select bg-dark" style="color:white; width:200px;" onchange="addSkill()">
+	                        <option value="" disabled selected>스킬선택</option>
+	                        <c:forEach items="${freelancerSkillList}" var="skill">
+	                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
+	                        </c:forEach>
+                    	</select>
+                    	
 					  	<!-- 선택된 스킬을 보여주는 영역 -->
 						<div id="selected_skill"></div>
 		
 						<!-- 선택된 스킬을 hidden input으로 담아서 서버에 전송 -->
-						<input type="hidden" id="skills_hidden" name="skills">    			
+						<input type="hidden" id="skills_hidden" name="skillList" required>    			
 		    		</div>
 		    
 		    	</div>

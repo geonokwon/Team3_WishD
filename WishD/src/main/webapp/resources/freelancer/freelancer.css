@@ -31,7 +31,13 @@
     margin-top: 10px;
 }
 
-
+/* 화면의 가로가 575px 이하일때 */
+@media (max-width: 575px) {
+   .container {
+       max-width: 100%; /* 575px 이하일 때는 너비를 100%로 설정 */
+       padding: 0 15px; /* 양쪽 여백 추가 */
+   	}
+}
 
 :root {
     --bs-primary: #141826; /* 색상 변경(카드색상) */
