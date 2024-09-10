@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+/* div 가운데 정렬 */
+.wrap{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+/* 대문 */
+.gate1{
+	width:100%; height:600px;
+	margin-top:100px; margin-bottom:100px;
+	background-image:url("../img/milky_way.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+
+.gate2{
+	box-sizing:border-box;
+	width:100%; height:100%;
+	border:solid 1px #00ff0000;
+	background-image:url("../img/meteor.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+/* 대문 글귀 */
+.gate_text{
+	width:1000px; height:280px;
+	margin:300px;
+}
+
+.gate_text p{
+	color:white;
+ 	text-shadow: 1px 1px 1px black;
+}
+
+.praise{
+	font-size:2em;
+}
+
+/* 소개문 대문*/
+.pre-intro{
+	font-size:2em;
+	font-weight:900;
+	margin-bottom:50px;
+}
+
+.intro{
+	width:350px; height:550px;
+	margin:15px;
+	background-color:#141826;
+}
+
+/* 소개문 글귀 */
+.intro-head{
+	margin-top:300px;
+	text-align:center;
+	font-weight:900;
+	font-size:1.5em;
+}
+
+.intro p{
+	width:250px; height:100px;
+	text-align:center;
+	margin-top:50px;
+	margin-left:50px; margin-right:50px;
+	font-size:1em;
+}
+
+/* 둘러보기 탭 */
+.tab{
+	margin-top:200px;
+}
+
+.tab p{
+	font-size:2em;
+	font-weight:bold;
+	text-align:center;
+}
+
+ul{
+	display:flex;
+}
+
+.tab__list__item{
+	height:40px;
+	margin-bottom:-16px;
+	list-style:none;
+	border:3px solid #141826; border-radius:10px 10px 0px 0px;
+	padding:5px;
+}
+
+/* 활성 탭 디자인 */
+li.active{
+	font-weight:900;
+	color:#6F40C8;
+	background-color:#141826;
+}
+
+.tab__contents{
+	display:none;
+	width:568px; height:330px;
+	padding:10px;
+	border:3px solid #141826;
+	border-radius:8px 8px 8px 8px;
+	background-color:#141826;
+}
+
+/* 탭 활성화 */
+.tab__contents.show{
+	display:block;
+}
+
+/* 기술 스택 항목들 */
+.stack{
+	width:250px; height:80px; margin:10px;
+	border:1px solid #6F40C8; border-radius:20px;
+	text-align:center;
+	padding:15px 0;
+	float:left;
+	background-color:#6F40C8;
+	font-size:2em;
+}
+
+.stack:hover{
+	background-color:#5e36a8;
+}
+
+/* 소형 리스트 */
+.instant-list{
+	display:flex;
+}
+
+.project-list{
+	margin:200px;
+	border:1px solid #141826; border-radius:8px 8px 8px 8px;
+	width:500px; height:400px;
+	background-color:#141826;
+}
+
+.freelancer-list{
+	margin:200px;
+	border:1px solid #141826; border-radius:8px 8px 8px 8px;
+	width:500px; height:400px;
+	background-color:#141826;
+}
+
+/* 리스트 헤더 */
+.list-head{
+	margin:10px;
+	color:white;
+	font-weight:900;
+}
+
+.list-head:hover{
+	color:#808080;
+}
+
+/* 리스트 디자인 */
+.instant-table{
+	width:498px; height:200px;
+}
+
+table, tr, td{
+	border:1px solid white; border-radius:0px 0px 10px 10px;
+	border-left-color:#8080ff; border-right-color:#8080ff;
+	background-color:#8080ff;
+	color:black;
+}
+
+td{
+	width:100%;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+}
