@@ -2,6 +2,7 @@ package com.teamproject.controller;
 
 import com.teamproject.domain.ProjectDTO;
 import com.teamproject.domain.ProjectPageDTO;
+import com.teamproject.domain.ProjectRequestDTO;
 import com.teamproject.service.ProjectService;
 import com.teamproject.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,9 +75,21 @@ public class ProjectController {
         return "/project/project_read";
     }
 
-    @PostMapping("/projectRead")
-    public String projectReadRequest(){
-        return "redirect:/projectRead";
+//    @PostMapping("/projectRead")
+//    public String projectReadRequest(@RequestParam("pboard_id")Long pboard_id,
+//                                     ProjectRequestDTO projectRequestDTO,
+//                                     Model model){
+//        logger.info("-> projectReadRequest()");
+//        System.out.println(projectRequestDTO.toString());
+//        return "redirect:/projectRead/" + pboard_id;
+//    }
+    //비동기 처리
+    @PostMapping("/projectReadReq")
+    @ResponseBody
+    public String projectReadRequest(ProjectRequestDTO projectRequestDTO, Model model){
+        logger.info("-> projectReadRequest()");
+        System.out.println(projectRequestDTO.toString());
+        return "true";
     }
 
     @GetMapping("/projectWrite")

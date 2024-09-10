@@ -5,7 +5,6 @@
 
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
-
     <!-- 프로젝트 등록 start -->
     <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
@@ -30,7 +29,7 @@
     </insert>
     <!-- 프로젝트 등록 end -->
 
-
+    <!-- 최대 3초 ~ 0.5초 -->
     <!-- project_find - start -->
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->

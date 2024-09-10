@@ -10,8 +10,17 @@ public class ProjectRequestDTO {
     private Long f_request_money;
     private String f_request_startDate;
     private String f_request_date;
-    private int job_id;
 
+    //skill String 으로 가져와서 배열로 나누는 값
+    private String skillList;
+
+    public String getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(String skillList) {
+        this.skillList = skillList;
+    }
 
     public Long getUser_no() {
         return user_no;
@@ -85,11 +94,20 @@ public class ProjectRequestDTO {
         this.f_request_date = f_request_date;
     }
 
-    public int getJob_id() {
-        return job_id;
-    }
 
-    public void setJob_id(int job_id) {
-        this.job_id = job_id;
+    @Override
+    public String toString() {
+        return "ProjectRequestDTO{" +
+                "user_no=" + user_no +
+                ", pboard_id=" + pboard_id +
+                ", f_request_title='" + f_request_title + '\'' +
+                ", f_request_job=" + f_request_job +
+                ", f_request_history=" + f_request_history +
+                ", f_request_exp=" + f_request_exp +
+                ", f_request_money=" + f_request_money +
+                ", f_request_startDate='" + f_request_startDate + '\'' +
+                ", f_request_date='" + f_request_date + '\'' +
+                ", skillList='" + skillList + '\'' +
+                '}';
     }
 }

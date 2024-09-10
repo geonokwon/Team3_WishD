@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
     public static final Logger logger = Logger.getLogger(ProjectService.class.getName());
+
     @Autowired
     private ProjectDAO projectDAO;
 
@@ -67,6 +68,5 @@ public class ProjectService {
         projectSkillSet.put("pboard_id", projectDTO.getPboard_id());
         projectSkillSet.put("skill_id", skillList);
         projectDAO.insertProjectSkill(projectSkillSet);
-
     }
 }

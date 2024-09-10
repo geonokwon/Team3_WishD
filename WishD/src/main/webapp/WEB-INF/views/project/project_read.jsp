@@ -128,24 +128,22 @@
                     </div>
 
                     <!-- 매칭하기 클릭시 -->
-                    <div class="requestForm mx-2" id="requestForm" style="display: none">
+                    <div class="requestForm container mx-2" id="requestForm" style="display: none">
                         <div>
                             <p class="fs-5">요청서를 작성하세요</p>
                         </div>
 
                         <!-- 폼 시작 -->
-                        <form action="#" method="post" id="projectRead">
+                        <form action="${pageContext.request.contextPath}/projectReadReq" method="post" id="projectReadForm">
                             <!-- 한줄 자기소개 -->
                             <div class="mb-4">
                                 <label for="request_title" class="mb-1">소개(타이틀)</label>
-                                <input
-                                        type="text"
-                                        class="form-control bg-dark"
-                                        id="request_title"
-                                        name="f_request_title"
-                                        placeholder="한줄로 자신을 소개해 주세요."
-                                        autocomplete="off"
-                                />
+                                <input type="text"
+                                       class="form-control bg-dark"
+                                       id="request_title"
+                                       name="f_request_title"
+                                       placeholder="한줄로 자신을 소개해 주세요."
+                                       autocomplete="off" />
                             </div>
 
                             <!-- 직무 선택(selected) -->
@@ -185,49 +183,51 @@
                                 <div id="badge_container">
                                     <!--클릭시 베지 추가-->
                                 </div>
-                                <input type="hidden" id="skillList" name="skillList" />
+                                <input type="hidden" name="skillList" id="skillList" />
                             </div>
 
                             <!-- 프리랜서 경험 -->
                             <div class="mb-4">
                                 <label class="request_experience d-block mb-1">프리랜서 경험</label>
                                 <div class="form-check form-check-inline mx-3">
-                                    <input type="radio" class="form-check-input" name="experience" id="experience_true" value="true" required/>
+                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" />
                                     <label for="experience_true" class="form-check-label">있다</label>
                                 </div>
                                 <div class="form-check form-check-inline ms-3">
-                                    <input type="radio" class="form-check-input" name="experience" id="experience_false" value="false" required/>
+                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" />
                                     <label for="experience_false" class="form-check-label">없다</label>
                                 </div>
                             </div>
 
                             <!-- 희망급여-->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="request_minMoney" class="mb-1">희망금액</label>
+                                <label for="money" class="mb-1">희망금액</label>
                                 <div class="col-5">
-                                    <input type="text" class="form-control bg-dark" id="request_minMoney" placeholder="최소(만원)" autocomplete="off" />
+                                    <input type="text"
+                                           class="form-control bg-dark"
+                                           id="money"
+                                           name="f_request_money"
+                                           placeholder="숫자입력"
+                                           autocomplete="off" />
                                 </div>
-                                <div class="col-1">~</div>
-                                <div class="col-5">
-                                    <input type="text" class="form-control bg-dark" id="request_maxMoney" placeholder="최대(만원)" autocomplete="off" />
-                                </div>
+                                <div class="col-2"> 만원</div>
                             </div>
 
                             <!-- 프로젝트 시작 가능일 -->
                             <div class="mb-4">
                                 <label for="request_startDate" class="mb-2">프로젝트 시작 가능일</label>
-                                <input type="date" class="form-control bg-dark" id="request_startDate" />
+                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate"/>
                             </div>
 
                             <!-- 이력서 / 경력증명서 / 포토폴리오-->
                             <div class="mb-4">
                                 <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
-                                <input class="form-control bg-dark" type="file" id="formFile" />
+                                <input class="form-control bg-dark" type="file" id="formFile"/>
                             </div>
 
                             <!-- 약관 동의 -->
-                            <div class="mb-4 pt-5">
+                            <div class="mb-4 pt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="true" id="agree_1" />
                                     <label class="form-check-label" for="agree_1"> [필수] 이용약관 동의합니다. </label>
@@ -237,21 +237,37 @@
                                     <label class="form-check-label" for="agree_2"> [필수] 개인 정보 제 3자 제공 동의 </label>
                                 </div>
                             </div>
+                            <div class="card">
+                                <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
+                            </div>
                         </form>
                         <!-- 폼 end -->
                     </div>
 
+                    <!-- 등록버튼 확인 모달창 -->
+                    <div class="modal fade mt-5" id="inputAlert" tabindex="-1"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-primary ps-2 pt-2">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-6" id="agreeTitle">모두 작성해 주세요.</h1>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <!-- 로그인시 -->
-                    <div class="card">
-                        <button type="button" class="btn btn-primary" id="matching_button">매칭하기</button>
+                    <div class="card" id="matching_button">
+                        <button type="submit" class="btn btn-primary">매칭하기</button>
                     </div>
-                    <div class="card">
-                        <button type="submit" class="btn btn-primary" id="agree_button" style="display: none">승인하기</button>
-                    </div>
+
                     <!-- 비로그인시 -->
-                    <div class="card">
-                        <button class="btn btn-primary my-2 mx-4" style="display: none">로그인 / 회원가입</button>
+                    <div class="card" style="display: none">
+                        <button class="btn btn-primary my-2 mx-4" >로그인 / 회원가입</button>
                     </div>
 
                 </div>
@@ -263,12 +279,49 @@
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
 <script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#projectReadForm').on('submit', function(event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 방지
+
+            //name 있는 모든 폼 데이터 가져와서 직렬화
+            let formData = $(this).serializeArray();
+            console.log(formData);
+
+            //비동기 ajax 처리
+            $.ajax({
+                url: '${pageContext.request.contextPath}/projectReadReq',
+                type: 'POST', //post 방식
+                data: formData,
+                success: function(response) {
+                    if (response){
+                        // 성공적으로 데이터가 제출되었을 때의 처리
+                        alert('폼이 성공적으로 제출되었습니다.');
+                        $(this).find('input, textarea, select').prop('readonly', true);
+                        // select는 disabled로 처리
+                        $(this).find('select').prop('disabled', true);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // 오류 발생 시 처리
+                    let myModal = new bootstrap.Modal(document.getElementById('inputAlert'), {
+                        keyboard: false
+                    });
+                    myModal.show();
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
 
