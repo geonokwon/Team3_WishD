@@ -51,7 +51,7 @@
 }
 
 .intro{
-	width:350px; height:550px;
+	width:335px; height:450px;
 	margin:15px;
 	background-color:#141826;
 }
@@ -134,17 +134,19 @@ li.active{
 /* 소형 리스트 */
 .instant-list{
 	display:flex;
+	width:1100px; height:500px;
+	background-color:white;
 }
 
 .project-list{
-	margin:200px;
+	margin:50px;
 	border:1px solid #141826; border-radius:8px 8px 8px 8px;
 	width:500px; height:400px;
 	background-color:#141826;
 }
 
 .freelancer-list{
-	margin:200px;
+	margin:50px;
 	border:1px solid #141826; border-radius:8px 8px 8px 8px;
 	width:500px; height:400px;
 	background-color:#141826;
