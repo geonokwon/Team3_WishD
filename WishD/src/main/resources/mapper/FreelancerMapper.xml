@@ -8,20 +8,79 @@
 <!-- 프리랜서 DB쿼리 -->
 
 <!-- 	프리랜서 등록 -->
-<!-- 	<insert id="resistFreelancer"> -->
-<!-- 		insert into freelancer -->
-<!-- 		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introdution},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update}) -->
-<!-- 	</insert> -->
+	<insert id="resistFreelancer">
+		insert into freelancer
+		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introdution},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update})
+	</insert>
 	
 <!-- 	프리랜서의 스킬들 등록 -->
-<!-- 	<insert id="registFreelancerSkills"> -->
-<!--         INSERT INTO freelancer_skill (freelancer_id, skill_id) -->
-<!--         VALUES  -->
-<!--         <foreach collection="skills" item="skill" separator=","> -->
-<!--             (#{userId}, (SELECT skill_id FROM skills WHERE skill_name = #{skill})) -->
-<!--         </foreach> -->
-<!--     </insert> -->
+	<insert id="registFreelancerSkills">
+        INSERT INTO freelancer_skill (freelancer_id, skill_id)
+        VALUES 
+        <foreach collection="skills" item="skill" separator=",">
+            (#{userId}, (SELECT skill_id FROM skills WHERE skill_name = #{skill}))
+        </foreach>
+    </insert>
 
-	
+	<!-- project_find - start -->
+    <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
+    <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
+    <!-- 스킬필터 가 있으면 sql 구문 추가 -->
+    <select id="selectFreelancer_all" resultType="com.teamproject.domain.FreelancerDTO">
+        SELECT f.*
+        FROM freelancer f
+        LEFT JOIN freelancer_skill fs ON f.freelancer_id = fs.freelancer_id
+        <where>
+            <if test="skill_id != null">
+                fs.skill_id = #{skill_id}
+            </if>
+            <if test="search != null">
+                f.freelancer_introdution LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>
+        GROUP BY f.freelancer_id
+        ORDER BY f.freelancer_date
+        <if test="createdDateFilter == 1">
+            ASC
+        </if>
+        <if test="createdDateFilter != 1">
+            DESC
+        </if>
+        LIMIT #{startRow}, #{endRow};
+    </select>
+
+    <!-- 전체 프로젝트 등록 개수 반환 -->
+    <!-- 검색어 포함 -->
+    <!-- 스킬필터 포함 -->
+    <select id="getFreelancerCount" resultType="int">
+        SELECT COUNT(DISTINCT f.freelancer_id)
+        FROM freelancer f
+        LEFT JOIN freelancer_skill fs ON f.freelancer_id = fs.freelancer_id
+        <where>
+<!--             스킬 필터가 있을 경우 -->
+            <if test="skill_id != null">
+                fs.skill_id = #{skill_id}
+            </if>
+<!--             검색어가 있을 경우 -->
+            <if test="search != null">
+                f.freelancer_introdution LIKE CONCAT('%', #{search}, '%')
+            </if>
+        </where>;
+    </select>
+
+    <!-- 프로젝트 당 등록된 전체 스킬 반환 -->
+    <select id="selectFreelancerSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
+        SELECT s.skill_id, s.skill_name
+        FROM freelancer_skill f JOIN skills s
+        ON f.skill_id = s.skill_id
+        WHERE f.freelancer_id = #{freelancer_id};
+    </select>
+
+    <!-- skills 에 있는 모든값 가져오기 -->
+    <select id="getFreelancerSkillList" resultType="com.teamproject.domain.FreelancerSkillDTO">
+        SELECT *
+        FROM skills;
+    </select>
+    <!-- project_find - end -->
   
 </mapper>
