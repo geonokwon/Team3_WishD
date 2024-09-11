@@ -3,6 +3,7 @@ package com.teamproject.service;
 import com.teamproject.dao.ProjectDAO;
 import com.teamproject.domain.ProjectDTO;
 import com.teamproject.domain.ProjectPageDTO;
+import com.teamproject.domain.ProjectRequestDTO;
 import com.teamproject.domain.ProjectSkillDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,16 +58,44 @@ public class ProjectService {
         //등록하고 등록한 pboard_id값 반환받아서 그 아이디 값으로 project_skill 테이블에 저장
         projectDAO.insertProject(projectDTO);
 
-        //map(Integer::parseInt) -> 각 문자열을 Integer로 변환하는 기능 (Stream<String> 을 Stream<Integer>로 변환
-        //collect -> 스트림 결과를 List<Integer> 로 변환.
-        List<Integer> skillList = Arrays.stream(projectDTO.getSkillList().split(","))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+
+//        List<Integer> skillList = Arrays.stream(projectDTO.getSkillList().split(","))
+//                .map(Integer::parseInt)
+//                .collect(Collectors.toList());
 
         //map 에 object 타입은 getPboard_id 는 int를 가지고, skillList는 List<integer>를 가진다 .
         Map<String, Object> projectSkillSet = new HashMap<>();
         projectSkillSet.put("pboard_id", projectDTO.getPboard_id());
-        projectSkillSet.put("skill_id", skillList);
+        projectSkillSet.put("skill_id", getSkillList(projectDTO.getSkillList()));
         projectDAO.insertProjectSkill(projectSkillSet);
+    }
+
+    @Transactional
+    public void insertProjectRequest(ProjectRequestDTO projectRequestDTO) {
+        logger.info("-> getProjectRequest()");
+        //프로젝트 리퀘스트 폼 저장
+        projectDAO.insertProjectRequest(projectRequestDTO);
+
+        //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장
+        Map<String, Object> projectRequestSkillSet = new HashMap<>();
+        projectRequestSkillSet.put("f_request_id", projectRequestDTO.getF_request_id());
+        projectRequestSkillSet.put("skill_id", getSkillList(projectRequestDTO.getSkillList()));
+        projectDAO.insetProjectRequestSkill(projectRequestSkillSet);
+
+        //처리할때 project_board 의 state -> 를 진행중으로 변경
+        projectDAO.updateProjectState(projectRequestDTO.getPboard_id());
+
+        //프로젝트 리퀘스트 file 부분 request_file table 저장
+
+    }
+
+    //skillList String -> List  형태로 반환하는 메서드
+    public List<Integer> getSkillList(String str_skillList){
+        logger.info("-> getSkillList()");
+        //map(Integer::parseInt) -> 각 문자열을 Integer로 변환 Stream<String> 을 Stream<Integer>로 변환
+        //collect -> 스트림 결과를 List<Integer> 로 반환.
+        return Arrays.stream(str_skillList.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }

@@ -34,7 +34,19 @@
                     <p class="card-title fs-3" style="height: 90px">${projectDTO.getPboard_title()}</p>
 
                     <!-- 현재 상태 -->
-                    <p class="badge fs-7">${projectDTO.getPboard_state()}</p>
+
+                    <!-- 모집중 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '모집중'}">
+                        <p class="badge rounded-pill fs-7">${projectDTO.getPboard_state()}</p>
+                    </c:if>
+                    <!-- 진행중 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '진행중'}">
+                        <p class="badge rounded-pill bg-secondary fs-7">${projectDTO.getPboard_state()}</p>
+                    </c:if>
+                    <!-- 완료 일때 -->
+                    <c:if test="${projectDTO.getPboard_state() == '완료'}">
+                        <p class="badge rounded-pill bg-secondary fs-7">${projectDTO.getPboard_state()}</p>
+                    </c:if>
 
                     <!-- 예상 금액 -->
                     <div class="row mb-3">
@@ -150,7 +162,7 @@
                             <!-- 직무 선택(selected) -->
                             <div class="mb-4">
                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label>
-                                <select class="form-select bg-dark" id="request_jobGroup" name="f_request_job" required>
+                                <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required>
                                     <option value="" disabled selected>직무를 선택하세요</option>
                                     <option value="1">앱 개발자</option>
                                     <option value="2">웹 개발자</option>
@@ -226,7 +238,7 @@
                             <div class="mb-4">
                                 <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
-                                <input class="form-control bg-dark" type="file" id="formFile"/>
+                                <input class="form-control bg-dark" type="file" id="formFile" name="file"/>
                             </div>
 
                             <!-- 약관 동의 -->
@@ -253,7 +265,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="agreeTitle">성공적으로 제출하였습니다.</h1>
+                                    <h1 class="modal-title fs-6" id="agreeTitle">승인요청 완료 하였습니다.</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -267,7 +279,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="disagreeTitle">모두 작성해 주세요.</h1>
+                                    <h1 class="modal-title fs-6" id="disagreeTitle">승인 요청 오류 (관리자 문의 바랍니다).</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -275,8 +287,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
                     <!-- 로그인시 -->
                     <div class="card" id="matching_button">
@@ -316,7 +326,7 @@
 
             //비동기 ajax 처리
             $.ajax({
-                url: '${pageContext.request.contextPath}/projectReadReq',
+                url: '${pageContext.request.contextPath}/projectReadReq/${projectDTO.getPboard_id()}',
                 type: 'POST', //post 방식
                 data: formData,
                 success: function(response) {

@@ -1,18 +1,28 @@
 package com.teamproject.domain;
 
 public class ProjectRequestDTO {
+    private Long f_request_id;
     private Long user_no;
     private Long pboard_id;
     private String f_request_title;
-    private int f_request_job;
+    private int job_id;
     private int f_request_history;
     private boolean f_request_exp;
     private Long f_request_money;
     private String f_request_startDate;
     private String f_request_date;
-
-    //skill String 으로 가져와서 배열로 나누는 값
     private String skillList;
+
+    //파일 업로드 부분
+    private String file;
+
+    public Long getF_request_id() {
+        return f_request_id;
+    }
+
+    public void setF_request_id(Long f_request_id) {
+        this.f_request_id = f_request_id;
+    }
 
     public String getSkillList() {
         return skillList;
@@ -46,12 +56,12 @@ public class ProjectRequestDTO {
         this.f_request_title = f_request_title;
     }
 
-    public int getF_request_job() {
-        return f_request_job;
+    public int getJob_id() {
+        return job_id;
     }
 
-    public void setF_request_job(int f_request_job) {
-        this.f_request_job = f_request_job;
+    public void setJob_id(int job_id) {
+        this.job_id = job_id;
     }
 
     public int getF_request_history() {
@@ -101,7 +111,7 @@ public class ProjectRequestDTO {
                 "user_no=" + user_no +
                 ", pboard_id=" + pboard_id +
                 ", f_request_title='" + f_request_title + '\'' +
-                ", f_request_job=" + f_request_job +
+                ", f_request_job=" + job_id +
                 ", f_request_history=" + f_request_history +
                 ", f_request_exp=" + f_request_exp +
                 ", f_request_money=" + f_request_money +

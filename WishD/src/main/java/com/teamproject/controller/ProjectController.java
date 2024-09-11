@@ -84,10 +84,22 @@ public class ProjectController {
 //        return "redirect:/projectRead/" + pboard_id;
 //    }
     //비동기 처리
-    @PostMapping("/projectReadReq")
+    @PostMapping("/projectReadReq/{pboard_id}")
     @ResponseBody
-    public String projectReadRequest(ProjectRequestDTO projectRequestDTO, Model model){
+    public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
+                                     ProjectRequestDTO projectRequestDTO,
+                                     Model model){
         logger.info("-> projectReadRequest()");
+        projectRequestDTO.setPboard_id(pboard_id);
+        projectService.insertProjectRequest(projectRequestDTO);
+
+
+
+
+
+
+
+
         System.out.println(projectRequestDTO.toString());
         return "true";
     }
