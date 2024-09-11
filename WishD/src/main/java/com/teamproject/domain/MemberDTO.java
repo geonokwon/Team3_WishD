@@ -3,6 +3,7 @@ package com.teamproject.domain;
 import java.sql.Timestamp;
 
 public class MemberDTO {
+	// user_info 정보 
 	private int user_no;
 	private String user_name;
 	private String email;
@@ -11,11 +12,14 @@ public class MemberDTO {
 	private boolean user_yn;
 	private String user_type;
 	
+	// simple_user 정보
 	private String access_Token;
 	
+	// user 정보 
 	private String user_id;
 	private String user_pass;
 	private String user_phone;
+	
 	
 	public int getUser_no() {
 		return user_no;

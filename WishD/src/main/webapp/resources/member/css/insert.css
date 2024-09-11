@@ -1,3 +1,4 @@
+
 .signup-container {
     display: flex;
     justify-content: center;
@@ -12,7 +13,7 @@
     background-color: #1E2229;
     border-radius: 10px;
     padding: 30px;
-    width: 100%;
+    width: 50%;
     max-width: 600px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     margin : 100px;
@@ -32,12 +33,12 @@
 
 .input-group p {
     margin: 0 0 5px 0;
-    font-size: 16px;
-    width: 100px; /* Adjust width to align labels and inputs */
+    font-size: 13px;
+    width: 100px;
 }
 
 .input-group input {
-    width: calc(100% - 120px);
+    width: 50%;
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #333743;
@@ -73,25 +74,20 @@
     cursor: not-allowed;
 }
 
-.emailCode {
-	margin : 100px;
-	width : 300px;
-	
-	
+.input-error {
+    border: 2px solid red;
 }
-
-
 
 .error-msg {
     color: red;
     font-size: 12px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin-top: 5px;
-    display: none; /* 기본적으로 숨김 처리 */
-    width: 50%; /* 메시지가 폼의 폭에 맞게 조절됨 */
-    box-sizing: border-box; /* 패딩과 테두리를 폭에 포함시킴 */
+    height: 16px;
+}
+
+.success-msg {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .agree {
@@ -124,36 +120,6 @@
     margin-top: 10px;
 }
 
-
-/* 별과 유성 효과를 위한 기본 CSS 예시 */
-
-.noite {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #0e1117; /* 어두운 배경색 */
-}
-
-.constelacao {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.chuvaMeteoro {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
 
 /* 별 배경 */
 

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.MemberService;
@@ -65,7 +64,7 @@ public class MemberController {
 		System.out.println(memberDTO);
 		
 		
-		memberService.insertMember(memberDTO);
+		// memberService.insertMember(memberDTO);
 		// 로그인 주소변경 하면서 이동 
 		return "redirect:/member/login";
 		

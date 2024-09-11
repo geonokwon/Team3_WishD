@@ -6,28 +6,26 @@
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
 
-	<insert id="insertNormalMember"> 
+	<insert id="insertNormalMember" useGeneratedKeys="true" keyProperty="user_no"> 
 		<!-- 통합회원 정보  -->
-		insert into member(user_no)
-		values(#{user_no})
+		insert into user_info(user_name, email, join_date, role, user_yn, user_type)
+		values(#{user_name},#{email}, #{join_date}, #{role}, #{user_yn}, #{user_type})
 	</insert>
 	
-	<!-- 간편회원 로그인 -->
-	<insert id="insertSimpleMember">
-		insert into member(user_no, access_Token)
-		values(#{user_no}, #{access_Token})
+ 	<!-- 간편회원 로그인 --> 
+<!-- 	<insert id="insertSimpleMember"> -->
+<!-- 		insert into simple_user(user_no, access_Token) -->
+<!-- 		values(#{user_no}, #{access_Token}) -->
 
-	</insert>
+<!-- 	</insert> -->
 	
 	
+	<!-- select 일때 리턴값 꼭 지정해주기!! --> 
+<!-- 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO"> -->
+<!-- 		select * from member -->
+<!-- 		where id= #{id} and pass= #{pass} -->
 	
-	<!-- select 일때 리턴값 꼭 지정해주기!! -->
-	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
-		select * from member
-		where id= #{id} and pass= #{pass}
-	
-	</select>
-	
+<!-- 	</select> -->
 	
 
 

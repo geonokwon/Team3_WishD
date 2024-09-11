@@ -1,26 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // 이메일 중복 확인 처리
+    const emailInput = document.getElementById('email');
     const emailCheckBtn = document.getElementById('email-check');
     const sendCodeBtn = document.getElementById('send-code');
     const verificationCodeGroup = document.getElementById('verification-code-group');
-    const emailInput = document.getElementById('email');
-    const verificationCodeInput = document.getElementById('verification-code');
+    const emailActionsGroup = document.getElementById('email-actions');
 
-    emailCheckBtn.addEventListener('click', () => {
-        emailInput.disabled = true; // 이메일 입력란 비활성화
-        emailCheckBtn.style.display = 'none'; // 이메일 중복 확인 버튼 숨기기
-        sendCodeBtn.style.display = 'block'; // 전송하기 버튼 표시
+    emailCheckBtn.addEventListener('click', function() {
+        // 이메일 중복 확인 처리
+        emailInput.disabled = true;
+        emailCheckBtn.style.display = 'none';
+        sendCodeBtn.style.display = 'inline-block'; // 전송하기 버튼을 보이게 함
+        verificationCodeGroup.style.display = 'block'; // 인증 코드 입력란을 보이게 함
     });
 
-    sendCodeBtn.addEventListener('click', () => {
-        verificationCodeGroup.style.display = 'flex'; // 인증 코드 입력란 및 인증하기 버튼 표시
-        sendCodeBtn.style.display = 'none'; // 전송하기 버튼 숨기기
+    sendCodeBtn.addEventListener('click', function() {
+        // 인증 코드 전송 처리
+        sendCodeBtn.textContent = '인증하기';
+        sendCodeBtn.id = 'verification-code-check';
     });
 
-    document.getElementById('verification-code-check').addEventListener('click', () => {
-        // 인증 코드 확인 로직
-        // 예: 확인 후 메시지 표시
-        console.log('인증 코드 확인');
+    document.getElementById('verification-code-check').addEventListener('click', function() {
+        // 인증 코드 확인 처리
     });
+  });
+
+
+
+
 
 //배경 별 + 메테오 js
 function init() {
@@ -73,4 +80,3 @@ function init() {
 window.onload = init;
 
 
-});

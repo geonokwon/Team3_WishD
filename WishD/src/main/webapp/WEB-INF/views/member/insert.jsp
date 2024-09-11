@@ -37,31 +37,31 @@ pageEncoding="UTF-8"%>
      <div class="signup-container">
     <div class="signup-box">
         <h2>Sign up</h2>
-        <form id="signup-form">
+        <form id="signup-form" action="${pageContext.request.contextPath}/insertPro" method="post">
             <div class="input-group">
                 <p>아이디</p>
-                <input type="text" id="username" placeholder="아이디를 입력해주세요">
+                <input type="text" id="username" name="user_id" placeholder="아이디를 입력하세요">
                 <button type="button" class="check-btn" id="username-check">중복 확인</button>
                 <div class="error-msg" id="username-error"></div>
             </div>
             <div class="input-group">
                 <p>비밀번호</p>
-                <input type="password" id="password" placeholder="비밀번호">
+                <input type="password" id="password" name="user_pass" placeholder="비밀번호를 입력하세요">
                 <div class="error-msg" id="password-error"></div>
             </div>
             <div class="input-group">
                 <p>비밀번호 확인</p>
-                <input type="password" id="password-confirm" placeholder="비밀번호 재확인">
+                <input type="password" id="password-confirm" name="user_passCheck" placeholder="비밀번호를 다시 입력하세요">
                 <div class="error-msg" id="password-confirm-error"></div>
             </div>
             <div class="input-group">
                 <p>이름</p>
-                <input type="text" id="name" placeholder="이름">
+                <input type="text" id="name" name="user_name" placeholder="이름을 입력하세요">
                 <div class="error-msg" id="name-error"></div>
             </div>
             <div class="input-group">
                 <p>이메일</p>
-                <input type="email" id="email" placeholder="이메일 주소">
+                <input type="email" id="email" name="email" placeholder="이메일 주소를 입력하세요">
                 <button type="button" class="check-btn" id="email-check">중복 확인</button>
                 <div class="error-msg" id="email-error"></div>
             </div>
@@ -69,19 +69,14 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="check-btn" id="send-code">전송하기</button>
             </div>
             <div class="input-group emailCode" id="verification-code-group" style="display:none;">
-   			 	<input type="text" id="verification-code" placeholder="이메일 인증 코드">
+   			 	<input type="text" id="verification-code" placeholder="인증코드를 입력하세요">
    			 	<button type="button" class="check-btn" id="verification-code-check">인증하기</button>
                 <div class="error-msg" id="verification-code-error"></div>
             </div>
             <div class="input-group">
                 <p>전화번호</p>
-                <input type="tel" id="phone" placeholder="번호를 입력해주세요">
+                <input type="tel" id="phone" name="user_phone" placeholder="번호를 입력해주세요">
                 <div class="error-msg" id="phone-error"></div>
-            </div>
-            <div class="input-group">
-                <p>생년월일</p>
-                <input type="date" id="dob" placeholder="생년월일">
-                <div class="error-msg" id="dob-error"></div>
             </div>
             <div class="agree">
                 <input type="checkbox" id="privacy-policy">
@@ -94,13 +89,15 @@ pageEncoding="UTF-8"%>
             <div class="success-msg" id="success-msg"></div>
         </form>
     </div>
+    <!-- backGround-star -->
+    
 </div>
-    <!-- 별과 유성 효과를 위한 div 요소 -->
     <div class="noite"></div>
+
     <div class="constelacao"></div>
+
     <div class="chuvaMeteoro"></div>
-</body>
-</html>
+
     <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script>
    
   </body>

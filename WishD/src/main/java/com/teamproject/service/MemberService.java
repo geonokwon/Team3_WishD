@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.teamproject.dao.MemberDAO;
 import com.teamproject.domain.MemberDTO;
@@ -15,7 +16,8 @@ public class MemberService {
 	@Inject
 	private MemberDAO memberDAO;
 	
-	
+	// 회원가입
+	@Transactional
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberService insertMember()");
 		
@@ -26,7 +28,7 @@ public class MemberService {
 		
 	}
 
-
+	// 회원체크
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberService userCheck()");
 		
