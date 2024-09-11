@@ -33,7 +33,7 @@
 <jsp:include page="../include/managerAside.jsp"/>
 
 <!-- Main Content -->
-
+매니저
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
