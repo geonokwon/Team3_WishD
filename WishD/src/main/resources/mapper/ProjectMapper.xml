@@ -5,16 +5,15 @@
 
 <mapper namespace="com.teamproject.mapper.ProjectMapper">
 
-
     <!-- 프로젝트 등록 start -->
     <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
-        INSERT INTO project_board (user_id, pboard_title, pboard_content, pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
+        INSERT INTO project_board (user_id, pboard_title, pboard_content,
+                                   pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
         VALUES (
             1,
             #{pboard_title}, #{pboard_content},
-            #{pboard_money},
-            STR_TO_DATE(#{pboard_startDate}, '%Y-%m-%d'),
+            #{pboard_money}, #{pboard_startDate},
             #{pboard_rangeMonth}, #{pboard_job}
         );
     </insert>
@@ -30,7 +29,7 @@
     </insert>
     <!-- 프로젝트 등록 end -->
 
-
+    <!-- 최대 3초 ~ 0.5초 -->
     <!-- project_find - start -->
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
@@ -108,6 +107,32 @@
         WHERE ps.pboard_id = #{pboard_id};
     </select>
     <!-- project_read - end -->
+
+
+    <!-- project_read_Request -->
+    <insert id="insertProjectRequest" useGeneratedKeys="true" keyProperty="f_request_id" keyColumn="f_request_id">
+        INSERT INTO request_freelancer(user_no, pboard_id, f_request_title,
+                                       f_request_history, f_request_exp,
+                                       f_request_money, f_request_startDate, job_id)
+        VALUES(1, #{pboard_id}, #{f_request_title}, #{f_request_history},
+               #{f_request_exp}, #{f_request_money}, #{f_request_startDate}, #{job_id});
+    </insert>
+
+    <!-- project_read_Request request_skill 테이블 스킬 추가 -->
+    <insert id="insetProjectRequestSkill">
+        INSERT INTO request_skill
+        VALUES
+        <foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{f_request_id}, #{skill_id} )
+        </foreach>
+        ;
+    </insert>
+    <!-- 승인요청시 Project_board 의 state 의 상태값 변경 -->
+    <update id="updateProjectState">
+        UPDATE project_board
+        SET pboard_state = '진행중'
+        WHERE pboard_id = #{pboard_id};
+    </update>
 
 
 </mapper>

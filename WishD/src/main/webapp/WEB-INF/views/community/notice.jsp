@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>temp</title>
+    <title>community_main</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -18,109 +18,155 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/community.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/notice.css">
 
 </head>
 <body class="text-light">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
-<!-- Main Content -->
-    <div class="container">
+<!-- main content -->
 
-        <div class="d-flex mt-custom">
-           <p class="fs-2 mt-5 mx-5 fw-semibold" style="color: #fff;">커뮤니티 게시판</p>
-               <form class="d-flex">
-                   <input class="form-control me-2 position-absolute" style="right: 487px; top: 231px;" type="search" placeholder="검색어를 입력해주세요" aria-label="Search">
-               </form>
-             <button type="button" class="btn btn-outline-primary fs-6 position-absolute" style="right:427px; top: 230px;">찾기</button>
-            <button type="button" class="btn btn-primary fs-6 position-absolute" style="right: 310px; top: 230px;">글쓰기</button>
-        </div>
-         
-        <hr style="border: solid 1px #6F40C8;">
-        
-        <div class="d-flex justify-content-center my-3">
+<!-- 컨테이너 -->
+<div class="container-fluid">
+    <!-- 섹션1 -->
+    <div class="first-section d-flex">
 
-            <!-- 메뉴리스트 -->
-            <div class="col-2 text-start card bg-primary me-1" style="height: 1200px;">
-                <a href="notice.html" class="text-center text-light text-decoration-none mt-5 fs-5 lh-sm">공지사항</a>
-                <a href="qna_page.html" class="text-center text-light text-decoration-none mt-5 fs-5 lh-sm">Q & A</a>
-            </div>
-
-            <!-- 공지사항 게시판  -->
-            <div class="col-8 text-center card bg-primary">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <p class="text-start my-4 mx-4 fs-5 fw-bold lh-1" style="color: #fff;">공지사항 게시판</p>
-                            <th scope="col fw-bold">No.</th>
-                            <th scope="col fw-bold">제목</th>
-                            <th scope="col fw-bold">작성일자</th>
-                        </tr>
-                    </thead>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">1</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">2</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">3</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td></tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">4</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td></tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">5</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">6</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td> </tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">7</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td></tr>
-                        <tr>
-                            <th scope="row" class="align-middle" style="height: 80px;">8</th>
-                            <td class="align-middle">2024년 02월 21 ~ 2024년 03월 31일 까지 페이지 점검</td>
-                            <td class="align-middle">2024-02-06</td>
-                        </tr>
-              </table>
-
-              <!--페이지-->
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination position-absolute bottom-0 start-50 translate-middle-x mb-3">
-                      <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">4</a></li>
-                      <li class="page-item"><a class="page-link" href="#">5</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                  </ul>
-              </nav>
-                 
-            </div>
+        <div class="col-2 first-section-1 menutext-left">
         </div>
 
+        <div class="col-8 first-section-2">
+            <p class="headtext">
+                Working on a computer is cool.
+                <br>It doesn't fight with you, it remembers everything,
+                <br><span class="" style="margin-right: 24.5rem;">it doesn't steal my beer.</span>
+            </p>
+        </div>
+
+        <div class="col-2 first-section-3 menutext-right">
+            <p class="user-number"><span class="color" style="color: rgb(119, 121, 169);">developers</span><br>connected now</p>
+        </div>
     </div>
+
+    <!-- 섹션 2 -->
+    <div class="second-section d-flex">
+
+        <div class="col-2 second-section-1 menutext-left">
+            <a href="Community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+            <a href="qna" class=" qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            <a href="notice_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a>
+        </div>
+
+        <!-- 글 목록 -->
+        <div class="col-8 second-section-2">
+
+            <div class="row">
+                    <div class="col">
+                        <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                        <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                    </div>
+                    <div class="col">
+                        <div class="custom-date">2024 07 08</div>
+                        <div class="custom-writer">@manager</div>
+                    </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
+                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
+                </div>
+                <div class="col">
+                    <div class="custom-date">2024 07 08</div>
+                    <div class="custom-writer">@manager</div>
+                </div>
+                <div class="row-line"></div>
+            </div>
+        </div> <!-- 글 목록 -->
+
+    <div class="col-2 second-section-1 menutext-right">
+        <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>Search</a><br>
+    </div>
+
+</div>
+    <div class="last-line"></div> <!-- 하단선 -->
+
+</div> <!-- 컨테이너 -->
+
+  
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
