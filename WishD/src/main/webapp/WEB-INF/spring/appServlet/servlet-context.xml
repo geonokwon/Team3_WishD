@@ -20,10 +20,24 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
+	<!-- 파일 업로드 객체생성, 업로드 파일 크기 10M 지정 -->
+	<beans:bean id="multipartResolver"
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>
+	<!-- 파일 업로드 경로 설정 -->
+	<!-- 서버 업로드 upload 폴더 만들기 src-main-webapp-resources upload 폴더 -->
+	<!-- /Users/gwongeon-o/Desktop/TeamProject/TeamProjectFile/WishD/src/main/webapp/resources/upload-->
+	<!-- window 는 \\ 으로 경로 지정 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="//Users/gwongeon-o/Desktop/TeamProject/TeamProjectFile/WishD/src/main/webapp/resources/upload" />
+	</beans:bean>
+
 	<context:component-scan base-package="com.teamproject.wishd" />
 	<context:component-scan base-package="com.teamproject.controller" />
-	
+	<context:component-scan base-package="com.teamproject.service" />
+	<context:component-scan base-package="com.teamproject.dao" />
 	
 	
 </beans:beans>

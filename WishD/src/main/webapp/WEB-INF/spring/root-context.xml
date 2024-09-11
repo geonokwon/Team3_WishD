@@ -5,20 +5,22 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- DB연결 객체 생성 -->
-<!--	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-<!--		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://itwillbs.com:3306/c1d2405t3?serverTimezone=Asia/Seoul"/>
+		<property name="username" value="c1d2405t3"/>
 <!--		<property name="url" value="jdbc:mysql://localhost:3306/jspdb?serverTimezone=Asia/Seoul"/>-->
 <!--		<property name="username" value="root"/>-->
-<!--		<property name="password" value="1234"/>-->
-<!--	</bean>-->
+		<property name="password" value="1234"/>
+	</bean>
 
-<!--	&lt;!&ndash; MyBatis 설정 &ndash;&gt;-->
-<!--	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
-<!--		<property name="dataSource" ref="dataSource"/>-->
-<!--		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"/>-->
-<!--	</bean>-->
-<!--	&lt;!&ndash; MyBatis 객체생성 &ndash;&gt;-->
-<!--	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">-->
-<!--		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
-<!--	</bean>-->
+	<!-- MyBatis 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"/>
+	</bean>
+	<!-- MyBatis 객체생성 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
 </beans>

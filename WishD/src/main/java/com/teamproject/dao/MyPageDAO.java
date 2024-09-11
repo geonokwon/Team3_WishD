@@ -15,10 +15,14 @@ public class MyPageDAO {
 	
 	private static final String namespace="com.teamproject.mapper.MyPageMapper";
 	
-	public MemberDTO getMember(String user_no) {
-		return sqlSession.selectOne(namespace + ".getMember", user_no);
+	// 세션에 저장된 값에 따른 분기
+	public MemberDTO getNormalMember(String user_id) {
+		return sqlSession.selectOne(namespace + ".getNormalMember", user_id);
 	}
-
+	public MemberDTO getSimpleMember(String access_Token) {
+		return sqlSession.selectOne(namespace + ".getSimpleMember", access_Token);
+	}
+	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		return sqlSession.selectOne(namespace + ".userCheck", memberDTO);
 	}
@@ -27,4 +31,8 @@ public class MyPageDAO {
 		System.out.println("MyPageDAO - updateMember()");
 		sqlSession.update(namespace + ".updateMember", memberDTO);
 	}
+
+	
+
+	
 }

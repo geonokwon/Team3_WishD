@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0E1117;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 */
+}
+
+.signup-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-box {
+    width: 100%;
+    max-width: 500px; /* 너비 조정 */
+    border-radius: 10px;
+    background-color: #1E2229;
+    padding: 20px;
+}
+
+.signup-box h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: calc(100% - 120px); /* 버튼 너비를 고려한 조정 */
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333743;
+    color: white;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border: 2px solid #2a2370;
+}
+
+.check-btn {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6F40C8;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+.check-btn:hover {
+    background-color: #5a34a1;
+}
+
+.signup-btn {
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #6F40C8;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.signup-btn:hover {
+    background-color: #5a34a1;
+}
+
+.error-msg {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.success-msg {
+    color: green;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.agree {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.agree input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.agree label {
+    margin-left: 8px;
+    margin-bottom: 0;
+}

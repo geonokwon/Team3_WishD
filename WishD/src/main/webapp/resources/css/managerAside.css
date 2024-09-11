@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.manager-menu{
+	width:150px; height:400px;
+	border:1px solid white;
+	border-radius:10px;
+	margin:75px;
+}
+
+.menu-list li{
+	list-style:none;
+}
+
+.menu-item{
+	width:130px; height:30px;
+	border:1px solid purple;
+	border-radius:5px;
+	margin:10px;
+	color:violet;
+}

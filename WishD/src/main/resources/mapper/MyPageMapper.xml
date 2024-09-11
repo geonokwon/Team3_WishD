@@ -4,22 +4,40 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.teamproject.mapper.MyPageMapper">
-
+	
+	<!-- 일반유저 가져오기 -->
+	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO">
+		SELECT *
+		FROM user_info
+		JOIN user ON user_info.user_no = user.user_no
+		WHERE user.user_id = #{user_id}
+	</select>
+	
+	<!-- 간편회원 가져오기 -->
+	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info join simple_user
+		on user_info.user_no = simple_user.user_no
+		where access_Token = #{access_Token}
+	</select>
+	
+	<!-- 테이블이 비어있으면 리턴값이 없어 쿼리 수정 -->
 	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
-		select * from user_info join simple_user join user
-		on user_info.user_no = simple_user.user_no = user.user_no
-		where user_info.user_no = 1; <!-- #{user_no} -->
+		SELECT *
+		FROM user_info
+		LEFT JOIN simple_user ON user_info.user_no = simple_user.user_no
+		JOIN user ON user_info.user_no = user.user_no
+		WHERE user_info.user_no = #{user_no};
 	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join user
 		on user_info.user_no = user.user_no
-		where user_info.user_no = 1 and user.user_pass = 1234; <!-- #{user_no} #{user_pass} -->
+		where user_info.user_no = #{user_no} and user.user_pass = #{user_pass}
 	</select>
 	
 	<update id="updateMember">
 		update user_info
-		set email = #{email}, user_phone = #{user_phone}, user_pass = #{user_pass}
+		set user_pass = #{user_pass}
 		where user_no = #{user_no}
 	</update>
 	

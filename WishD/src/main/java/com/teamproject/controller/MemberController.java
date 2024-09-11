@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/")
-public class LoginController {
+public class MemberController {
 	
 	@GetMapping("/login")
 	public String login() {  
 		System.out.println("LoginController login()");
 		
 		// WEB-INF/veiws/폴더/파일이름.jsp
-		return "/login/login";
+		return "/member/login";
 	}
 	
 	
