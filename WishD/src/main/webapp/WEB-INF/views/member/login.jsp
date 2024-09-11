@@ -49,13 +49,13 @@
                     <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
                    <ul class="nav1 justify-content-center">
     			   	  <li class="nav2">
-        				<a class="nav3" aria-current="page" href="#">아이디 찾기</a>
+        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/idFind">아이디 찾기</a>
     				  </li>
     				  <li class="nav2">
-        				<a class="nav3" href="#">비밀번호 찾기</a>
+        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/passFind">비밀번호 찾기</a>
     				  </li>
    					  <li class="nav2">
-       					<a class="nav3" href="#">회원가입</a>
+       					<a class="nav3" href="${pageContext.request.contextPath}/insert">회원가입</a>
     				  </li>
 				  </ul>
 
@@ -64,6 +64,7 @@
                     <!-- 간편 로그인 버튼 -->
                     <div class="social-login">
                         <a href="#" class="social-btn">
+
                             <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image">
                         </a>
                         <a href="#" class="social-btn">
@@ -78,18 +79,23 @@
             <div class="login-right">
                 <div class="image-container">
                     <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image">
+
                     <div class="image-text">WishD에 오신 것을 환영합니다!</div>
 				</div> 
-                <div class="stars"></div>
+				 
                 </div>
+                
             </div>
+           
         </div>
-    </div>
+		<!-- 별배경 -->
+         <div class="noite"></div>
+   		<div class="constelacao"></div>
+   		<div class="chuvaMeteoro"></div>
+        
+    
     <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
     
-        
-<!-- Footer -->
-<jsp:include page="../include/footer.jsp"/>
 
 </body>
 </html>

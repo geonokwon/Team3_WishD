@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>아이디 찾기</title>
+    <title>login</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -31,27 +31,19 @@
         <a href="${pageContext.request.contextPath}/idFind" class="nav1-link active" data-target="find-id">아이디 찾기</a>
         <a href="${pageContext.request.contextPath}/passFind" class="nav1-link active" data-target="find-password">비밀번호 찾기</a>
     </div>
-
- 	<div class="form-container">
-        <h2>아이디 찾기</h2>
-        <form action="idResult.html" method="GET">
-            <div class="input-group">
-                <input type="text" id="name-id" name="name" placeholder="이름을 입력하세요" required>
-            </div>
-            <div class="input-group">
-                <input type="email" id="email-id" name="email" placeholder="이메일을 입력하세요" required>
-            </div>
-            <button type="submit" class="submit-btn">아이디 찾기</button>
-        </form>
+    
+     <div class="form-container">
+    <h2>비밀번호 찾기 결과</h2>
+    <p id="result-text">일치하는 아이디가 없습니다.</p>
+    <div class="result-buttons">
+        <button class="submit-btn" onclick="window.history.back()">뒤로 가기</button>
+        <a href="${pageContext.request.contextPath}/login" class="submit-btn">로그인하기</a>
     </div>
-	<!-- 별배경 -->
-    <div class="noite"></div>
-   	<div class="constelacao"></div>
-   	<div class="chuvaMeteoro"></div>
-    <script src="${pageContext.request.contextPath}/resources/member/js/idFind.js"></script>
-
- <!-- Footer -->
-<%-- <jsp:include page="../include/footer.jsp"/> --%>
-
+</div>
+<!-- 별배경 -->
+<div class="noite"></div>
+<div class="constelacao"></div>
+<div class="chuvaMeteoro"></div>
+ <script src="${pageContext.request.contextPath}/resources/member/js/passFind.js"></script>
 </body>
 </html>
