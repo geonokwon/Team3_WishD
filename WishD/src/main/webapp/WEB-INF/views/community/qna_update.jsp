@@ -55,9 +55,9 @@
         <div class="col-2 second-section-1 menutext-left">
            
             <!-- <div class="col">
-                <a href="notice.html" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-                <a href="qna.html" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-                <a href="qnawrite.html" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
+                <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+                <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+                <a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
             </div>
        -->
         </div>
@@ -110,7 +110,7 @@
 
         <!-- 섹션 2 - 3 -->
         <div class="col-2 second-section-3 menutext-right-1">
-            <a href="Community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
             <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
             <a href="" class="myqna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>My Q&A</a>
         </div>

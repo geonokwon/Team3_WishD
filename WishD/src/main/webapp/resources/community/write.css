@@ -304,14 +304,40 @@ body {
   }
   
 
-/* 섹션 1 */
+/* /* 섹션 1 */ */
+/* .first-section { */
+/*     background-image: url('../community/images/back.png'); */
+/*     background-size: auto; */
+/*     display: flex; 자식 요소들을 수평으로 배치 */
+/*     height: 400px; */
+/*     margin-top: 1rem; */
+/*     margin-bottom: 3rem; */
+/* } */
+
+.container-fluid {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
 .first-section {
-    background-image: url('../community/images/back.png');
-    background-size: auto;
-    display: flex; /* 자식 요소들을 수평으로 배치 */
+    position: relative;
+    display: flex;
     height: 400px;
     margin-top: 1rem;
     margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.first-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../community/images/back.png');
+    background-size: cover;  /* 자동으로 중앙에 배치됨 */
+    z-index: -1;
 }
 
 .first-section-1 {
