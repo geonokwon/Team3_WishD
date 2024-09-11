@@ -10,12 +10,12 @@ public class MyProjectDTO {
 	private String pboard_title;
 	private String pboard_content;
 	private int pboard_money;
-	private String pboard_startDate;
+	private Timestamp pboard_startDate;
 	private int pboard_history;
 	private int pboard_rangeMonth;
 	private String pboard_state;
-	private String pboard_date;
-	private String pboard_update;
+	private Timestamp pboard_date;
+	private Timestamp pboard_update;
 	private String pboard_manager_phone;
 	private String pboard_ee_name;
 	
@@ -85,19 +85,6 @@ public class MyProjectDTO {
 	}
 
 
-
-	public String getPboard_startDate() {
-		return pboard_startDate;
-	}
-
-
-
-	public void setPboard_startDate(String pboard_startDate) {
-		this.pboard_startDate = pboard_startDate;
-	}
-
-
-
 	public int getPboard_history() {
 		return pboard_history;
 	}
@@ -133,26 +120,37 @@ public class MyProjectDTO {
 	}
 
 
+	public Timestamp getPboard_startDate() {
+		return pboard_startDate;
+	}
 
-	public String getPboard_date() {
+
+
+	public void setPboard_startDate(Timestamp pboard_startDate) {
+		this.pboard_startDate = pboard_startDate;
+	}
+
+
+
+	public Timestamp getPboard_date() {
 		return pboard_date;
 	}
 
 
 
-	public void setPboard_date(String pboard_date) {
+	public void setPboard_date(Timestamp pboard_date) {
 		this.pboard_date = pboard_date;
 	}
 
 
 
-	public String getPboard_update() {
+	public Timestamp getPboard_update() {
 		return pboard_update;
 	}
 
 
 
-	public void setPboard_update(String pboard_update) {
+	public void setPboard_update(Timestamp pboard_update) {
 		this.pboard_update = pboard_update;
 	}
 

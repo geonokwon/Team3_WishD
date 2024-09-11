@@ -67,9 +67,9 @@
                     <p style="font-size: 14px">(필요 스킬 복수 선택 가능)</p>
                     <select class="form-select bg-dark mb-2" id="skill">
                         <option value="" disabled>스킬선택</option>
-                        <c:forEach items="${projectSkillList}" var="skill">
-                            <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
-                        </c:forEach>
+<%--                         <c:forEach items="${projectSkillList}" var="skill"> --%>
+<%--                             <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option> --%>
+<%--                         </c:forEach> --%>
                     </select>
                     <div id="badge_container">
                         <!-- 클릭 시 배지 추가 -->
@@ -106,11 +106,10 @@
                 </div>
 				
                 <!-- 프로젝트 시작 날짜 -->
-			    
 			    <div class="col-4 ms-2 me-5 mb-4">
                     <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
                     <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startdate"
-<%--                     	value="${myprojectDTO.pboard_startDate}" --%>
+                    	value="${myprojectDTO.pboard_startDate}"
 <%--                     		value="<fmt:formatDate value='${myprojectDTO.pboard_startDate}' pattern='yyyy-MM-dd' />" --%>
                     		required />
                 </div>
