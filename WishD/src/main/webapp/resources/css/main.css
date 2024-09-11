@@ -9,11 +9,11 @@
 
 /* 대문 */
 .gate1{
-	width:100%; height:600px;
-	margin-top:100px; margin-bottom:100px;
-	background-image:url("../img/milky_way.png");
-	background-repeat:no-repeat;
-	background-size:cover;
+	width:100%; height:400px;
+	margin-bottom:100px;
+/* 	background-image:url("../img/milky_way.png"); */
+/* 	background-repeat:no-repeat; */
+/* 	background-size:cover; */
 }
 
 .gate2{
@@ -31,7 +31,7 @@
 /* 대문 글귀 */
 .gate_text{
 	width:1000px; height:280px;
-	margin:300px;
+	margin-top:200px;
 }
 
 .gate_text p{
