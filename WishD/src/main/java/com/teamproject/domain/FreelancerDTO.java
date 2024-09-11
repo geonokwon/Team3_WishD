@@ -6,8 +6,8 @@ import java.util.List;
 public class FreelancerDTO {
 	
 	
-	private int freelancer_id;
-	private int user_id;
+	private Long freelancer_id;
+	private Long user_id;
 	
 	private int freelancer_salary;
 	private String freelancer_startdate; //프로젝트 시작 가능일, DB에 넣을때 Timestamp 자료형으로 넣어야함
@@ -20,9 +20,11 @@ public class FreelancerDTO {
 	private Timestamp freelancer_date;
 	private Timestamp freelancer_update;
 	
-    //freelancer_skill 테이블에 넣을 스킬
-    private List<String> skills;
+    //skill String 으로 가져와서 배열로 나누는 값
+    private String skillList;
 	
+    private List<FreelancerSkillDTO> skills;
+
     //toString 오버라이드
 	@Override
 	public String toString() {
@@ -31,22 +33,22 @@ public class FreelancerDTO {
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
 				+ ", freelancer_introdution=" + freelancer_introdution + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
-				+ ", freelancer_update=" + freelancer_update + ", skills=" + skills + "]";
+				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills + "]";
 	}
 
-	public int getFreelancer_id() {
+	public Long getFreelancer_id() {
 		return freelancer_id;
 	}
 
-	public void setFreelancer_id(int freelancer_id) {
+	public void setFreelancer_id(Long freelancer_id) {
 		this.freelancer_id = freelancer_id;
 	}
 
-	public int getUser_id() {
+	public Long getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
 
@@ -130,13 +132,25 @@ public class FreelancerDTO {
 		this.freelancer_update = freelancer_update;
 	}
 
-	public List<String> getSkills() {
+	public String getSkillList() {
+		return skillList;
+	}
+
+	public void setSkillList(String skillList) {
+		this.skillList = skillList;
+	}
+
+	public List<FreelancerSkillDTO> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<String> skills) {
+	public void setSkills(List<FreelancerSkillDTO> skills) {
 		this.skills = skills;
 	}
+    
+
+
+
 	
 	
 	
