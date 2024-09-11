@@ -16,12 +16,14 @@ import com.teamproject.domain.FreelancerSkillDTO;
 
 @Repository
 public class FreelancerDAO {
-	public static final Logger logger = Logger.getLogger(ProjectDAO.class.getName());
+	public static final Logger logger = Logger.getLogger(FreelancerDAO.class.getName());
 	
 	//마이바티스 객체생성
 	@Autowired
 	private SqlSession sqlSession;
-	private static final String nameSpace="com.teamfreelancer.mapper.FreelancerMapper";
+	private final String nameSpace = "com.teamproject.mapper.FreelancerMapper.";
+	
+	
 	
     //프로젝트 전체 가져오기
     public List<FreelancerDTO> getFreelancer_all(FreelancerPageDTO freelancerPageDTO){
@@ -63,7 +65,7 @@ public class FreelancerDAO {
 		System.out.println("FreelancerDAO regist");
 		
 		
-		sqlSession.insert(nameSpace + ".resistFreelancer", freelancerDTO);
+		sqlSession.insert(nameSpace + "resistFreelancer", freelancerDTO);
 	}
 	
     //프로젝트 등록시 선택 스킬 freelancerSkill table 에 삽입

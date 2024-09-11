@@ -23,20 +23,20 @@
 	<jsp:include page="../include/heard.jsp"/>
 	
 	<!-- main content -->
-	<div class="container mb-4 mx-5 px-5 py-5" style="border:1px solid white; margin-top:100px; min-height: 100vh; width: 1100px; ">
+	<div class="container mb-4 mx-5 px-5 py-5" style="margin-top:100px; min-height: 100vh; width: 1100px; ">
 	
 	
 	
 		    		
 		<!-- 메인타이틀, 검색 -->
-		<div class="row px-4 py-4" style="border:1px solid white;">
+		<div class="row px-4 py-4" >
 		            <!-- 제목 -->
-		            <div class="col-md-6 title" onclick="location.href='${pageContext.request.contextPath}/freelancer_find?pageNum='">
+		            <div class="col-md title" onclick="location.href='${pageContext.request.contextPath}/freelancerFind?pageNum='">
 		                <div class="d-flex align-items-center">
 		                    <img class="float-start" 
-		                    	 src="${pageContext.request.contextPath}/resources/project/images/speaker.png" 
+		                    	 src="${pageContext.request.contextPath}/resources/freelancer/images/speaker.png" 
 		                    	 alt="speaker"/>
-		                    <h2 class="ms-2 mb-0">구인 중인 프로랜서</h2>
+		                    <h2 class="ms-2 mb-0">구인 중인 프리랜서</h2>
 		                </div>
 		            </div>
 		
@@ -51,18 +51,18 @@
 		                            style="width: 120px;"
 		                    >스킬 선택</button>
 		                    <ul class="dropdown-menu" aria-labelledby="skillMenuButton">
-		                        <c:forEach items="${projectSkillList}" var="skill">
-		                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/projectFind?skill=${skill.getSkill_id()}">${skill.getSkill_name()}</a></li>
+		                        <c:forEach items="${freelancerSkillList}" var="skill">
+		                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/freelancerFind?skill=${skill.getSkill_id()}">${skill.getSkill_name()}</a></li>
 		                        </c:forEach>
 		                    </ul>
 		                </div>
 		            </div>
 		            
 		            <div class="col-auto">
-		                <form action="${pageContext.request.contextPath}/projectFind" method="get" >
+		                <form action="${pageContext.request.contextPath}/freelancerFind" method="get" >
 		                    <div class="input-group" >
-		                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" autocomplete="off" />
-		                        <button type="submit" class="btn bg-primary" ><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
+		                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프리랜서 내용 검색" autocomplete="off" />
+		                        <button type="submit" class="btn bg-primary" ><img src="${pageContext.request.contextPath}/resources/freelancer/svg/search.svg" alt="Search" /></button>
 		                    </div>
 		                </form>
 		            </div>
@@ -76,70 +76,71 @@
 	    <div class="col-12 mt-4 mb-2 px-5">
 	        <div class="d-flex">
 	            <!-- 총 프리랜서 등록 개수 가져오기 -->
-	            <div class="ms-1 me-3">프로젝트 ${projectPageDTOList.getCount()} 개</div>
+	            <div class="ms-1 me-3">프리랜서 ${freelancerPageDTOList.getCount()} 명</div>
 	            <div class="me-4">|</div>
 	
 	            <!-- 정렬 방식 변경 -->
 	            <c:if test="${sortState == 0}">
-	                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
-	                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
+	                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/freelancerFind?sort=1">최신 순</a>
+	                <img src="${pageContext.request.contextPath}/resources/freelancer/svg/down.svg" alt="Sort"/>
 	            </c:if>
 	            <c:if test="${sortState == 1}">
-	                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
-	                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
+	                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/freelancerFind?sort=0">오래된 순</a>
+	                <img src="${pageContext.request.contextPath}/resources/freelancer/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
 	            </c:if>
 	        </div>
  			</div>
 	
-		<!-- Project Cards -->
+		<!-- Freelancer Cards -->
 	    <div class="row">
 	        <!-- 반복되는 프리랜서 카드 -->
-	        <c:forEach items="${projectDTOList}" var="projectDTO">
+	        <c:forEach items="${freelancerDTOList}" var="freelancerDTO">
 	            <div class="container mb-4 px-5">
 	            <div class="board_card card h-100 p-2" style="height: 200px">
+	            	
 	                <div class="card-body position-relative">
 	                    <!-- 현재 상태 -->
 	                    <!-- 모집중 일때 -->
-	                    <c:if test="${projectDTO.getPboard_state() == '모집중'}">
+	                    <c:if test="${freelancerDTO.getFreelancer_state() == '모집중'}">
 	                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
-	                                ${projectDTO.getPboard_state()}
+	                                ${freelancerDTO.getFreelancer_state()}
 	                        </span>
 	                    </c:if>
 	                    <!-- 진행중 일때 -->
-	                    <c:if test="${projectDTO.getPboard_state() == '진행중'}">
+	                    <c:if test="${freelancerDTO.getFreelancer_state() == '진행중'}">
 	                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-	                                ${projectDTO.getPboard_state()}
+	                                ${freelancerDTO.getFreelancer_state()}
 	                        </span>
 	                    </c:if>
 	                    <!-- 완료 일때 -->
-	                    <c:if test="${projectDTO.getPboard_state() == '완료'}">
+	                    <c:if test="${freelancerDTO.getFreelancer_state() == '완료'}">
 	                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-	                                ${projectDTO.getPboard_state()}
+	                                ${freelancerDTO.getFreelancer_state()}
 	                        </span>
 	                    </c:if>
 	
 	                    <!-- 이름 -->
-	                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead/${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
+	                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.getFreelancer_id()}">김*동(중간이름 *처리, user_info.user_name 필요)}</a>
 	
 	                    <!-- 필요 스킬 -->
 	                    <div class="d-flex mb-2">
 	                        <!-- 반복되는 스킬배지 -->
-	                        <c:forEach items="${projectDTO.getSkills()}" var="projectSkill">
-	                        <span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
+	                        <c:forEach items="${freelancerDTO.getSkills()}" var="freelancerSkill">
+	                        <span class="badge mb-1 me-2"># ${freelancerSkill.getSkill_name()}</span>
 	                        </c:forEach>
 	                    </div>
 	
-	                    <!-- 예상 금액 -->
-	                    <p class="col-auto card-text mb-1">예상 금액:  <fmt:formatNumber value="${projectDTO.getPboard_money()}" pattern="###,###,###"/>  만원</p>
+	                    <!-- 희망 급여 -->
+	                    <p class="col-auto card-text mb-1">희망 월급:  <fmt:formatNumber value="${freelancerDTO.getFreelancer_salary	()}" pattern="###,###,###"/>  만원</p>
 	
 	                    <div class="row d-flex">
-	                        <!-- 시작 예정일 -->
-	                        <p class="col-4 card-text mb-1">시작 예정일:
-	                            <fmt:parseDate value="${projectDTO.getPboard_startDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+	                        <!--업무 시작 가능 날짜 -->
+	                        <p class="col-4 card-text mb-1">업무 시작일:
+	                            <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
 	                            <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
 	                        </p>
 	                        <!-- 예상 기간 -->
-	                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
+<!-- 	                        <p class="col-3 card-text"></p> -->
 	                    </div>
 	                </div>
 	            </div>
@@ -148,7 +149,33 @@
 	        <!-- 반복 end -->
 	    </div>
 	
-	
+	    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${freelancerPageDTOList.startPage > freelancerPageDTOList.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/freelancerFind?pageNum=${freelancerPageDTOList.startPage - 10}"></a>
+            </li>
+            </c:if>
+
+            <c:forEach begin="${freelancerPageDTOList.startPage}" end="${freelancerPageDTOList.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/freelancerFind?pageNum=${page}">${page}</a>
+                </li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${freelancerPageDTOList.endPage < freelancerPageDTOList.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/freelancerFind?pageNum=${freelancerPageDTOList.endPage + 10}"></a>
+            </li>
+            </c:if>
+        </ul>
+    </nav>
 	
 	
 	
@@ -163,7 +190,7 @@
 	<!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
-<script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_reg.js"></script>
+
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
