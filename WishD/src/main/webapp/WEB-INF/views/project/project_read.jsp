@@ -143,13 +143,14 @@
                                        id="request_title"
                                        name="f_request_title"
                                        placeholder="한줄로 자신을 소개해 주세요."
-                                       autocomplete="off" />
+                                       autocomplete="off"
+                                       required />
                             </div>
 
                             <!-- 직무 선택(selected) -->
                             <div class="mb-4">
                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label>
-                                <select class="form-select bg-dark" id="request_jobGroup" name="f_request_job">
+                                <select class="form-select bg-dark" id="request_jobGroup" name="f_request_job" required>
                                     <option value="" disabled selected>직무를 선택하세요</option>
                                     <option value="1">앱 개발자</option>
                                     <option value="2">웹 개발자</option>
@@ -166,7 +167,8 @@
                                            id="request_job_history"
                                            name="f_request_history"
                                            placeholder="숫자"
-                                           autocomplete="off" />
+                                           autocomplete="off"
+                                           required />
                                 </div>
                                 <div class="col-4">년차</div>
                             </div>
@@ -183,18 +185,18 @@
                                 <div id="badge_container">
                                     <!--클릭시 베지 추가-->
                                 </div>
-                                <input type="hidden" name="skillList" id="skillList" />
+                                <input type="hidden" name="skillList" id="skillList" required/>
                             </div>
 
                             <!-- 프리랜서 경험 -->
                             <div class="mb-4">
                                 <label class="request_experience d-block mb-1">프리랜서 경험</label>
                                 <div class="form-check form-check-inline mx-3">
-                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" />
+                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" required />
                                     <label for="experience_true" class="form-check-label">있다</label>
                                 </div>
                                 <div class="form-check form-check-inline ms-3">
-                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" />
+                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" required />
                                     <label for="experience_false" class="form-check-label">없다</label>
                                 </div>
                             </div>
@@ -208,7 +210,8 @@
                                            id="money"
                                            name="f_request_money"
                                            placeholder="숫자입력"
-                                           autocomplete="off" />
+                                           autocomplete="off"
+                                           required />
                                 </div>
                                 <div class="col-2"> 만원</div>
                             </div>
@@ -216,7 +219,7 @@
                             <!-- 프로젝트 시작 가능일 -->
                             <div class="mb-4">
                                 <label for="request_startDate" class="mb-2">프로젝트 시작 가능일</label>
-                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate"/>
+                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate" required/>
                             </div>
 
                             <!-- 이력서 / 경력증명서 / 포토폴리오-->
@@ -229,14 +232,15 @@
                             <!-- 약관 동의 -->
                             <div class="mb-4 pt-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="true" id="agree_1" />
+                                    <input class="form-check-input" type="checkbox" value="true" id="agree_1" required />
                                     <label class="form-check-label" for="agree_1"> [필수] 이용약관 동의합니다. </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="true" id="agree_2" />
+                                    <input class="form-check-input" type="checkbox" value="true" id="agree_2" required />
                                     <label class="form-check-label" for="agree_2"> [필수] 개인 정보 제 3자 제공 동의 </label>
                                 </div>
                             </div>
+
                             <div class="card">
                                 <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
                             </div>
@@ -244,12 +248,26 @@
                         <!-- 폼 end -->
                     </div>
 
-                    <!-- 등록버튼 확인 모달창 -->
-                    <div class="modal fade mt-5" id="inputAlert" tabindex="-1"  aria-hidden="true">
+                    <!-- 성공 시 모달창 -->
+                    <div class="modal fade mt-5" id="inputAlert_true" tabindex="-1"  aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="agreeTitle">모두 작성해 주세요.</h1>
+                                    <h1 class="modal-title fs-6" id="agreeTitle">성공적으로 제출하였습니다.</h1>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 실패 시 모달창 -->
+                    <div class="modal fade mt-5" id="inputAlert_false" tabindex="-1"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-primary ps-2 pt-2">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-6" id="disagreeTitle">모두 작성해 주세요.</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -291,7 +309,7 @@
     $(document).ready(function() {
         $('#projectReadForm').on('submit', function(event) {
             event.preventDefault(); // 폼의 기본 제출 동작을 방지
-
+            const form = $(this);
             //name 있는 모든 폼 데이터 가져와서 직렬화
             let formData = $(this).serializeArray();
             console.log(formData);
@@ -302,20 +320,31 @@
                 type: 'POST', //post 방식
                 data: formData,
                 success: function(response) {
-                    if (response){
+                    if (response) {
                         // 성공적으로 데이터가 제출되었을 때의 처리
-                        alert('폼이 성공적으로 제출되었습니다.');
-                        $(this).find('input, textarea, select').prop('readonly', true);
-                        // select는 disabled로 처리
-                        $(this).find('select').prop('disabled', true);
+                        let trueModal = new bootstrap.Modal(document.getElementById('inputAlert_true'), {
+                            keyboard: false
+                        });
+                        trueModal.show();
+                        //현재 성공적으로 제출되었을때 승인 대기중이므로 disabled 처리
+                        form.find('input, select').prop('disabled', true);
+                        // form.find('select').prop('disabled', true);
+                        form.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
+                        //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
+                        $('#badge_container .badge').addClass('disabled');
+
+                        //버튼 비활성화
+                        let agree_button = $('#agree_button');
+                        agree_button.prop('disabled', true);
+                        agree_button.text("승인 대기중");
                     }
                 },
                 error: function(xhr, status, error) {
                     // 오류 발생 시 처리
-                    let myModal = new bootstrap.Modal(document.getElementById('inputAlert'), {
+                    let falseModal = new bootstrap.Modal(document.getElementById('inputAlert_false'), {
                         keyboard: false
                     });
-                    myModal.show();
+                    falseModal.show();
                 }
             });
         });

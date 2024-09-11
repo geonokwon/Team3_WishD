@@ -30,9 +30,11 @@ if (selectElement){
             badge.dataset.skillId = selectValue;
 
             // 배지 클릭 시 삭제 기능 추가
-            badge.addEventListener("click", function () {
-                badge.remove();
-                updateHiddenInput();
+            badge.addEventListener("click", () => {
+                if (!badge.classList.contains('disabled')){
+                    badge.remove();
+                    updateHiddenInput();
+                }
             });
 
             badgeContainer.appendChild(badge);
