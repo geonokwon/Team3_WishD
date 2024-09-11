@@ -30,9 +30,11 @@ if (selectElement){
             badge.dataset.skillId = selectValue;
 
             // 배지 클릭 시 삭제 기능 추가
-            badge.addEventListener("click", function () {
-                badge.remove();
-                updateHiddenInput();
+            badge.addEventListener("click", () => {
+                if (!badge.classList.contains('disabled')){
+                    badge.remove();
+                    updateHiddenInput();
+                }
             });
 
             badgeContainer.appendChild(badge);
@@ -177,7 +179,7 @@ if (matching_button){
 
 //project_write 부분 (유효성 검사부분)
 const projectWrite = document.getElementById("projectWrite");
-const projectRead = document.getElementById("projectRead");
+const projectRead = document.getElementById("projectReadForm");
 if (projectWrite || projectRead) {
     // 스킬 선택은 제외한 모든 input, textarea, select 요소 선택 (select#skill 제외)
     let elements = document.querySelectorAll("input, textarea, select");
