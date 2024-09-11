@@ -1,11 +1,16 @@
 package com.teamproject.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.teamproject.domain.MemberDTO;
+import com.teamproject.domain.MyProjectDTO;
+import com.teamproject.domain.MyProjectPageDTO;
+import com.teamproject.domain.ProjectSkillDTO;
 
 @Repository
 public class MyPageDAO {
@@ -30,6 +35,26 @@ public class MyPageDAO {
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MyPageDAO - updateMember()");
 		sqlSession.update(namespace + ".updateMember", memberDTO);
+	}
+	
+//	public List<MyProjectDTO> getMyProject(MemberDTO memberDTO) {
+//		System.out.println("MyPageDAO - getMyProject()");
+//		return sqlSession.selectList(namespace + ".getMyProject", memberDTO);
+//	}
+	
+	public List<ProjectSkillDTO> getMyProjectSkillList(Long pboard_id) {
+		return sqlSession.selectList(namespace + ".getMyProjectSkillList", pboard_id);
+	}
+	public List<MyProjectDTO> getMyProject(MyProjectPageDTO pageDTO) {
+		return sqlSession.selectList(namespace + ".getMyProject", pageDTO);
+	}
+	
+	public int getProjectCount(int user_no) {
+		return sqlSession.selectOne(namespace + ".getProjectCount", user_no);
+	}
+	
+	public MyProjectDTO getProjectForUpdate(int projectPageNum) {
+		return sqlSession.selectOne(namespace + ".getProjectForUpdate", projectPageNum);
 	}
 
 	

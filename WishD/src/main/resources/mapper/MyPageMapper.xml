@@ -5,7 +5,7 @@
   
 <mapper namespace="com.teamproject.mapper.MyPageMapper">
 	
-	<!-- 일반유저 가져오기 -->
+	<!-- 일반유저의 user_no 가져오기 -->
 	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO">
 		SELECT *
 		FROM user_info
@@ -13,7 +13,7 @@
 		WHERE user.user_id = #{user_id}
 	</select>
 	
-	<!-- 간편회원 가져오기 -->
+	<!-- 간편회원의 user_no 가져오기 -->
 	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join simple_user
 		on user_info.user_no = simple_user.user_no
@@ -30,16 +30,50 @@
 	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
-		select * from user_info join user
-		on user_info.user_no = user.user_no
-		where user_info.user_no = #{user_no} and user.user_pass = #{user_pass}
+		SELECT * 
+		FROM user_info 
+		JOIN user ON user_info.user_no = user.user_no
+		WHERE user_info.user_no = #{user_no} 
+		AND user.user_pass = #{user_pass};
 	</select>
-	
+		
 	<update id="updateMember">
-		update user_info
-		set user_pass = #{user_pass}
-		where user_no = #{user_no}
+		update user set user_phone = #{user_phone}
+		WHERE user_id = #{user_id}
 	</update>
 	
-  
+	<!-- 내프로젝트 가져오기 -->
+<!--   	<select id="getMyProject" resultType="com.teamproject.domain.MyProjectDTO"> -->
+<!--   		select * from project_board join user_info -->
+<!--   		on project_board.user_id = user_info.user_no -->
+<!--   		where user_info.user_no = #{user_no} -->
+<!--   	</select> -->
+  	<select id="getMyProject" resultType="com.teamproject.domain.MyProjectDTO">
+  		select * from project_board 
+  		where user_id = #{user_no}
+  		limit #{startRow}, #{endRow}
+<!--   		select * from project_board join user_info -->
+<!--   		on project_board.user_id = user_info.user_no -->
+<!--   		where user_info.user_no = #{user_no} -->
+<!--   		limit #{startRow}, #{pageSize} -->
+  	</select>
+  	
+  	<select id="getMyProjectSkillList" resultType="com.teamproject.domain.ProjectSkillDTO">
+  		SELECT s.*
+        FROM project_skill ps JOIN skills s
+        ON ps.skill_id = s.skill_id
+        WHERE ps.pboard_id = #{pboard_id}
+	</select>
+	
+	<select id="getProjectCount" resultType="int">
+  		select count(*)
+  		from project_board where user_id = #{user_no}
+	</select>
+	
+	<!-- 수정을 위해 프로젝트 하나만 가져오기 -->
+	<select id="getProjectForUpdate" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from project_board
+		where pboard_id = #{projectPageNum}
+	</select>
+	
 </mapper>

@@ -89,58 +89,89 @@
                 <!-- 프리랜서 글 내용 -->
                 <div class="tab-content active" id="freelance-content">
                     <div>
-                        <p>프리랜서 글 내용</p>
-                        <p>프리랜서 글 내용2</p>
+                    <!-- 프로젝트 카드 -->
+	    
+	    
                     </div>
+                    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?freelancePageNum=${myProjectPageDTO.startPage - 10}"></a>
+            </li>
+            </c:if>
+
+            <c:forEach begin="${myProjectPageDTO.startPage}" end="${myProjectPageDTO.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/mypage?freelancepageNum=${page}">${page}</a>
+                </li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?freelancePageNum=${myProjectPageDTO.endPage + 10}"></a>
+            </li>
+            </c:if>
+        </ul>
+    </nav>
                 </div>
                 <!-- 프리랜서 글 끝 -->
                 
                 <!-- 프로젝트 글 내용 -->
                 <div class="tab-content" id="project-content">
-                    <!-- 반복되는 프로젝트 카드 -->
+                    <!-- 프로젝트 카드 -->
                     <div>
-                    <c:forEach items="${projectDTOList}" var="projectDTO">
+                    <c:forEach items="${myProjectDTOList}" var="myprojectDTO">
                         <div class="container mb-4 px-5">
                             <div class="card h-100 p-2" style="height: 200px">
                                 <div class="card-body position-relative">
-                                    <!-- 현재 상태 -->
                                     <!-- 모집중 일때 -->
-                                    <c:if test="${projectDTO.getPboard_state() == '모집중'}">
+                                    <c:if test="${myprojectDTO.pboard_state == '모집중'}">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
-                                            ${projectDTO.getPboard_state()}
+                                            ${myprojectDTO.pboard_state}
                                         </span>
                                     </c:if>
                                     
                                     <!-- 진행중 일때 -->
-                                    <c:if test="${projectDTO.getPboard_state() == '진행중'}">
+                                    <c:if test="${myprojectDTO.pboard_state == '진행중'}">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                            ${projectDTO.getPboard_state()}
+                                            ${myprojectDTO.pboard_state}
                                         </span>
                                     </c:if>
                                     
                                     <!-- 완료 일때 -->
-                                    <c:if test="${projectDTO.getPboard_state() == '완료'}">
+                                    <c:if test="${myprojectDTO.pboard_state == '완료'}">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                            ${projectDTO.getPboard_state()}
+                                            ${myprojectDTO.pboard_state}
                                         </span>
                                     </c:if>
-
+									
                                     <!-- 타이틀 -->
-                                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead?${projectDTO.getPboard_id()}">${projectDTO.getPboard_title()}</a>
+                                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/projectRead/${myprojectDTO.pboard_id }">${myprojectDTO.pboard_title}</a>
+                                    
                                     <!-- 필요 스킬 -->
                                     <div class="d-flex mb-2">
                                         <!-- 반복되는 스킬배지 -->
-                                        <c:forEach items="${projectDTO.getSkills()}" var="projectSkill">
-                                            <span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
+                                        <c:forEach items="${myprojectDTO.skills}" var="myProjectSkillList">
+                                            <span class="badge mb-1 me-2"># ${myProjectSkillList.skill_name}</span>
                                         </c:forEach>
                                     </div>
+                                    
                                     <!-- 예상 금액 -->
-                                    <p class="col-auto card-text mb-1">예상 금액: ${projectDTO.getPboard_money()} 만원</p>
+                                    <p class="col-auto card-text mb-1">예상 금액: ${myprojectDTO.pboard_money} 만원</p>
                                     <div class="row d-flex">
                                         <!-- 시작 예정일 -->
-                                        <p class="col-4 card-text mb-1">시작 예정일: <fmt:formatDate value="${projectDTO.getPboard_startDate()}" pattern="yyyy년 MM월 dd일" /> </p>
+                                        <p class="col-4 card-text mb-1">시작 예정일: <fmt:formatDate value="${myprojectDTO.pboard_startDate}" pattern="yyyy년 MM월 dd일" /> </p>
                                         <!-- 예상 기간 -->
-                                        <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
+                                        <p class="col-3 card-text">예상 기간: ${myprojectDTO.pboard_rangeMonth} 개월</p>
+                                        <button class="btn btn-primary ms-3"
+                                        		onclick="location.href='${pageContext.request.contextPath}/mypage/myprojectupdate?projectPageNum=${myprojectDTO.pboard_id}'"
+                                        		style="width:auto; justify-content: flex-end;">글수정</button>
                                     </div>
                                 </div>
                             </div>
@@ -148,32 +179,113 @@
                     </c:forEach>
                     </div>
                     <!-- 반복 end -->
-                </div>
-                <nav aria-label="Page navigation">
+                    <!-- Pagination -->
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <!-- 10칸씩 뒤로 이동 버튼 -->
-            <c:if test="${projectPageDTOList.startPage > projectPageDTOList.pageBlock}">
-            <li class="page-item">
-                <a class="page-link" href="${pageContext.request.contextPath}/mypage?pageNum=${projectPageDTOList.startPage - 10}"></a>
+            <c:if test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?pageNum=${myProjectPageDTO.startPage - 10}"></a>
             </li>
             </c:if>
 
-            <c:forEach begin="${projectPageDTOList.startPage}" end="${projectPageDTOList.endPage}" var="page">
-                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/mypage?pageNum=${page}">${page}</a></li>
+            <c:forEach begin="${myProjectPageDTO.startPage}" end="${myProjectPageDTO.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/mypage?pageNum=${page}">${page}</a>
+                </li>
             </c:forEach>
 
             <!-- 10칸씩 앞으로 이동 -->
-            <c:if test="${projectPageDTOList.endPage < projectPageDTOList.pageCount}">
-            <li class="page-item">
-                <a class="page-link" href="${pageContext.request.contextPath}/mypage?pageNum=${projectPageDTOList.endPage + 10}"></a>
+            <c:if test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?pageNum=${myProjectPageDTO.endPage + 10}"></a>
             </li>
             </c:if>
         </ul>
     </nav>
+                </div>
+                
                 <!-- QnA 내용 -->
                 <div class="tab-content" id="qna-content">
                     <div>
-                        <p>qna</p>
+                        <div class="d-flex justify-content-center my-3">
+            
+            <!-- 큐앤에이 게시판  -->
+            <div class="col-8 text-center card bg-primary">
+                <table class="table">
+                  <thead>
+                     <tr>
+                      <p class="text-start my-4 mx-4 fs-5 fw-bold lh-1" style="color: #fff;">Q & A</p>
+                        <th scope="col fw-bold">No.</th>
+                        <th scope="col fw-bold">제목</th>
+                        <th scope="col fw-bold">작성일자</th>
+                      </tr>
+                    </thead>
+                    <tr>
+                        <th scope="row" class="align-middle" style="height: 80px;">1</th>
+                        <td class="align-middle">문의드립니다 (승인요청건)</td>
+                        <td class="align-middle">2024-02-06</td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle" style="height: 80px;">2</th>
+                        <td class="align-middle">문의드립니다 (승인요청건)</td>
+                        <td class="align-middle">2024-02-06</td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle" style="height: 80px;">3</th>
+                        <td class="align-middle">문의드립니다 (승인요청건)</td>
+                        <td class="align-middle">2024-02-06</td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle" style="height: 80px;">4</th>
+                        <td class="align-middle">문의드립니다 (승인요청건)</td>
+                        <td class="align-middle">2024-02-06</td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle" style="height: 80px;">5</th>
+                        <td class="align-middle">문의드립니다 (승인요청건)</td>
+                        <td class="align-middle">2024-02-06</td>
+                    
+                    </tr>
+                   
+                  </table>
+                  <!--페이지-->
+                  <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.startPage - 10}"></a>
+            </li>
+            </c:if>
+
+            <c:forEach begin="${myProjectPageDTO.startPage}" end="${myProjectPageDTO.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/mypage?qnaPageNum=${page}">${page}</a>
+                </li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.endPage + 10}"></a>
+            </li>
+            </c:if>
+        </ul>
+    </nav>
+                 
+            </div>
+        </div>
                     </div>
                 </div>
             </div>
@@ -226,26 +338,26 @@
                 let tabData = tab.getAttribute("data-tab");
 
                 updateTabs(index);
-                loadContent(tabData, index);
+//                 loadContent(tabData, index);
             });
         });
 
-        function loadContent(tabData, tabIndex) {
-            // 이 함수는 서버에서 데이터를 로드하거나 DOM을 업데이트하는 데 사용됩니다.
-            // 예를 들어, AJAX 요청을 통해 탭 콘텐츠를 가져오고 처리합니다.
+//         function loadContent(tabData, tabIndex) {
+//             // 이 함수는 서버에서 데이터를 로드하거나 DOM을 업데이트하는 데 사용됩니다.
+//             // 예를 들어, AJAX 요청을 통해 탭 콘텐츠를 가져오고 처리합니다.
 
-            // AJAX 요청의 예 (fetch를 사용하는 경우):
-            fetch(`/path/to/your/content/${tabData}`)
-                .then(response => response.text())
-                .then(data => {
-                    // 탭 콘텐츠를 업데이트
-                    document.getElementById(`${tabData}-content`).innerHTML = data;
+//             // AJAX 요청의 예 (fetch를 사용하는 경우):
+//             fetch(`/path/to/your/content/${tabData}`)
+//                 .then(response => response.text())
+//                 .then(data => {
+//                     // 탭 콘텐츠를 업데이트
+//                     document.getElementById(`${tabData}-content`).innerHTML = data;
 
-                    // 콘텐츠 로드 후 높이 조정
-                    updateTabs(tabIndex);
-                })
-                .catch(error => console.error('Error loading content:', error));
-        }
+//                     // 콘텐츠 로드 후 높이 조정
+//                     updateTabs(tabIndex);
+//                 })
+//                 .catch(error => console.error('Error loading content:', error));
+//         }
 
         // 정보수정 버튼 클릭 이벤트
         document.getElementById("member_update_btn").addEventListener("click", function(event) {
