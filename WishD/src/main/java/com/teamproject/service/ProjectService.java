@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
     public static final Logger logger = Logger.getLogger(ProjectService.class.getName());
+
     @Resource(name = "uploadPath")
     private String uploadPath;
-
 
     @Autowired
     private ProjectDAO projectDAO;
@@ -95,10 +95,28 @@ public class ProjectService {
         personalFileCopyUtils.fileCopy(projectRequestFileDTO, projectRequestDTO.getPboard_id(), projectRequestDTO.getF_request_id());
         projectDAO.insetProjectRequestFile(projectRequestFileDTO);
 
+    }
 
+
+
+    //진행중인 board 가 있다면 request form의 값을 가져오기
+    public ProjectRequestDTO getRequestFreelancer(Long pboardId) {
+        ProjectRequestDTO projectRequestDTO = projectDAO.getRequestFreelancer(pboardId);
+        projectRequestDTO.setSkills(projectDAO.getRequestSkill(projectRequestDTO.getPboard_id()));
+        return projectRequestDTO;
+    }
+
+    public ProjectRequestFileDTO getProjectRequestFile(Long pboard_id) {
+        logger.info("-> getProjectRequestFile()");
+        return projectDAO.getProjectRequestFile(pboard_id);
 
     }
 
+
+
+
+
+//============================================================================================================
     //skillList String -> List  형태로 반환하는 메서드
     public List<Integer> getSkillList(String str_skillList){
         logger.info("-> getSkillList()");
@@ -108,4 +126,6 @@ public class ProjectService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
+
 }

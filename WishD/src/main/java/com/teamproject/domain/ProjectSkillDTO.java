@@ -5,6 +5,19 @@ public class ProjectSkillDTO {
     private String skill_name;
 
     private int pboard_id;
+    private int f_request_id;
+
+
+
+
+
+    public int getF_request_id() {
+        return f_request_id;
+    }
+
+    public void setF_request_id(int f_request_id) {
+        this.f_request_id = f_request_id;
+    }
 
     public int getPboard_id() {
         return pboard_id;

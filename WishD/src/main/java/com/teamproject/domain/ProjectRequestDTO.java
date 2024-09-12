@@ -1,5 +1,7 @@
 package com.teamproject.domain;
 
+import java.util.List;
+
 public class ProjectRequestDTO {
     private Long f_request_id;
     private Long user_no;
@@ -11,10 +13,24 @@ public class ProjectRequestDTO {
     private Long f_request_money;
     private String f_request_startDate;
     private String f_request_date;
-    private String skillList;
+    private boolean f_request_isAgree;
 
-    //파일 업로드 부분
-    private String file;
+
+
+
+    private String skillList;
+    private List<ProjectSkillDTO> skills;
+
+
+
+
+    public List<ProjectSkillDTO> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<ProjectSkillDTO> skills) {
+        this.skills = skills;
+    }
 
     public Long getF_request_id() {
         return f_request_id;
@@ -72,7 +88,7 @@ public class ProjectRequestDTO {
         this.f_request_history = f_request_history;
     }
 
-    public boolean isF_request_exp() {
+    public boolean getF_request_exp() {
         return f_request_exp;
     }
 
@@ -104,20 +120,31 @@ public class ProjectRequestDTO {
         this.f_request_date = f_request_date;
     }
 
+    public boolean getF_request_isAgree() {
+        return f_request_isAgree;
+    }
+
+    public void setF_request_isAgree(boolean f_request_isAgree) {
+        this.f_request_isAgree = f_request_isAgree;
+    }
+
 
     @Override
     public String toString() {
         return "ProjectRequestDTO{" +
-                "user_no=" + user_no +
+                "f_request_id=" + f_request_id +
+                ", user_no=" + user_no +
                 ", pboard_id=" + pboard_id +
                 ", f_request_title='" + f_request_title + '\'' +
-                ", f_request_job=" + job_id +
+                ", job_id=" + job_id +
                 ", f_request_history=" + f_request_history +
                 ", f_request_exp=" + f_request_exp +
                 ", f_request_money=" + f_request_money +
                 ", f_request_startDate='" + f_request_startDate + '\'' +
                 ", f_request_date='" + f_request_date + '\'' +
+                ", f_request_isAgree=" + f_request_isAgree +
                 ", skillList='" + skillList + '\'' +
+                ", skills=" + skills +
                 '}';
     }
 }

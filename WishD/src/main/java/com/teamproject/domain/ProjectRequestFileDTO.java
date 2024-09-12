@@ -3,12 +3,25 @@ package com.teamproject.domain;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProjectRequestFileDTO {
+    private String fileOriginName;
+
     private Long f_request_id;
     private Long pboard_id;
     private String p_file_name;
     private String p_file_path;
 
     private MultipartFile file;
+
+
+
+    public String getFileOriginName() {
+        return fileOriginName;
+    }
+
+    public void setFileOriginName(String fileOriginName) {
+        this.fileOriginName = fileOriginName;
+    }
+
 
     public Long getF_request_id() {
         return f_request_id;
@@ -58,6 +71,7 @@ public class ProjectRequestFileDTO {
                 ", p_file_name='" + p_file_name + '\'' +
                 ", p_file_path='" + p_file_path + '\'' +
                 ", file=" + file +
+                ". FileOriginName='" + fileOriginName + '\'' +
                 '}';
     }
 }

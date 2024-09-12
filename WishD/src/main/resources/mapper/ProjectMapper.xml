@@ -8,10 +8,10 @@
     <!-- 프로젝트 등록 start -->
     <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
-        INSERT INTO project_board (user_id, pboard_title, pboard_content,
+        INSERT INTO project_board (user_no, pboard_title, pboard_content,
                                    pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
         VALUES (
-            1,
+            2,
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
             #{pboard_rangeMonth}, #{pboard_job}
@@ -136,9 +136,29 @@
 
     <!-- 승인요청시 Project_request_files 테이블 file 정보 추가 -->
     <insert id="insetProjectRequestFile">
-        INSERT INTO project_request_files (f_request_id, pboard_id, p_file_name, p_file_path)
-        VALUES (#{f_request_id}, #{pboard_id}, #{p_file_name}, #{p_file_path});
+        INSERT INTO project_request_files (f_request_id, pboard_id, p_file_name, p_file_path , fileOriginName)
+        VALUES (#{f_request_id}, #{pboard_id}, #{p_file_name}, #{p_file_path}, #{fileOriginName});
     </insert>
+
+    <!-- 승인요청한 유저가 다시 페이지로 돌아왔을시 요청중이기 때문에 값을 불러와서 form에 뿌려주기 위한 select -->
+    <select id="getRequestFreelancer" resultType="com.teamproject.domain.ProjectRequestDTO">
+        SELECT *
+        FROM request_freelancer
+        WHERE pboard_id = #{pboard_id};
+    </select>
+    <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
+    <select id="getRequestSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT s.*
+        FROM request_skill ps JOIN skills s
+        ON ps.f_request_id = s.skill_id
+        WHERE ps.f_request_id = #{pboard_id};
+    </select>
+    <!-- project_request_file -->
+    <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
+        SELECT *
+        FROM project_request_files
+        WHERE pboard_id = #{pboard_id};
+    </select>
 
 
 </mapper>

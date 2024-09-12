@@ -7,7 +7,7 @@ import java.util.List;
 public class ProjectDTO {
 
     private Long pboard_id;
-    private Long user_id;
+    private Long user_no;
     private String pboard_title;
     private String pboard_content;
     private int pboard_money;
@@ -41,12 +41,12 @@ public class ProjectDTO {
         this.pboard_id = pboard_id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Long user_id) {
+        this.user_no = user_id;
     }
 
     public String getPboard_title() {
@@ -132,7 +132,7 @@ public class ProjectDTO {
     public String toString() {
         return "ProjectDTO{" +
                 "pboard_id=" + pboard_id +
-                ", user_id=" + user_id +
+                ", user_no=" + user_no +
                 ", pboard_title='" + pboard_title + '\'' +
                 ", pboard_content='" + pboard_content + '\'' +
                 ", pboard_money=" + pboard_money +
