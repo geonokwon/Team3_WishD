@@ -17,22 +17,6 @@ public class MemberDTO {
 	private String user_pass;
 	private String user_phone;
 	
-	// 마이페이지에서 필요한 변수
-	private String search;
-	private String projectStatus;
-	
-	public String getProjectStatus() {
-		return projectStatus;
-	}
-	public void setProjectStatus(String projectStatus) {
-		this.projectStatus = projectStatus;
-	}
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
 	public int getUser_no() {
 		return user_no;
 	}
