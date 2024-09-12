@@ -40,37 +40,57 @@ public class MyPageController {
 		
 		
 		
-		// ======= 프로젝트 글 페이지네이션과 같이 내가 쓴글가져오기 시작 ========
+		// ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 시작 ========
 		// 파라미터값 projectPageNum 없으면 => 1페이지로 설정
 		String projectPageNum = request.getParameter("projectPageNum");
 		if(projectPageNum == null) {
 			projectPageNum = "1";
 		}
 		
+		
+		
 		int pageNumToInt = Integer.parseInt(projectPageNum);
 		System.out.println("pageNumToInt :" + pageNumToInt);
 				
 		//한 화면에 보여줄 글 개수 설정
         int pageSize = 5;
-        //한 화면에 보여줄 페이지 개수 10 설정
+        //한 화면에 보여줄 페이지 개수 5 설정
         int pageBlock = 5;
 
         //PageDTO 객체 생성
         MyProjectPageDTO myProjectPageDTO = new MyProjectPageDTO();
         
         String search = request.getParameter("search");
+        
+     	
         //검색어 파라미터 넣기
+        
      	if(search != null) {
      		myProjectPageDTO.setSearch(request.getParameter("search"));
      		System.out.println("search : " + request.getAttribute("search"));
      	}
-       
-        // 내프로젝트글 개수 가져오기
      	
+     	// 프로젝트 글상태 필터를 위해 글상태 저장
+     	String projectStatus = request.getParameter("projectStatus");
+     	System.out.println("파라미터로 넘어왔을때 projectStatus: " + projectStatus);
+     	if(projectStatus == "모집중") {
+         	myProjectPageDTO.setProjectStatus(projectStatus);
+         	System.out.println("projectStatus 파라미터가 있을때 : " + projectStatus);
+     	}
+     	else if(projectStatus == ""){ // 공백제거
+     		projectStatus = null;
+     		System.out.println("projectStatus 파라미터가 공백일때 : " + projectStatus);
+     	}
+     	
+        // 내프로젝트글 개수 가져오기
      	// 검색어에 따른 프로젝트 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
-     	// getMyProject 안에서 유저넘버와 글넘버를 이용해 개수를 가져와서 set을 할지 결정해야함
+     	// getProjectCount에서 검색어를 안넘겨서 카운트가 비정상 작동
      	myProjectPageDTO.setUser_no(memberDTO.getUser_no());
-        myProjectPageDTO.setCount(myPageService.getProjectCount(memberDTO.getUser_no()));
+     	memberDTO.setSearch(search);
+     	myProjectPageDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+     	// 프로젝트 글 상태도 넘겨야함
+     	memberDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+        myProjectPageDTO.setCount(myPageService.getProjectCount(memberDTO));
         System.out.println("getCount : " + myProjectPageDTO.getCount());
         myProjectPageDTO.setCurrentPage(pageNumToInt);
         myProjectPageDTO.setPageSize(pageSize);
@@ -114,13 +134,12 @@ public class MyPageController {
         model.addAttribute("myProjectPageDTO", myProjectPageDTO);
         model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
         System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
-  	    // ======= 프로젝트 글 페이지네이션과 같이 내가 쓴글가져오기 끝 ===========
-        
+  	    // ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 끝 ===========
         
         String qnaPageNum = request.getParameter("qnaPageNum");
 		if(qnaPageNum == null) {
 			qnaPageNum = "1";
-		}	
+		}
         
 		
 		return "mypage/mypage";
@@ -149,6 +168,8 @@ public class MyPageController {
 	@GetMapping("mypage/myprojectupdate")
 	public String myProjectUpdate(HttpServletRequest request, Model model) {
 //		System.out.println("myProjectUpdate request.getParameter("projectPageNum") : " + request.getParameter("projectPageNum"));
+		System.out.println("myprojectupdate - myprojectupdate");
+		
 		
 		MyProjectDTO myProjectDTO = myPageService.getProjectForUpdate(Integer.parseInt(request.getParameter("projectPageNum")));
 		System.out.println("myProjectDTO : " + myProjectDTO);

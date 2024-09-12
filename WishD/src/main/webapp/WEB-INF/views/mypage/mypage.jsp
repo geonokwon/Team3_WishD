@@ -149,6 +149,19 @@
                     </div>
                 </form>
             </div>
+            <div class="me-4"> </div>
+            <!-- 모집중, 진행중, 완료 필터 -->
+            <form action="${pageContext.request.contextPath}/mypage?projectStatus=모집중" method="get">
+            	<button type="submit" class="btn bg-primary" name="projectStatus" value="모집중">모집중</button>
+            </form>
+            <div class="me-4"> </div>
+            <form action="${pageContext.request.contextPath}/mypage?projectStatus=진행중" method="get">
+            	<button type="submit" class="btn bg-primary" name="projectStatus" value="진행중">진행중</button>
+            </form>
+            <div class="me-4"> </div>
+            <form action="${pageContext.request.contextPath}/mypage?projectStatus=완료" method="get">
+            	<button type="submit" class="btn bg-primary" name="projectStatus" value="완료">완료</button>
+            </form>
         </div>
     </div> 	
                     <c:forEach items="${myProjectDTOList}" var="myprojectDTO">
@@ -207,17 +220,17 @@
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <!-- 10칸씩 뒤로 이동 버튼 -->
-            <c:if test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+            <c:if test="${myProjectPageDTO.startPage > pageBlock}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectPageNum?pageNum=${myProjectPageDTO.startPage - 10}"></a>
+                   href="${pageContext.request.contextPath}/projectPageNum?pageNum=${myProjectPageDTO.startPage - 10}&search=${param.search}&projectStatus=${param.projectStatus}"></a>
             </li>
             </c:if>
 
             <c:forEach begin="${myProjectPageDTO.startPage}" end="${myProjectPageDTO.endPage}" var="page">
                 <li class="page-item">
                     <a class="page-link"
-                       href="${pageContext.request.contextPath}/mypage?projectPageNum=${page}">${page}</a>
+                       href="${pageContext.request.contextPath}/mypage?projectPageNum=${page}&search=${param.search}&projectStatus=${param.projectStatus}">${page}</a>
                 </li>
             </c:forEach>
 
@@ -225,7 +238,7 @@
             <c:if test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/mypage?projectPageNum=${myProjectPageDTO.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/mypage?projectPageNum=${myProjectPageDTO.endPage + 10}&search=${param.search}&projectStatus=${param.projectStatus}"></a>
             </li>
             </c:if>
         </ul>

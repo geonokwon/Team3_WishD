@@ -49,8 +49,8 @@ public class MyPageDAO {
 		return sqlSession.selectList(namespace + ".getMyProject", pageDTO);
 	}
 	
-	public int getProjectCount(int user_no) {
-		return sqlSession.selectOne(namespace + ".getProjectCount", user_no);
+	public int getProjectCount(MemberDTO memberDTO) {
+		return sqlSession.selectOne(namespace + ".getProjectCount", memberDTO);
 	}
 	
 	public MyProjectDTO getProjectForUpdate(int projectPageNum) {

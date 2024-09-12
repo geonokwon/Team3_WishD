@@ -19,11 +19,21 @@ public class MyProjectPageDTO {
     private String search;
     //스킬 id
     private Integer skill_id;
-    
+    //프로젝트 글상태
+    private String projectStatus;
     // 내가쓴글 가져오는 용도
     private int user_no;
     
-    public int getUser_no() {
+    
+    public String getProjectStatus() {
+		return projectStatus;
+	}
+
+	public void setProjectStatus(String projectStatus) {
+		this.projectStatus = projectStatus;
+	}
+
+	public int getUser_no() {
 		return user_no;
 	}
 

@@ -20,15 +20,6 @@
 		where access_Token = #{access_Token}
 	</select>
 	
-	<!-- 테이블이 비어있으면 리턴값이 없어 쿼리 수정 -->
-	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
-		SELECT *
-		FROM user_info
-		LEFT JOIN simple_user ON user_info.user_no = simple_user.user_no
-		JOIN user ON user_info.user_no = user.user_no
-		WHERE user_info.user_no = #{user_no};
-	</select>
-	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		SELECT * 
 		FROM user_info 
@@ -54,6 +45,9 @@
         	<if test="search != null">
         	and pboard_title LIKE CONCAT('%', #{search}, '%')
         	</if>
+        	<if test="projectStatus != null">
+        	and pboard_state = #{projectStatus}
+        	</if>
         	limit #{startRow}, #{endRow};
 			
 <!--   		select * from project_board  -->
@@ -73,13 +67,18 @@
         WHERE ps.pboard_id = #{pboard_id}
 	</select>
 	
+	<!-- 내 프로젝트글개수 가져오기, 검색어 있으면 검색결과 글개수 반환 -->
 	<select id="getProjectCount" resultType="int">
   		select count(*)
   		from project_board
   		where user_id = #{user_no}
   		<if test="search != null">
-        AND pboard_title LIKE CONCAT('%', '#{search}', '%')
+        AND pboard_title
+        LIKE CONCAT('%', #{search}, '%')
     	</if>
+    	<if test="projectStatus != null">
+        and pboard_state = #{projectStatus}
+        </if>
 	</select>
 	
 	<!-- 수정을 위해 프로젝트 하나만 가져오기 -->

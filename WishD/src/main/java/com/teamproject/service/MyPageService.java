@@ -54,8 +54,8 @@ public class MyPageService {
 		return myProjectList;
 	}
 	
-	public int getProjectCount(int user_no) {
-		return myPageDAO.getProjectCount(user_no);
+	public int getProjectCount(MemberDTO memberDTO) {
+		return myPageDAO.getProjectCount(memberDTO);
 	}
 	
 	public MyProjectDTO getProjectForUpdate(String parameter) {
