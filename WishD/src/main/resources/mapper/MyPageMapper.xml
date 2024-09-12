@@ -49,9 +49,17 @@
 <!--   		where user_info.user_no = #{user_no} -->
 <!--   	</select> -->
   	<select id="getMyProject" resultType="com.teamproject.domain.MyProjectDTO">
-  		select * from project_board 
-  		where user_id = #{user_no}
-  		limit #{startRow}, #{endRow}
+			select * from project_board
+        	where user_id = #{user_no}
+        	<if test="search != null">
+        	and pboard_title LIKE CONCAT('%', #{search}, '%')
+        	</if>
+        	limit #{startRow}, #{endRow};
+			
+<!--   		select * from project_board  -->
+<!--   		where user_id = #{user_no} -->
+<!--   		limit #{startRow}, #{endRow} -->
+  		
 <!--   		select * from project_board join user_info -->
 <!--   		on project_board.user_id = user_info.user_no -->
 <!--   		where user_info.user_no = #{user_no} -->
@@ -67,7 +75,11 @@
 	
 	<select id="getProjectCount" resultType="int">
   		select count(*)
-  		from project_board where user_id = #{user_no}
+  		from project_board
+  		where user_id = #{user_no}
+  		<if test="search != null">
+        AND pboard_title LIKE CONCAT('%', '#{search}', '%')
+    	</if>
 	</select>
 	
 	<!-- 수정을 위해 프로젝트 하나만 가져오기 -->

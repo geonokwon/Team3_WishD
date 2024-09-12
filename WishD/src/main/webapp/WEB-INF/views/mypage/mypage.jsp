@@ -56,6 +56,7 @@
                     <label for="user_phone">연락처</label>
                 </div>
             </form>
+            </div>
             <!-- 폼부분 끝 -->
             
             <!-- 버튼 시작 -->
@@ -122,10 +123,34 @@
                 </div>
                 <!-- 프리랜서 글 끝 -->
                 
+                
+                
                 <!-- 프로젝트 글 내용 -->
+                
                 <div class="tab-content" id="project-content">
+                
                     <!-- 프로젝트 카드 -->
                     <div>
+    <!-- header -->
+    
+
+    <div class="col-12 mt-4 mb-2 px-5">
+        <div class="d-flex">
+            <!-- 총 프로젝트 등록 개수 가져오기 -->
+            <div class="ms-1 me-3">프로젝트 ${myProjectPageDTO.getCount()} 개</div>
+            <div class="me-4">|</div>
+
+            <!-- 검색 창 -->
+            <div class="col-auto ">
+                <form action="${pageContext.request.contextPath}/mypage?search=" method="get">
+                    <div class="input-group">
+                        <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" autocomplete="off" />
+                        <button type="submit" class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 	
                     <c:forEach items="${myProjectDTOList}" var="myprojectDTO">
                         <div class="container mb-4 px-5">
                             <div class="card h-100 p-2" style="height: 200px">
@@ -177,7 +202,6 @@
                             </div>
                         </div>
                     </c:forEach>
-                    </div>
                     <!-- 반복 end -->
                     <!-- Pagination -->
     <nav aria-label="Page navigation">
@@ -186,14 +210,14 @@
             <c:if test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/mypage?pageNum=${myProjectPageDTO.startPage - 10}"></a>
+                   href="${pageContext.request.contextPath}/projectPageNum?pageNum=${myProjectPageDTO.startPage - 10}"></a>
             </li>
             </c:if>
 
             <c:forEach begin="${myProjectPageDTO.startPage}" end="${myProjectPageDTO.endPage}" var="page">
                 <li class="page-item">
                     <a class="page-link"
-                       href="${pageContext.request.contextPath}/mypage?pageNum=${page}">${page}</a>
+                       href="${pageContext.request.contextPath}/mypage?projectPageNum=${page}">${page}</a>
                 </li>
             </c:forEach>
 
@@ -201,7 +225,7 @@
             <c:if test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/mypage?pageNum=${myProjectPageDTO.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/mypage?projectPageNum=${myProjectPageDTO.endPage + 10}"></a>
             </li>
             </c:if>
         </ul>

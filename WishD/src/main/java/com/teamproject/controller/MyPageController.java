@@ -25,6 +25,7 @@ public class MyPageController {
 		session.setAttribute("user_id", "1000");
 //		session.setAttribute("access_Token", "dtDCDHVkTvo7oOsC1HsMAf6qu40Qurj8aYMMwmFV59GT5xjw9WBeDVreHGITSzU8");
 		
+		// ====== 회원 정보 가져오기 시작 =======
 		// 세션에서 user_id, access_Token 인지 체크
 		// 세션에 저장된 값에 따른 회원정보 찾기 분기
 		MemberDTO memberDTO = null;
@@ -35,16 +36,20 @@ public class MyPageController {
 		}
 		model.addAttribute("memberDTO", memberDTO);
 		System.out.println("memberDTO : " + memberDTO);
+		// ======= 회원 정보 가져오기 끝 =======
 		
-		// 파라미터값 pageNum 없으면 => 1페이지로 설정
-		String pageNum = request.getParameter("pageNum");
-		if(pageNum == null) {
-			pageNum = "1";
+		
+		
+		// ======= 프로젝트 글 페이지네이션과 같이 내가 쓴글가져오기 시작 ========
+		// 파라미터값 projectPageNum 없으면 => 1페이지로 설정
+		String projectPageNum = request.getParameter("projectPageNum");
+		if(projectPageNum == null) {
+			projectPageNum = "1";
 		}
-		int pageNumToInt = Integer.parseInt(pageNum);
-		System.out.println("pageNumToInt :" + pageNumToInt);
 		
-		//프로젝트 글 페이지네이션과 같이 내가 쓴글가져오기 시작
+		int pageNumToInt = Integer.parseInt(projectPageNum);
+		System.out.println("pageNumToInt :" + pageNumToInt);
+				
 		//한 화면에 보여줄 글 개수 설정
         int pageSize = 5;
         //한 화면에 보여줄 페이지 개수 10 설정
@@ -52,12 +57,25 @@ public class MyPageController {
 
         //PageDTO 객체 생성
         MyProjectPageDTO myProjectPageDTO = new MyProjectPageDTO();
+        
+        String search = request.getParameter("search");
+        //검색어 파라미터 넣기
+     	if(search != null) {
+     		myProjectPageDTO.setSearch(request.getParameter("search"));
+     		System.out.println("search : " + request.getAttribute("search"));
+     	}
+       
+        // 내프로젝트글 개수 가져오기
+     	
+     	// 검색어에 따른 프로젝트 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
+     	// getMyProject 안에서 유저넘버와 글넘버를 이용해 개수를 가져와서 set을 할지 결정해야함
+     	myProjectPageDTO.setUser_no(memberDTO.getUser_no());
         myProjectPageDTO.setCount(myPageService.getProjectCount(memberDTO.getUser_no()));
         System.out.println("getCount : " + myProjectPageDTO.getCount());
         myProjectPageDTO.setCurrentPage(pageNumToInt);
         myProjectPageDTO.setPageSize(pageSize);
         myProjectPageDTO.setPageNum(pageNumToInt + 1);
-
+        
         // 시작하는 페이지 번호 구하기
         int startPage = ((pageNumToInt - 1) / pageBlock) * pageBlock + 1;
         System.out.println("startPage : " + startPage);
@@ -104,88 +122,6 @@ public class MyPageController {
 			qnaPageNum = "1";
 		}	
         
-        
-//        //프로젝트 등록 개수 전체 가져오기(나중에 state 가 진행중인것만 가져와야함!)
-//        projectPageDTO.setCount(projectService.getProjectCount(projectPageDTO));
-//		// pageNum => 정수형 변경
-//		
-//      //pageNum, currentPage, pageSize => 값 저장
-//        projectPageDTO.setCurrentPage(pageNum);
-//        projectPageDTO.setPageSize(pageSize);
-//        projectPageDTO.setPageNum(pageNum + 1);
-//
-//        //시작하는 페이지 번호 구하기
-//        int startPage = ((pageNum - 1) / pageBlock) * pageBlock + 1;
-//        //끝나는 페이지 번호 구하기
-//        int endPage = startPage + pageBlock - 1;
-//        //페이지 카운트 구하기
-//        int pageCount = projectPageDTO.getCount() / pageBlock + (projectPageDTO.getCount() % pageBlock == 0 ? 0 : 1);
-//        if (endPage > pageCount) {
-//            endPage = pageCount;
-//        }
-//        //projectPageDTO 셋팅
-//        projectPageDTO.setStartPage(startPage);
-//        projectPageDTO.setEndPage(endPage);
-//        projectPageDTO.setPageCount(pageCount);
-//        projectPageDTO.setPageBlock(pageBlock);
-//
-//        // 시작하는 행 번호 구하기
-//        int startRow = (pageNum - 1) * pageSize + 1;
-//        // 끝나는 행 번호 구하기
-//        int endRow = startRow + pageSize - 1;
-//        // DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
-//        projectPageDTO.setStartRow(startRow - 1);
-//        projectPageDTO.setEndRow(endRow);
-//        
-//		// PageDTO 객체생성
-//		MyProjectPageDTO pageDTO = new MyProjectPageDTO();
-//		// pageNum, currentPage, pageSize => 값을 저장
-//		pageDTO.setPageNum(currentPage + 1);
-//		pageDTO.setCurrentPage(currentPage);
-//		pageDTO.setPageSize(pageSize);
-//		pageDTO.setUser_no(memberDTO.getUser_no());
-//		
-//		// 내 프로젝트 가져오기 시작
-//		// getMyProject() 내가 쓴 프로젝트 글 가져오기
-//		List<MyProjectDTO> myProjectDTOList = myPageService.getMyProject(pageDTO);
-//		model.addAttribute("myProjectDTOList", myProjectDTOList);
-//		
-//		// 게시판 전체 글 개수 구하기
-//		// 검색어 포함
-//		int count = myProjectDTOList.size() + 1;
-//		System.out.println(count);
-////		int count = 10;
-//		// 한 화면에 보여줄 페이지 개수 5 설정
-//		int pageBlock = 5;
-//		// 시작하는 페이지 번호 구하기
-//		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
-//		// 끝나는 페이지 번호 구하기
-//		int endPage = startPage + pageBlock - 1;
-//		// 전체 글개수 구하기  50/10 => 5 , 55/10 => 5 나머지 5 1페이지 증가
-//		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-//		// endPage 전체 글개수 비교 => endPage 크면 전체 글개수로 변경
-//		if(endPage > pageCount) {
-//			endPage = pageCount;
-//		}
-//		 // 시작하는 행 번호 구하기
-//        int startRow = (currentPage - 1) * pageSize + 1;
-//        // 끝나는 행 번호 구하기
-//        int endRow = startRow + pageSize - 1;
-//        System.out.println("endRow : " + endRow);
-//        // DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
-//        pageDTO.setStartRow(startRow - 1);
-//        pageDTO.setEndRow(endRow);	// pageDTO에 구한값 저장
-//		
-//		pageDTO.setCount(count);
-//		pageDTO.setPageBlock(pageBlock);
-//		pageDTO.setStartPage(startPage);
-//		pageDTO.setEndPage(endPage);
-//		pageDTO.setPageCount(pageCount);
-		
-		// model에 데이터 담아서 전달
-//		model.addAttribute("myProjectDTOList", myProjectDTOList);
-//		model.addAttribute("pageDTO", pageDTO);
-		
 		
 		return "mypage/mypage";
 	}
