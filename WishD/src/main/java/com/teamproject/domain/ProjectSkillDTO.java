@@ -39,4 +39,14 @@ public class ProjectSkillDTO {
     public void setSkill_name(String skill_name) {
         this.skill_name = skill_name;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectSkillDTO{" +
+                "skill_id=" + skill_id +
+                ", skill_name='" + skill_name + '\'' +
+                ", pboard_id=" + pboard_id +
+                ", projectSkill_id=" + projectSkill_id +
+                '}';
+    }
 }

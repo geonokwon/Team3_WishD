@@ -134,5 +134,11 @@
         WHERE pboard_id = #{pboard_id};
     </update>
 
+    <!-- 승인요청시 Project_request_files 테이블 file 정보 추가 -->
+    <insert id="insetProjectRequestFile">
+        INSERT INTO project_request_files (f_request_id, pboard_id, p_file_name, p_file_path)
+        VALUES (#{f_request_id}, #{pboard_id}, #{p_file_name}, #{p_file_path});
+    </insert>
+
 
 </mapper>

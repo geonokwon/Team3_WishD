@@ -3,7 +3,9 @@ package com.teamproject.controller;
 import com.teamproject.domain.ProjectDTO;
 import com.teamproject.domain.ProjectPageDTO;
 import com.teamproject.domain.ProjectRequestDTO;
+import com.teamproject.domain.ProjectRequestFileDTO;
 import com.teamproject.service.ProjectService;
+import com.teamproject.utils.PersonalFileCopyUtils;
 import com.teamproject.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+
 
     @GetMapping("/projectFind")
     public String projectFind(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -53,7 +57,6 @@ public class ProjectController {
         //페이지네이션 처리(utils paginationUtils 클래스)
         PaginationUtils.pagination(projectPageDTO, pageNum, pageSize, pageBlock);
 
-
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
         model.addAttribute("projectSkillList", projectService.getSkillList());
         //현재 sort 상태 값 처리
@@ -75,27 +78,17 @@ public class ProjectController {
         return "/project/project_read";
     }
 
-//    @PostMapping("/projectRead")
-//    public String projectReadRequest(@RequestParam("pboard_id")Long pboard_id,
-//                                     ProjectRequestDTO projectRequestDTO,
-//                                     Model model){
-//        logger.info("-> projectReadRequest()");
-//        System.out.println(projectRequestDTO.toString());
-//        return "redirect:/projectRead/" + pboard_id;
-//    }
     //비동기 처리
     @PostMapping("/projectReadReq/{pboard_id}")
     @ResponseBody
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
+//                                     MultipartFile file,
+                                     ProjectRequestFileDTO projectRequestFileDTO,
                                      ProjectRequestDTO projectRequestDTO,
-                                     Model model){
+                                     Model model) throws Exception {
         logger.info("-> projectReadRequest()");
         projectRequestDTO.setPboard_id(pboard_id);
-        projectService.insertProjectRequest(projectRequestDTO);
-
-
-
-
+        projectService.insertProjectRequest(projectRequestDTO, projectRequestFileDTO);
 
 
 

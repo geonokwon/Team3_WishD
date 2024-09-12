@@ -238,7 +238,9 @@
                             <div class="mb-4">
                                 <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
-                                <input class="form-control bg-dark" type="file" id="formFile" name="file"/>
+                                <input class="form-control bg-dark" type="file" id="formFile" name="file"
+<%--                                       accept=".pdf" --%>
+                                       required/>
                             </div>
 
                             <!-- 약관 동의 -->
@@ -318,10 +320,14 @@
 <script>
     $(document).ready(function() {
         $('#projectReadForm').on('submit', function(event) {
+            $('#agree_button').prop('disabled', true);
             event.preventDefault(); // 폼의 기본 제출 동작을 방지
             const form = $(this);
             //name 있는 모든 폼 데이터 가져와서 직렬화
-            let formData = $(this).serializeArray();
+            // let formData = $(this).serializeArray();
+
+            //formData 형식으로 반환
+            const formData = new FormData(this);
             console.log(formData);
 
             //비동기 ajax 처리
@@ -329,6 +335,8 @@
                 url: '${pageContext.request.contextPath}/projectReadReq/${projectDTO.getPboard_id()}',
                 type: 'POST', //post 방식
                 data: formData,
+                contentType: false, // jQuery가 자동으로 설정한 컨텐츠 타입을 사용하지 않음
+                processData: false, // jQuery가 자동으로 데이터를 처리하지 않음
                 success: function(response) {
                     if (response) {
                         // 성공적으로 데이터가 제출되었을 때의 처리
@@ -355,6 +363,7 @@
                         keyboard: false
                     });
                     falseModal.show();
+                    $('#agree_button').prop('disabled', false);
                 }
             });
         });

@@ -126,4 +126,23 @@ public class ProjectPageDTO {
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
+
+    @Override
+    public String toString() {
+        return "ProjectPageDTO{" +
+                "pageSize=" + pageSize +
+                ", pageNum=" + pageNum +
+                ", currentPage=" + currentPage +
+                ", startRow=" + startRow +
+                ", endRow=" + endRow +
+                ", count=" + count +
+                ", startPage=" + startPage +
+                ", endPage=" + endPage +
+                ", pageCount=" + pageCount +
+                ", pageBlock=" + pageBlock +
+                ", search='" + search + '\'' +
+                ", skill_id=" + skill_id +
+                ", createdDateFilter=" + createdDateFilter +
+                '}';
+    }
 }

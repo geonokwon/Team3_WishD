@@ -1,9 +1,6 @@
 package com.teamproject.dao;
 
-import com.teamproject.domain.ProjectDTO;
-import com.teamproject.domain.ProjectPageDTO;
-import com.teamproject.domain.ProjectRequestDTO;
-import com.teamproject.domain.ProjectSkillDTO;
+import com.teamproject.domain.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -72,12 +69,17 @@ public class ProjectDAO {
     public void insertProjectRequest(ProjectRequestDTO projectRequestDTO) {
         sqlSession.insert(nameSpace + "insertProjectRequest", projectRequestDTO);
     }
-
+    //프로젝트 리퀘스트 폼 skill 등록하기
     public void insetProjectRequestSkill(Map<String, Object> projectRequestSkillSet) {
         sqlSession.insert(nameSpace + "insetProjectRequestSkill", projectRequestSkillSet);
     }
-
+    //프로젝트 리퀘스트 폼 등록시 pboard_state 값 '진행중' 으로 변경
     public void updateProjectState(Long pboardId) {
         sqlSession.update(nameSpace + "updateProjectState", pboardId);
+    }
+
+    //프로젝트 리퀘스트 폼 등록시 file 테이블 등록
+    public void insetProjectRequestFile(ProjectRequestFileDTO projectRequestFileDTO) {
+        sqlSession.insert(nameSpace + "insetProjectRequestFile", projectRequestFileDTO);
     }
 }
