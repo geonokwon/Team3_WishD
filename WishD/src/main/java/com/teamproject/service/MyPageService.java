@@ -19,11 +19,10 @@ public class MyPageService {
 	@Inject
 	private MyPageDAO myPageDAO;
 
-	public MemberDTO getNormalMember(String user_id) {
-		return myPageDAO.getNormalMember(user_id);
-	}
-	public MemberDTO getSimpleMember(String access_Token) {
-		return myPageDAO.getSimpleMember(access_Token);
+	public MemberDTO getLoginMember(Long user_no) {
+		// 일반회원 정보가져오기
+		MemberDTO memberDTO = myPageDAO.getLoginMember(user_no);
+		return memberDTO;
 	}
 	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
@@ -84,6 +83,8 @@ public class MyPageService {
 		System.out.println(myFreelancerList.size());
 		return myFreelancerList;
 	}
+	
+	
 	
 	
 	

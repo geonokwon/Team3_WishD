@@ -25,19 +25,15 @@
 <body>
 	<!-- Header -->
 	<jsp:include page="../include/heard.jsp" />
-
+	
 	<!-- Main Content -->
-	<!-- 로그인 세션 체크 -->
-	<c:if
-		test="${ empty sessionScope.user_id || empty sessionScope.access_Token }">
-		<%-- <c:redirect url="/login"></c:redirect> --%>
-	</c:if>
-
+	
+	
 	<!-- 상단 내정보와 폼 부분 -->
 	<div class="mycontainer">
 		<div class="form-container-wrapper">
 			<div class="form-title">내정보</div>
-
+			
 			<!-- 폼부분 시작 -->
 			<form action="#" method="post" class="text-form-container"
 				id="user-info-form">

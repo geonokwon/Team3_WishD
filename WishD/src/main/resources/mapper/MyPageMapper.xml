@@ -5,20 +5,27 @@
   
 <mapper namespace="com.teamproject.mapper.MyPageMapper">
 	
-	<!-- 일반유저의 user_no 가져오기 -->
-	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO">
+	<!-- 어떤 로그인인지 체크하는 용도 -->
+	<select id="getLoginMember" resultType="com.teamproject.domain.MemberDTO">
 		SELECT *
 		FROM user_info
-		JOIN user ON user_info.user_no = user.user_no
-		WHERE user.user_id = #{user_id}
+		WHERE user_info.user_no = #{user_no}
 	</select>
 	
-	<!-- 간편회원의 user_no 가져오기 -->
-	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
-		select * from user_info join simple_user
-		on user_info.user_no = simple_user.user_no
-		where access_Token = #{access_Token}
-	</select>
+ 	<!-- 일반유저의 정보 가져오기 --> 
+<!-- 	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM user_info -->
+<!-- 		JOIN user ON user_info.user_no = user.user_no -->
+<!-- 		WHERE user.user_no = #{user_no} -->
+<!-- 	</select> -->
+	
+ 	<!-- 간편회원의 정보 가져오기--> 
+<!-- 	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO"> -->
+<!-- 		select * from user_info join simple_user -->
+<!-- 		on user_info.user_no = simple_user.user_no -->
+<!-- 		where user_no = #{user_no} -->
+<!-- 	</select> -->
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		SELECT * 
@@ -93,7 +100,7 @@
   		from freelancer
   		where user_no = #{user_no}
   		<if test="freelancerSearch != null">
-        AND pboard_title
+        AND freelancer_introdution
         LIKE CONCAT('%', #{freelancerSearch}, '%')
     	</if>
     	<if test="freelancerStatus != null">

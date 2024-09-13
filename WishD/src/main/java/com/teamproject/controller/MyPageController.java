@@ -23,23 +23,23 @@ public class MyPageController {
 	
 	@GetMapping("mypage")
 	public String mypage(HttpSession session, Model model, HttpServletRequest request) {
-		session.setAttribute("user_id", "1000");
+//		session.setAttribute("user_no", 1);
 //		session.setAttribute("access_Token", "dtDCDHVkTvo7oOsC1HsMAf6qu40Qurj8aYMMwmFV59GT5xjw9WBeDVreHGITSzU8");
 		
 		// ====== 회원 정보 가져오기 시작 =======
-		// 세션에서 user_id, access_Token 인지 체크
-		// 세션에 저장된 값에 따른 회원정보 찾기 분기
-		MemberDTO memberDTO = null;
-		if(session.getAttribute("user_id") != null) {
-			memberDTO = myPageService.getNormalMember((String)session.getAttribute("user_id"));
-		} else if(session.getAttribute("access_Token") != null) {
-			memberDTO = myPageService.getSimpleMember((String)session.getAttribute("access_Token"));
+		// 세션에 저장된 값으로 체크
+		MemberDTO memberDTO = new MemberDTO();
+		Integer sessionCheck = (Integer)session.getAttribute("user_no");
+		if(sessionCheck == null) {
+			return "redirect:/login";
 		}
+		// 세션에 저장된 값으로 회원정보 가져오기
+		memberDTO = myPageService.getLoginMember(sessionCheck.longValue());
+		System.out.println(memberDTO);
+		
 		model.addAttribute("memberDTO", memberDTO);
 		System.out.println("memberDTO : " + memberDTO);
 		// ======= 회원 정보 가져오기 끝 =======
-		
-		
 		
 		// ======= 내가 쓴 프리랜서 글 가져오기 시작 =====
 		String myFreelancePageNum = request.getParameter("freelancePageNum"); 
@@ -240,12 +240,12 @@ public class MyPageController {
 	@PostMapping("mypage/mypageUpdatePro")
 	public String mypageUpdatePro(HttpSession session, MemberDTO memberDTO) {
 		System.out.println("mypageUpdatePro : " + memberDTO);
-		MemberDTO result = myPageService.getNormalMember((String)session.getAttribute("user_id"));
-		if(result != null) {
-			memberDTO.setUser_no(result.getUser_no());
-			myPageService.updateMember(memberDTO);
-			return "redirect:/mypage";
-		}
+//		MemberDTO result = myPageService.getNormalMember((String)session.getAttribute("user_id"));
+//		if(result != null) {
+//			memberDTO.setUser_no(result.getUser_no());
+//			myPageService.updateMember(memberDTO);
+//			return "redirect:/mypage";
+//		}
 		return "redirect:/mypage";
 	}
 	

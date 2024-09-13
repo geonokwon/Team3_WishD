@@ -23,12 +23,8 @@ public class MyPageDAO {
 	
 	private static final String namespace="com.teamproject.mapper.MyPageMapper";
 	
-	// 세션에 저장된 값에 따른 분기
-	public MemberDTO getNormalMember(String user_id) {
-		return sqlSession.selectOne(namespace + ".getNormalMember", user_id);
-	}
-	public MemberDTO getSimpleMember(String access_Token) {
-		return sqlSession.selectOne(namespace + ".getSimpleMember", access_Token);
+	public MemberDTO getLoginMember(Long sessionCheck) {
+		return sqlSession.selectOne(namespace + ".getLoginMember", sessionCheck);
 	}
 	
 	public MemberDTO userCheck(MemberDTO memberDTO) {
@@ -70,6 +66,7 @@ public class MyPageDAO {
 	public List<FreelancerSkillDTO> getMyFreelancerSkillList(Long freelancer_id) {
 		return sqlSession.selectList(namespace + ".getMyFreelancerSkillList", freelancer_id);
 	}
+	
 
 	
 
