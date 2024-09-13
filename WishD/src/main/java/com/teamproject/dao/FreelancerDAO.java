@@ -25,7 +25,7 @@ public class FreelancerDAO {
 	
 	
 	
-    //프로젝트 전체 가져오기
+    //프리랜서 전체를 가져오면서 각 프리랜서의 이름도 가져오기
     public List<FreelancerDTO> getFreelancer_all(FreelancerPageDTO freelancerPageDTO){
         logger.info("-> getFreelancer_all()");
         return sqlSession.selectList(nameSpace + "selectFreelancer_all", freelancerPageDTO);
@@ -72,6 +72,13 @@ public class FreelancerDAO {
     public void insertFreelancerSkill(Map<String, Object> freelancerSkill) {
         sqlSession.insert(nameSpace + "insertFreelancerSkill", freelancerSkill);
     }
+
+    
+    //프리랜서의 이름 구하기
+	public String getFreelancerName(Long freelancer_id) {
+		// 
+		return sqlSession.selectOne(nameSpace + "getFreelancerName", freelancer_id);	
+	}
     
 
 

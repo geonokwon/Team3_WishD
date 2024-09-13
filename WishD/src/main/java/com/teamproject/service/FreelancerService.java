@@ -24,10 +24,14 @@ public class FreelancerService {
         logger.info("-> getFreelancerList()");
         //freelancerDTO 사용자가 등록한 board 를 가져옴
         List<FreelancerDTO> freelancerDTOList = freelancerDAO.getFreelancer_all(freelancerPageDTO);
+        
+
+        
         for (FreelancerDTO freelancerDTO : freelancerDTOList) {
             //가져온 freelancerDTO.getfreelancer() board에 선택된 스킬들을 List 형태로 받음
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
         	freelancerDTO.setSkills(freelancerDAO.getFreelancerSkill(freelancerDTO.getFreelancer_id()));
+        	System.out.println("freelancerDTO = " + freelancerDTO);
         }
         return freelancerDTOList;
     }
@@ -46,6 +50,7 @@ public class FreelancerService {
     //freelancerRead > 선택한 프리랜서 와 선택된 프리랜서 freelancer_id 기준으로 선택된 skill 가져오기
     public FreelancerDTO getFreelancer(Long freelancer_id) {
         logger.info("-> getFreelancer()");
+        
         FreelancerDTO freelancerDTO = freelancerDAO.getFreelancer(freelancer_id);
         freelancerDTO.setSkills(freelancerDAO.getSkill(freelancer_id));
         return freelancerDTO;

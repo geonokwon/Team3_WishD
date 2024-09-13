@@ -7,7 +7,7 @@ public class FreelancerDTO {
 	
 	
 	private Long freelancer_id;
-	private Long user_id;
+	private Long user_no;
 	
 	private int freelancer_salary;
 	private String freelancer_startdate; //프로젝트 시작 가능일, DB에 넣을때 Timestamp 자료형으로 넣어야함
@@ -25,15 +25,20 @@ public class FreelancerDTO {
 	
     private List<FreelancerSkillDTO> skills;
 
+    //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
+    private String user_name;
+
+    
     //toString 오버라이드
 	@Override
 	public String toString() {
-		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_id=" + user_id + ", freelancer_salary="
+		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_no=" + user_no + ", freelancer_salary="
 				+ freelancer_salary + ", freelancer_startdate=" + freelancer_startdate + ", freelancer_exp="
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
 				+ ", freelancer_introdution=" + freelancer_introdution + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
-				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills + "]";
+				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills
+				+ ", user_name=" + user_name + "]";
 	}
 
 	public Long getFreelancer_id() {
@@ -44,12 +49,12 @@ public class FreelancerDTO {
 		this.freelancer_id = freelancer_id;
 	}
 
-	public Long getUser_id() {
-		return user_id;
+	public Long getUser_no() {
+		return user_no;
 	}
 
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+	public void setUser_no(Long user_no) {
+		this.user_no = user_no;
 	}
 
 	public int getFreelancer_salary() {
@@ -147,8 +152,15 @@ public class FreelancerDTO {
 	public void setSkills(List<FreelancerSkillDTO> skills) {
 		this.skills = skills;
 	}
-    
 
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+    
 
 
 	
