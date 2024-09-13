@@ -40,8 +40,8 @@ pageEncoding="UTF-8"%>
         <form id="signup-form" action="${pageContext.request.contextPath}/insertPro" method="post">
             <div class="input-group">
                 <p>아이디</p>
-                <input type="text" id="username" name="user_id" placeholder="아이디를 입력하세요">
-                <button type="button" class="check-btn" id="username-check">중복 확인</button>
+                <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요">
+                <button type="button" class="check-btn" id="idcheck">중복 확인</button>
                 <div class="error-msg" id="username-error"></div>
             </div>
             <div class="input-group">
@@ -89,16 +89,51 @@ pageEncoding="UTF-8"%>
             <div class="success-msg" id="success-msg"></div>
         </form>
     </div>
-    <!-- backGround-star -->
-    
 </div>
     <div class="noite"></div>
 
     <div class="constelacao"></div>
 
     <div class="chuvaMeteoro"></div>
+	<script type="text/javascript">
+	 $(function(){
+		 
+		 // id="user_id" 
+		 $('#user_id').blur(function(){
+			 
+			 $.ajax({
+				
+				 url : '${pageContext.request.contextPath}/idCheck'
+				 date:{'id' : $('#user_id').val()},
+				 success: function(result){
+					 
+					 if(result == 'iddup'){
+						 
+						 result = "이미 존재하는 아이디입니다.";
+						 $('#user_id').html(result).css('color', 'red');
+						 
+					 }
+					 
+					 else {
+						 
+						 result = "사용가능한 아이디입니다.";
+						 $('#user_id').html(result).css('color', 'green');
+					 }
 
-    <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script>
+				 }
+ 
+			 }); //ajax
+
+		 })
+	
+	 });
+	
+	
+	
+	</script>
+
+
+<%--     <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script> --%>
    
   </body>
 </html>

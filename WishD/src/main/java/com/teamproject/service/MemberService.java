@@ -35,7 +35,12 @@ public class MemberService {
 		return memberDAO.userCheck(memberDTO);
 	}
 
-	
+	// 회원 불러오기 
+	public MemberDTO getMember(String id) {
+		System.out.println("MemberService getMember()");
+		
+		return memberDAO.getMember(id);
+	}
 	
 	
 	

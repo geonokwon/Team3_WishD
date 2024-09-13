@@ -1,6 +1,7 @@
 package com.teamproject.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -11,13 +12,14 @@ import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.MemberService;
 
 
-
+// 통합회원(일반+간편)
 @Controller
 public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
 	
+	// 로그인 
 	@GetMapping("/login")
 	public String login() {  
 		
@@ -36,14 +38,14 @@ public class MemberController {
 			
 			// 아이디 비밀번호 일치
 			// 세션에 로그인 표시값 저장
-			session.setAttribute("user_id", memberDTO.getUser_id());
+			// session.setAttribute("user_id", memberDTO.getUser_id());
 			// 메인 페이지로 이동
-			return "redirect:/member/main";	
+			return "redirect:/main";	
 		} 
 		else {
 			
 			// 아이디 비밀번호 틀림 -> 로그인 페이지로 이동
-			return "redirect:/member/login";	
+			return "redirect:/login";	
 		}
 	}
 	
@@ -64,11 +66,42 @@ public class MemberController {
 		System.out.println(memberDTO);
 		
 		
-		// memberService.insertMember(memberDTO);
+		memberService.insertMember(memberDTO);
 		// 로그인 주소변경 하면서 이동 
-		return "redirect:/member/login";
+		return "redirect:/login";
 		
 	}
+	
+//	// 회원가입시 아이디 중복체크
+//	@GetMapping("/idCheck")
+//	public String idCheck(HttpServletRequest request) {
+//		System.out.println("MemberController idCheck()");
+//		
+//		String id = request.getParameter("id");
+//		MemberDTO memberDTO = memberService.getMember(id);
+//		
+//		String result = "";
+//		if(memberDTO != null) {
+//			
+//			// 존재하는 아이디 O , 아이디 사용 불가
+//			result = "iddup";
+//		}
+//		else {
+//			// 존재하는 아이디 X, 아이디 사용 가능
+//			result = "idok";
+//		}
+//		return result; // 결과값 리턴 
+//		
+//		
+//	}
+//	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 아이디 찾기
 	@GetMapping("/idFind")

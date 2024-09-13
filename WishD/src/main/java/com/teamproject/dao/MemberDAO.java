@@ -30,6 +30,12 @@ public class MemberDAO {
 		System.out.println("MemberDAO userCheck()");
 		return sqlSession.selectOne(namespace + ", userCheck", memberDTO);
 	}
+	
+	// 회원 불러오기 
+	public MemberDTO getMember(String id) {
+		
+		return sqlSession.selectOne(namespace + ",getMember", id);
+	}
 
 	
 	
