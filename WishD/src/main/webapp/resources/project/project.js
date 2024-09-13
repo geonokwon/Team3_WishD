@@ -7,6 +7,20 @@ if (disagree_btn){
 }
 //버튼 이동 관련 end
 
+//모아보기 토글
+function toggleState() {
+    // 현재 체크 상태에 따라 state 값을 변경
+    let isChecked = document.getElementById('projectBoardState').checked;
+    let newState = isChecked ? 0 : 1;
+    // 페이지 이동, state 값에 따라 URL 변경
+    console.log("isChecked : " + isChecked);
+    console.log("newState : " + newState);
+
+    location.href = `${basePath}/projectFind?state=` + newState;
+}
+
+//모아보기 토글 end
+
 //스킬 추가 관련
 const selectElement =  document.getElementById("skill");
 const badgeContainer = document.getElementById("badge_container");
@@ -193,3 +207,6 @@ if (projectWrite || projectRead) {
         });
     });
 }
+
+
+//projectRequestDTO 파일관련

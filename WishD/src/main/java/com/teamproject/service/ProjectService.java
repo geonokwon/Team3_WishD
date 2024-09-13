@@ -1,14 +1,13 @@
 package com.teamproject.service;
 
 import com.teamproject.dao.ProjectDAO;
-import com.teamproject.domain.ProjectDTO;
-import com.teamproject.domain.ProjectPageDTO;
-import com.teamproject.domain.ProjectRequestDTO;
-import com.teamproject.domain.ProjectSkillDTO;
+import com.teamproject.domain.*;
+import com.teamproject.utils.PersonalFileCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -16,6 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
     public static final Logger logger = Logger.getLogger(ProjectService.class.getName());
+
+    @Resource(name = "uploadPath")
+    private String uploadPath;
 
     @Autowired
     private ProjectDAO projectDAO;
@@ -70,8 +72,10 @@ public class ProjectService {
         projectDAO.insertProjectSkill(projectSkillSet);
     }
 
+    //project_request form insert (board , skill , file)
     @Transactional
-    public void insertProjectRequest(ProjectRequestDTO projectRequestDTO) {
+    public void insertProjectRequest(ProjectRequestDTO projectRequestDTO,
+                                     ProjectRequestFileDTO projectRequestFileDTO) throws Exception {
         logger.info("-> getProjectRequest()");
         //프로젝트 리퀘스트 폼 저장
         projectDAO.insertProjectRequest(projectRequestDTO);
@@ -86,9 +90,33 @@ public class ProjectService {
         projectDAO.updateProjectState(projectRequestDTO.getPboard_id());
 
         //프로젝트 리퀘스트 file 부분 request_file table 저장
+        //파일 Copy 처리 utils class -> Resources/upload/fileCopy
+        PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
+        personalFileCopyUtils.fileCopy(projectRequestFileDTO, projectRequestDTO.getPboard_id(), projectRequestDTO.getF_request_id());
+        projectDAO.insetProjectRequestFile(projectRequestFileDTO);
 
     }
 
+
+
+    //진행중인 board 가 있다면 request form의 값을 가져오기
+    public ProjectRequestDTO getRequestFreelancer(Long pboardId) {
+        ProjectRequestDTO projectRequestDTO = projectDAO.getRequestFreelancer(pboardId);
+        projectRequestDTO.setSkills(projectDAO.getRequestSkill(projectRequestDTO.getPboard_id()));
+        return projectRequestDTO;
+    }
+
+    public ProjectRequestFileDTO getProjectRequestFile(Long pboard_id) {
+        logger.info("-> getProjectRequestFile()");
+        return projectDAO.getProjectRequestFile(pboard_id);
+
+    }
+
+
+
+
+
+//============================================================================================================
     //skillList String -> List  형태로 반환하는 메서드
     public List<Integer> getSkillList(String str_skillList){
         logger.info("-> getSkillList()");
@@ -98,4 +126,6 @@ public class ProjectService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
+
 }
