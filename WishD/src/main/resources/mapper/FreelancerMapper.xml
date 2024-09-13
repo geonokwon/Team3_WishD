@@ -10,7 +10,7 @@
 <!-- 	프리랜서 등록 -->
 	<insert id="resistFreelancer">
 		insert into freelancer
-		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introdution},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update})
+		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introduction},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update})
 	</insert>
 	
 <!-- 	프리랜서의 스킬들 등록 -->
@@ -37,7 +37,7 @@
 	            fs.skill_id = #{skill_id}
 	        </if>
 	        <if test="search != null">
-	            f.freelancer_introdution LIKE CONCAT('%', #{search}, '%')
+	            f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
 	        </if>
 	    </where>
 	    GROUP BY f.freelancer_id
@@ -65,7 +65,7 @@
             </if>
 <!--             검색어가 있을 경우 -->
             <if test="search != null">
-                f.freelancer_introdution LIKE CONCAT('%', #{search}, '%')
+                f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
             </if>
         </where>;
     </select>

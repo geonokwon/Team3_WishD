@@ -14,7 +14,7 @@ public class FreelancerDTO {
 	private boolean freelancer_exp; //프리랜서 경험 유무
 	private int dev_exp; 			//개발자 경력
 	private String freelancer_job;
-	private String freelancer_introdution;
+	private String freelancer_introduction;
 	private String freelancer_link;
 	private String freelancer_state;
 	private Timestamp freelancer_date;
@@ -35,7 +35,7 @@ public class FreelancerDTO {
 		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_no=" + user_no + ", freelancer_salary="
 				+ freelancer_salary + ", freelancer_startdate=" + freelancer_startdate + ", freelancer_exp="
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
-				+ ", freelancer_introdution=" + freelancer_introdution + ", freelancer_link=" + freelancer_link
+				+ ", freelancer_introduction=" + freelancer_introduction + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
 				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills
 				+ ", user_name=" + user_name + "]";
@@ -97,12 +97,12 @@ public class FreelancerDTO {
 		this.freelancer_job = freelancer_job;
 	}
 
-	public String getFreelancer_introdution() {
-		return freelancer_introdution;
+	public String getFreelancer_introduction() {
+		return freelancer_introduction;
 	}
 
-	public void setFreelancer_introdution(String freelancer_introdution) {
-		this.freelancer_introdution = freelancer_introdution;
+	public void setFreelancer_introduction(String freelancer_introduction) {
+		this.freelancer_introduction = freelancer_introduction;
 	}
 
 	public String getFreelancer_link() {

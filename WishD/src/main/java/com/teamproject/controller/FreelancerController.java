@@ -24,9 +24,11 @@ public class FreelancerController {
 	
 	// 프리랜서 등록 페이지 이동
 	@GetMapping("/freelancer_reg")
-	public String freelancer_reg() {
-		
+	public String freelancer_reg(Model model) {
 		System.out.println("freelancer_controller freelancer_reg()");
+		//전체스킬 조회시 필요한 전체 스킬 데이터
+		model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
+		
 		return "freelancer/freelancer_reg";
 	}
 	
@@ -105,6 +107,7 @@ public class FreelancerController {
 
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
         model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
+       
         //현재 sort 상태 값 처리
         model.addAttribute("sortState",sort);
         //project_find page 글 개수 10개씩 가져옴
