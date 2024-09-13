@@ -157,7 +157,9 @@
 							 		class="form-control bg-dark" 
 							 		name="freelancer_link" 
 							 		style="color:white;" 
-							 		placeholder="https://github.com/">
+							 		placeholder="https://github.com/"
+							 		onclick="this.placeholder='';" 
+       								onblur="this.placeholder='https://github.com/';">
 		    		</div>
 		    
 		    	</div>

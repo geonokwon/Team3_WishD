@@ -120,7 +120,7 @@
 	                    </c:if>
 	
 	                    <!-- 이름 -->
-	                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.getFreelancer_id()}">김*동(중간이름 *처리, user_info.user_name 필요)}</a>
+	                    <a class="nav-link mb-3 fs-4" href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.getFreelancer_id()}">${freelancerDTO.getUser_name() }</a>
 	
 	                    <!-- 필요 스킬 -->
 	                    <div class="d-flex mb-2">
@@ -135,7 +135,7 @@
 	
 	                    <div class="row d-flex">
 	                        <!--업무 시작 가능 날짜 -->
-	                        <p class="col-4 card-text mb-1">업무 시작일:
+	                        <p class="col-4 card-text mb-1">업무 시작가능일:
 	                            <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
 	                            <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
 	                        </p>
