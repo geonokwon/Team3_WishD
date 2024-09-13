@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamproject.mapper.MemberMapper">
+
+	<!-- 일반회원 정보  -->
+	<insert id="insertMember"> 
+		insert into user_info(user_name, email, join_date, role, user_yn, user_type)
+		values(#{user_name},#{email}, #{join_date}, #{role}, #{user_yn}, #{user_type})
+	</insert>
+
+ 		<!-- 간편회원 로그인 --> 
+<!-- 	<insert id="insertSimpleMember"> -->
+<!-- 		insert into simple_user(user_no, access_Token) -->
+<!-- 		values(#{user_no}, #{access_Token}) -->
+
+<!-- 	</insert> -->
+	
+	
+	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
+		select * from user
+		where user_id = #{user_id} and user_pass = #{user_pass}
+	
+	</select>
+	
+<!-- 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO"> -->
+<!-- 		select * from user -->
+<!-- 		where id = #{id} -->
+<!-- 	</select> -->
+	
+	
+
+</mapper>

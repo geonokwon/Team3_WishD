@@ -1,109 +1,82 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 아이디 중복 확인
-    document.querySelector('#username-check').addEventListener('click', () => {
-        const username = document.querySelector('#username').value;
-        const usernameError = document.querySelector('#username-error');
-        if (username) {
-            // 서버 검증 또는 로컬 검증 로직
-            usernameError.textContent = '아이디 사용 가능합니다.';
-        } else {
-            usernameError.textContent = '아이디를 입력하세요.';
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // 이메일 중복 확인 처리
+    const emailInput = document.getElementById('email');
+    const emailCheckBtn = document.getElementById('email-check');
+    const sendCodeBtn = document.getElementById('send-code');
+    const verificationCodeGroup = document.getElementById('verification-code-group');
+    const emailActionsGroup = document.getElementById('email-actions');
+
+    emailCheckBtn.addEventListener('click', function() {
+        // 이메일 중복 확인 처리
+        emailInput.disabled = true;
+        emailCheckBtn.style.display = 'none';
+        sendCodeBtn.style.display = 'inline-block'; // 전송하기 버튼을 보이게 함
+        verificationCodeGroup.style.display = 'block'; // 인증 코드 입력란을 보이게 함
     });
 
-    // 이메일 중복 확인
-    document.querySelector('#email-check').addEventListener('click', () => {
-        const email = document.querySelector('#email').value;
-        const emailError = document.querySelector('#email-error');
-        if (email) {
-            // 서버 검증 또는 로컬 검증 로직
-            emailError.textContent = '이메일 사용 가능합니다.';
-        } else {
-            emailError.textContent = '이메일을 입력하세요.';
-        }
+    sendCodeBtn.addEventListener('click', function() {
+        // 인증 코드 전송 처리
+        sendCodeBtn.textContent = '인증하기';
+        sendCodeBtn.id = 'verification-code-check';
     });
 
-    // 인증 코드 확인
-    document.querySelector('#verification-code-check').addEventListener('click', () => {
-        const verificationCode = document.querySelector('#verification-code').value;
-        const verificationCodeError = document.querySelector('#verification-code-error');
-        if (verificationCode) {
-            // 서버 검증 또는 로컬 검증 로직
-            verificationCodeError.textContent = '인증 코드가 확인되었습니다.';
-        } else {
-            verificationCodeError.textContent = '인증 코드를 입력하세요.';
-        }
+    document.getElementById('verification-code-check').addEventListener('click', function() {
+        // 인증 코드 확인 처리
     });
+  });
 
-    // 비밀번호 재입력 확인
-    document.querySelector('#password-confirm').addEventListener('input', () => {
-        const password = document.querySelector('#password').value;
-        const passwordConfirm = document.querySelector('#password-confirm').value;
-        const passwordConfirmError = document.querySelector('#password-confirm-error');
-        if (password !== passwordConfirm) {
-            passwordConfirmError.textContent = '비밀번호가 일치하지 않습니다.';
-        } else {
-            passwordConfirmError.textContent = '';
-        }
-    });
 
-    // 폼 제출 처리
-    document.querySelector('#signup-form').addEventListener('submit', (event) => {
-        event.preventDefault(); // 기본 제출 동작 방지
 
-        const username = document.querySelector('#username').value;
-        const password = document.querySelector('#password').value;
-        const passwordConfirm = document.querySelector('#password-confirm').value;
-        const name = document.querySelector('#name').value;
-        const email = document.querySelector('#email').value;
-        const verificationCode = document.querySelector('#verification-code').value;
-        const phone = document.querySelector('#phone').value;
-        const dob = document.querySelector('#dob').value;
-        const privacyPolicy = document.querySelector('#privacy-policy').checked;
 
-        let valid = true;
 
-        // 유효성 검사
-        if (!username) {
-            document.querySelector('#username-error').textContent = '아이디를 입력하세요.';
-            valid = false;
-        }
-        if (!password) {
-            document.querySelector('#password-error').textContent = '비밀번호를 입력하세요.';
-            valid = false;
-        }
-        if (password !== passwordConfirm) {
-            document.querySelector('#password-confirm-error').textContent = '비밀번호가 일치하지 않습니다.';
-            valid = false;
-        }
-        if (!name) {
-            document.querySelector('#name-error').textContent = '이름을 입력하세요.';
-            valid = false;
-        }
-        if (!email) {
-            document.querySelector('#email-error').textContent = '이메일을 입력하세요.';
-            valid = false;
-        }
-        if (!verificationCode) {
-            document.querySelector('#verification-code-error').textContent = '인증 코드를 입력하세요.';
-            valid = false;
-        }
-        if (!phone) {
-            document.querySelector('#phone-error').textContent = '전화번호를 입력하세요.';
-            valid = false;
-        }
-        if (!dob) {
-            document.querySelector('#dob-error').textContent = '생년월일을 입력하세요.';
-            valid = false;
-        }
-        if (!privacyPolicy) {
-            document.querySelector('#privacy-policy-error').textContent = '개인정보 수집에 동의해야 합니다.';
-            valid = false;
-        }
+//배경 별 + 메테오 js
+function init() {
+    let style = ["style1", "style2", "style3", "style4"];
+    let tam = ["tam1", "tam1", "tam1", "tam2", "tam3"];
 
-        if (valid) {
-            document.querySelector('#success-msg').textContent = '회원가입이 완료되었습니다.';
-            // 여기에 서버로의 폼 데이터 전송 로직 추가
-        }
-    });
-});
+    function getRandomArbitrary(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    let estrela = "";
+    let qtdeEstrelas = 250;
+    let noite = document.querySelector(".constelacao");
+    let widthWindow = window.innerWidth;
+    let heightWindow = window.innerHeight;
+
+    for (let i = 0; i < qtdeEstrelas; i++) {
+        let topPosition = getRandomArbitrary(0, heightWindow);
+        let starOpacity = 1 - topPosition / heightWindow; // 투명도 조절
+
+        estrela +=
+            "<span class='estrela " +
+            style[getRandomArbitrary(0, 4)] +
+            " " +
+            tam[getRandomArbitrary(0, 5)] +
+            "' style='animation-delay: ." +
+            getRandomArbitrary(0, 9) +
+            "s; left: " +
+            getRandomArbitrary(0, widthWindow) +
+            "px; top: " +
+            topPosition +
+            "px; opacity: " +
+            starOpacity +
+            ";'></span>";
+    }
+
+    noite.innerHTML = estrela;
+
+    function carregarMeteoro() {
+        let meteoro = "<div class='meteoro " + style[getRandomArbitrary(0, 4)] + "'></div>";
+        let chuvaMeteoro = document.getElementsByClassName("chuvaMeteoro")[0];
+        chuvaMeteoro.innerHTML = meteoro;
+        setTimeout(() => (chuvaMeteoro.innerHTML = ""), 1000);
+
+        setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
+    }
+
+    setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
+}
+window.onload = init;
+
+
