@@ -22,7 +22,7 @@ public class MyProjectPageDTO {
     //프로젝트 글상태
     private String projectStatus;
     // 내가쓴글 가져오는 용도
-    private int user_no;
+    private Long user_no;
     
     
     public String getProjectStatus() {
@@ -33,11 +33,11 @@ public class MyProjectPageDTO {
 		this.projectStatus = projectStatus;
 	}
 
-	public int getUser_no() {
+	public Long getUser_no() {
 		return user_no;
 	}
 
-	public void setUser_no(int user_no) {
+	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
 

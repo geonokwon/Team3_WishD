@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.teamproject.dao.MyPageDAO;
+import com.teamproject.domain.FreelancerDTO;
+import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -65,6 +67,22 @@ public class MyPageService {
 	
 	public MyProjectDTO getProjectForUpdate(int projectPageNum) {
 		return myPageDAO.getProjectForUpdate(projectPageNum);
+	}
+	
+	public int getFreelancerCount(MemberDTO memberDTO) {
+		return myPageDAO.getFreelancerCount(memberDTO);
+	}
+	
+	public List<FreelancerDTO> getMyFreelancer(FreelancerPageDTO myFreelancerPageDTO) {
+		// 내가 쓴 프리랜서글 가져오기
+		List<FreelancerDTO> myFreelancerList = myPageDAO.getMyFreelancer(myFreelancerPageDTO);
+		System.out.println("서비스의 getMyFreelancer myFreelancerList size : " + myFreelancerList.size());
+		for(FreelancerDTO i : myFreelancerList) {
+			i.setSkills(myPageDAO.getMyFreelancerSkillList(i.getFreelancer_id()));
+			System.out.println(i);
+		}
+		System.out.println(myFreelancerList.size());
+		return myFreelancerList;
 	}
 	
 	

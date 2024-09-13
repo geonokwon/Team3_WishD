@@ -7,6 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.teamproject.domain.FreelancerDTO;
+import com.teamproject.domain.FreelancerPageDTO;
+import com.teamproject.domain.FreelancerSkillDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -55,6 +58,17 @@ public class MyPageDAO {
 	
 	public MyProjectDTO getProjectForUpdate(int projectPageNum) {
 		return sqlSession.selectOne(namespace + ".getProjectForUpdate", projectPageNum);
+	}
+	public int getFreelancerCount(MemberDTO memberDTO) {
+		return sqlSession.selectOne(namespace + ".getFreelancerCount", memberDTO);
+	}
+	
+	public List<FreelancerDTO> getMyFreelancer(FreelancerPageDTO myFreelancerPageDTO) {
+		return sqlSession.selectList(namespace + ".getMyFreelancer", myFreelancerPageDTO);
+	}
+	// 프리랜서 글 마다 스킬가져오기
+	public List<FreelancerSkillDTO> getMyFreelancerSkillList(Long freelancer_id) {
+		return sqlSession.selectList(namespace + ".getMyFreelancerSkillList", freelancer_id);
 	}
 
 	

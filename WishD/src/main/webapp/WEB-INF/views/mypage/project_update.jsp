@@ -109,9 +109,10 @@
 			    <div class="col-4 ms-2 me-5 mb-4">
                     <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
                     <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startdate"
-<%--                     	value="${myProjectDTO.pboard_startDate}" --%>
-                    		value="<fmt:formatDate value='${myProjectDTO.pboard_startDate}' pattern='yyyy-MM-dd' />"
+<%--                     	value="${myprojectDTO.pboard_startDate}" --%>
+                    		value="<fmt:formatDate value='${myprojectDTO.pboard_startDate}' pattern='yyyy-MM-dd' />"
                     		required />
+                    		
                 </div>
 
                 <!-- 프로젝트 진행 예상 기간 -->
