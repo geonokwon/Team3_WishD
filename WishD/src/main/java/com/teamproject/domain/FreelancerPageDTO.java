@@ -20,6 +20,11 @@ public class FreelancerPageDTO {
     //스킬 id
     private Integer skill_id;
 
+    private Long user_no;
+    private String freelancerSearch;
+    private String freelancerStatus;
+    
+    
     public Integer getCreatedDateFilter() {
         return createdDateFilter;
     }
@@ -126,4 +131,28 @@ public class FreelancerPageDTO {
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
+
+	public Long getUser_no() {
+		return user_no;
+	}
+
+	public void setUser_no(Long user_no) {
+		this.user_no = user_no;
+	}
+
+	public String getFreelancerSearch() {
+		return freelancerSearch;
+	}
+
+	public void setFreelancerSearch(String freelancerSearch) {
+		this.freelancerSearch = freelancerSearch;
+	}
+
+	public String getFreelancerStatus() {
+		return freelancerStatus;
+	}
+
+	public void setFreelancerStatus(String freelancerStatus) {
+		this.freelancerStatus = freelancerStatus;
+	}
 }
