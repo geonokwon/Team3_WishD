@@ -60,6 +60,10 @@ input[type="file"]::file-selector-button:hover {
     border: none;
     color: #fff;
 }
+.form-check-input:checked {
+    background-color: #6f40c8;
+    border-color: #6f40c8;
+}
 .form-control:active {
     background-color: #0e1117;
 }

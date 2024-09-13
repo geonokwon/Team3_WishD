@@ -28,6 +28,7 @@ public class ProjectController {
                               @RequestParam(value = "search", required = false) String search,
                               @RequestParam(value = "skill", required = false) Integer skill,
                               @RequestParam(value = "sort", defaultValue = "0") Integer sort,
+                              @RequestParam(value = "state", defaultValue = "0") Integer state,
                               Model model){
         logger.info( "-> projectFind()");
 
@@ -51,6 +52,8 @@ public class ProjectController {
         projectPageDTO.setSkill_id(skill);
         //날짜별 정렬
         projectPageDTO.setCreatedDateFilter(sort);
+        //진행중, 모집중 모아보기
+        projectPageDTO.setState(state);
 
         //프로젝트 등록 개수 전체 가져오기(나중에 state 가 진행중인것만 가져와야함!)
         projectPageDTO.setCount(projectService.getProjectCount(projectPageDTO));
@@ -61,6 +64,8 @@ public class ProjectController {
         model.addAttribute("projectSkillList", projectService.getSkillList());
         //현재 sort 상태 값 처리
         model.addAttribute("sortState",sort);
+        //현재 state 모집중, 진행중 처리
+        model.addAttribute("state", state);
         //project_find page 글 개수 10개씩 가져옴
         model.addAttribute("projectDTOList", projectService.getProjectList(projectPageDTO));
         model.addAttribute("projectPageDTOList", projectPageDTO);
@@ -73,17 +78,19 @@ public class ProjectController {
                               HttpSession session,
                               Model model){
         logger.info("-> projectRead()");
+
         //선택된 pboard_id 값으로 프로젝트 등록 글 가져오기
         ProjectDTO projectDTO = projectService.getProject(pboard_id);
         model.addAttribute("projectDTO", projectDTO);
         model.addAttribute("projectSkillList", projectService.getSkillList());
 
         //session 에서 user_no 가져오기
-        session.setAttribute("user_no", 2L);
+        session.setAttribute("user_no", 1L);
         Long user_no = (Long) session.getAttribute("user_no");
 
         if (user_no != null) {
             //선택된 pboard_id 가 진행중 인지 모집중 인지 조회
+
             if (projectDTO.getPboard_state().equals("진행중")) {
                 //진행중 이라면 ?
                 //request_freelancer 테이블에 작성을 했으니
@@ -100,6 +107,9 @@ public class ProjectController {
                     //여기서 페이로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
                     model.addAttribute("projectRequestDTO", projectRequestDTO);
                     model.addAttribute("projectRequestFileDTO", projectRequestFileDTO);
+                }
+                else {
+                    return "redirect:/projectFind";
                 }
             }
         }

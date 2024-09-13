@@ -19,6 +19,22 @@ public class ProjectPageDTO {
     private String search;
     //스킬 id
     private Integer skill_id;
+    //날짜별 필터
+    private Integer createdDateFilter;
+    //진행중 , 모집중 모아보기
+    private Integer state;
+
+
+
+
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public Integer getCreatedDateFilter() {
         return createdDateFilter;
@@ -27,9 +43,6 @@ public class ProjectPageDTO {
     public void setCreatedDateFilter(Integer createdDateFilter) {
         this.createdDateFilter = createdDateFilter;
     }
-
-    //날짜별 필터
-    private Integer createdDateFilter;
 
     public Integer getSkill_id() {
         return skill_id;

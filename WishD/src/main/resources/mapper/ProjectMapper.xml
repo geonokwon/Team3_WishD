@@ -34,16 +34,29 @@
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
+    <!-- 진행중 모집중 필터 추가 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
         SELECT p.*
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
         <where>
-            <if test="skill_id != null">
-                ps.skill_id = #{skill_id}
+            <if test="state == 0">
+                p.pboard_state = '모집중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
-            <if test="search != null">
-                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            <if test="state != 0">
+                p.pboard_state = '진행중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
         </where>
         GROUP BY p.pboard_id
@@ -65,13 +78,23 @@
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
         <where>
-            <!-- 스킬 필터가 있을 경우 -->
-            <if test="skill_id != null">
-                ps.skill_id = #{skill_id}
+            <if test="state == 0">
+                p.pboard_state = '모집중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
-            <!-- 검색어가 있을 경우 -->
-            <if test="search != null">
-                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            <if test="state != 0">
+                p.pboard_state = '진행중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
         </where>;
     </select>
