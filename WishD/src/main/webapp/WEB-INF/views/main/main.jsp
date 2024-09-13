@@ -126,7 +126,7 @@
 	
 <!-- 	프리랜서 리스트 -->
 	<div class="freelancer-list">
-		<div class="list-head" style="cursor:pointer;" onclick="location.href='#';">프리랜서 목록</div>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind';">프리랜서 목록</div>
 		<table class="instant-table">
 			<tr>
 				<td><p>ㅁㄴㅇㄹ</p></td>

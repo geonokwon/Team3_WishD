@@ -14,4 +14,11 @@ public class ManagerController {
 		return "/manager/managerMain";
 	}
 	
+//	테스트용 코드
+	@GetMapping("/managerTest1")
+	public String managerTest1() {
+		
+		return "/manager/managerBoardTemp";
+	}
+	
 }
