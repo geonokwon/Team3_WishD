@@ -1,7 +1,5 @@
 package com.teamproject.service;
 
-import java.sql.Timestamp;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -21,17 +19,20 @@ public class MemberService {
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberService insertMember()");
 		
-		// 가입날짜
-		memberDTO.setJoin_date(new Timestamp(System.currentTimeMillis()));
+		//user_info 통합 테이블 저장 후 user_no 값 반환
+		memberDAO.insertUserInfo(memberDTO);
+		System.out.println(memberDTO.toString());
 		
-		memberDAO.insertMember(memberDTO);
+		//user_no 값 가지고 일반회원 테이블 저장
+		memberDAO.insertUser(memberDTO);
+		
+		
 		
 	}
 
 	// 회원체크
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberService userCheck()");
-		
 		return memberDAO.userCheck(memberDTO);
 	}
 

@@ -1,12 +1,12 @@
 package com.teamproject.controller;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.MemberService;
@@ -22,49 +22,41 @@ public class MemberController {
 	// 로그인 
 	@GetMapping("/login")
 	public String login() {  
-		
 		System.out.println("MemberController login()");
-
 		return "/member/login";
 	}
 	
 	@PostMapping("/loginPro")
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController loginPro");
-		System.out.println(memberDTO);
+	
+		MemberDTO memberDTO1 = memberService.userCheck(memberDTO);
 		
-		memberDTO = memberService.userCheck(memberDTO);
-		if(memberDTO != null) {
-			
-			// 아이디 비밀번호 일치
-			// 세션에 로그인 표시값 저장
-			// session.setAttribute("user_id", memberDTO.getUser_id());
-			// 메인 페이지로 이동
-			return "redirect:/main";	
-		} 
-		else {
-			
-			// 아이디 비밀번호 틀림 -> 로그인 페이지로 이동
-			return "redirect:/login";	
+		if(memberDTO1 != null) {
+			session.setAttribute("user_no", memberDTO1.getUser_no());
+			return "redirect:/";
 		}
+		else {
+			return "/login";
+		}	
+	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	// 회원가입
 	@GetMapping("/insert")
 	public String insert() {
-		
 		System.out.println("MemberController insert()");
-		
 		return "/member/insert";
-		
 	}
 	
 	@PostMapping("/insertPro")
 	public String insertPro(MemberDTO memberDTO) {
-		
 		System.out.println("MemberController insertPro");
 		System.out.println(memberDTO);
-		
 		
 		memberService.insertMember(memberDTO);
 		// 로그인 주소변경 하면서 이동 

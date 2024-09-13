@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public class MemberDTO {
 	// 통합(일반+간편) user_info
-	private long user_no; // 회원 번호 
+	private Long user_no; // 회원 번호 
 	private String user_name; // 회원 이름
 	private String email; // 회원 이메일
 	private Timestamp join_date; // 가입날짜
-	private String role; // 관리자, 회원 구분
+	private String user_role; // 관리자, 회원 구분
 	private boolean user_yn; // 회원 차단 여부 
 	private String user_type; // 일반, 간편회원 구분 
 	
@@ -20,8 +20,7 @@ public class MemberDTO {
 	private String user_id; // 회원아이디
 	private String user_pass; //회원 비밀번호
 	private String user_phone; // 회원 전화번호
-	// private String mail_auth; // 이메일 인증
-	// private String mail_key; //이메일 인증 코드
+	
 	
 
 	// 마이페이지 연결정보
@@ -58,11 +57,11 @@ public class MemberDTO {
 		this.user_phone = user_phone;
 	}
 
-	public long getUser_no() {
+	public Long getUser_no() {
 		return user_no;
 	}
 
-	public void setUser_no(long user_no) {
+	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
 
@@ -90,12 +89,12 @@ public class MemberDTO {
 		this.join_date = join_date;
 	}
 
-	public String getRole() {
-		return role;
+	public String getUser_Role() {
+		return user_role;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setUser_Role(String user_role) {
+		this.user_role = user_role;
 	}
 
 	public boolean isUser_yn() {
@@ -158,7 +157,7 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [user_no=" + user_no + ", user_name=" + user_name + ", email=" + email + ", join_date="
-				+ join_date + ", role=" + role + ", user_yn=" + user_yn + ", user_type=" + user_type + ", access_Token="
+				+ join_date + ", user_role=" + user_role + ", user_yn=" + user_yn + ", user_type=" + user_type + ", access_Token="
 				+ access_Token +  "]";
 	}
 }
