@@ -66,20 +66,27 @@
     </div>
 
     <div class="col-12 mt-4 mb-2 px-5">
-        <div class="d-flex">
-            <!-- 총 프로젝트 등록 개수 가져오기 -->
-            <div class="ms-1 me-3">프로젝트 ${projectPageDTOList.getCount()} 개</div>
-            <div class="me-4">|</div>
-
-            <!-- 정렬 방식 변경 -->
-            <c:if test="${sortState == 0}">
-                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
-                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <!-- 총 프로젝트 등록 개수 가져오기 -->
+                <div class="ms-1 me-3">프로젝트 ${projectPageDTOList.getCount()} 개</div>
+                <!-- 구분 선 -->
+                <div class="me-4">|</div>
+                <!-- 정렬 방식 변경 -->
+                <c:if test="${sortState == 0}">
+                    <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
+                    <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
+                </c:if>
+                <c:if test="${sortState == 1}">
+                    <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
+                    <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
             </c:if>
-            <c:if test="${sortState == 1}">
-                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
-                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
-            </c:if>
+            </div>
+            <!-- state 값으로 모아보기 토글 버튼 -->
+            <div class="form-check form-switch">
+                <input class="form-check-input bg-primary" type="checkbox"  id="projectBoardState" checked onclick="">
+                <label class="form-check-label" for="projectBoardState">모집중</label>
+            </div>
         </div>
     </div>
 

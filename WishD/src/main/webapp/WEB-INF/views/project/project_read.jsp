@@ -353,15 +353,16 @@
         agree_button.text("승인 대기중");
         //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
 
-
         //projectRequestDTO
         let sessionUserNo = parseInt("${sessionScope.user_no}");
-        console.log(sessionUserNo);
+        console.log("sessionUserNo : " + sessionUserNo);
+        let projectUserNo = parseInt("${projectDTO.getUser_no()}")
+        console.log("projectUserNo : " + projectUserNo);
         let requestUserNo = parseInt("${projectRequestDTO.getUser_no()}");
-        console.log(requestUserNo);
+        console.log("requestUserNo : " +requestUserNo);
         let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
-        // isAgree = "true";
-        if (sessionUserNo === requestUserNo){
+
+        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
             $("#formFile").hide();
             $("#requestFile").show();
             //한줄 자기 소개
@@ -393,8 +394,7 @@
             $("#agree_2").prop("checked", true);
 
 
-
-            if(isAgree === "true"){
+            if(sessionUserNo === projectUserNo && isAgree === "true"){
                 //버튼 비활성화
                 agree_button.hide();
                 //다운로드 a태그 활성화

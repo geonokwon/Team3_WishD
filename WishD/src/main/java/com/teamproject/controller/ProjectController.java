@@ -79,7 +79,7 @@ public class ProjectController {
         model.addAttribute("projectSkillList", projectService.getSkillList());
 
         //session 에서 user_no 가져오기
-        session.setAttribute("user_no", 3L);
+        session.setAttribute("user_no", 2L);
         Long user_no = (Long) session.getAttribute("user_no");
 
         if (user_no != null) {
