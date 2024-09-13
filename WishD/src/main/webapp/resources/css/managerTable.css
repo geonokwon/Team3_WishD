@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.wrap{
+	display:flex;
+}
+
+.content{
+	width:50%;
+	margin-top:200px;
+	margin-left:300px;
+}
+
+.content-head{
+	text-align:center;
+	font-weight:900; font-size: 2em;
+	margin-bottom:50px;
+}
+
+.list{
+	margin-bottom:200px;
+}
