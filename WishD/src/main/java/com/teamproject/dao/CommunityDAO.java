@@ -16,18 +16,12 @@ public class CommunityDAO {
 	private SqlSession sqlSession;
 	
 	private static final String namespace="com.itwillbs.mapper.CommunityMapper";
-	
-	public int getMAxNum() {
-		System.out.println("CommunityDAO getMAxNum()");
-		return sqlSession.selectOne(namespace + ".getMaxNum");
-		
-	}
-	
+
 	public void insertCommunity(CommunityDTO communityDTO) {
-		System.out.println("CommunityDAO insertCommunity()");
-		
 		sqlSession.insert(namespace + ".insertCommunity", communityDTO);
 		
 	}
+	
+
 	
 }

@@ -10,6 +10,14 @@ public class CommunityDTO {
 	private String ncommunity_content;
 	private Timestamp ncommunity_date;
 	private Timestamp ncommunity_update;
+	private int user_no;
+	
+	public int getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 	public int getNcommunity_num() {
 		return ncommunity_num;
 	}
@@ -45,6 +53,12 @@ public class CommunityDTO {
 	}
 	public void setNcommunity_update(Timestamp ncommunity_update) {
 		this.ncommunity_update = ncommunity_update;
+	}
+	@Override
+	public String toString() {
+		return "CommunityDTO [ncommunity_num=" + ncommunity_num + ", admin_id=" + admin_id + ", ncommunity_title="
+				+ ncommunity_title + ", ncommunity_content=" + ncommunity_content + ", ncommunity_date="
+				+ ncommunity_date + ", ncommunity_update=" + ncommunity_update + "]";
 	}
 	
 	

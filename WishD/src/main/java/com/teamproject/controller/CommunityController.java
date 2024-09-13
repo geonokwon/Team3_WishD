@@ -1,6 +1,7 @@
 package com.teamproject.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,26 +18,29 @@ public class CommunityController {
 	@Inject
 	private CommunityService communityService;
 	
+	@GetMapping("community")
+	public String notice() {
+		return "/community/notice";
+	}
+	
 	//글쓰기
 	@GetMapping("/notice_write")
 	public String noticeWrite() {
 	
 		return "/community/notice_write";
 	}
-	@GetMapping("community")
-	public String notice() {
-		return "/community/notice";
-	}
 	
 	//글쓰기 처리
 	@PostMapping("/notice_writePro")
-	public String notice_writePro(CommunityDTO communityDTO) {
+	public String noticeWritePro(CommunityDTO communityDTO, HttpSession session) {
 		System.out.println("CommunityController notice_writePro()");
 		System.out.println(communityDTO);
 		
+		session.getAttribute("user_no");
+		
 		communityService.insertCommunity(communityDTO);
 		
-		return "redirect:/community/notice";
+		return "redirect:/community";
 		}
 		
 	

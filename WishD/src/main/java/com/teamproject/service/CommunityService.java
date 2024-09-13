@@ -1,7 +1,5 @@
 package com.teamproject.service;
 
-import java.sql.Timestamp;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,12 +17,8 @@ public class CommunityService {
 		System.out.println("CommunityService insertCommunity");
 		
 		//글 번호
-		communityDTO.setNcommunity_num(communityDAO.getMAxNum() + 1);
+		communityDAO.insertCommunity(communityDTO);
 		
-		//날짜
-		communityDTO.setNcommunity_date(new Timestamp(System.currentTimeMillis()));
-		
-		//최근수정일
 	}	
 		
 }
