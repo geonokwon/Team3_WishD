@@ -35,9 +35,9 @@
             <!-- 왼쪽 로그인 영역 -->
             <div class="login-left">
                 <h2>Login</h2>
-                <form id="loginForm">
-                    <input type="text" id="userId" placeholder="아이디를 입력하세요" required>
-                    <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                <form id="loginForm" action="${pageContext.request.contextPath}/loginPro" method="post">
+                    <input type="text" id="userId" name="user_id" placeholder="아이디를 입력하세요" required>
+                    <input type="password" id="password" name="user_pass" placeholder="비밀번호를 입력하세요" required>
                     
                     <div class="remember-me">
                         <input type="checkbox" id="rememberMe">

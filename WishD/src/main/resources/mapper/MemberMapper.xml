@@ -5,11 +5,30 @@
 
 <mapper namespace="com.teamproject.mapper.MemberMapper">
 
-	<!-- 일반회원 정보  -->
-	<insert id="insertMember"> 
-		insert into user_info(user_name, email, join_date, role, user_yn, user_type)
-		values(#{user_name},#{email}, #{join_date}, #{role}, #{user_yn}, #{user_type})
+
+	<!-- 통합회원정보 -->
+	<insert id="insertUserInfo"  useGeneratedKeys="true" keyProperty="user_no" keyColumn="user_no"> 
+		insert into user_info(user_name, email, user_yn, user_type)
+		values(#{user_name},#{email}, #{user_yn}, #{user_type})
 	</insert>
+
+	<!-- 일반회원 정보  -->
+	<insert id="insertUser"> 
+		insert into user(user_no, user_id, user_pass, user_phone)
+		values(#{user_no}, #{user_id}, #{user_pass}, #{user_phone})
+	</insert>
+	
+	
+	
+	<!-- 회원여부확인 -->
+	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
+		SELECT * 
+		FROM user
+		WHERE user_id = #{user_id} 
+		AND user_pass = #{user_pass}
+	</select>
+	
+	
 
  		<!-- 간편회원 로그인 --> 
 <!-- 	<insert id="insertSimpleMember"> -->
@@ -18,12 +37,6 @@
 
 <!-- 	</insert> -->
 	
-	
-	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
-		select * from user
-		where user_id = #{user_id} and user_pass = #{user_pass}
-	
-	</select>
 	
 <!-- 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO"> -->
 <!-- 		select * from user -->
