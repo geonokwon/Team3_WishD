@@ -29,7 +29,7 @@ public class MyPageController {
 		// ====== 회원 정보 가져오기 시작 =======
 		// 세션에 저장된 값으로 체크
 		MemberDTO memberDTO = new MemberDTO();
-		Integer sessionCheck = (Integer)session.getAttribute("user_no");
+		Long sessionCheck = (Long)session.getAttribute("user_no");
 		if(sessionCheck == null) {
 			return "redirect:/login";
 		}
