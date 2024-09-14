@@ -140,10 +140,15 @@ public class ProjectController {
     }
 
     @GetMapping("/projectWrite")
-    public String projectWrite(Model model){
+    public String projectWrite(HttpSession session,Model model){
         logger.info("-> projectWrite()");
-        //전체스킬 조회시 필요한 전체 스킬 데이터
-        model.addAttribute("projectSkillList", projectService.getSkillList());
+        if (session.getAttribute("user_no") != null) {
+            //전체스킬 조회시 필요한 전체 스킬 데이터
+            model.addAttribute("projectSkillList", projectService.getSkillList());
+        }
+        else {
+            return "redirect:/login";
+        }
         return "/project/project_write";
     }
 
