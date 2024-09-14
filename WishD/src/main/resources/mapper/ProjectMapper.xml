@@ -11,7 +11,7 @@
         INSERT INTO project_board (user_no, pboard_title, pboard_content,
                                    pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
         VALUES (
-            2,
+            #{user_no},
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
             #{pboard_rangeMonth}, #{pboard_job}
@@ -137,7 +137,7 @@
         INSERT INTO request_freelancer(user_no, pboard_id, f_request_title,
                                        f_request_history, f_request_exp,
                                        f_request_money, f_request_startDate, job_id)
-        VALUES(1, #{pboard_id}, #{f_request_title}, #{f_request_history},
+        VALUES(#{user_no}, #{pboard_id}, #{f_request_title}, #{f_request_history},
                #{f_request_exp}, #{f_request_money}, #{f_request_startDate}, #{job_id});
     </insert>
 

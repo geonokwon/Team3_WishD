@@ -362,7 +362,7 @@
         console.log("requestUserNo : " +requestUserNo);
         let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
 
-        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
+        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "false")){
             $("#formFile").hide();
             $("#requestFile").show();
             //한줄 자기 소개
@@ -394,7 +394,7 @@
             $("#agree_2").prop("checked", true);
 
 
-            if(sessionUserNo === projectUserNo && isAgree === "true"){
+            if(sessionUserNo === projectUserNo && isAgree === "false"){
                 //버튼 비활성화
                 agree_button.hide();
                 //다운로드 a태그 활성화
@@ -413,6 +413,7 @@
                 // 버튼 클릭 이벤트 처리
                 $('#match_button').click(function() {
                     console.log('매칭 버튼 클릭됨');
+                    location.href="${pageContext.request.contextPath}/chatting/${projectDTO.getPboard_id()}"
                 });
 
                 $('#cancel_button').click(function() {

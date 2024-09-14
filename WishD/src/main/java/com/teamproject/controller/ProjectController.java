@@ -85,7 +85,6 @@ public class ProjectController {
         model.addAttribute("projectSkillList", projectService.getSkillList());
 
         //session 에서 user_no 가져오기
-        session.setAttribute("user_no", 1L);
         Long user_no = (Long) session.getAttribute("user_no");
 
         if (user_no != null) {
@@ -124,12 +123,14 @@ public class ProjectController {
     @PostMapping("/projectReadReq/{pboard_id}")
     @ResponseBody
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
+                                     HttpSession session,
 //                                     MultipartFile file,
                                      ProjectRequestFileDTO projectRequestFileDTO,
                                      ProjectRequestDTO projectRequestDTO,
                                      Model model) throws Exception {
         logger.info("-> projectReadRequest()");
         projectRequestDTO.setPboard_id(pboard_id);
+        projectRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
         projectService.insertProjectRequest(projectRequestDTO, projectRequestFileDTO);
 
 
@@ -153,10 +154,14 @@ public class ProjectController {
     }
 
     @PostMapping("/projectWrite")
-    public String projectWrite(ProjectDTO projectDTO, Model model){
+    public String projectWrite(ProjectDTO projectDTO,
+                               HttpSession session,
+                               Model model){
         logger.info("-> projectWrite()");
-        System.out.println(projectDTO.toString());
+
+        projectDTO.setUser_no((Long) session.getAttribute("user_no"));
         projectService.insertProject(projectDTO);
+        System.out.println(projectDTO.toString());
         return "redirect:/projectFind";
     }
 }
