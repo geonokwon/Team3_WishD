@@ -4,9 +4,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.MemberService;
@@ -37,7 +38,7 @@ public class MemberController {
 			return "redirect:/";
 		}
 		else {
-			return "/login";
+			return "redirect:/login";
 		}	
 	}
 	@GetMapping("/logout")
@@ -64,72 +65,87 @@ public class MemberController {
 		
 	}
 	
-//	// 회원가입시 아이디 중복체크
-//	@GetMapping("/idCheck")
-//	public String idCheck(HttpServletRequest request) {
-//		System.out.println("MemberController idCheck()");
-//		
-//		String id = request.getParameter("id");
-//		MemberDTO memberDTO = memberService.getMember(id);
-//		
-//		String result = "";
-//		if(memberDTO != null) {
-//			
-//			// 존재하는 아이디 O , 아이디 사용 불가
-//			result = "iddup";
-//		}
-//		else {
-//			// 존재하는 아이디 X, 아이디 사용 가능
-//			result = "idok";
-//		}
-//		return result; // 결과값 리턴 
-//		
-//		
+//	// 회원가입시 이메일 중복체크 
+//	// 응답을 받기 위해서 @ResponseBody 사용 
+//	@PostMapping("/emil-check")
+//	public @ResponseBody String emailCheck(@RequestParam("user_email")String user_email) {
+//		System.out.println("MemberController emailCheck()");
+//		// DB 에서 체크한 결과를 String 으로 받아와서 return 해준다.
+//		String checkResult = memberService.emailCheck(user_email);
+//		return checkResult;
 //	}
 //	
-	
-	
-	
-	
-	
-	
-	
-	
+//	
+
 	// 아이디 찾기
 	@GetMapping("/idFind")
 	public String idFind() {
-		
 		System.out.println("MemberController idFind()");
-		
 		return "/member/idFind";
 	}
 	
-	// 아이디 찾기 결과
-		@GetMapping("/idResult")
-		public String idResult() {
-			
-			System.out.println("MemberController idResult()");
-			
+
+	@PostMapping("/idFindPro")
+	public String idFindPro(MemberDTO memberDTO, Model model) {
+		
+		System.out.println("MemberController idFindPro()");
+		memberDTO = memberService.idFind(memberDTO);
+		
+		if(memberDTO != null) { // 아이디가 있으면 model에 데이터 담아서 결과화면
+			model.addAttribute("memberDTO", memberDTO);
 			return "/member/idResult";
 		}
-
+		else {
+			// 아이디가 없으면 에러 메시지를 model에 담아 아이디 찾기 화면으로 
+	        model.addAttribute("errorMessage", "일치하는 아이디가 없습니다.");
+	        return "member/idFind";
+		}
+	}
 	
 	// 비밀번호 찾기
 	@GetMapping("/passFind")
 	public String passFind() {
-		
 		System.out.println("MemberController passFind()");
-		
 		return "/member/passFind";
-	}
-
-	// 비밀번호 찾기 결과
-	@GetMapping("/passResult")
-	public String passResult() {
-				
-		System.out.println("MemberController passResult()");
-				
-		return "/member/passResult";
+		
 	}
 	
-}
+	@PostMapping("/passFindPro")
+	public String passFindPro(MemberDTO memberDTO, Model model) {
+		
+		System.out.println("MemberController passFindPro()");
+		memberDTO = memberService.passFind(memberDTO);
+		
+		if(memberDTO != null) { // 비밀번호가 있으면 model 데이터 담아서 결과화면으로 이동
+			
+			model.addAttribute("memberDTO", memberDTO);
+			return "/member/passResult";
+			
+		}
+		else {
+			
+			// 아이디가 없으면 에러 메시지를 model에 담아 비밀번호 찾기 화면으로 
+	        model.addAttribute("errorMessage", "일치하는 비밀번호가 없습니다.");
+	        return "/member/passFind";
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//클래스 
+	
+	
+	
+	
+	
+	
+	

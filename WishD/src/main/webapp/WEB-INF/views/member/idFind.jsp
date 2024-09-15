@@ -34,24 +34,27 @@
 
  	<div class="form-container">
         <h2>아이디 찾기</h2>
-        <form action="idResult.html" method="GET">
+        <form action="${pageContext.request.contextPath}/idFindPro" method="POST">
             <div class="input-group">
-                <input type="text" id="name-id" name="name" placeholder="이름을 입력하세요" required>
+                <input type="text" id="user_name" name="user_name" placeholder="이름을 입력하세요" required>
             </div>
             <div class="input-group">
-                <input type="email" id="email-id" name="email" placeholder="이메일을 입력하세요" required>
+                <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
             </div>
             <button type="submit" class="submit-btn">아이디 찾기</button>
         </form>
+         <!-- 일치하는 아이디 없을때 알림창  -->
+          <!-- 에러 메시지 표시 -->
+    	  <c:if test="${not empty errorMessage}">
+        	<p style="color: red;"><c:out value="${errorMessage}" /></p>
+    	  </c:if>
     </div>
 	<!-- 별배경 -->
     <div class="noite"></div>
    	<div class="constelacao"></div>
    	<div class="chuvaMeteoro"></div>
     <script src="${pageContext.request.contextPath}/resources/member/js/idFind.js"></script>
-
- <!-- Footer -->
-<%-- <jsp:include page="../include/footer.jsp"/> --%>
+	
 
 </body>
 </html>

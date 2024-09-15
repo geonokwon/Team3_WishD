@@ -37,11 +37,26 @@ public class MemberService {
 	}
 
 	// 회원 불러오기 
-	public MemberDTO getMember(String id) {
+	public MemberDTO getMember(String user_id) {
 		System.out.println("MemberService getMember()");
 		
-		return memberDAO.getMember(id);
+		return memberDAO.getMember(user_id);
 	}
+
+	// 아이디 찾기
+	@Transactional
+	public MemberDTO idFind(MemberDTO memberDTO) {
+		return memberDAO.idFind(memberDTO);
+	}
+	
+	// 비밀번호 찾기
+	@Transactional
+	public MemberDTO passFind(MemberDTO memberDTO) {
+		return memberDAO.passFind(memberDTO);
+	}
+
+
+	
 	
 	
 	

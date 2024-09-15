@@ -6,7 +6,7 @@
     min-height: 50vh;
     background-color: #0E1117;
     color: #fff;
-    padding: 20px;
+    padding: 50px;
 }
 
 .signup-box {
@@ -17,11 +17,13 @@
     max-width: 600px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     margin : 100px;
+    z-index: 2; /* 별보다 앞으로 나와 있는지 확인 */
 }
 
 .signup-box h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    padding : 20px;
 }
 
 .input-group {
@@ -32,92 +34,90 @@
 }
 
 .input-group p {
-    margin: 0 0 5px 0;
+    margin: -10px 0 5px 10px;
     font-size: 13px;
     width: 100px;
+   
 }
 
 .input-group input {
-    width: 50%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 2px solid #333743;
+   	width: 50%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px !important;
+    border: none;
     background-color: #333743;
-    color: #fff;
+    color: white;
     font-size: 14px;
     transition: border-color 0.3s ease;
+    margin-right : 10px;
 }
 
 .input-group input:focus {
-    border-color: #6F40C8;
+    outline: none;
+    border: 2px solid #2a2370;
 }
 
 .input-group button {
-    width: 100px;
-    padding: 10px;
+    width: 80px;
+    padding: 8px;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px !important;
     background-color: #6F40C8;
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 10px;
+    margin-bottom : 20px;
+    
 }
 
 .input-group button:hover {
     background-color: #5a34a1;
 }
 
-.input-group input.disabled {
-    background-color: #2b2b2b;
-    cursor: not-allowed;
+.agree {
+	display: flex;
+    align-items: center;
+    margin-bottom: 30px; /* 위아래 간격 */
+    font-size: 11px;
 }
 
-.input-error {
-    border: 2px solid red;
+.agree-item {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 10px; 
+    margin-left: 50px;
+    
+    
 }
 
-.error-msg {
-    color: red;
-    font-size: 12px;
+.agree-item input[type="checkbox"] {
+    margin-right: 12px;
+    width: 16px;
     height: 16px;
 }
 
-.success-msg {
-    color: green;
-    font-size: 14px;
-    margin-top: 10px;
-}
 
-.agree {
-    margin-bottom: 20px;
-}
-
-.agree input {
-    margin-right: 10px;
-}
 
 .signup-btn {
-    width: 100%;
     padding: 12px;
+    width: 80%;
     border: none;
     border-radius: 5px;
     background-color: #6F40C8;
-    color: #fff;
+    color: white;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .signup-btn:hover {
     background-color: #5a34a1;
-}
-
-.success-msg {
-    color: #6F40C8;
-    font-size: 14px;
-    margin-top: 10px;
 }
 
 
@@ -135,7 +135,7 @@
 }
 
 .constelacao {
-    z-index: -1;
+    z-index: 1;
     position: fixed;
     left: 0;
     top: 0;
@@ -146,13 +146,14 @@
 
 .estrela {
     position: fixed;
-    z-index: -1;
+    z-index: 1;
     background-color: white;
     border-radius: 50%;
     position: absolute;
     animation-name: estrela;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+   
 }
 
 /* 스타일 및 애니메이션에 대한 클래스는 그대로 유지 */
@@ -210,6 +211,7 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-duration: 1s;
+    
 }
 
 .meteoro:before {
@@ -358,4 +360,5 @@
         top: 800px;
     }
 }
+
 

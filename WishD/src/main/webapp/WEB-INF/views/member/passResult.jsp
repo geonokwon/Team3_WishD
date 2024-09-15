@@ -34,7 +34,7 @@
     
      <div class="form-container">
     <h2>비밀번호 찾기 결과</h2>
-    <p id="result-text">일치하는 아이디가 없습니다.</p>
+    <p id="result-text">${memberDTO.user_pass}</p>
     <div class="result-buttons">
         <button class="submit-btn" onclick="window.history.back()">뒤로 가기</button>
         <a href="${pageContext.request.contextPath}/login" class="submit-btn">로그인하기</a>
