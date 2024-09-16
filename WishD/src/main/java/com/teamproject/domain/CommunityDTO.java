@@ -10,12 +10,12 @@ public class CommunityDTO {
 	private String ncommunity_content;
 	private Timestamp ncommunity_date;
 	private Timestamp ncommunity_update;
-	private int user_no;
+	private Long user_no;
 	
-	public int getUser_no() {
+	public Long getUser_no() {
 		return user_no;
 	}
-	public void setUser_no(int user_no) {
+	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
 	public int getNcommunity_num() {
