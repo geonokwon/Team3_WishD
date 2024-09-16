@@ -5,18 +5,28 @@
 
 <mapper namespace="com.teamproject.mapper.ChatMessageMapper">
 
+    <!-- request_id 불러오기 -->
+    <select id="getRequestFreelancerID" resultType="Long">
+        SELECT f_request_id
+        FROM request_freelancer
+        WHERE pboard_id = #{pboard_id}
+        AND f_request_isAgree = true
+    </select>
+
     <!-- 채팅 저장 -->
     <insert id="insertMessage" parameterType="com.teamproject.domain.ChatMessageDTO">
-        INSERT INTO chat_message (pboard_id, user_no, chat_content)
-        VALUES (#{pboard_id}, #{user_no}, #{chat_content})
+        INSERT INTO chat_message (pboard_id, user_no, chat_content, f_request_id)
+        VALUES (#{pboard_id}, #{user_no}, #{chat_content}, #{f_request_id})
     </insert>
 
     <!-- 채팅 내용 불러오기 -->
+    <!-- 채팅방에 표시할 유저 id 표기 -->
     <select id="getChatHistory" resultType="com.teamproject.domain.ChatMessageDTO">
-        SELECT chat_room_id, pboard_id, user_no, chat_content
-        FROM chat_message
-        WHERE pboard_id = #{pboard_id}
-        ORDER BY chat_date ASC
+        SELECT cm.chat_room_id, cm.pboard_id, cm.user_no, cm.chat_content, ui.user_name
+        FROM chat_message cm
+        JOIN user_info ui ON cm.user_no = ui.user_no
+        WHERE cm.pboard_id = #{pboard_id}
+        ORDER BY cm.chat_date DESC
     </select>
 
 

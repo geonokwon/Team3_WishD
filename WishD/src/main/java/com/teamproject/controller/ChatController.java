@@ -47,6 +47,10 @@ public class ChatController {
 
         //채팅 내역 가져올때 상대방꺼도 가져와야함 .. 그냥 채팅방 기준(pboard_id) 으로 다가져와서 user_no 에 따라 나눠야 할거같은데?
         //채팅내역 가져오기
+        //pboard_id로 가져오면 다른 채팅도 올수있는데 ?
+        //pboard_id로 매칭하고  취소하면 다시 채팅방이 열리는데 그러면 이전 내용까지 다불러 올껀데 ;;
+        //pboard_id 와 request_form_id를 같이 불러와야겠네 .
+
         List<ChatMessageDTO> chatHistory = chatMessageService.getChatHistory(pboard_id);
         model.addAttribute("chatHistory", chatHistory);
 
@@ -59,6 +63,8 @@ public class ChatController {
         logger.info( "-> sendMessage()");
         //메세지 저장
         chatMessageDTO.setPboard_id(pboard_id);
+        //리퀘스트 프리렌서 폼 아이디를 가져와야함 어떻게 가져오지 ? 뭘 기준으로 ?
+        chatMessageDTO.setF_request_id(chatMessageService.getRequestFreelancerID(pboard_id));
         chatMessageService.saveMessage(chatMessageDTO);
         System.out.println("Received message: " + chatMessageDTO.toString());
 

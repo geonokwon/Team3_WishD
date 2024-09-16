@@ -20,6 +20,13 @@ public class ChatMessageDAO {
 
     private final String namespace = "com.teamproject.mapper.ChatMessageMapper.";
 
+    //메세지 저장 전 request_id값 가져오기
+    public Long getRequestFreelancerID(Long pboardId) {
+        logger.info("-> getRequestFreelancerID()");
+        return sqlSession.selectOne(namespace + "getRequestFreelancerID", pboardId);
+    }
+
+
     // 메시지 저장
     public void saveMessage(ChatMessageDTO messageDTO) {
         logger.info("-> saveMessage()");
@@ -32,4 +39,6 @@ public class ChatMessageDAO {
         logger.info("-> getChatHistory()");
         return sqlSession.selectList(namespace + "getChatHistory", pboardId);
     }
+
+
 }

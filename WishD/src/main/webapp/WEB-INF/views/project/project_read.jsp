@@ -362,7 +362,7 @@
         console.log("requestUserNo : " +requestUserNo);
         let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
 
-        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "false")){
+        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
             $("#formFile").hide();
             $("#requestFile").show();
             //한줄 자기 소개
@@ -394,7 +394,7 @@
             $("#agree_2").prop("checked", true);
 
 
-            if(sessionUserNo === projectUserNo && isAgree === "false"){
+            if(sessionUserNo === projectUserNo && isAgree === "true"){
                 //버튼 비활성화
                 agree_button.hide();
                 //다운로드 a태그 활성화

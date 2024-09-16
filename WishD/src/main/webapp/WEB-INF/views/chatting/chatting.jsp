@@ -132,22 +132,37 @@
             </div>
 
             <!-- side request-form card -->
-            <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3" id= chat" style="height: 1030px">
+            <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3" id="side-from-card">
                 <!-- 채팅내역 -->
-                <div id="chat" class="d-flex flex-column">
+                <div id="chat" class="d-flex flex-column-reverse overflow-auto">
                     <c:if test="${!empty chatHistory}">
                         <c:forEach items="${chatHistory}" var="chatting">
-                            <div id="massageContainer" class="d-flex justify-content-${chatting.user_no == user_no ? 'start' : 'end'} mb-2">
-                                <div class="badge fs-5 ${chatting.user_no == user_no ? 'bg-success' : ''}">
+                            <div class="message-container d-flex justify-content-${chatting.user_no == user_no ? 'end' : 'start'} mb-2">
+                                <div class="message-content ${chatting.user_no == user_no ? 'bg-success' : 'bg-purple'}">
                                         ${chatting.chat_content}
                                 </div>
                             </div>
+                            <!-- 내가 보낸 유저가 아니면 유저 네임 표시 -->
+                            <c:if test="${chatting.user_no != user_no}">
+                                <div class="user_name" style="text-align: left">
+                                        ${chatting.user_no}
+                                </div>
+                            </c:if>
                         </c:forEach>
                     </c:if>
                 </div>
-                <input type="text" id="message" placeholder="Type your message here" />
-                <button onclick="sendMessage()">Send</button>
+
+                <!-- 입력창 및 버튼 -->
+                <div class="row d-flex mt-2">
+                    <input class="col form-control bg-dark me-2" type="text" id="message" placeholder="메세지 입력" />
+                    <button class="col-2 btn btn-primary" onclick="sendMessage()">전송</button>
+                </div>
             </div>
+
+
+
+
+
             <!-- side rquest-form end-->
         </div>
     </div>
@@ -155,15 +170,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"
-></script>
 <script>
     let stompClient = null;
     let pboard_id = "${projectDTO.getPboard_id()}"/* 서버에서 pboard_id 값을 받아오도록 설정 */;
     let user_no = "${sessionScope.user_no}"/* 사용자 번호 */;
+    <%--let user_name = "${chatHistory.getUser_name()}"--%>
 
     function connect() {
         let socket = new SockJS('${pageContext.request.contextPath}/chat'); // 서버의 WebSocket 엔드포인트에 맞게 수정
@@ -189,6 +200,7 @@
             stompClient.send("/app/send/" + pboard_id, {}, JSON.stringify({
                 chat_content: messageContent,
                 user_no: user_no
+                // user_name: user_name
             }));
 
             // 메시지 전송 후 입력창 비우기
@@ -202,30 +214,51 @@
         // 메시지 컨테이너 생성
         let messageContainer = document.createElement('div');
         messageContainer.classList.add('d-flex', 'mb-2');
-        messageContainer.classList.add(chatMessage.user_no == user_no ? 'justify-content-start' : 'justify-content-end');
+        messageContainer.classList.add(chatMessage.user_no == user_no ? 'justify-content-end' : 'justify-content-start');
 
         // 메시지 배지 생성
         let messageElement = document.createElement('div');
-        messageElement.classList.add('badge', 'fs-5');
+        messageElement.classList.add('message-content');
         if (chatMessage.user_no == user_no) {
-            messageElement.classList.add('bg-success');
+            messageElement.classList.add('bg-success'); //내가 보낸 메세지
+        }
+        else {
+            messageElement.classList.add('bg-purple'); // 다른 사용자 메시지
         }
         messageElement.textContent = chatMessage.chat_content;
 
+        // 다른 사용자의 메시지일 경우 사용자 이름 추가
+        if (chatMessage.user_no != user_no) {
+            let userNameElement = document.createElement('div');
+            userNameElement.textContent = chatMessage.user_no; // 사용자 이름
+            chat.prepend(userNameElement);
+        }
+
+
         // 배지를 컨테이너에 추가하고, 컨테이너를 채팅창에 추가
         messageContainer.appendChild(messageElement);
-        chat.appendChild(messageContainer);
+        chat.prepend(messageContainer);
 
         // 채팅창이 새 메시지로 스크롤되도록 설정
         chat.scrollTop = chat.scrollHeight;
+
+
+
     }
 
     // Enter 키로 메세지 전송
     document.getElementById("message").addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
-            event.preventDefault(); // 폼 제출 방지
+            // 폼 제출 방지
+            event.preventDefault();
             sendMessage();
         }
+    });
+
+    //채팅방 입장시 스크롤 맨 아래로 이동
+    document.addEventListener("DOMContentLoaded", function() {
+        let chat = document.getElementById("chat");
+        chat.scrollTop = chat.scrollHeight;
     });
 
     connect();

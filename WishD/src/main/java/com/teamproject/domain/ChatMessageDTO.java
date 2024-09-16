@@ -6,6 +6,8 @@ public class ChatMessageDTO {
     private Long user_no;
     private String chat_content;
     private String chat_date;
+    private String user_name;
+    private Long f_request_id;
 
 
 
@@ -49,6 +51,22 @@ public class ChatMessageDTO {
         this.chat_date = chat_date;
     }
 
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public Long getF_request_id() {
+        return f_request_id;
+    }
+
+    public void setF_request_id(Long f_request_id) {
+        this.f_request_id = f_request_id;
+    }
+
     @Override
     public String toString() {
         return "ChatMessageDTO{" +
@@ -57,6 +75,8 @@ public class ChatMessageDTO {
                 ", user_no=" + user_no +
                 ", chat_content='" + chat_content + '\'' +
                 ", chat_date='" + chat_date + '\'' +
+                ", user_name='" + user_name + '\'' +
+                ", f_request_id=" + f_request_id +
                 '}';
     }
 }

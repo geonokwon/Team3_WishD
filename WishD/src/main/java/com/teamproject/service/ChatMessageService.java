@@ -27,4 +27,8 @@ public class ChatMessageService {
         return chatMessageDAO.getChatHistory(pboard_id);
     }
 
+    public Long getRequestFreelancerID(Long pboardId) {
+        logger.info("-> getRequestFreelancerID()");
+        return chatMessageDAO.getRequestFreelancerID(pboardId);
+    }
 }
