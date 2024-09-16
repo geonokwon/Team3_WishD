@@ -249,3 +249,8 @@
 	opacity: 1;
 	transform: scale(1);
 }
+
+/* qna 가로 길이 조정 */
+.col-8-c {
+	width: 100%;
+}

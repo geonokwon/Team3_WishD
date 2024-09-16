@@ -1,8 +1,14 @@
 package com.teamproject.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthStyleFactory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +19,17 @@ import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
+import com.teamproject.domain.MyQnaPageDTO;
 import com.teamproject.service.MyPageService;
+import com.teamproject.service.ProjectService;
 
 @Controller
 public class MyPageController {
 	
 	@Inject
 	private MyPageService myPageService;
+	@Inject
+	private ProjectService projectService; 
 	
 	@GetMapping("mypage")
 	public String mypage(HttpSession session, Model model, HttpServletRequest request) {
@@ -33,7 +43,7 @@ public class MyPageController {
 		if(sessionCheck == null) {
 			return "redirect:/login";
 		}
-		// 세션에 저장된 값으로 회원정보 가져오기
+		// 세션에 저장된 값으로 회원정보 가져오기 내부에서 간편, 일반 구분
 		memberDTO = myPageService.getLoginMember(sessionCheck.longValue());
 		System.out.println(memberDTO);
 		
@@ -224,16 +234,67 @@ public class MyPageController {
         myProjectPageDTO.setUser_no(memberDTO.getUser_no());
         //project_find page 글 개수 10개씩 가져옴
         model.addAttribute("myProjectPageDTO", myProjectPageDTO);
+        // getMyProject에서 스킬도 가져옴
         model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
         System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
   	    // ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 끝 ===========
         
+        
+        
+        // ======= QnA 글 페이지네이션 시작 ======== 
         String qnaPageNum = request.getParameter("qnaPageNum");
 		if(qnaPageNum == null) {
 			qnaPageNum = "1";
-		}
-        
+		}	
+		int qnaPageNumToInt = Integer.parseInt(qnaPageNum);
+		System.out.println("====== qnaPageNum : " + qnaPageNum);
 		
+		MyQnaPageDTO myQnaPageDTO = new MyQnaPageDTO();
+		myQnaPageDTO.setUser_no(memberDTO.getUser_no());
+		
+		int qnaPageSize = 5;
+		int qnaPageBlock = 5;
+		// 시작하는 페이지 번호 구하기
+        int qnaStartPage = ((qnaPageNumToInt - 1) / qnaPageBlock) * qnaPageBlock + 1;
+        System.out.println("qnaPageSize : " + qnaPageSize);
+        //끝나는 페이지 번호 구하기
+        int qnaEndPage = qnaStartPage + qnaPageBlock - 1;
+        System.out.println("qnaEndPage : " + qnaEndPage);
+        
+        //내가 쓴 qna 개수 가져오고 pageDTO에 넣어주기
+        myQnaPageDTO.setCount(myPageService.getMyQnaCount(memberDTO.getUser_no()));         
+        System.out.println("qna 글개수 : " + myQnaPageDTO.getCount());
+        
+        //페이지 카운트 구하기
+        int qnaPageCount = myQnaPageDTO.getCount() / qnaPageBlock + (myQnaPageDTO.getCount() % qnaPageBlock == 0 ? 0 : 1);
+        if (qnaEndPage > qnaPageCount) {
+        	qnaEndPage = qnaPageCount;
+        }
+        System.out.println("qnaPageCount : " + qnaPageCount);
+        
+        // 페이지 dto에 넣어주기
+        myQnaPageDTO.setStartPage(qnaStartPage);
+        myQnaPageDTO.setEndPage(qnaEndPage);
+        myQnaPageDTO.setPageCount(qnaPageCount);
+        myQnaPageDTO.setPageBlock(qnaPageBlock);
+        System.out.println("qnaStartPage : " + qnaStartPage);
+        System.out.println("qnaEndPage : " + qnaEndPage);
+        
+        // 시작하는 행 번호 구하기
+        int qnaStartRow = (qnaPageNumToInt - 1) * qnaPageSize + 1;
+        // 끝나는 행 번호 구하기
+        int qnaEndRow = qnaStartRow + qnaPageSize - 1;
+        // DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
+        myQnaPageDTO.setStartRow(qnaStartRow - 1);
+        myQnaPageDTO.setEndRow(qnaEndRow);
+        System.out.println("qnaStartRow : " + qnaStartRow);
+        System.out.println("qnaEndRow : " + qnaEndRow);
+        
+        model.addAttribute("myQnaPageDTO", myQnaPageDTO);
+        model.addAttribute("myQnaDTOList", myPageService.getMyQnaList(myQnaPageDTO));
+        // ======= QnA 글 페이지네이션 끝 ======== 
+        
+        
 		return "mypage/mypage";
 	}
 	
@@ -262,11 +323,34 @@ public class MyPageController {
 //		System.out.println("myProjectUpdate request.getParameter("projectPageNum") : " + request.getParameter("projectPageNum"));
 		System.out.println("myprojectupdate - myprojectupdate");
 		
-		
+		// 프로젝트 내용 가져오기
 		MyProjectDTO myProjectDTO = myPageService.getProjectForUpdate(Integer.parseInt(request.getParameter("projectPageNum")));
-		System.out.println("myProjectDTO : " + myProjectDTO);
+		System.out.println("스킬도 들어오는지 myProjectDTO : " + myProjectDTO);
+		
+		model.addAttribute("myProjectSkillList", projectService.getSkillList());
 		
 		model.addAttribute("myProjectDTO", myProjectDTO);
 		return "mypage/project_update";
 	}
+	
+	@PostMapping("mypage/myprojectupdatePro")
+	public String myprojectupdatePro(MyProjectDTO myProjectDTO, Model model, HttpServletRequest request) {
+		System.out.println("myprojectupdate - myprojectupdatePro");
+		System.out.println(request.getParameter("skillList"));
+		System.out.println("프로젝트 업데이트 넘어왔을때 값 : " + myProjectDTO);
+		
+		// 프로젝트 넘버 Long으로 변경
+//		myProjectDTO.setPboard_id(Long.parseLong(request.getParameter("projectPageNum")));
+		// 프로젝트 내용 업데이트
+//		myPageService.updateMyProject(myProjectDTO);
+//		System.out.println("업데이트 할때 값을 들고 오는지 myProjectDTO : " + myProjectDTO);
+//		
+//		model.addAttribute("myProjectSkillList", projectService.getSkillList());
+//		
+//		model.addAttribute("myProjectDTO", myProjectDTO);
+		return "redirect:/main";
+	}
+	
+	
+	
 }

@@ -47,6 +47,7 @@
 						value="${memberDTO.email}" readonly placeholder=" " /> <label
 						for="email">이메일</label>
 				</div>
+				<c:if test=""> <!-- 심플로그인은 어떻게 처리하는지 아래 정보수정도 -->
 				<div class="input-group">
 					<input type="text" id="user_id" name="user_id"
 						value="${memberDTO.user_id}" placeholder=" " /> <label
@@ -61,6 +62,7 @@
 						value="${memberDTO.user_phone}" placeholder=" " /> <label
 						for="user_phone">연락처</label>
 				</div>
+				</c:if>
 			</form>
 		</div>
 		<!-- 폼부분 끝 -->
@@ -205,7 +207,10 @@
 												var="parsedDate" pattern="yyyy-MM-dd" />
 											<fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
 										</p>
-										<!-- 예상 기간 -->
+										<p class="col-3 card-text"></p>
+										<button class="btn btn-primary ms-3"
+											onclick="location.href='${pageContext.request.contextPath}/mypage/myfreelancerupdate?freelancerPageNum=${myFreelancerDTO.freelancer_id}'"
+											style="width: auto; justify-content: flex-end;">글수정</button>
 										<!-- 	                        <p class="col-3 card-text"></p> -->
 									</div>
 								</div>
@@ -392,33 +397,42 @@
 
 			<!-- QnA 내용 -->
 			<div class="tab-content" id="qna-content">
-					<div class="col-8 second-section-2">
+					<div class="col-8 col-8-c second-section-2">
 
+					<c:forEach items="${myQnaDTOList}" var="myQnaDTO">
 						<div class="row">
 							<div class="col">
-								<div class="custom-title text-change-box">문의드립니다</div>
-								<div class="custom-content">비밀글입니다</div>
+								<div class="custom-title text-change-box">${myQnaDTO.qcommunity_title }</div>
+								<div class="custom-content">${myQnaDTO.qcommunity_content }</div>
 							</div>
 							<div class="col">
-								<div class="custom-date">2024 07 08</div>
-								<div class="custom-writer">@nihw****</div>
+								<div class="custom-date">${myQnaDTO.qcommunity_date }</div>
+								<div class="custom-writer">
+								<c:if test="${ empty myQnaDTO.qcommunity_answer }">
+									<p class="col-auto card-text mb-1">답변대기</p>
+								</c:if>
+								<c:if test="${ ! empty myQnaDTO.qcommunity_answer }">
+									<p class="col-auto card-text mb-1">답변완료</p>
+								</c:if>
+								</div>
 							</div>
 							<div class="row-line"></div>
 						</div>
+					</c:forEach>
 					</div>
 					<!-- qna 페이지네이션 -->
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 10칸씩 뒤로 이동 버튼 -->
 							<c:if
-								test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+								test="${myQnaPageDTO.startPage > myQnaPageDTO.pageBlock}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.startPage - 10}"></a>
+									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myQnaPageDTO.startPage - 10}"></a>
 								</li>
 							</c:if>
 
-							<c:forEach begin="${myProjectPageDTO.startPage}"
-								end="${myProjectPageDTO.endPage}" var="page">
+							<c:forEach begin="${myQnaPageDTO.startPage}"
+								end="${myQnaPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
 									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${page}">${page}</a>
 								</li>
@@ -426,9 +440,9 @@
 
 							<!-- 10칸씩 앞으로 이동 -->
 							<c:if
-								test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
+								test="${myQnaPageDTO.endPage < myQnaPageDTO.pageCount}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.endPage + 10}"></a>
+									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myQnaPageDTO.endPage + 10}"></a>
 								</li>
 							</c:if>
 						</ul>
