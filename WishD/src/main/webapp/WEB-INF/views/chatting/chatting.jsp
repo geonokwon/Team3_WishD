@@ -124,9 +124,14 @@
                             <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
                         <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
-                        <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                        <pre class="card-text" style="height: 480px;">${projectDTO.getPboard_content()}</pre>
                     </div>
 
+                    <!-- 버튼 컨테이너 -->
+                    <div class="mt-auto d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary me-2">완료</button>
+                        <button type="button" class="btn btn-secondary"  onclick="location.href='${pageContext.request.contextPath}/matchingEnd/${projectDTO.getPboard_id()}'">매칭 취소</button>
+                    </div>
                     <!-- 끝단 -->
                 </div>
             </div>
@@ -158,9 +163,6 @@
                     <button class="col-2 btn btn-primary" onclick="sendMessage()">전송</button>
                 </div>
             </div>
-
-
-
 
 
             <!-- side rquest-form end-->

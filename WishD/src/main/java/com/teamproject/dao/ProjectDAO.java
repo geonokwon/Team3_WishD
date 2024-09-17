@@ -105,4 +105,21 @@ public class ProjectDAO {
         logger.info("-> getProjectRequestFile()");
         return sqlSession.selectOne(nameSpace + "getProjectRequestFile", pboard_id);
     }
+
+    //매칭 성공시 isMatching true 변경
+    public void setProjectIsMatching(Long pboardId) {
+        logger.info("-> getProject()");
+        sqlSession.update(nameSpace + "setProjectIsMatching", pboardId);
+    }
+
+    //request_freelancer 데이터 삭제
+    public void deleteProjectRequest(Long pboard_id) {
+        logger.info("-> getProject()");
+        sqlSession.update(nameSpace + "deleteProjectRequest", pboard_id);
+    }
+    //project_board 의 상태값 변경 '모집중'
+    public void setBoardState(Long pboardId) {
+        logger.info("-> setBoardState()");
+        sqlSession.update(nameSpace + "setBoardState", pboardId);
+    }
 }

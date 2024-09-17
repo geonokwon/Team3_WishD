@@ -183,5 +183,24 @@
         WHERE pboard_id = #{pboard_id};
     </select>
 
+    <!-- 매칭 성공시 isMatching 변경 -->
+    <update id="setProjectIsMatching">
+        UPDATE project_board
+        SET pboard_isMatching = true
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!--request 단계에서 매칭 실패시 데이터 삭제 -->
+    <delete id="deleteProjectRequest">
+        DELETE FROM request_freelancer
+        WHERE pboard_id = #{pboard_id}
+    </delete>
+    <!-- 매칭 취소시 -->
+    <!-- project_board 의 state 값 변경 및 isMatching 값 변경 -->
+    <update id="setBoardState">
+        UPDATE project_board
+        SET pboard_state = '모집중'
+        WHERE pboard_id = #{pboard_id}
+    </update>
 
 </mapper>

@@ -8,6 +8,7 @@ public class ChatMessageDTO {
     private String chat_date;
     private String user_name;
     private Long f_request_id;
+    private Boolean chat_isMatching;
 
 
 
@@ -65,6 +66,14 @@ public class ChatMessageDTO {
 
     public void setF_request_id(Long f_request_id) {
         this.f_request_id = f_request_id;
+    }
+
+    public Boolean getChat_isMatching() {
+        return chat_isMatching;
+    }
+
+    public void setChat_isMatching(Boolean chat_isMatching) {
+        this.chat_isMatching = chat_isMatching;
     }
 
     @Override

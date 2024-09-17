@@ -78,22 +78,30 @@ public class ProjectService {
                                      ProjectRequestFileDTO projectRequestFileDTO) throws Exception {
         logger.info("-> getProjectRequest()");
         //프로젝트 리퀘스트 폼 저장
+        System.out.println(projectRequestDTO.toString());
         projectDAO.insertProjectRequest(projectRequestDTO);
+
 
         //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장
         Map<String, Object> projectRequestSkillSet = new HashMap<>();
         projectRequestSkillSet.put("f_request_id", projectRequestDTO.getF_request_id());
         projectRequestSkillSet.put("skill_id", getSkillList(projectRequestDTO.getSkillList()));
+        System.out.println(projectRequestDTO.toString());
         projectDAO.insetProjectRequestSkill(projectRequestSkillSet);
 
+
         //처리할때 project_board 의 state -> 를 진행중으로 변경
+        System.out.println(projectRequestDTO.toString());
         projectDAO.updateProjectState(projectRequestDTO.getPboard_id());
+
 
         //프로젝트 리퀘스트 file 부분 request_file table 저장
         //파일 Copy 처리 utils class -> Resources/upload/fileCopy
         PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
         personalFileCopyUtils.fileCopy(projectRequestFileDTO, projectRequestDTO.getPboard_id(), projectRequestDTO.getF_request_id());
+        System.out.println(projectRequestDTO.toString());
         projectDAO.insetProjectRequestFile(projectRequestFileDTO);
+
 
     }
 
@@ -112,9 +120,19 @@ public class ProjectService {
 
     }
 
+    //매칭성공시 project_board 테이블 isMatching = true 변경
+    public void setProjectIsMatching(Long pboard_id) {
+        logger.info("-> getProjectIsMatching()");
+        projectDAO.setProjectIsMatching(pboard_id);
+    }
 
-
-
+    //승인와료후 프로젝트 등록자가 requestForm만 보고 취소시
+    @Transactional
+    public void deleteProjectRequest(Long pboard_id) {
+        logger.info("-> getProjectRequest()");
+        projectDAO.setBoardState(pboard_id);
+        projectDAO.deleteProjectRequest(pboard_id);
+    }
 
 //============================================================================================================
     //skillList String -> List  형태로 반환하는 메서드
@@ -126,6 +144,7 @@ public class ProjectService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
 
 
 }

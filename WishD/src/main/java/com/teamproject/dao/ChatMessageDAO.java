@@ -40,5 +40,21 @@ public class ChatMessageDAO {
         return sqlSession.selectList(namespace + "getChatHistory", pboardId);
     }
 
+    //매칭 취소시 boardState 값 변경 및 isMatching 값 변경
+    public void setBoardState(Long pboard_id) {
+        logger.info("-> setBoardState()");
+        sqlSession.update(namespace + "setBoardState", pboard_id);
+    }
 
+    //매칭 취소시 request_freelancer 컬럼 값 삭제 및 파일도 삭제
+    public void setDeleteRequest(Long pboardId) {
+        logger.info("-> setRequestIsAgreeState()");
+        sqlSession.delete(namespace + "setDeleteRequest", pboardId);
+    }
+
+    //매칭 취소시 chat_isMatching 상태 변경
+    public void setChatMessageIsMatching(Long pboardId) {
+        logger.info("-> setChatMessageIsMatching()");
+        sqlSession.update(namespace + "setChatMessageIsMatching", pboardId);
+    }
 }

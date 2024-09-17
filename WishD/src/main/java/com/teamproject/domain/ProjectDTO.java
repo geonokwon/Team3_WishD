@@ -17,6 +17,9 @@ public class ProjectDTO {
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
+    private Boolean pboard_isMatching;
+
+
 
     //skill String 으로 가져와서 배열로 나누는 값
     private String skillList;
@@ -128,6 +131,14 @@ public class ProjectDTO {
         this.skills = skills;
     }
 
+    public Boolean getPboard_isMatching() {
+        return pboard_isMatching;
+    }
+
+    public void setPboard_isMatching(Boolean pboard_isMatching) {
+        this.pboard_isMatching = pboard_isMatching;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
@@ -142,7 +153,9 @@ public class ProjectDTO {
                 ", pboard_state='" + pboard_state + '\'' +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +
+                ", pboard_isMatching=" + pboard_isMatching +
                 ", skillList='" + skillList + '\'' +
+                ", skills=" + skills +
                 '}';
     }
 }
