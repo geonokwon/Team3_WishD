@@ -34,6 +34,7 @@ public class ManagerService {
 		return managerDAO.getRqfCount(pageDTO);
 	}
 
+//	요청 프로젝트 리스트
 	public List<FreelancerRequestDTO> getRqcList(PageDTO pageDTO) {
 		
 		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
@@ -46,6 +47,7 @@ public class ManagerService {
 		return managerDAO.getRqcList(pageDTO);
 	}
 
+//	요청 프로젝트 수
 	public int getRqcCount(PageDTO pageDTO) {
 		
 		return managerDAO.getRqcCount(pageDTO);

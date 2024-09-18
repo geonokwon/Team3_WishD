@@ -60,7 +60,26 @@
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
-			
+<%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a> --%>
+<!-- <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 --> -->
+<%-- 				<c:if test="${pageDTO.currentPage ne 1}"> --%>
+<%-- 					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a> --%>
+<%-- 				</c:if> --%>
+				
+<%-- 				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1"> --%>
+<%-- 					<c:if test="${pageDTO.currentPage eq i}"> --%>
+<%-- 						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a> --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${pageDTO.currentPage ne i}"> --%>
+<%-- 						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum">${i}</span></a> --%>
+<%-- 					</c:if> --%>
+<%-- 				</c:forEach> --%>
+<!-- <!-- 				마지막 페이지 아닌 경우 => 다음 버튼 보이기 --> -->
+<%-- 				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}"> --%>
+<%-- 					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a> --%>
+<%-- 				</c:if> --%>
+				
+<%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	 --%>
 		</div>
 	</div>
 	</div>

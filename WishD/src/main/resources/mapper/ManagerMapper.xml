@@ -12,6 +12,7 @@
 		order by f_request_Date
 	</select>
 	
+<!-- 	미승인된 요청 프로젝트를 전달함 -->
 	<select id="getRqfCount" resultType="java.lang.Integer">
 		select count(*) from request_freelancer	
 		where f_request_isAgree = 0	

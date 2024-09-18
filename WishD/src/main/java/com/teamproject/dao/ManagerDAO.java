@@ -29,11 +29,13 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+"getRqfCount",pageDTO);
 	}
 
+//	요청 프로젝트 리스트
 	public List<FreelancerRequestDTO> getRqcList(PageDTO pageDTO) {
 		
 		return null;
 	}
 
+//	요청 프로젝트 수
 	public int getRqcCount(PageDTO pageDTO) {
 		
 		return 0;
