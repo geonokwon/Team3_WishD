@@ -55,7 +55,7 @@ public class ProjectDAO {
 
     //projectWrite 프로젝트 등록하기
     public void insertProject(ProjectDTO projectDTO) {
-        logger.info("-> getProject()");
+        logger.info("-> insertProject()");
         //등록과 동시에 ProjectDTO 의 pboard_id 값을 반환하여 DTO에 저장한 해준다
         sqlSession.insert(nameSpace + "insertProject", projectDTO);
     }
@@ -121,5 +121,11 @@ public class ProjectDAO {
     public void setBoardState(Long pboardId) {
         logger.info("-> setBoardState()");
         sqlSession.update(nameSpace + "setBoardState", pboardId);
+    }
+
+    //session 의 user_no 로 user_name 불러오기
+    public String getUserName(Long user_no) {
+        logger.info("-> getUserName()");
+        return sqlSession.selectOne(nameSpace + "getUserName", user_no);
     }
 }

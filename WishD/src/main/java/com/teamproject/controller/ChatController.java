@@ -43,6 +43,9 @@ public class ChatController {
 
         Long user_no = (Long) session.getAttribute("user_no");
 
+        //session 에 user_no 로 user_name 값 불러오기
+        model.addAttribute("user_name", projectService.getUserName(user_no));
+
         if (user_no != null && projectDTO.getPboard_state().equals("진행중")) {
             projectService.setProjectIsMatching(pboard_id);
             ProjectRequestDTO projectRequestDTO = projectService.getRequestFreelancer(pboard_id);

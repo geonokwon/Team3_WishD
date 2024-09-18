@@ -476,3 +476,9 @@ input[type="file"]::file-selector-button:hover {
     transition: opacity 0.3s ease;
 }
 /* overlay end */
+
+/* chatting time */
+.message-time{
+    font-size: 10px;
+    color: #b5b5b5;
+}

@@ -22,7 +22,7 @@
     <!-- 채팅 내용 불러오기 -->
     <!-- 채팅방에 표시할 유저 id 표기 -->
     <select id="getChatHistory" resultType="com.teamproject.domain.ChatMessageDTO">
-        SELECT cm.chat_room_id, cm.pboard_id, cm.user_no, cm.chat_content, cm.chat_isMatching, ui.user_name
+        SELECT cm.chat_room_id, cm.pboard_id, cm.user_no, cm.chat_content, cm.chat_isMatching, ui.user_name, cm.chat_date
         FROM chat_message cm
         JOIN user_info ui ON cm.user_no = ui.user_no
         WHERE cm.pboard_id = #{pboard_id}

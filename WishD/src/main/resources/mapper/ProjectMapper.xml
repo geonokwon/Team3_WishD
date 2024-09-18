@@ -8,13 +8,17 @@
     <!-- 프로젝트 등록 start -->
     <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
-        INSERT INTO project_board (user_no, pboard_title, pboard_content,
-                                   pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
+        INSERT INTO project_board (
+        user_no, pboard_title, pboard_content,
+        pboard_money, pboard_startDate,
+        pboard_rangeMonth, pboard_job,
+        pboard_manager_phone, pboard_company_name )
         VALUES (
             #{user_no},
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
-            #{pboard_rangeMonth}, #{pboard_job}
+            #{pboard_rangeMonth}, #{pboard_job},
+            #{pboard_manager_phone}, #{pboard_company_name}
         );
     </insert>
     <!-- 프로젝트 등록 id 값으로 projectSkill 테이블 등록 -->
@@ -143,12 +147,11 @@
 
     <!-- project_read_Request request_skill 테이블 스킬 추가 -->
     <insert id="insetProjectRequestSkill">
-        INSERT INTO request_skill
+        INSERT INTO request_skill (f_request_id, skill_id)
         VALUES
         <foreach collection="skill_id" item="skill_id" separator=",">
             ( #{f_request_id}, #{skill_id} )
         </foreach>
-        ;
     </insert>
     <!-- 승인요청시 Project_board 의 state 의 상태값 변경 -->
     <update id="updateProjectState">
@@ -171,11 +174,12 @@
     </select>
     <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
     <select id="getRequestSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
-        SELECT s.*
-        FROM request_skill ps JOIN skills s
-        ON ps.f_request_id = s.skill_id
-        WHERE ps.f_request_id = #{pboard_id};
+        SELECT rs.skill_id, s.skill_name
+        FROM request_skill rs JOIN skills s
+        ON rs.skill_id = s.skill_id
+        WHERE rs.f_request_id = #{pboard_id};
     </select>
+
     <!-- project_request_file -->
     <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
         SELECT *
@@ -202,5 +206,13 @@
         SET pboard_state = '모집중'
         WHERE pboard_id = #{pboard_id}
     </update>
+
+    <!-- user_no 로 user_name 불러오기 -->
+    <select id="getUserName" resultType="String">
+        SELECT ui.user_name
+        FROM user u JOIN user_info ui
+        ON u.user_no = ui.user_no
+        WHERE u.user_no = #{user_no}
+    </select>
 
 </mapper>

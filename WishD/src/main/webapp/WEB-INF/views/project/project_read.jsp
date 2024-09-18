@@ -208,15 +208,14 @@
                                     </c:forEach>
                                 </select>
 
+                                <!--클릭시 베지 추가-->
                                 <div id="badge_container">
                                     <c:if test="${! empty projectRequestDTO}">
-                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skills">
-                                        <p class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skills.getSkill_name()}</p>
+                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList">
+                                            <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div>
                                         </c:forEach>
                                     </c:if>
-                                    <!--클릭시 베지 추가-->
                                 </div>
-
                                 <input type="hidden" name="skillList" id="skillList" required/>
                             </div>
 
@@ -361,7 +360,9 @@
         $("#requestForm").show();
         $("#matching_button").hide();
         $("#agree_button").show();
+        $("#badge_container").hide();
         $("#matching_button_waiting").hide();
+
 
         //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
         let requestForm = $("#projectReadForm");
@@ -391,6 +392,8 @@
         if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
             $("#formFile").hide();
             $("#requestFile").show();
+            $("#badge_container").show();
+
             //한줄 자기 소개
             $("#request_title").val("${projectRequestDTO.getF_request_title()}");
 

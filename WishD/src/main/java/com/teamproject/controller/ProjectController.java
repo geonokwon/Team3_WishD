@@ -85,9 +85,6 @@ public class ProjectController {
         model.addAttribute("projectDTO", projectDTO);
         model.addAttribute("projectSkillList", projectService.getSkillList());
 
-        //user_no 를 비교해 자기 가 쓴글일시 매칭하기 버튼 x
-
-
         //session 에서 user_no 가져오기
         Long user_no = (Long) session.getAttribute("user_no");
 
@@ -98,8 +95,6 @@ public class ProjectController {
                 //진행중 이라면 ?
                 //request_freelancer 테이블에 작성을 했으니
                 //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서용 input 안에 값들을 전부 채워넣기 modal 로 DTO 넘겨주기(내가 요청한 글)
-                //여기서 같은 아이디로 같은 보드 넘버에 쓴글이 2개라면 ? 삭제 해야함 ..
-
 
                 //매칭 상태인지 체크 매칭 상태라면 바로 chatting 으로 넘어가기
                 if (projectDTO.getPboard_isMatching()){
@@ -107,14 +102,15 @@ public class ProjectController {
                 }
 
                 ProjectRequestDTO projectRequestDTO = projectService.getRequestFreelancer(pboard_id);
-                System.out.println(projectRequestDTO.toString());
 
                 //user_no 가 글 작성자 인지 판단!
                 if (projectDTO.getUser_no().longValue() == user_no || projectRequestDTO.getUser_no().longValue() == user_no) {
                     //projectRequest_file 도 불러와서 같이 줘야한다
                     ProjectRequestFileDTO projectRequestFileDTO = projectService.getProjectRequestFile(pboard_id);
+
                     System.out.println(projectRequestFileDTO.toString());
                     //여기서 페이지 로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
+                    System.out.println(projectRequestDTO.toString());
                     model.addAttribute("projectRequestDTO", projectRequestDTO);
                     model.addAttribute("projectRequestFileDTO", projectRequestFileDTO);
                 }
@@ -127,6 +123,7 @@ public class ProjectController {
     }
 
     //비동기 처리
+    //request_freelancer 저장
     @PostMapping("/projectReadReq/{pboard_id}")
     @ResponseBody
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
@@ -161,7 +158,7 @@ public class ProjectController {
                                HttpSession session,
                                Model model){
         logger.info("-> projectWrite()");
-
+        System.out.println(projectDTO.toString());
         projectDTO.setUser_no((Long) session.getAttribute("user_no"));
         projectService.insertProject(projectDTO);
         System.out.println(projectDTO.toString());

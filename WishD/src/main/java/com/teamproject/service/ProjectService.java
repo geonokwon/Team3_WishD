@@ -60,11 +60,6 @@ public class ProjectService {
         //등록하고 등록한 pboard_id값 반환받아서 그 아이디 값으로 project_skill 테이블에 저장
         projectDAO.insertProject(projectDTO);
 
-
-//        List<Integer> skillList = Arrays.stream(projectDTO.getSkillList().split(","))
-//                .map(Integer::parseInt)
-//                .collect(Collectors.toList());
-
         //map 에 object 타입은 getPboard_id 는 int를 가지고, skillList는 List<integer>를 가진다 .
         Map<String, Object> projectSkillSet = new HashMap<>();
         projectSkillSet.put("pboard_id", projectDTO.getPboard_id());
@@ -81,19 +76,16 @@ public class ProjectService {
         System.out.println(projectRequestDTO.toString());
         projectDAO.insertProjectRequest(projectRequestDTO);
 
-
         //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장
         Map<String, Object> projectRequestSkillSet = new HashMap<>();
         projectRequestSkillSet.put("f_request_id", projectRequestDTO.getF_request_id());
         projectRequestSkillSet.put("skill_id", getSkillList(projectRequestDTO.getSkillList()));
-        System.out.println(projectRequestDTO.toString());
+        System.out.println(projectRequestSkillSet);
         projectDAO.insetProjectRequestSkill(projectRequestSkillSet);
-
 
         //처리할때 project_board 의 state -> 를 진행중으로 변경
         System.out.println(projectRequestDTO.toString());
         projectDAO.updateProjectState(projectRequestDTO.getPboard_id());
-
 
         //프로젝트 리퀘스트 file 부분 request_file table 저장
         //파일 Copy 처리 utils class -> Resources/upload/fileCopy
@@ -102,10 +94,7 @@ public class ProjectService {
         System.out.println(projectRequestDTO.toString());
         projectDAO.insetProjectRequestFile(projectRequestFileDTO);
 
-
     }
-
-
 
     //진행중인 board 가 있다면 request form의 값을 가져오기
     public ProjectRequestDTO getRequestFreelancer(Long pboardId) {
@@ -132,6 +121,12 @@ public class ProjectService {
         logger.info("-> getProjectRequest()");
         projectDAO.setBoardState(pboard_id);
         projectDAO.deleteProjectRequest(pboard_id);
+    }
+
+    //user_no 로 user_name 가져오기
+    public String getUserName(Long user_no) {
+        logger.info("-> getUserName()");
+        return projectDAO.getUserName(user_no);
     }
 
 //============================================================================================================
