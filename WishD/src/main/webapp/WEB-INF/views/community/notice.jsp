@@ -62,7 +62,7 @@
 			<c:forEach items="${communityList}" var="communityDTO">
 	            <div class="row">
 	                    <div class="col">
-	                        <div class="custom-title text-change-box">${communityDTO.ncommunity_title}</div>
+	                        <div class=""><a href="${pageContext.request.contextPath}/notice_detail?ncommunity_num=${communityDTO.ncommunity_num}" class="custom-title text-change-box text-decoration-none">${communityDTO.ncommunity_title}</a></div>
 	                        <div class="custom-content">${communityDTO.ncommunity_content}</div>
 	                    </div>
 	                    <div class="col">
@@ -116,7 +116,7 @@
             <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectFind?pageNum=${communityPageDTO.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communityPageDTO.endPage + 10}"></a>
             </li>
             </c:if>
         </ul>

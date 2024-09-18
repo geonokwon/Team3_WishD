@@ -63,12 +63,12 @@
 			<c:forEach items="${communityQnaList}" var="communityQnaDTO">
 	            <div class="row">
 	                    <div class="col">
-	                        <div class="custom-title text-change-box">${communityQnaDTO.qcommunity_title}</div>
+	                        <div class=""><a href="${pageContext.request.contextPath}/qna_detail?Key=${communityQnaDTO.key}" class="custom-title text-change-box text-decoration-none">${communityQnaDTO.qcommunity_title}</a></div>
 	                        <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
 	                    </div>
 	                    <div class="col">
 	                        <div class="custom-date">${communityQnaDTO.qcommunity_date}</div>
-	                        <div class="custom-writer">@${communityQnaDTO.user_no}</div>
+	                        <div class="custom-writer">@${communityQnaDTO.user_name}</div>
 	                    </div>
 	                <div class="row-line"></div>
 	            </div>

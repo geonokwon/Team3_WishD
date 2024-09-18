@@ -7,10 +7,19 @@ public class CommunityQnaDTO {
 	private long Key;
 	private long user_no;
 	private String user_name;
+	private String user_email;
 	private String qcommunity_title;
 	private String qcommunity_content;
 	private String qcommunity_answer;
 	private Timestamp qcommunity_date;
+	
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+
 	public long getKey() {
 		return Key;
 	}

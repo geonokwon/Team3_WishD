@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teamproject.domain.CommunityDTO;
 import com.teamproject.domain.CommunityPageDTO;
+import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.service.CommunityService;
 
 @Controller
@@ -86,16 +88,16 @@ public class CommunityController {
 			
 		return "/community/notice";
 		
-	}
+		}
 	
-		//글쓰기
+		//공지사항 글쓰기
 		@GetMapping("/notice_write")
 		public String noticeWrite() {
 			
 			return "/community/notice_write";
 		}
 		
-		//글쓰기 처리
+		//공지사항 글쓰기 처리
 		@PostMapping("/notice_writePro")
 		public String noticeWritePro(CommunityDTO communityDTO, HttpSession session) {
 			System.out.println("CommunityController notice_writePro()");
@@ -107,7 +109,15 @@ public class CommunityController {
 			
 			return "redirect:/community";
 			}
-	
+		
+		//공지사항 상세 페이지
+		@GetMapping("/notice_detail")
+		public String noticeDetail(@RequestParam("ncommunity_num") long ncommunity_num, Model model) {
+			
+			CommunityDTO communityDTO = communityService.getCommunityById(ncommunity_num);
+		    model.addAttribute("communityDTO", communityDTO);
+		    return "/community/notice_detail"; // JSP 경로
+		}
 	
 //	@GetMapping("/notice")
 //	public String list(HttpServletRequest request, Model model) {
@@ -171,7 +181,7 @@ public class CommunityController {
 	
 	
 	
-	
+	//공지사항 수정
 	@GetMapping("notice_update")
 	public String noticeUpdate() {
 		
@@ -246,15 +256,25 @@ public class CommunityController {
 		return "community/qna";
 	}
 	
+	//질문 쓰기
 	@GetMapping("qna_write")
 	public String qnaWrite() {
 		
 		return "community/qna_write";
 		
-		
-		
 	}
 	
+	//질문 상세 페이지
+	@GetMapping("/qna_detail")
+	public String qnaDetail(@RequestParam("Key") long key, Model model) {
+				
+		CommunityQnaDTO communityQnaDTO = communityService.getCommunityQnaById(key);
+			model.addAttribute("communityQnaDTO", communityQnaDTO);
+			
+			return "/community/notice_detail"; // JSP 경로
+	}
+	
+	//질문 수정
 	@GetMapping("qna_update")
 	public String qnaUpdate() {
 		

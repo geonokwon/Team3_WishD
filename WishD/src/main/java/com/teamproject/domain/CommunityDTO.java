@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class CommunityDTO {
 
-	private int ncommunity_num;
-	private int admin_id;
+	private long ncommunity_num;
+	private long admin_id;
 	private String ncommunity_title;
 	private String ncommunity_content;
 	private Timestamp ncommunity_date;
@@ -18,16 +18,16 @@ public class CommunityDTO {
 	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
-	public int getNcommunity_num() {
+	public long getNcommunity_num() {
 		return ncommunity_num;
 	}
-	public void setNcommunity_num(int ncommunity_num) {
+	public void setNcommunity_num(long ncommunity_num) {
 		this.ncommunity_num = ncommunity_num;
 	}
-	public int getAdmin_id() {
+	public long getAdmin_id() {
 		return admin_id;
 	}
-	public void setAdmin_id(int admin_id) {
+	public void setAdmin_id(long admin_id) {
 		this.admin_id = admin_id;
 	}
 	public String getNcommunity_title() {

@@ -17,7 +17,7 @@ public class CommunityService {
 	@Inject
 	private CommunityDAO communityDAO;
 	
-	//게시글 작성
+	//공지사항 작성
 	public void insertCommunity(CommunityDTO communityDTO) {
 		System.out.println("CommunityService insertCommunity");
 		
@@ -26,7 +26,7 @@ public class CommunityService {
 		
 	}
 	
-	//게시글 목록 가져오기
+	//공지사항 목록 가져오기
 	public List<CommunityDTO> getCommunityList(CommunityPageDTO communitypageDTO) {
 		System.out.println("CommunityService getCommunityList");
 		// 시작하는 행번호 구하기  1, 11, 21,...
@@ -43,6 +43,18 @@ public class CommunityService {
 				
 	    return communityDAO.getCommunityList(communitypageDTO);
 	}
+	
+	//공지사항 수정
+	public void updateCommunity(CommunityDTO communityDTO) {
+		communityDAO.updateCommunity(communityDTO);
+			
+	}
+	
+	//공지사항 상세 페이지
+	public CommunityDTO getCommunityById(long ncommunity_num) {
+	    return communityDAO.getCommunityById(ncommunity_num);
+	}
+
 	
 	//질문 작성
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
@@ -71,6 +83,11 @@ public class CommunityService {
 	    return communityDAO.getCommunityQnaList(communitypageDTO);
 	}
 
+	//질문 상세 페이지
+	public CommunityQnaDTO getCommunityQnaById(long key) {
+	    return communityDAO.getCommunityQnaById(key);
+	}
+	
 	//검색어 포함
 	public int getCommunityCount(CommunityPageDTO communitypageDTO) {
 		System.out.println("CommunityService getCommunityCount");
