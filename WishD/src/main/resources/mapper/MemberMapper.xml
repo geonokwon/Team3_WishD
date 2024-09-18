@@ -60,7 +60,12 @@
 		WHERE user.user_no = #{user_no}
 	</select>
 	
-	
+	<!-- 아이디 중복체크 -->
+	<select id="userIdCheck" resultType="String">
+		SELECT user_id
+		FROM user
+		WHERE user_id = #{id}
+	</select>
 	
 	
 
@@ -72,10 +77,7 @@
 <!-- 	</insert> -->
 	
 	
-<!-- 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO"> -->
-<!-- 		select * from user -->
-<!-- 		where id = #{id} -->
-<!-- 	</select> -->
+
 	
 	
 

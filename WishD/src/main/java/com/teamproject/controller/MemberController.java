@@ -1,13 +1,14 @@
 package com.teamproject.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.MemberService;
@@ -65,17 +66,33 @@ public class MemberController {
 		
 	}
 	
-//	// 회원가입시 이메일 중복체크 
-//	// 응답을 받기 위해서 @ResponseBody 사용 
-//	@PostMapping("/emil-check")
-//	public @ResponseBody String emailCheck(@RequestParam("user_email")String user_email) {
-//		System.out.println("MemberController emailCheck()");
-//		// DB 에서 체크한 결과를 String 으로 받아와서 return 해준다.
-//		String checkResult = memberService.emailCheck(user_email);
-//		return checkResult;
-//	}
-//	
-//	
+	// 아이디 중복체크
+	@GetMapping("/idCheck")
+	@ResponseBody
+	public String idCheck(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		System.out.println("아이디 중복 체크: " + id);
+		
+		// 아이디 중복 여부 확인
+		String result = memberService.userIdCheck(id);
+		
+		if(result != null) {
+			// 아이디 중복
+			return "iddup"; 
+			
+		} else {
+			// 아이디 사용 가능
+			return "idok";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	// 아이디 찾기
 	@GetMapping("/idFind")

@@ -30,6 +30,8 @@
     margin : 20px;
     display: flex;
     align-items: center;
+    position: relative;
+  
     
 }
 
@@ -41,7 +43,7 @@
 }
 
 .input-group input {
-   	width: 50%;
+   	width: 48%;
     padding: 12px;
     margin-bottom: 20px;
     border-radius: 8px !important;
@@ -51,6 +53,7 @@
     font-size: 14px;
     transition: border-color 0.3s ease;
     margin-right : 10px;
+    
 }
 
 .input-group input:focus {
@@ -59,16 +62,17 @@
 }
 
 .input-group button {
-    width: 80px;
+    width: auto; /* 버튼의 너비는 콘텐츠에 따라 자동 조정 */
     padding: 8px;
     border: none;
     border-radius: 5px !important;
     background-color: #6F40C8;
     color: #fff;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom : 20px;
+   
     
 }
 

@@ -59,14 +59,18 @@ public class MemberDAO {
 	
 	// 비밀번호 찾기
 	public MemberDTO passFind(MemberDTO memberDTO) {
-		
 		System.out.println("MemberDAO passFind()");
 		memberDTO = sqlSession.selectOne(namespace + "passFind", memberDTO);
 		if(memberDTO != null) {
 			memberDTO = sqlSession.selectOne(namespace+ "passFindResult", memberDTO);
-			
 		}
 		return memberDTO;
+	}
+	
+	// 아이디 중복체크
+	public String userIdCheck(String id) {
+		System.out.println("MemberDAO userIdCheck()");
+		return sqlSession.selectOne(namespace + "userIdCheck", id);
 	}
 	
 	

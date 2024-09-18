@@ -20,8 +20,7 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.smooth-scroll.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script>
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
@@ -40,13 +39,10 @@
         <form id="signup-form" action="${pageContext.request.contextPath}/insertPro" method="post">
             <div class="input-group">
                 <p>아이디</p>
-                	<input class="form-control" placeholder="ID를 입력해주세요" name="id" id="id" type="text" autofocus>
-					<label id="label1"></label>
-                	
-                	
-<!--                 <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요"> -->
-<!--                 <button type="button" class="check-btn" id="idcheck">중복 확인</button> -->
-               
+                <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요">
+                <button type="button" class="check-btn" id="id_check">중복 확인</button>
+                <!-- 결과출력 -->
+                <div id="output"></div> 
             </div>
             <div class="input-group">
                 <p>비밀번호</p>
@@ -64,20 +60,19 @@
                
             </div>
             <div class="input-group">
-                <p>이메일</p>
-                <input type="email" id="email" name="user_email" placeholder="이메일 주소를 입력하세요" onblur="emailCheck()">
-                <p id="check-result"></p>
-                <button type="button" class="check-btn" id="email-check">중복 확인</button>
-                
-            </div>
-            <div class="input-group" id="email-actions" style="display:none;">
-                <button type="button" class="check-btn" id="send-code">전송하기</button>
-            </div>
-            <div class="input-group emailCode" id="verification-code-group" style="display:none;">
-   			 	<input type="text" id="verification-code" placeholder="인증코드를 입력하세요">
-   			 	<button type="button" class="check-btn" id="verification-code-check">인증하기</button>
-                
-            </div>
+            	<p>이메일</p>
+    			<input type="text" id="email" name="email" placeholder="이메일주소를 입력하세요" required>
+    			<button type="button" class="check-btn" id="email-check">중복 확인</button>
+   				 <!-- 결과출력 -->
+    			<div id="output1"></div>
+			</div>
+<!--             <div class="input-group" id="email-actions" style="display:none;"> -->
+<!--                 <button type="button" class="check-btn" id="send-code">전송하기</button> -->
+<!--             </div>
+<!--             <div class="input-group emailCode" id="verification-code-group" style="display:none;"> -->
+<!--    			 	<input type="text" id="verification-code" placeholder="인증코드를 입력하세요"> -->
+<!--    			 	<button type="button" class="check-btn" id="verification-code-check">인증하기</button> -->
+<!--             </div> -->
             <div class="input-group">
                 <p>전화번호</p>
                 <input type="tel" id="phone" name="user_phone" placeholder="번호를 입력해주세요">
@@ -101,38 +96,38 @@
 <div class="constelacao"></div>
 <div class="chuvaMeteoro"></div>
 <script type="text/javascript">
+
 $(function(){
-	//id="id_lbl" 포커스 해제 했을때 이벤트 발생
-	$('#id_lbl').blur(function(){
-//			alert("포커스 해제");
-//			alert($('#id_lbl').val());
-
-//      id="idcheck" div태그 "포커스 해제" 글자 넣기,글자색 바꾸기
-//			$('#idcheck').html("포커스 해제").css('color','red');
-
-//			${pageContext.request.contextPath}/member/idCheck?id=kim
-
+	console.log('중복 확인 버튼 클릭됨'); // 출력확인용
+	$('#id_check').click(function(){
+		const userId = $('#user_id').val(); // 입력된 아이디 값 
+		if (!userId){
+			$('#output').html('아이디를 입력하세요').css('color', 'red');
+			return;
+			
+		}
 		$.ajax({
-			//속성 여러개 사용
-			url:'${pageContext.request.contextPath}/member/idCheck',
-			data:{'id':$('#id_lbl').val()},
-			success:function(result){
-//					alert(result);
-				if(result == 'iddup'){
-					result = "아이디 중복";
-					$('#idcheck').html(result).css('color','red');
-				}else{
-					result = "아이디 사용가능";
-					$('#idcheck').html(result).css('color','green');
+			url: `${pageContext.request.contextPath}/idCheck`, // 요청url
+			type: 'GET',
+			data:{id:userId}, // 쿼리스트링 방식으로 전달 
+			success: function(result){
+				if(result === 'iddup'){
+					
+					$('#output').html('이미 존재하는 아이디 입니다.').css('color', 'red');
+					
+				} else {
+					
+					$('#output').html('사용가능한 아이디 입니다.').css('color', 'green');
+
 				}
 				
 			}
-		});//ajax()
+			
+		});
 		
-	});//blur()
+	}); // blur()
 	
-});//시작()
-	
+}); // 시작
 
 
 </script>

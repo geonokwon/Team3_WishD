@@ -46,13 +46,21 @@ public class MemberService {
 	// 아이디 찾기
 	@Transactional
 	public MemberDTO idFind(MemberDTO memberDTO) {
+		System.out.println("MemberService idFind()");
 		return memberDAO.idFind(memberDTO);
 	}
 	
 	// 비밀번호 찾기
 	@Transactional
 	public MemberDTO passFind(MemberDTO memberDTO) {
+		System.out.println("MemberService passFind()");
 		return memberDAO.passFind(memberDTO);
+	}
+	
+	// 아이디 중복
+	public String userIdCheck(String id) {
+		System.out.println("MemberService userIdCheck()");
+		return memberDAO.userIdCheck(id);
 	}
 
 
