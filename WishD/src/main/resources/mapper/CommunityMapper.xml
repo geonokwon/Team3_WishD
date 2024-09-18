@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamproject.mapper.CommunityMapper">
+
+
+
+	<!-- 공지사항 글쓰기 등록 -->
+	<insert id="insertCommunity">
+        INSERT INTO community_notice (admin_id, ncommunity_title, ncommunity_content, ncommunity_date, ncommunity_update)
+        VALUES(1, #{ncommunity_title}, #{ncommunity_content}, now(), now()); <!-- #{admin_id} -->
+    </insert>
+  
+<!-- 	공지사항 목록 -->
+	<select id="getCommunityList" resultType="com.teamproject.domain.CommunityDTO">
+		select * from community_notice
+	</select>
+	
+	<insert id="insertCommunityQna">
+        INSERT INTO community_Qna (Key, user_no, user_name, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
+       
+    </insert>
+  
+<!-- 	공지사항 목록 -->
+	<select id="getCommunityQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
+		select * from community_QnA
+	</select>
+
+  
+</mapper>

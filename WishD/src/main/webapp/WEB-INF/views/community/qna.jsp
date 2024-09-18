@@ -60,102 +60,20 @@
 
         <!-- 질문 목록 -->
         <div class="col-8 second-section-2">
+			<c:forEach items="${communityQnaList}" var="communityQnaDTO">
+	            <div class="row">
+	                    <div class="col">
+	                        <div class="custom-title text-change-box">${communityQnaDTO.qcommunity_title}</div>
+	                        <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
+	                    </div>
+	                    <div class="col">
+	                        <div class="custom-date">${communityQnaDTO.qcommunity_date}</div>
+	                        <div class="custom-writer">@${communityQnaDTO.user_no}</div>
+	                    </div>
+	                <div class="row-line"></div>
+	            </div>
+			</c:forEach>
 
-            <div class="row">
-                    <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                        <div class="custom-title text-change-box">문의드립니다</div>
-                        <div class="custom-content">비밀글입니다</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@nihw****</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
         </div> <!-- 질문 목록 -->
 
     <div class="col-2 second-section-1 menutext-right">

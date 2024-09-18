@@ -15,8 +15,17 @@ public class CommunityPageDTO {
 	    private int endPage;
 	    private int pageCount;
 	    private int pageBlock;
+	    private long user_no;
 	    
-	    private String search;
+	    public long getUser_no() {
+			return user_no;
+		}
+
+		public void setUser_no(long user_no) {
+			this.user_no = user_no;
+		}
+
+		private String search;
 
 		public int getPageSize() {
 			return pageSize;
