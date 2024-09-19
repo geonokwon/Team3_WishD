@@ -1,5 +1,7 @@
 package com.teamproject.domain;
 
+import java.util.Objects;
+
 public class ProjectPageDTO {
     private int pageSize;
     private int pageNum;
@@ -25,6 +27,31 @@ public class ProjectPageDTO {
     private Integer state;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjectPageDTO that = (ProjectPageDTO) o;
+        return pageSize == that.pageSize &&
+                pageNum == that.pageNum &&
+                currentPage == that.currentPage &&
+                startRow == that.startRow &&
+                endRow == that.endRow &&
+                count == that.count &&
+                startPage == that.startPage &&
+                endPage == that.endPage &&
+                pageCount == that.pageCount &&
+                pageBlock == that.pageBlock &&
+                Objects.equals(search, that.search) &&
+                Objects.equals(skill_id, that.skill_id) &&
+                Objects.equals(createdDateFilter, that.createdDateFilter) &&
+                Objects.equals(state, that.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pageSize, pageNum, currentPage, startRow, endRow, count, startPage, endPage, pageCount, pageBlock, search, skill_id, createdDateFilter, state);
+    }
 
 
 
