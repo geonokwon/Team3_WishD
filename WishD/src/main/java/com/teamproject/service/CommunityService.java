@@ -84,8 +84,8 @@ public class CommunityService {
 	}
 
 	//질문 상세 페이지
-	public CommunityQnaDTO getCommunityQnaById(long key) {
-	    return communityDAO.getCommunityQnaById(key);
+	public CommunityQnaDTO getCommunityQnaById(long qcommunity_num) {
+	    return communityDAO.getCommunityQnaById(qcommunity_num);
 	}
 	
 	//검색어 포함

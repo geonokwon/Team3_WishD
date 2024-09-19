@@ -181,12 +181,55 @@ public class CommunityController {
 	
 	
 	
-	//공지사항 수정
-	@GetMapping("notice_update")
-	public String noticeUpdate() {
-		
-		return "community/notice_update";
-	}
+//	//공지사항 수정
+//	// 글 수정 페이지로 이동
+//	    @GetMapping("/notice_update")
+//	    public String noticeUpdate(@RequestParam("ncommunity_num") long ncommunity_num, Model model, HttpSession session) {
+//	        // 세션에서 관리자 확인
+//	        Long adminId = (Long) session.getAttribute("admin_id");
+//
+//	        // 관리자 권한 체크
+//	        if (adminId == null) {
+//	            return "redirect:/login";  // 관리자 로그인이 안된 경우 로그인 페이지로 리다이렉트
+//	        }
+//
+//	        // 글 정보 가져오기
+//	        CommunityDTO communityDTO = communityService.getCommunityById(id);
+//	        
+//	        // 글 정보를 모델에 담아서 수정 페이지로 전달
+//	        model.addAttribute("communityDTO", communityDTO);
+//
+//	        return "community/update";  // 수정할 글 데이터를 담아 수정 페이지로 이동
+//	    }
+
+	    // 글 수정 처리 (Post 방식)
+//	    @PostMapping("/community/update")
+//	    public String update(@ModelAttribute("communityDTO") CommunityDTO communityDTO, HttpSession session) {
+//	        // 세션에서 관리자 확인
+//	        Long adminId = (Long) session.getAttribute("admin_id");
+//
+//	        // 관리자 권한 체크
+//	        if (adminId == null) {
+//	            return "redirect:/login";  // 관리자 로그인이 안된 경우 로그인 페이지로 리다이렉트
+//	        }
+//
+//	        // 서비스 계층을 통해 글 업데이트
+//	        communityService.updateCommunity(communityDTO);
+//
+//	        return "redirect:/community";  // 수정이 완료되면 목록 페이지로 리다이렉트
+//	    }
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("qna")
 	public String qna(HttpServletRequest request, Model model) {
@@ -264,11 +307,24 @@ public class CommunityController {
 		
 	}
 	
+	//질문 쓰기 처리
+	@PostMapping("/qna_writePro")
+	public String qnaWritePro(CommunityQnaDTO communityQnaDTO, HttpSession session) {
+		System.out.println("CommunityController qna_writePro()");
+			System.out.println(communityQnaDTO);
+				
+			communityQnaDTO.setUser_no((Long)session.getAttribute("user_no"));
+				
+			communityService.insertCommunityQna(communityQnaDTO);
+				
+				return "redirect:/qna";
+	}
+	
 	//질문 상세 페이지
 	@GetMapping("/qna_detail")
-	public String qnaDetail(@RequestParam("Key") long key, Model model) {
+	public String qnaDetail(@RequestParam("qcommunity_num") long qcommunity_num, Model model) {
 				
-		CommunityQnaDTO communityQnaDTO = communityService.getCommunityQnaById(key);
+		CommunityQnaDTO communityQnaDTO = communityService.getCommunityQnaById(qcommunity_num);
 			model.addAttribute("communityQnaDTO", communityQnaDTO);
 			
 			return "/community/notice_detail"; // JSP 경로
