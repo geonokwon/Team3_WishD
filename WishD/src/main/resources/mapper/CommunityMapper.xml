@@ -9,7 +9,8 @@
 
 	<!-- 공지사항 글쓰기 등록 -->
 	<insert id="insertCommunity">
-        INSERT INTO community_notice (admin_id, ncommunity_title, ncommunity_content, ncommunity_date, ncommunity_update);
+        INSERT INTO community_notice (admin_id, ncommunity_title, ncommunity_content, ncommunity_date, ncommunity_update)
+        	VALUES (1, #{ncommunity_title}, #{ncommunity_content}, NOW(), NOW());
     </insert>
   
 	<!-- 공지사항 목록 -->
@@ -40,7 +41,8 @@
 	
 	<!-- 질문 쓰기 -->
 	<insert id="insertCommunityQna">
-        INSERT INTO community_Qna (Key, user_no, user_name, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date);
+        INSERT INTO community_Qna (user_no, user_name, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
+        VALUES (#{user_no}, #{user_name}, #{qcommunity_title}, #{qcommunity_content}, #{qcommunity_answer}, NOW());
        
     </insert>
   
@@ -55,7 +57,7 @@
     	FROM
     		community_QnA
     	WHERE
-    		`Key` = #{key}
+    		qcommunity_num = #{qcommunity_num}
 	</select>
   
 </mapper>

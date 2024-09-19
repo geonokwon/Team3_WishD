@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.teamproject.domain.MemberDTO;
 
@@ -26,7 +27,6 @@ public class MemberDAO {
 	
 	public void insertUserInfo(MemberDTO memberDTO) {
 		System.out.println("MemberDAO insertUserInfo()");
-		
 		sqlSession.insert(namespace + "insertUserInfo", memberDTO);
 		
 		
@@ -40,13 +40,48 @@ public class MemberDAO {
 	
 	// 회원 불러오기 
 	public MemberDTO getMember(String id) {
-		
-		return sqlSession.selectOne(namespace + ",getMember", id);
+		System.out.println("MemberDAO getMember()");
+		return sqlSession.selectOne(namespace + "getMember", id);
+	}
+	
+	// 아이디 중복체크
+	public String userIdCheck(String id) {
+		System.out.println("MemberDAO userIdCheck()");
+		return sqlSession.selectOne(namespace + "userIdCheck", id);
 	}
 
+	// 이메일 중복체크
+	public String userEmailCheck(String id) {
+		System.out.println("MemberDAO userEmailCheck()");
+		
+		return sqlSession.selectOne(namespace + "userEmailCheck", id);
+	}
+		
+		
+
+	// 아이디 찾기
+	@Transactional
+	public MemberDTO idFind(MemberDTO memberDTO) {
+		
+		System.out.println("MemberDAO idFind()");
+		
+	      memberDTO = sqlSession.selectOne(namespace + "idFind", memberDTO);
+	      if(memberDTO != null) { 
+	    	  memberDTO = sqlSession.selectOne(namespace + "idFindResult", memberDTO);
+	      }
+	      return memberDTO;
+	   }
 	
-	
+	// 비밀번호 찾기
+	public MemberDTO passFind(MemberDTO memberDTO) {
+		System.out.println("MemberDAO passFind()");
+		memberDTO = sqlSession.selectOne(namespace + "passFind", memberDTO);
+		if(memberDTO != null) {
+			memberDTO = sqlSession.selectOne(namespace+ "passFindResult", memberDTO);
+		}
+		return memberDTO;
+	}
 	
 	
 
-}
+}//클래스

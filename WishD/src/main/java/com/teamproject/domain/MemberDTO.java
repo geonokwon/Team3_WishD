@@ -21,7 +21,6 @@ public class MemberDTO {
 	private String user_pass; //회원 비밀번호
 	private String user_phone; // 회원 전화번호
 	
-	
 
 	// 마이페이지 연결정보
 	// 프로젝트 검색

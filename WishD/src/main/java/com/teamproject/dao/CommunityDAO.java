@@ -48,8 +48,7 @@ public class CommunityDAO {
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
 		sqlSession.insert(namespace + ".insertCommunityQna", communityQnaDTO);
 			
-	}
-		
+	}	
 	
 	//질문 목록 불러오기
 	public List<CommunityQnaDTO> getCommunityQnaList(CommunityPageDTO communitypageDTO) {
@@ -59,8 +58,8 @@ public class CommunityDAO {
 	}
 	
 	//질문 상세 페이지
-	public CommunityQnaDTO getCommunityQnaById(long key) {
-		return sqlSession.selectOne(namespace + ".getCommunityQnaById", key);
+	public CommunityQnaDTO getCommunityQnaById(long qcommunity_num) {
+		return sqlSession.selectOne(namespace + ".getCommunityQnaById", qcommunity_num);
 	}
 	
 	//검색어 포함

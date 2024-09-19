@@ -140,26 +140,28 @@
                 <p style="font-size: 14px">여기서 부터 입력하신 정보는 노출되지 않는 정보입니다.</p>
 
                 <!--기업 및 사업자 명-->
-<%--                <div class="col-4 ms-2 me-5 mb-5">--%>
-<%--                    <label for="companyName" class="mb-1 ms-2">기업 및 사업자 명</label>--%>
-<%--                    <input type="text"--%>
-<%--                           class="form-control bg-dark"--%>
-<%--                           id="companyName"--%>
-<%--                           placeholder="ex) (주)WhisD."--%>
-<%--                           autocomplete="off"--%>
-<%--                           required />--%>
-<%--                </div>--%>
+                <div class="col-4 ms-2 me-5 mb-5">
+                    <label for="pboard_company_name" class="mb-1 ms-2">기업 및 사업자 명</label>
+                    <input type="text"
+                           class="form-control bg-dark"
+                           id="pboard_company_name"
+                           name="pboard_company_name"
+                           placeholder="ex) (주)WhisD."
+                           autocomplete="off"
+                           required />
+                </div>
 
                 <!-- 프로젝트 등록 담당자 연락처 -->
-<%--                <div class="col-4 ms-2 mb-5">--%>
-<%--                    <label for="companyManager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>--%>
-<%--                    <input type="text"--%>
-<%--                           class="form-control bg-dark"--%>
-<%--                           id="companyManager_phone"--%>
-<%--                           placeholder=" ‘-’ 까지 작성해 주세요."--%>
-<%--                           autocomplete="off"--%>
-<%--                           required />--%>
-<%--                </div>--%>
+                <div class="col-4 ms-2 mb-5">
+                    <label for="pboard_manager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>
+                    <input type="text"
+                           class="form-control bg-dark"
+                           id="pboard_manager_phone"
+                           name="pboard_manager_phone"
+                           placeholder=" ‘-’ 까지 작성해 주세요."
+                           autocomplete="off"
+                           required />
+                </div>
 
                 <!-- 등록하기 버튼 -->
                 <div class="row container mt-5 px-5 justify-content-center">
