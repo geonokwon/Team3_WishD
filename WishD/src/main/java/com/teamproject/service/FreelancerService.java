@@ -30,6 +30,7 @@ public class FreelancerService {
 		//최종수정날짜 설정
 		freelancerDTO.setFreelancer_update(timestamp);
 		
+		System.out.println("servece에서 freelancerDTO" + freelancerDTO);
 		freelancerDAO.registFreelancer(freelancerDTO);
 		
 	}
@@ -52,7 +53,7 @@ public class FreelancerService {
             //가져온 freelancerDTO.getfreelancer() board에 선택된 스킬들을 List 형태로 받음
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
         	freelancerDTO.setSkills(freelancerDAO.getFreelancerSkill(freelancerDTO.getFreelancer_id()));
-        	System.out.println("freelancerDTO = " + freelancerDTO);
+ 
         }
         return freelancerDTOList;
     }

@@ -127,7 +127,7 @@
 						<div id="selected_skill_container"></div>
 		
 						<!-- 선택된 스킬을 hidden input으로 담아서 서버에 전송 -->
-						<input type="hidden" id="skills_hidden" name="skillList" required>    			
+						<input type="hidden" id="skills_hidden" name="skillIdList" required>    			
 		    		</div>
 		    
 		    	</div>
@@ -160,8 +160,8 @@
 		    		</div>
 		    
 		    	</div>
-		    	        <!-- 숨겨진 필드로 세션에 저장된 user_no 전달 -->
-        <input type="hidden" name="user_no" value="${sessionScope.user_no}">
+		    	        <!-- 숨겨진 필드로 세션에 저장된 user_no 전달 ${sessionScope.user_no} -->
+        <input type="hidden" name="user_no" value="3">
         
 				<!-- 등록 버튼 -->
 		    	<div class="container px-5 mb-5" style="height:50px;">

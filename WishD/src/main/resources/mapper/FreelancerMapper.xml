@@ -5,61 +5,84 @@
   
 <mapper namespace="com.teamproject.mapper.FreelancerMapper">
 
-<!-- 프리랜서 DB쿼리 -->
-
-
+<!-- 프리랜서 공통DB쿼리 -->
+	<!-- 	프리랜서 등록번호 max값 구하기 -->
+	<select id="getFreelancerMaxNum" resultType="long">
+	    SELECT COALESCE(MAX(freelancer_id), 0) FROM freelancer
+	</select>
 
 <!-- 	프리랜서 등록 -->
-	<insert id="resistFreelancer">
-		insert into freelancer
-		values(12,#{user_no},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_introduction},#{freelancer_link},"진행중",#{freelancer_date},#{freelancer_update},#{freelancer_job});
-	</insert>
-	
+	<!-- 	job리스트 불러오기 -->
 	<select id="getJobList" resultType="com.teamproject.domain.FreelancerDTO">
 		select *
 		from jobs;
 	</select>
 	
+	<!-- 	프리랜서 등록 -->
+	<insert id="resistFreelancer">
+		insert into freelancer
+		values(#{freelancer_id},#{user_no},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_introduction},#{freelancer_link},"구직중",#{freelancer_date},#{freelancer_update},#{freelancer_job});
+	</insert>
+	
+	<!-- 	프리랜서 스킬들 등록 -->
+	<insert id="resistFreelancerSkill">
+    INSERT INTO freelancer_skill (freelancer_id, skill_id)
+    VALUES
+    <foreach collection="skillIdList" item="skillId" separator=",">
+        (#{freelancer_id}, #{skillId})
+    </foreach>
+	</insert>	
+	
 <!-- 프리랜서 등록 끝 -->
-	
-	
-<!-- 	프리랜서의 스킬들 등록 -->
-	<insert id="registFreelancerSkills">
-        INSERT INTO freelancer_skill (freelancer_id, skill_id)
-        VALUES 
-        <foreach collection="skills" item="skill" separator=",">
-            (#{userId}, (SELECT skill_id FROM skills WHERE skill_name = #{skill}))
-        </foreach>
-    </insert>
 
- 	<!-- project_find - start -->
+ 	<!-- freelancer_find - start -->
     <!-- 전체 프리랜서 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
-	 <select id="selectFreelancer_all" resultType="com.teamproject.domain.FreelancerDTO">
-	    SELECT f.*
-	    ,ui.user_name
-	    FROM freelancer f
-	    LEFT JOIN freelancer_skill fs ON f.freelancer_id = fs.freelancer_id
-	    LEFT JOIN user_info ui ON f.user_no = ui.user_no
-	    <where>
-	        <if test="skill_id != null">
-	            fs.skill_id = #{skill_id}
-	        </if>
-	        <if test="search != null">
-	            f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
-	        </if>
-	    </where>
-	    GROUP BY f.freelancer_id
-	    ORDER BY f.freelancer_date
-	    <if test="createdDateFilter == 1">
-	        ASC
-	    </if>
-	    <if test="createdDateFilter != 1">
-	        DESC
-	    </if>
-	    LIMIT #{startRow}, #{endRow};
-	</select>
+<select id="selectFreelancer_all" resultType="com.teamproject.domain.FreelancerDTO">
+    SELECT f.*
+        , CASE 
+            WHEN CHAR_LENGTH(ui.user_name) = 2 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*')
+            WHEN CHAR_LENGTH(ui.user_name) = 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*', SUBSTRING(ui.user_name, 3, 1))
+            WHEN CHAR_LENGTH(ui.user_name) > 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), REPEAT('*', CHAR_LENGTH(ui.user_name) - 2), SUBSTRING(ui.user_name, CHAR_LENGTH(ui.user_name), 1))
+            ELSE ui.user_name
+          END AS user_name
+    FROM freelancer f
+    LEFT JOIN freelancer_skill fs ON f.freelancer_id = fs.freelancer_id
+    LEFT JOIN user_info ui ON f.user_no = ui.user_no
+    <where>
+            <if test="state == 0">
+                f.freelancer_state = '구직중'
+                <if test="skill_id != null">
+                    AND fs.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+                </if>
+            </if>
+            <if test="state != 0">
+                f.freelancer_state = '진행중'
+                <if test="skill_id != null">
+                    AND fs.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+                </if>
+            </if>
+    </where>
+    GROUP BY f.freelancer_id
+    ORDER BY f.freelancer_date
+    <if test="createdDateFilter == 1">
+        ASC
+    </if>
+    <if test="createdDateFilter != 1">
+        DESC
+    </if>
+    LIMIT #{startRow}, #{endRow};
+</select>
 
     <!-- 전체 프리랜서 등록 개수 반환 -->
     <!-- 검색어 포함 -->
@@ -69,13 +92,23 @@
         FROM freelancer f
         LEFT JOIN freelancer_skill fs ON f.freelancer_id = fs.freelancer_id
         <where>
-<!--             스킬 필터가 있을 경우 -->
-            <if test="skill_id != null">
-                fs.skill_id = #{skill_id}
+            <if test="state == 0">
+                f.freelancer_state = '구직중'
+                <if test="skill_id != null">
+                    AND fs.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
-<!--             검색어가 있을 경우 -->
-            <if test="search != null">
-                f.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+            <if test="state != 0">
+                f.freelancer_state = '진행중'
+                <if test="skill_id != null">
+                    AND fs.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND f.freelancer_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
         </where>;
     </select>
@@ -93,6 +126,6 @@
         SELECT *
         FROM skills;
     </select>
-    <!-- project_find - end -->
+    <!-- freelancer_find - end -->
   
 </mapper>

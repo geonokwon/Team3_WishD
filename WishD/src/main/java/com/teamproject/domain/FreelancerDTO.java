@@ -1,6 +1,7 @@
 package com.teamproject.domain;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 public class FreelancerDTO {
@@ -21,8 +22,9 @@ public class FreelancerDTO {
 	private Timestamp freelancer_update;
 	
     //skill String 으로 가져와서 배열로 나누는 값
-    private String skillList;
+    private Integer[] skillIdList;
 	
+    
     private List<FreelancerSkillDTO> skills;
 
     //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
@@ -35,20 +37,17 @@ public class FreelancerDTO {
     private String job_name;
     
 	//toString 오버라이드
-    @Override
+	@Override
 	public String toString() {
 		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_no=" + user_no + ", freelancer_salary="
 				+ freelancer_salary + ", freelancer_startdate=" + freelancer_startdate + ", freelancer_exp="
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
 				+ ", freelancer_introduction=" + freelancer_introduction + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
-				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills
-				+ ", user_name=" + user_name + ", jobList=" + jobList + ", job_id=" + job_id + ", job_name=" + job_name
-				+ "]";
+				+ ", freelancer_update=" + freelancer_update + ", skillIdList=" + Arrays.toString(skillIdList) + ", skills="
+				+ skills + ", user_name=" + user_name + ", jobList=" + jobList + ", job_id=" + job_id + ", job_name="
+				+ job_name + "]";
 	}
-
-
-
 
 	public Long getFreelancer_id() {
 		return freelancer_id;
@@ -146,12 +145,15 @@ public class FreelancerDTO {
 		this.freelancer_update = freelancer_update;
 	}
 
-	public String getSkillList() {
-		return skillList;
+
+
+
+	public Integer[] getSkillIdList() {
+		return skillIdList;
 	}
 
-	public void setSkillList(String skillList) {
-		this.skillList = skillList;
+	public void setSkillIdList(Integer[] skillIdList) {
+		this.skillIdList = skillIdList;
 	}
 
 	public List<FreelancerSkillDTO> getSkills() {
