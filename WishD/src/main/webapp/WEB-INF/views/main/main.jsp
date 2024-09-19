@@ -157,6 +157,7 @@
 </div>
 </div>
 
+<hr>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
