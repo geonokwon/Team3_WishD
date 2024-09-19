@@ -36,10 +36,10 @@
         <h2>비밀번호 찾기</h2>
         <form action="${pageContext.request.contextPath}/passFindPro" method="POST">
         	<div class="input-group">
-            	<input type="text" id="username-pw" name="user_id" placeholder="아이디를 입력하세요">
+            	<input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요" required>
        	 	</div>
         	<div class="input-group">
-            	<input type="email" id="email-pw" name="email" placeholder="이메일 주소를 입력하세요">
+            	<input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
        	 	</div>
         	<button type="submit" class="submit-btn">비밀번호 찾기</button>
        </form>  

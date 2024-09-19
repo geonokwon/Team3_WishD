@@ -109,7 +109,6 @@ public class MemberController {
 	}
 	
 	
-
 	// 아이디 찾기
 	@GetMapping("/idFind")
 	public String idFind() {
@@ -124,12 +123,12 @@ public class MemberController {
 		System.out.println("MemberController idFindPro()");
 		memberDTO = memberService.idFind(memberDTO);
 		
-		if(memberDTO != null) { // 아이디가 있으면 model에 데이터 담아서 결과화면
+		if(memberDTO != null) { // 아이디가 있으면 model에 데이터 담아서 결과화면 이동
 			model.addAttribute("memberDTO", memberDTO);
 			return "/member/idResult";
 		}
 		else {
-			// 아이디가 없으면 에러 메시지를 model에 담아 아이디 찾기 화면으로 
+			// 아이디가 없으면 에러 메시지를 model에 담아서 전달
 	        model.addAttribute("errorMessage", "일치하는 아이디가 없습니다.");
 	        return "member/idFind";
 		}
@@ -150,25 +149,17 @@ public class MemberController {
 		memberDTO = memberService.passFind(memberDTO);
 		
 		if(memberDTO != null) { // 비밀번호가 있으면 model 데이터 담아서 결과화면으로 이동
-			
 			model.addAttribute("memberDTO", memberDTO);
 			return "/member/passResult";
-			
 		}
 		else {
 			
-			// 아이디가 없으면 에러 메시지를 model에 담아 비밀번호 찾기 화면으로 
+			// 아이디가 없으면 에러 메시지를 model에 담아서 찾기화면
 	        model.addAttribute("errorMessage", "일치하는 비밀번호가 없습니다.");
 	        return "/member/passFind";
 		}
 		
-		
-		
 	}
-	
-	
-	
-	
 	
 	
 	
