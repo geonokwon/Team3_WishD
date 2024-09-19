@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +22,38 @@ public class ManagerController {
 	@Inject
 	private ManagerService managerService;
 	
+//	관리자 계정 확인 메소드
+	public boolean managerCert(HttpSession session) {
+		Long sessionNo = (Long)session.getAttribute("user_no");
+		String sessionRole = (String)session.getAttribute("user_role");
+		
+		System.out.println(sessionNo+" "+sessionRole);
+		
+		if(sessionNo == null) {
+			return true;
+		}
+		
+		if(sessionRole!=null) {
+			if(!sessionRole.equals("admin")) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 //	관리자 페이지
 	@GetMapping("/managerMain")
-	public String managerMain() {
+	public String managerMain(HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
 		
 		return "/manager/managerMain";
 	}
 	
 //	요청 프로젝트 승인
 	@GetMapping("/managerApProject")
-	public String apProject(HttpServletRequest request, Model model) {
+	public String apProject(HttpServletRequest request, Model model, HttpSession session) {
+		if(!managerCert(session)) return "redirect:/";
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -77,7 +100,8 @@ public class ManagerController {
 	
 //	요청 프리랜서 승인
 	@GetMapping("/managerApFreelancer")
-	public String apFreelancer(HttpServletRequest request, Model model) {
+	public String apFreelancer(HttpServletRequest request, Model model, HttpSession session) {
+		if(!managerCert(session)) return "redirect:/";
 		
 		String pageNum = request.getParameter("pageNum");
 		
@@ -124,7 +148,8 @@ public class ManagerController {
 	
 //	테스트용 코드
 	@GetMapping("/managerTest1")
-	public String managerTest1() {
+	public String managerTest1(HttpSession session) {
+		if(!managerCert(session)) return "redirect:/";
 		
 		return "/manager/managerBoardTemp";
 	}
