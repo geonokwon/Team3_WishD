@@ -23,7 +23,7 @@ public class FreelancerDTO {
 	
     //skill String 으로 가져와서 배열로 나누는 값
     private Integer[] skillIdList;
-	
+	private String skillList;
     
     private List<FreelancerSkillDTO> skills;
 
@@ -210,12 +210,11 @@ public class FreelancerDTO {
     
 
 
-	
-	
-	
-	
+	public String getSkillList() {
+		return skillList;
+	}
 
-	
-	
-	
+	public void setSkillList(String skillList) {
+		this.skillList = skillList;
+	}
 }
