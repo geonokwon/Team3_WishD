@@ -41,7 +41,6 @@ public class FreelancerController {
 		//전체스킬 조회시 필요한 전체 스킬 데이터
 		model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
 		
-		System.out.println("freelancer_controller freelancer_reg()");
 		return "freelancer/freelancer_reg";
 	}
 	
@@ -127,6 +126,7 @@ public class FreelancerController {
 
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
         model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
+       
         //현재 sort 상태 값 처리
         model.addAttribute("sort",sort);
         //현재 state 구직중, 진행중 처리
