@@ -1,7 +1,6 @@
 package com.teamproject.domain;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.List;
 
 public class MyProjectDTO {
@@ -11,7 +10,7 @@ public class MyProjectDTO {
 	private String pboard_title;
 	private String pboard_content;
 	private int pboard_money;
-	private Timestamp pboard_startDate;
+	private String pboard_startDate;
 	private int pboard_history;
 	private int pboard_rangeMonth;
 	private String pboard_state;
@@ -23,8 +22,21 @@ public class MyProjectDTO {
 	
 	private String skillList;
 
+	private Timestamp pboard_startDate_Ex;
 	
 	
+	public Timestamp getPboard_startDate_Ex() {
+		return pboard_startDate_Ex;
+	}
+
+
+
+	public void setPboard_startDate_Ex(Timestamp pboard_startDate_Ex) {
+		this.pboard_startDate_Ex = pboard_startDate_Ex;
+	}
+
+
+
 	public String getSkillList() {
 		return skillList;
 	}
@@ -148,13 +160,14 @@ public class MyProjectDTO {
 	}
 
 
-	public Timestamp getPboard_startDate() {
+
+	public String getPboard_startDate() {
 		return pboard_startDate;
 	}
 
 
 
-	public void setPboard_startDate(Timestamp pboard_startDate) {
+	public void setPboard_startDate(String pboard_startDate) {
 		this.pboard_startDate = pboard_startDate;
 	}
 

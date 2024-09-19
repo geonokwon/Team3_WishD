@@ -1,20 +1,16 @@
 package com.teamproject.controller;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthStyleFactory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
@@ -38,17 +34,17 @@ public class MyPageController {
 		
 		// ====== 회원 정보 가져오기 시작 =======
 		// 세션에 저장된 값으로 체크
-		MemberDTO memberDTO = new MemberDTO();
+		MemberDTO myProfile = new MemberDTO();
 		Long sessionCheck = (Long)session.getAttribute("user_no");
 		if(sessionCheck == null) {
 			return "redirect:/login";
 		}
 		// 세션에 저장된 값으로 회원정보 가져오기 내부에서 간편, 일반 구분
-		memberDTO = myPageService.getLoginMember(sessionCheck.longValue());
-		System.out.println(memberDTO);
+		myProfile = myPageService.getLoginMember(sessionCheck.longValue());
+		System.out.println(myProfile);
 		
-		model.addAttribute("memberDTO", memberDTO);
-		System.out.println("memberDTO : " + memberDTO);
+		model.addAttribute("myProfile", myProfile);
+		System.out.println("myProfile : " + myProfile);
 		// ======= 회원 정보 가져오기 끝 =======
 		
 		// ======= 내가 쓴 프리랜서 글 가져오기 시작 =====
@@ -91,12 +87,12 @@ public class MyPageController {
 //      // 내프리랜서글 개수 가져오기
 //     	// 검색어에 따른 프로젝트 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
 //     	// getFreelancerCount에서 검색어를 안넘겨서 카운트가 비정상 작동
-     	myFreelancerPageDTO.setUser_no(memberDTO.getUser_no());
-     	memberDTO.setSearch(freelancerSearch);
+     	myFreelancerPageDTO.setUser_no(myProfile.getUser_no());
+     	myProfile.setSearch(freelancerSearch);
      	myFreelancerPageDTO.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
      	// 프로젝트 글 상태도 넘겨야함
-     	memberDTO.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
-     	myFreelancerPageDTO.setCount(myPageService.getFreelancerCount(memberDTO));
+     	myProfile.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+     	myFreelancerPageDTO.setCount(myPageService.getFreelancerCount(myProfile));
         System.out.println("freegetCount : " + myFreelancerPageDTO.getCount());
         myFreelancerPageDTO.setCurrentPage(freelancerpageNumToInt);
         myFreelancerPageDTO.setPageSize(freelancerPageSize);
@@ -134,7 +130,7 @@ public class MyPageController {
         System.out.println("freelancerStartRow : " + freelancerStartRow);
         System.out.println("freelancerEndRow : " + freelancerEndRow);
         
-        myFreelancerPageDTO.setUser_no(memberDTO.getUser_no());
+        myFreelancerPageDTO.setUser_no(myProfile.getUser_no());
         //project_find page 글 개수 10개씩 가져옴
         model.addAttribute("myFreelancerPageDTO", myFreelancerPageDTO);
         model.addAttribute("myFreelancerDTOList", myPageService.getMyFreelancer(myFreelancerPageDTO));
@@ -187,12 +183,12 @@ public class MyPageController {
         // 내프로젝트글 개수 가져오기
      	// 검색어에 따른 프로젝트 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
      	// getProjectCount에서 검색어를 안넘겨서 카운트가 비정상 작동
-     	myProjectPageDTO.setUser_no(memberDTO.getUser_no());
-     	memberDTO.setSearch(search);
+     	myProjectPageDTO.setUser_no(myProfile.getUser_no());
+     	myProfile.setSearch(search);
      	myProjectPageDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
      	// 프로젝트 글 상태도 넘겨야함
-     	memberDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
-        myProjectPageDTO.setCount(myPageService.getProjectCount(memberDTO));
+     	myProfile.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+        myProjectPageDTO.setCount(myPageService.getProjectCount(myProfile));
         System.out.println("getCount : " + myProjectPageDTO.getCount());
         myProjectPageDTO.setCurrentPage(pageNumToInt);
         myProjectPageDTO.setPageSize(pageSize);
@@ -231,7 +227,7 @@ public class MyPageController {
         System.out.println("startRow : " + startRow);
         System.out.println("endRow : " + endRow);
         
-        myProjectPageDTO.setUser_no(memberDTO.getUser_no());
+        myProjectPageDTO.setUser_no(myProfile.getUser_no());
         //project_find page 글 개수 10개씩 가져옴
         model.addAttribute("myProjectPageDTO", myProjectPageDTO);
         // getMyProject에서 스킬도 가져옴
@@ -250,7 +246,7 @@ public class MyPageController {
 		System.out.println("====== qnaPageNum : " + qnaPageNum);
 		
 		MyQnaPageDTO myQnaPageDTO = new MyQnaPageDTO();
-		myQnaPageDTO.setUser_no(memberDTO.getUser_no());
+		myQnaPageDTO.setUser_no(myProfile.getUser_no());
 		
 		int qnaPageSize = 5;
 		int qnaPageBlock = 5;
@@ -262,7 +258,7 @@ public class MyPageController {
         System.out.println("qnaEndPage : " + qnaEndPage);
         
         //내가 쓴 qna 개수 가져오고 pageDTO에 넣어주기
-        myQnaPageDTO.setCount(myPageService.getMyQnaCount(memberDTO.getUser_no()));         
+        myQnaPageDTO.setCount(myPageService.getMyQnaCount(myProfile.getUser_no()));         
         System.out.println("qna 글개수 : " + myQnaPageDTO.getCount());
         
         //페이지 카운트 구하기
@@ -327,8 +323,10 @@ public class MyPageController {
 		MyProjectDTO myProjectDTO = myPageService.getProjectForUpdate(Integer.parseInt(request.getParameter("projectPageNum")));
 		System.out.println("스킬도 들어오는지 myProjectDTO : " + myProjectDTO);
 		
-		model.addAttribute("myProjectSkillList", projectService.getSkillList());
+		// 직무테이블 리스트 
 		
+		// 스킬테이블리스트
+		model.addAttribute("myProjectSkillList", projectService.getSkillList());
 		model.addAttribute("myProjectDTO", myProjectDTO);
 		return "mypage/project_update";
 	}
@@ -338,19 +336,50 @@ public class MyPageController {
 		System.out.println("myprojectupdate - myprojectupdatePro");
 		System.out.println(request.getParameter("skillList"));
 		System.out.println("프로젝트 업데이트 넘어왔을때 값 : " + myProjectDTO);
-		
-		// 프로젝트 넘버 Long으로 변경
-//		myProjectDTO.setPboard_id(Long.parseLong(request.getParameter("projectPageNum")));
 		// 프로젝트 내용 업데이트
-//		myPageService.updateMyProject(myProjectDTO);
-//		System.out.println("업데이트 할때 값을 들고 오는지 myProjectDTO : " + myProjectDTO);
-//		
-//		model.addAttribute("myProjectSkillList", projectService.getSkillList());
-//		
-//		model.addAttribute("myProjectDTO", myProjectDTO);
-		return "redirect:/main";
+		myPageService.updateMyProject(myProjectDTO);
+		
+		return "redirect:/mypage";
 	}
 	
+	// 프리랜서글 수정 시작
+	@GetMapping("mypage/myfreelancerupdate")
+	public String myFreelancerUpdate(HttpServletRequest request, Model model) {
+		System.out.println("myFreelancerUpdate 매핑 확인");
+		
+		FreelancerDTO myfreelancerDTO = myPageService.getMyFreelancerForUpdate(Long.parseLong(request.getParameter("freelancerPageNum")));
+		model.addAttribute("myfreelancerDTO", myfreelancerDTO);
+		model.addAttribute("myFreelancerSkillList", projectService.getSkillList());
+		
+		return "mypage/freelancer_update";
+	}
 	
+	@PostMapping("mypage/myFreelancerUpdatePro")
+	public String myFreelancerUpdatePro(FreelancerDTO freelancerDTO) {
+		System.out.println("freelancerDTO 업데이트 넘어왔을때 : " + freelancerDTO);
+
+		myPageService.updateMyFreelancer(freelancerDTO);
+		
+		return "redirect:/mypage";
+	}
+	
+	// 아이디 중복 체크
+	@GetMapping("mypage/idCheck")
+	@ResponseBody
+	public String idCheck(HttpServletRequest request) {
+	    String id = request.getParameter("id");
+	    System.out.println("아이디 중복 체크 : " + id);
+	    
+	    // 아이디 중복 여부 확인
+	    String result = myPageService.userIdCheck(id);
+	    
+	    if (result != null) {
+	        // 아이디 중복
+	        return "iddup";
+	    } else {
+	        // 아이디 사용 가능
+	        return "idok";
+	    }
+	}
 	
 }

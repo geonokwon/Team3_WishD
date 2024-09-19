@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.text.SimpleDateFormat, java.util.Date" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Project</title>
+    <title>글 수정 | WishD</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -28,14 +28,18 @@
         <h2 class="ms-2 mb-2">프로젝트 정보를 수정해 주세요</h2>
     </div>
     <!-- 폼 태그 시작 -->
-    <form action="${pageContext.request.contextPath}/projectUpdatePro" method="post" id="projectUpdate">
+    <form action="${pageContext.request.contextPath}/mypage/myprojectupdatePro" method="post" id="projectUpdate">
         <div class="card p-2 mt-2">
             <div class="row card-body bg-primary">
                 <p style="font-size: 14px">
                     입력하신 정보는 프로젝트 매칭 이외의 <br />
                     용도로는 사용되지 않습니다.
                 </p>
-
+                <!-- 필요한 값 히든으로 채워주기 -->
+				<input type="hidden" name="pboard_id" value="${myProjectDTO.pboard_id}">
+				<input type="hidden" name="user_no" value="${myProjectDTO.user_no}">
+				<input type="hidden" name="pboard_state" value="${myProjectDTO.pboard_state}">
+                
                 <!-- 제목 타이틀 -->
                 <div class="ms-2 mb-4">
                     <label for="title" class="mb-1 ms-2">제목(타이틀)</label>
@@ -52,12 +56,12 @@
 
                 <!-- 직무 선택 -->
                 <div class="ms-2 mb-4">
-                    <label for="jobGroup" class="mb-1">직무(선택)</label>
+                    <label for="pboard_job" class="mb-1">직무(선택)</label>
                     <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px" required>
                         <option value="" disabled>직무를 선택하세요</option>
-<%--                         <option value="앱 개발자" ${project.job == '앱 개발자' ? 'selected' : ''}>앱 개발자</option> --%>
-<%--                         <option value="웹 개발자" ${project.job == '웹 개발자' ? 'selected' : ''}>웹 개발자</option> --%>
-<%--                         <option value="시스템 개발자" ${project.job == '시스템 개발자' ? 'selected' : ''}>시스템 개발자</option> --%>
+                        <option value="앱 개발자" ${project.job == '앱 개발자' ? 'selected' : ''}>앱 개발자</option>
+                        <option value="웹 개발자" ${project.job == '웹 개발자' ? 'selected' : ''}>웹 개발자</option>
+                        <option value="시스템 개발자" ${project.job == '시스템 개발자' ? 'selected' : ''}>시스템 개발자</option>
                     </select>
                 </div>
 
@@ -67,20 +71,20 @@
                     <p style="font-size: 14px">(필요 스킬 복수 선택 가능)</p>
                     <select class="form-select bg-dark mb-2" id="skill">
                         <option value="" disabled>스킬선택</option>
-<%--                         <c:forEach items="${projectSkillList}" var="skill"> --%>
-<%--                             <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option> --%>
-<%--                         </c:forEach> --%>
+                        <c:forEach items="${myProjectSkillList}" var="skill">
+                            <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
+                        </c:forEach>
                     </select>
                     <div id="badge_container">
-                        <!-- 클릭 시 배지 추가 -->
-                        <!-- 기존 선택된 스킬로 배지 추가 (서버에서 넘어온 데이터 사용) -->
-                        <c:forEach items="${selectedSkills}" var="selectedSkill">
-                            <p class="badge rounded-pill mb-1 me-2" data-skill-id="${selectedSkill.id}">
-                                ${selectedSkill.name}
+<!--                         클릭 시 배지 추가 -->
+<!--                         기존 선택된 스킬로 배지 추가 -->
+                        <c:forEach items="${myProjectDTO.skills}" var="selectedSkill">
+                            <p class="badge rounded-pill mb-1 me-2" data-skill-id="${selectedSkill.getSkill_id()}">
+                                ${selectedSkill.getSkill_name()}
                             </p>
                         </c:forEach>
                     </div>
-                    <input type="hidden" name="skillList" id="skillList" value="${selectedSkills}" required/>
+                    <input type="hidden" name="skillList" id="skillList" value="${selectedSkill}" required/>
                 </div>
 
                 <!-- 프로젝트 보수 -->
@@ -107,14 +111,13 @@
 				
                 <!-- 프로젝트 시작 날짜 -->
 			    <div class="col-4 ms-2 me-5 mb-4">
-                    <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
-                    <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startdate"
-<%--                     	value="${myprojectDTO.pboard_startDate}" --%>
-                    		value="<fmt:formatDate value='${myprojectDTO.pboard_startDate}' pattern='yyyy-MM-dd' />"
-                    		required />
-                    		
+                    <label for="startDate" class="mb-2">프로젝트 시작 희망일</label><!-- name="pboard_startDate" -->
+                    <fmt:parseDate value="${myProjectDTO.pboard_startDate}"
+                    	var="myProUpdateStartDate" pattern="yyyy-MM-dd" />
+    				<input type="date" class="form-control bg-dark" id="startDate" name="pboard_startDate"
+           				value="<fmt:formatDate value='${myProUpdateStartDate}' pattern='yyyy-MM-dd' />" />
                 </div>
-
+	
                 <!-- 프로젝트 진행 예상 기간 -->
                 <div class="col-4 ms-2 mb-4">
                     <label for="range_month" class="mb-1 ms-2">프로젝트 진행 예상 기간</label>
@@ -150,17 +153,19 @@
                 <hr class="custom-hr" />
                 <p style="font-size: 14px">여기서 부터 입력하신 정보는 노출되지 않는 정보입니다.</p>
 
-                <!-- 기업 및 사업자 명 (주석 처리된 부분) -->
-                <%--<div class="col-4 ms-2 me-5 mb-5">--%>
-                <%--    <label for="companyName" class="mb-1 ms-2">기업 및 사업자 명</label>--%>
-                <%--    <input type="text" class="form-control bg-dark" id="companyName" placeholder="ex) (주)WhisD." autocomplete="off" required />--%>
-                <%--</div>--%>
+                <!--                 기업 및 사업자 명 -->
+                <div class="col-4 ms-2 me-5 mb-5">
+                   <label for="pboard_company_name" class="mb-1 ms-2">기업 및 사업자 명</label>
+                   <input type="text" name="pboard_company_name" class="form-control bg-dark" id="pboard_company_name" placeholder="ex) (주)WhisD." autocomplete="off"
+                   value="${myProjectDTO.pboard_company_name}" required />
+                </div>
 
-                <!-- 프로젝트 등록 담당자 연락처 (주석 처리된 부분) -->
-                <%--<div class="col-4 ms-2 mb-5">--%>
-                <%--    <label for="companyManager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>--%>
-                <%--    <input type="text" class="form-control bg-dark" id="companyManager_phone" placeholder=" ‘-’ 까지 작성해 주세요." autocomplete="off" required />--%>
-                <%--</div>--%>
+<!--                 프로젝트 등록 담당자 연락처 -->
+                <div class="col-4 ms-2 mb-5">
+                   <label for="pboard_manager_phone" class="mb-1 ms-2">프로젝트 등록 담당자 연락처</label>
+                   <input type="text" name="pboard_manager_phone" class="form-control bg-dark" id="pboard_manager_phone" placeholder=" ‘-’ 까지 작성해 주세요." autocomplete="off" 
+                   value="${myProjectDTO.pboard_manager_phone}" required />
+                </div>
 
                 <!-- 등록하기 버튼 -->
                 <div class="row container mt-5 px-5 justify-content-center">
@@ -204,13 +209,71 @@
     </form>
     <!-- 폼 태그 끝 -->
 
-    <!-- backGround-star -->
-    <div class="noite"></div>
-    <div class="constelacao"></div>
-    <div class="chuvaMeteoro"></div>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
+
+<script>
+const selectElement = document.getElementById("skill");
+const badgeContainer = document.getElementById("badge_container");
+
+if (selectElement) {
+    selectElement.addEventListener("change", function() {
+        const selectText = this.options[this.selectedIndex].text;
+        const selectValue = this.value;
+
+        // 이미 선택된 배지인지 확인
+        const existingBadges = Array.from(badgeContainer.getElementsByClassName("badge"));
+        const existingBadge = existingBadges.find((badge) => badge.dataset.skillId === selectValue);
+
+        if (existingBadge) {
+            // 이미 선택된 배지인 경우 제거
+            existingBadge.remove();
+        } else {
+            // 새 배지 추가
+            const badge = document.createElement("p");
+            badge.className = "badge rounded-pill mb-1 me-2";
+            badge.textContent = selectText;
+            badge.dataset.skillId = selectValue;
+
+            // 배지 클릭 시 삭제 기능 추가
+            badge.addEventListener("click", () => {
+                badge.remove();
+                updateHiddenInput();
+            });
+
+            badgeContainer.appendChild(badge);
+        }
+        // 숨겨진 입력 필드 업데이트
+        updateHiddenInput();
+        // 선택 초기화 (다시 처음 상태로)
+        selectElement.selectedIndex = 0;
+    });
+
+    // 배지 클릭 이벤트를 badgeContainer에 위임
+    badgeContainer.addEventListener("click", function(event) {
+        if (event.target.classList.contains("badge")) {
+            event.target.remove();
+            updateHiddenInput();
+        }
+    });
+}
+
+// 숨겨진 입력 필드 업데이트
+function updateHiddenInput() {
+    const badges = Array.from(badgeContainer.getElementsByClassName("badge"));
+    const selectedSkills = badges.map((badge) => badge.dataset.skillId);
+    let skillList = selectedSkills.join(",");
+    document.getElementById("skillList").value = skillList;
+
+    // skillList에 대한 유효성 검사
+    if (skillList === "") {
+        document.getElementById("skill").style.border = "1px solid #ff0000ad";
+    } else {
+        document.getElementById("skill").style.border = "";
+    }
+}
+</script>
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -220,5 +283,6 @@
 <script>
     let basePath = "${pageContext.request.contextPath}";
 </script>
+<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
 </body>
 </html>

@@ -225,6 +225,10 @@
 	display: block; /* 활성화된 탭 내용만 표시합니다. */
 }
 
+.tab-item.active {
+    font-weight: bold;
+}
+
 /* 탭 바디 스타일 */
 .tabs .tab-body {
 	position: relative;
