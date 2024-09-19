@@ -19,6 +19,27 @@ public class FreelancerService {
 	@Autowired
 	private FreelancerDAO freelancerDAO;
 	
+	//프리랜서 등록
+	public void registFreelancer(FreelancerDTO freelancerDTO) {
+		System.out.println("FreelancerService RegPro");
+		
+		//현재 시간 변수에 저장
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		//가입날짜 설정
+		freelancerDTO.setFreelancer_date(timestamp);
+		//최종수정날짜 설정
+		freelancerDTO.setFreelancer_update(timestamp);
+		
+		freelancerDAO.registFreelancer(freelancerDTO);
+		
+	}
+    //전체 job 리스트 가져오기
+    public List<FreelancerDTO> getJobList() {
+        logger.info("-> getJobList()");
+        return freelancerDAO.getJobList();
+    }
+	
+	
     //전체 프리랜서 등록 List 불러오기
     public List<FreelancerDTO> getFreelancerList(FreelancerPageDTO freelancerPageDTO){
         logger.info("-> getFreelancerList()");
@@ -60,20 +81,7 @@ public class FreelancerService {
 	
 	
 	
-	//프리랜서 등록
-	public void registFreelancer(FreelancerDTO freelancerDTO) {
-		System.out.println("service RegPro");
-		
-		//현재 시간 변수에 저장
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//가입날짜 설정
-		freelancerDTO.setFreelancer_date(timestamp);
-		//최종수정날짜 설정
-		freelancerDTO.setFreelancer_update(timestamp);
-		
-		freelancerDAO.registFreelancer(freelancerDTO);
-		
-	}
+
 
 	
 	

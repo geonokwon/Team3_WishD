@@ -90,15 +90,12 @@
 		    		<!-- 2-2) 직무 -->
 		    		<div class="col-md-6 my-5 p-4">
 						<h6>직무<span style="color:red;"> *</span></h6>
-							<select name="freelancer_job" class="form-select bg-dark form-control" style="color:white; width:200px;" >
-								<option selected>직무를 선택하세요</option>
-								<option value="front">프론트</option>
-								<option value="backend">백엔드</option>
-								<option value="app">앱 개발자</option>
-								<option value="web">웹 개발자</option>
-								<option value="data-science">데이터 사이언스</option>
-								<option value="detect">보안</option>
-							</select>    		
+							<select name="freelancer_job" class="form-select bg-dark form-control" style="color:white; width:200px;">
+		                       		<option value="" disabled selected>직무를 선택하세요</option>
+		                        	<c:forEach items="${jobList}" var="job">
+		                        		<option value="${job.getJob_id()}">${job.getJob_name()}</option>
+		                        	</c:forEach>
+	                    	</select>
 		    		</div>
 		    		
 					<!-- 2-3) 개발자 경력 -->
@@ -163,7 +160,9 @@
 		    		</div>
 		    
 		    	</div>
-		    	
+		    	        <!-- 숨겨진 필드로 세션에 저장된 user_no 전달 -->
+        <input type="hidden" name="user_no" value="${sessionScope.user_no}">
+        
 				<!-- 등록 버튼 -->
 		    	<div class="container px-5 mb-5" style="height:50px;">
 	                <button type="button" 

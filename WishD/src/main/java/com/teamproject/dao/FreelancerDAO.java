@@ -24,6 +24,19 @@ public class FreelancerDAO {
 	private final String nameSpace = "com.teamproject.mapper.FreelancerMapper.";
 	
 	
+	//프리랜서 등록
+	public void registFreelancer(FreelancerDTO freelancerDTO) {
+		System.out.println("FreelancerDAO regist");
+		
+		
+		sqlSession.insert(nameSpace + "resistFreelancer", freelancerDTO);
+	}
+    //전체 job 반환
+    public List<FreelancerDTO> getJobList() {
+        logger.info("-> getJobList()");
+        return sqlSession.selectList(nameSpace + "getJobList");
+    }
+	
 	
     //프리랜서 전체를 가져오면서 각 프리랜서의 이름도 가져오기
     public List<FreelancerDTO> getFreelancer_all(FreelancerPageDTO freelancerPageDTO){
@@ -60,13 +73,6 @@ public class FreelancerDAO {
         return sqlSession.selectList(nameSpace + "getSkill", freelancer_id);
     }
 
-	//프리랜서 등록
-	public void registFreelancer(FreelancerDTO freelancerDTO) {
-		System.out.println("FreelancerDAO regist");
-		
-		
-		sqlSession.insert(nameSpace + "resistFreelancer", freelancerDTO);
-	}
 	
     //프로젝트 등록시 선택 스킬 freelancerSkill table 에 삽입
     public void insertFreelancerSkill(Map<String, Object> freelancerSkill) {

@@ -26,6 +26,10 @@ public class FreelancerController {
 	@GetMapping("/freelancer_reg")
 	public String freelancer_reg(Model model) {
 		System.out.println("freelancer_controller freelancer_reg()");
+		
+		//job 조회시 필요한 모든 job 데이터
+		model.addAttribute("jobList", freelancerService.getJobList());
+		
 		//전체스킬 조회시 필요한 전체 스킬 데이터
 		model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
 		
@@ -40,9 +44,9 @@ public class FreelancerController {
 
 		
 		// 프리랜서 등록 처리
-//		freelancerService.registFreelancer(freelancerDTO);
+		freelancerService.registFreelancer(freelancerDTO);
 		
-		return "redirect:/freelancer_reg";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/freelancerFind")

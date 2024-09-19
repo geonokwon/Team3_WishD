@@ -7,11 +7,21 @@
 
 <!-- 프리랜서 DB쿼리 -->
 
+
+
 <!-- 	프리랜서 등록 -->
 	<insert id="resistFreelancer">
 		insert into freelancer
-		values(#{user_id},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_job},#{freelancer_introduction},#{freelancer_link},#{freelancer_state},#{freelancer_date},#{freelancer_update})
+		values(12,#{user_no},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_introduction},#{freelancer_link},"진행중",#{freelancer_date},#{freelancer_update},#{freelancer_job});
 	</insert>
+	
+	<select id="getJobList" resultType="com.teamproject.domain.FreelancerDTO">
+		select *
+		from jobs;
+	</select>
+	
+<!-- 프리랜서 등록 끝 -->
+	
 	
 <!-- 	프리랜서의 스킬들 등록 -->
 	<insert id="registFreelancerSkills">
