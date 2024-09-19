@@ -76,9 +76,10 @@
                         <div class="write-line"></div>
 
 						
-                        <label for="notice_title" class="noticeTitleText">Title </label>
+<!--                         <label for="notice_title" class="noticeTitleText">Title </label> -->
   
-                        <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+<!--                         <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......"> -->
+                    	 <p class="custom-textbox no-border readonly">${communityDTO.ncommunity_title}</p>
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -86,13 +87,13 @@
                     <div class="col">
                         <div class="write-line"></div> <!-- 구분선 -->
 
-                        <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea name="ncommunity_content" class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
-                
+<!--                         <label for="notice_title" class="noticeTitleText">Content </label> -->
+<!--                         <textarea name="ncommunity_content" class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea> -->
+                		<p class="custom-textbox1 input-box no-border readonly">${communityDTO.ncommunity_content}</p>
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
+                            <button type="submit" class="btn btn-primary2"><a href="community" class="text-light text-decoration-none">돌아가기</a></button>
                         </div>
                     </div>
 						
@@ -106,8 +107,8 @@
 
         <!-- 섹션 2 - 3 -->
         <div class="col-2 second-section-3 menutext-right-1">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+<!--             <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br> -->
+<!--             <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br> -->
         </div>
 
     </div> <!-- 섹션 2 종료 -->
