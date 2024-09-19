@@ -21,22 +21,22 @@ public class FreelancerDTO {
 	private Timestamp freelancer_date;
 	private Timestamp freelancer_update;
 	
-    //skill String 으로 가져와서 배열로 나누는 값
-    private Integer[] skillIdList;
-	private String skillList;
-	
-    
-    private List<FreelancerSkillDTO> skills;
+  //skill String 으로 가져와서 배열로 나누는 값
+  private Integer[] skillIdList;
+  private String skillList;
 
-    //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
-    private String user_name;
 
-    
-    //전체job 조회시 사용
-    private String jobList;
-    private int job_id;
-    private String job_name;
-    
+  private List<FreelancerSkillDTO> skills;
+
+  //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
+  private String user_name;
+
+
+  //전체job 조회시 사용
+  private String jobList;
+  private int job_id;
+  private String job_name;
+
 	//toString 오버라이드
 	@Override
 	public String toString() {
