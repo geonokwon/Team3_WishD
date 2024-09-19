@@ -67,6 +67,16 @@
 		WHERE user_id = #{id}
 	</select>
 	
+	<!-- 이메일 중복체크 -->
+	<select id="userEmailCheck" resultType="String">
+		SELECT email
+		FROM user_info
+		WHERE email = #{id}
+	
+	
+	</select>
+	
+	
 	
 
  		<!-- 간편회원 로그인 --> 

@@ -87,10 +87,26 @@ public class MemberController {
 		
 	}
 	
-	
-	
-	
-	
+	// 이메일 중복체크
+	@GetMapping("/emailCheck")
+	@ResponseBody
+	public String emailCheck(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		System.out.println("이메일 중복체크 : " + id);
+		
+		// 이메일 중복 여부 확인
+		String result = memberService.userEmailCheck(id);
+		
+		if(result != null) {
+			// 이메일 중복
+			return "emailDup";
+			
+		} else {
+			// 이메일 사용 가능
+			return "emailOk";
+		}
+		
+	}
 	
 	
 

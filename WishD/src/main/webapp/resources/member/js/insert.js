@@ -1,3 +1,4 @@
+
 //배경 별 + 메테오 js
 function init() {
     let style = ["style1", "style2", "style3", "style4"];

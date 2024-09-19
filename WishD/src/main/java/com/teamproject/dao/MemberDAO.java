@@ -43,6 +43,21 @@ public class MemberDAO {
 		System.out.println("MemberDAO getMember()");
 		return sqlSession.selectOne(namespace + "getMember", id);
 	}
+	
+	// 아이디 중복체크
+	public String userIdCheck(String id) {
+		System.out.println("MemberDAO userIdCheck()");
+		return sqlSession.selectOne(namespace + "userIdCheck", id);
+	}
+
+	// 이메일 중복체크
+	public String userEmailCheck(String id) {
+		System.out.println("MemberDAO userEmailCheck()");
+		
+		return sqlSession.selectOne(namespace + "userEmailCheck", id);
+	}
+		
+		
 
 	// 아이디 찾기
 	@Transactional
@@ -65,12 +80,6 @@ public class MemberDAO {
 			memberDTO = sqlSession.selectOne(namespace+ "passFindResult", memberDTO);
 		}
 		return memberDTO;
-	}
-	
-	// 아이디 중복체크
-	public String userIdCheck(String id) {
-		System.out.println("MemberDAO userIdCheck()");
-		return sqlSession.selectOne(namespace + "userIdCheck", id);
 	}
 	
 	

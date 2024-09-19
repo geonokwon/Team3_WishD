@@ -43,6 +43,22 @@ public class MemberService {
 		return memberDAO.getMember(user_id);
 	}
 
+	// 아이디 중복체크
+	public String userIdCheck(String id) {
+		System.out.println("MemberService userIdCheck()");
+		return memberDAO.userIdCheck(id);
+		}
+
+	// 이메일 중복체크
+	public String userEmailCheck(String id) {
+		System.out.println("MemberService userEmailCheck()");
+		return memberDAO.userEmailCheck(id);
+		
+		}
+
+
+		
+		
 	// 아이디 찾기
 	@Transactional
 	public MemberDTO idFind(MemberDTO memberDTO) {
@@ -57,13 +73,7 @@ public class MemberService {
 		return memberDAO.passFind(memberDTO);
 	}
 	
-	// 아이디 중복
-	public String userIdCheck(String id) {
-		System.out.println("MemberService userIdCheck()");
-		return memberDAO.userIdCheck(id);
-	}
-
-
+	
 	
 	
 	
