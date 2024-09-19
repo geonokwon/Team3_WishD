@@ -1,3 +1,17 @@
+//모아보기 토글
+function toggleState() {
+    // 현재 체크 상태에 따라 state 값을 변경
+    let isChecked = document.getElementById('freelancerBoardState').checked;
+    let newState = isChecked ? 0 : 1;
+    // 페이지 이동, state 값에 따라 URL 변경
+    console.log("isChecked : " + isChecked);
+    console.log("newState : " + newState);
+
+    location.href = `${basePath}/freelancerFind?pageNum=&state=` + newState +`&sort=` + sort ;
+}
+
+//모아보기 토글 end
+
 //스킬 추가 관련
 const selectElement =  document.getElementById("skill");
 const badgeContainer = document.getElementById("badge_container");
@@ -74,55 +88,7 @@ function skillSelect() {
 }
 
 
-//배경 별 + 메테오 js
-function init() {
-    let style = ["style1", "style2", "style3", "style4"];
-    let tam = ["tam1", "tam1", "tam1", "tam2", "tam3"];
 
-    function getRandomArbitrary(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-    let estrela = "";
-    let qtdeEstrelas = 250;
-    let noite = document.querySelector(".constelacao");
-    let widthWindow = window.innerWidth;
-    let heightWindow = window.innerHeight;
-
-    for (let i = 0; i < qtdeEstrelas; i++) {
-        let topPosition = getRandomArbitrary(0, heightWindow);
-        let starOpacity = 1 - topPosition / heightWindow; // 투명도 조절
-
-        estrela +=
-            "<span class='estrela " +
-            style[getRandomArbitrary(0, 4)] +
-            " " +
-            tam[getRandomArbitrary(0, 5)] +
-            "' style='animation-delay: ." +
-            getRandomArbitrary(0, 9) +
-            "s; left: " +
-            getRandomArbitrary(0, widthWindow) +
-            "px; top: " +
-            topPosition +
-            "px; opacity: " +
-            starOpacity +
-            ";'></span>";
-    }
-
-    noite.innerHTML = estrela;
-
-    function carregarMeteoro() {
-        let meteoro = "<div class='meteoro " + style[getRandomArbitrary(0, 4)] + "'></div>";
-        let chuvaMeteoro = document.getElementsByClassName("chuvaMeteoro")[0];
-        chuvaMeteoro.innerHTML = meteoro;
-        setTimeout(() => (chuvaMeteoro.innerHTML = ""), 1000);
-
-        setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
-    }
-
-    setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
-}
-window.onload = init;
 
 //input text 타입을 -> 숫자만 입력받을수 있는 함수
 function onlyNumber (event){
@@ -131,54 +97,8 @@ function onlyNumber (event){
     }
 }
 
-//project_read > requestForm 부분
-const inputJob_History = document.getElementById("request_job_history");
-if (inputJob_History) {  // 요소가 존재하는지 확인
-    inputJob_History.addEventListener("keypress", (event) => {
-        onlyNumber(event);
-    })
-}
-
-//project_write 부분
-const inputMoney = document.getElementById("money");
-const inputRange_month = document.getElementById("range_month");
-if (inputMoney){
-    inputMoney.addEventListener("keypress", onlyNumber);
-}
-if (inputRange_month){
-    inputRange_month.addEventListener("keypress", onlyNumber);
-
-}
 
 
 
-//로그인 되고 나서 매칭시 버튼 클릭시 폼 보여주기
-const matching_button = document.getElementById("matching_button");
-if (matching_button){
-    matching_button.addEventListener("click", () => {
-        document.querySelector("#sideCardBody_background").style.height = "1000px";
-        document.querySelector("#matching_Title").style.display = "none";
-        document.querySelector("#requestForm").style.display = "block";
-        document.querySelector("#matching_button").style.display = "none";
-        document.querySelector("#agree_button").style.display = "block";
-    });
-}
-//request_project end
 
 
-//project_write 부분 (유효성 검사부분)
-const projectWrite = document.getElementById("projectWrite");
-const projectRead = document.getElementById("projectRead");
-if (projectWrite || projectRead) {
-    // 스킬 선택은 제외한 모든 input, textarea, select 요소 선택 (select#skill 제외)
-    let elements = document.querySelectorAll("input, textarea, select");
-
-    elements.forEach(element => {
-        element.addEventListener("blur", () => {
-            const isEmpty = element.value.trim() === "";
-
-            // 빨간 테두리 적용 여부 처리
-            element.style.border = isEmpty ? "1px solid #ff0000ad" : "";
-        });
-    });
-}
