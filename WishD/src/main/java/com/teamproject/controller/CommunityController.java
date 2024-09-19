@@ -25,23 +25,33 @@ public class CommunityController {
 	@GetMapping("community")
 	public String notice(HttpServletRequest request, Model model) {
 		
+		CommunityPageDTO communityPageDTO = new CommunityPageDTO();
+		
 		//notice 페이지네이션
 		String noticePageNum = request.getParameter("noticePageNum");
+		
 			//페이지 번호 없으면 1로 설정
 			if(noticePageNum == null) {
 				noticePageNum = "1";
 			}
 			
+			communityPageDTO.setPageNum(noticePageNum);
+			
 			int noticeCurrentPage = Integer.parseInt(noticePageNum);
+			
+			communityPageDTO.setCurrentPage(noticeCurrentPage);
+			
 			System.out.println("===== noticePageNum :" + noticePageNum);
 			
-			CommunityPageDTO communityPageDTO = new CommunityPageDTO();
+			
 			
 			//한 페이지에 보여 줄 게시글 수
 			int noticePageSize = 8;
+			communityPageDTO.setPageSize(noticePageSize);
 			
 			//한 화면에 보여 줄 페이지 개수
 			int noticePageBlock = 5;
+			
 			
 			// 시작하는 페이지 번호 구하기
 			int noticeStartPage = ((noticeCurrentPage-1) / noticePageBlock) * noticePageBlock + 1;
@@ -86,7 +96,7 @@ public class CommunityController {
 	        model.addAttribute("communityList", communityService.getCommunityList(communityPageDTO));
 	        
 			
-		return "/community/notice";
+	        return "/community/notice";
 		
 		}
 	

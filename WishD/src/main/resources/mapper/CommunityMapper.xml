@@ -10,12 +10,13 @@
 	<!-- 공지사항 글쓰기 등록 -->
 	<insert id="insertCommunity">
         INSERT INTO community_notice (admin_id, ncommunity_title, ncommunity_content, ncommunity_date, ncommunity_update)
-        	VALUES (1, #{ncommunity_title}, #{ncommunity_content}, NOW(), NOW());
+        	VALUES (1, #{ncommunity_title}, #{ncommunity_content}, NOW(), NOW())
     </insert>
   
 	<!-- 공지사항 목록 -->
 	<select id="getCommunityList" resultType="com.teamproject.domain.CommunityDTO">
-		SELECT * FROM community_notice;
+		SELECT * FROM community_notice
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
 	<!-- 공지사항 상세 페이지 -->
@@ -36,8 +37,17 @@
         		ncommunity_content = #{ncommunity_content},
         		ncommunity_update = NOW()
     		WHERE 
-        		admin_id = #{admin_id};
+        		admin_id = #{admin_id}
 	</update>
+	
+	<!-- 공지사항 페이지 카운팅 -->
+    <select id="noticePageCount" parameterType="com.teamproject.domain.CommunityDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            community_notice
+    </select>
+
 	
 	<!-- 질문 쓰기 -->
 	<insert id="insertCommunityQna">
