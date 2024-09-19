@@ -8,14 +8,14 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.teamproject.domain.CommunityPageDTO;
+import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerSkillDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
-import com.teamproject.domain.MyQnaDTO;
-import com.teamproject.domain.MyQnaPageDTO;
 import com.teamproject.domain.ProjectSkillDTO;
 
 @Repository
@@ -80,7 +80,7 @@ public class MyPageDAO {
 	}
 	
 	// 내가 쓴 qna 글리스트
-	public List<MyQnaDTO> getMyQnaList(MyQnaPageDTO myQnaPageDTO) {
+	public List<CommunityQnaDTO> getMyQnaList(CommunityPageDTO myQnaPageDTO) {
 		return sqlSession.selectList(namespace + ".getMyQnaList", myQnaPageDTO);
 	}
 

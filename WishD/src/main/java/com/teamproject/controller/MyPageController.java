@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
-import com.teamproject.domain.MyQnaPageDTO;
 import com.teamproject.service.MyPageService;
 import com.teamproject.service.ProjectService;
 
@@ -245,7 +245,7 @@ public class MyPageController {
 		int qnaPageNumToInt = Integer.parseInt(qnaPageNum);
 		System.out.println("====== qnaPageNum : " + qnaPageNum);
 		
-		MyQnaPageDTO myQnaPageDTO = new MyQnaPageDTO();
+		CommunityPageDTO myQnaPageDTO = new CommunityPageDTO();
 		myQnaPageDTO.setUser_no(myProfile.getUser_no());
 		
 		int qnaPageSize = 5;

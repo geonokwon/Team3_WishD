@@ -9,15 +9,14 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.teamproject.dao.FreelancerDAO;
 import com.teamproject.dao.MyPageDAO;
+import com.teamproject.domain.CommunityPageDTO;
+import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
-import com.teamproject.domain.MyQnaDTO;
-import com.teamproject.domain.MyQnaPageDTO;
 
 @Service
 public class MyPageService {
@@ -101,8 +100,8 @@ public class MyPageService {
 	}
 
 	// 내 qna 글리스트 가져오기
-	public List<MyQnaDTO> getMyQnaList(MyQnaPageDTO myQnaPageDTO) {
-		List<MyQnaDTO> MyQnaDTOList = myPageDAO.getMyQnaList(myQnaPageDTO);
+	public List<CommunityQnaDTO> getMyQnaList(CommunityPageDTO myQnaPageDTO) {
+		List<CommunityQnaDTO> MyQnaDTOList = myPageDAO.getMyQnaList(myQnaPageDTO);
 		return MyQnaDTOList;
 	}
 	
