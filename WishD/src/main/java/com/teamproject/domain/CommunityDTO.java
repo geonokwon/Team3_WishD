@@ -4,22 +4,30 @@ import java.sql.Timestamp;
 
 public class CommunityDTO {
 
-	private int ncommunity_num;
-	private int admin_id;
+	private long ncommunity_num;
+	private long admin_id;
 	private String ncommunity_title;
 	private String ncommunity_content;
 	private Timestamp ncommunity_date;
 	private Timestamp ncommunity_update;
-	public int getNcommunity_num() {
+	private Long user_no;
+	
+	public Long getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(Long user_no) {
+		this.user_no = user_no;
+	}
+	public long getNcommunity_num() {
 		return ncommunity_num;
 	}
-	public void setNcommunity_num(int ncommunity_num) {
+	public void setNcommunity_num(long ncommunity_num) {
 		this.ncommunity_num = ncommunity_num;
 	}
-	public int getAdmin_id() {
+	public long getAdmin_id() {
 		return admin_id;
 	}
-	public void setAdmin_id(int admin_id) {
+	public void setAdmin_id(long admin_id) {
 		this.admin_id = admin_id;
 	}
 	public String getNcommunity_title() {
@@ -45,6 +53,12 @@ public class CommunityDTO {
 	}
 	public void setNcommunity_update(Timestamp ncommunity_update) {
 		this.ncommunity_update = ncommunity_update;
+	}
+	@Override
+	public String toString() {
+		return "CommunityDTO [ncommunity_num=" + ncommunity_num + ", admin_id=" + admin_id + ", ncommunity_title="
+				+ ncommunity_title + ", ncommunity_content=" + ncommunity_content + ", ncommunity_date="
+				+ ncommunity_date + ", ncommunity_update=" + ncommunity_update + "]";
 	}
 	
 	

@@ -64,9 +64,11 @@
 
         <!-- 섹션 2 - 2 글쓰기 -->
         <div class="col-8 second-section-2">
-
+        
+		  <form action="qna_writePro" method="post">
+		  
             <div class="row">
-
+  
                 <!-- Q&A 제목란 -->
                 <div class="col">
                     <div class="col-12 second-section-2"> 
@@ -97,13 +99,15 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="button" class="btn btn-primary2">글쓰기 완료</button>
+                            <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
                         </div>
                     </div>
                 </div>
-
-            </div>
+				
+             </div>
+           </form>
         </div> <!-- 섹션 2 - 2 종료 -->
+        
 
         <!-- 섹션 2 - 3 -->
         <div class="col-2 second-section-3 menutext-right-1">

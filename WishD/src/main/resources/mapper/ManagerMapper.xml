@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamproject.mapper.ManagerMapper">
+
+<!-- 	미승인된 요청 프리랜서를 전달함 -->
+	<select id="getRqfList" resultType="com.teamproject.domain.ProjectRequestDTO">
+		select * from request_freelancer 
+		where f_request_isAgree = 0 
+		order by f_request_Date
+	</select>
+	
+<!-- 	미승인된 요청 프로젝트를 전달함 -->
+	<select id="getRqfCount" resultType="java.lang.Integer">
+		select count(*) from request_freelancer	
+		where f_request_isAgree = 0	
+	</select>
+</mapper>
