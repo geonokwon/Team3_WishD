@@ -67,7 +67,7 @@
                     <p style="font-size: 14px">(필요 스킬 복수 선택 가능)</p>
                     <select class="form-select bg-dark mb-2" id="skill" >
                         <option value="" disabled selected>스킬선택</option>
-                        <c:forEach items="${projectSkillList}" var="skill">
+                        <c:forEach items="${myProjectSkillList}" var="skill">
                         <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
                         </c:forEach>
                     </select>
@@ -101,7 +101,7 @@
 
                 <!-- 프로젝트 시작 날짜 -->
                 <div class="col-4 ms-2 me-5 mb-4">
-                    <label for="startDate" class="mb-2">프로젝트 시작 희망일</label>
+                    <label for="pboard_startDate" class="mb-2">프로젝트 시작 희망일</label>
                     <input type="date" class="form-control bg-dark" id="startDate" name="pboard_startDate" required />
                 </div>
 
