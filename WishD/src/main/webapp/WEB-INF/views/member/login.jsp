@@ -19,9 +19,11 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
+     <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<!-- 로그인 외부 CSS 연결 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/member/css/login.css">
+	
 </head>
 <body class="text-light">
 <!-- Header -->
@@ -88,14 +90,10 @@
             </div>
            
         </div>
-		<!-- 별배경 -->
-         <div class="noite"></div>
-   		<div class="constelacao"></div>
-   		<div class="chuvaMeteoro"></div>
-        
-    
-    <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
-    
+<!-- 별배경 -->
+<div class="noite"></div>
+<div class="constelacao"></div>
+<div class="chuvaMeteoro"></div>
 
 </body>
 </html>
