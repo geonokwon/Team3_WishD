@@ -124,7 +124,7 @@
                     	</select>
                     	
 					  	<!-- 선택된 스킬을 보여주는 영역 -->
-						<div id="selected_skill"></div>
+						<div id="selected_skill_container"></div>
 		
 						<!-- 선택된 스킬을 hidden input으로 담아서 서버에 전송 -->
 						<input type="hidden" id="skills_hidden" name="skillIdList" required>    			
@@ -140,7 +140,7 @@
 		    		<div class="col-md-12 my-5 p-4">
 							<h6>상세 소개</h6>
 							 <textarea class="form-control bg-dark" 
-								 name="freelancer_introdution" 
+								 name="freelancer_introduction" 
 								 style="color:white; height:200px; width:100%; resize:none;" 
 								 rows="20" 
 								 cols="20" 
