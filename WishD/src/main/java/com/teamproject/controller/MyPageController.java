@@ -370,7 +370,7 @@ public class MyPageController {
 	    String id = request.getParameter("id");
 	    System.out.println("아이디 중복 체크 : " + id);
 	    
-	    // 아이디 중복 여부 확인
+	    // 아이디 중복 여부  확인
 	    String result = myPageService.userIdCheck(id);
 	    
 	    if (result != null) {
