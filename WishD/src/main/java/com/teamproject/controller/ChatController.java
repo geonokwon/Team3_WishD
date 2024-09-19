@@ -83,13 +83,18 @@ public class ChatController {
         messagingTemplate.convertAndSend("/topic/board/" + pboard_id, chatMessageDTO);
     }
 
-
     //매칭 취소시
     @GetMapping("matchingEnd/{pboard_id}")
     public String matchingEnd(@PathVariable("pboard_id")Long pboard_id){
         logger.info( "-> matchingEnd()");
         chatMessageService.setBoardState(pboard_id);
         return "redirect:/projectRead/" + pboard_id;
+    }
+
+    //매칭 완료시
+    @GetMapping("matchingComplete/{pboard_id}")
+    public String matchingComplete(@PathVariable("pboard_id")Long pboard_id){
+        return "redirect:/mypage";
     }
 
 

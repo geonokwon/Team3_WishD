@@ -4,6 +4,7 @@ import com.teamproject.dao.ProjectDAO;
 import com.teamproject.domain.*;
 import com.teamproject.utils.PersonalFileCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,10 @@ public class ProjectService {
     @Autowired
     private ProjectDAO projectDAO;
 
+
     //전체 프로젝트 등록 List 불러오기
     public List<ProjectDTO> getProjectList(ProjectPageDTO projectPageDTO){
+        logger.info("-> Cache Miss: Executing getProjectList()");
         logger.info("-> getProjectList()");
         //projectDTO 사용자가 등록한 board 를 가져옴
         List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
@@ -32,9 +35,11 @@ public class ProjectService {
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
             projectDTO.setSkills(projectDAO.getProjectSkill(projectDTO.getPboard_id()));
         }
+        System.out.println(projectDTOList);
         return projectDTOList;
     }
-    //총 프로젝트 등록 개수 가져오기
+
+    //총 프로젝트 등록 count 가져오기
     public int getProjectCount(ProjectPageDTO projectPageDTO){
         logger.info("-> getProjectCount()");
         return projectDAO.getProjectCount(projectPageDTO);

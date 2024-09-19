@@ -146,7 +146,7 @@
                             <div class="message-container d-flex justify-content-${chatting.user_no == user_no ? 'end' : 'start'} mb-2">
                                 <!-- 시간 -->
                                 <c:if test="${chatting.user_no == user_no}">
-                                    <span class="message-time pe-1 pt-4" id="myMessage">
+                                    <span class="message-time align-self-end pe-1" id="myMessage">
                                         <!-- 날짜 문자열을 Date 객체로 변환 -->
                                         <fmt:parseDate value="${chatting.getChat_date()}" var="parsedDate" pattern="yyyy-MM-dd HH:mm:ss" />
                                         <!-- Date 객체를 원하는 형식으로 포맷 -->
@@ -159,7 +159,7 @@
                                 </div>
                                 <!-- 시간 -->
                                 <c:if test="${chatting.user_no != user_no}">
-                                    <span class="message-time ps-1 pt-4" id="yourMessage">
+                                    <span class="message-time align-self-end ps-1" id="yourMessage">
                                         <!-- 날짜 문자열을 Date 객체로 변환 -->
                                         <fmt:parseDate value="${chatting.getChat_date()}" var="parsedDate" pattern="yyyy-MM-dd HH:mm:ss" />
                                         <!-- Date 객체를 원하는 형식으로 포맷 -->
@@ -248,7 +248,7 @@
 
         // 시간 배지 생성
         let timeElement = document.createElement('span');
-        timeElement.classList.add('message-time', 'ps-1','pe-1', 'pt-4');
+        timeElement.classList.add('message-time', 'ps-1','pe-1', 'align-self-end');
         timeElement.style.color = "#b5b5b5";
         timeElement.textContent = timeString;
 
