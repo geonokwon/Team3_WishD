@@ -63,7 +63,7 @@
 			<c:forEach items="${communityQnaList}" var="communityQnaDTO">
 	            <div class="row">
 	                    <div class="col">
-	                        <div class=""><a href="${pageContext.request.contextPath}/qna_detail?Key=${communityQnaDTO.key}" class="custom-title text-change-box text-decoration-none">${communityQnaDTO.qcommunity_title}</a></div>
+	                        <div class=""><a href="${pageContext.request.contextPath}/qna_detail?qcommunity_num=${communityQnaDTO.qcommunity_num}" class="custom-title text-change-box text-decoration-none">${communityQnaDTO.qcommunity_title}</a></div>
 	                        <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
 	                    </div>
 	                    <div class="col">

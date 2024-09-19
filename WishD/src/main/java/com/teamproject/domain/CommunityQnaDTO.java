@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class CommunityQnaDTO {
 
-	private long Key;
+	private long qcommunity_num;
 	private long user_no;
 	private String user_name;
 	private String user_email;
@@ -19,12 +19,12 @@ public class CommunityQnaDTO {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-
-	public long getKey() {
-		return Key;
+	
+	public long getQcommunity_num() {
+		return qcommunity_num;
 	}
-	public void setKey(long key) {
-		Key = key;
+	public void setQcommunity_num(long qcommunity_num) {
+		this.qcommunity_num = qcommunity_num;
 	}
 	public long getUser_no() {
 		return user_no;
