@@ -123,8 +123,21 @@
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
                             <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
-                        <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
-                        <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                        <div class="overlay-container"  style="height: 520px">
+                            <c:if test="${!empty sessionScope.user_no}">
+                                <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
+                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                            </c:if>
+                            <c:if test="${empty sessionScope.user_no}">
+                                <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
+                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                                <div class="overlay-message active">
+                                    <div>
+                                        <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
 
                     <!-- 끝단 -->
@@ -164,7 +177,7 @@
                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label>
                                 <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required>
                                     <option value="" disabled selected>직무를 선택하세요</option>
-                                    <option value="1">앱 개발자</option>
+                                    <option value="1" >앱 개발자</option>
                                     <option value="2">웹 개발자</option>
                                     <option value="3">시스템 개발자</option>
                                 </select>
@@ -194,8 +207,14 @@
                                         <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
                                     </c:forEach>
                                 </select>
+
+                                <!--클릭시 베지 추가-->
                                 <div id="badge_container">
-                                    <!--클릭시 베지 추가-->
+                                    <c:if test="${! empty projectRequestDTO}">
+                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList">
+                                            <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div>
+                                        </c:forEach>
+                                    </c:if>
                                 </div>
                                 <input type="hidden" name="skillList" id="skillList" required/>
                             </div>
@@ -238,7 +257,15 @@
                             <div class="mb-4">
                                 <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
-                                <input class="form-control bg-dark" type="file" id="formFile" name="file"/>
+                                <input class="form-control bg-dark" type="file" id="formFile" name="file"
+<%--                                       accept=".pdf" --%>
+                                       required/>
+                                <!-- 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
+                                <div class="form-control bg-dark" type="text" id="requestFile" style="display: none">
+                                    <a href="${pageContext.request.contextPath}/resources/upload/${projectRequestFileDTO.getP_file_name()}"
+                                       download="${projectRequestFileDTO.getFileOriginName()}">${projectRequestFileDTO.getFileOriginName()}</a>
+                                </div>
+
                             </div>
 
                             <!-- 약관 동의 -->
@@ -253,7 +280,7 @@
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card" id="btn-container">
                                 <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
                             </div>
                         </form>
@@ -289,17 +316,29 @@
                     </div>
 
                     <!-- 로그인시 -->
-                    <div class="card" id="matching_button">
-                        <button type="submit" class="btn btn-primary">매칭하기</button>
-                    </div>
+                    <c:if test="${! empty sessionScope.user_no}">
+                        <c:if test="${sessionScope.user_no != projectDTO.getUser_no()}">
+                            <div class="card" id="matching_button">
+                                <button type="button" class="btn btn-primary">매칭하기</button>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.user_no == projectDTO.getUser_no()}">
+                            <div class="card" id="matching_button_waiting">
+                                <button type="button" class="btn btn-primary" disabled>매칭 대기중</button>
+                            </div>
+                        </c:if>
+                    </c:if>
 
                     <!-- 비로그인시 -->
-                    <div class="card" style="display: none">
-                        <button class="btn btn-primary my-2 mx-4" >로그인 / 회원가입</button>
-                    </div>
+                    <c:if test="${empty sessionScope.user_no}">
+                        <div class="card">
+                            <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
+                        </div>
+                    </c:if>
 
                 </div>
             </div>
+
             <!-- side rquest-form end-->
         </div>
     </div>
@@ -314,14 +353,116 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
+<script>
+    if(${projectRequestDTO != null }){
+        $("#sideCardBody_background").css("height", "1000px");
+        $("#matching_Title").hide();
+        $("#requestForm").show();
+        $("#matching_button").hide();
+        $("#agree_button").show();
+        $("#badge_container").hide();
+        $("#matching_button_waiting").hide();
+
+
+        //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
+        let requestForm = $("#projectReadForm");
+        requestForm.find('a').on('click', (e) => {
+            e.preventDefault();
+        })
+        requestForm.find('input, select').prop('disabled', true);
+        // form.find('select').prop('disabled', true);
+        requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
+        //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
+        $('#badge_container .badge').addClass('disabled');
+
+        let agree_button = $('#agree_button');
+        agree_button.prop('disabled', true);
+        agree_button.text("승인 대기중");
+        //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
+
+        //projectRequestDTO
+        let sessionUserNo = parseInt("${sessionScope.user_no}");
+        console.log("sessionUserNo : " + sessionUserNo);
+        let projectUserNo = parseInt("${projectDTO.getUser_no()}")
+        console.log("projectUserNo : " + projectUserNo);
+        let requestUserNo = parseInt("${projectRequestDTO.getUser_no()}");
+        console.log("requestUserNo : " +requestUserNo);
+        let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
+
+        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
+            $("#formFile").hide();
+            $("#requestFile").show();
+            $("#badge_container").show();
+
+            //한줄 자기 소개
+            $("#request_title").val("${projectRequestDTO.getF_request_title()}");
+
+            //직군
+            $("#request_jobGroup").val(${projectRequestDTO.getJob_id()});
+
+            //경력
+            $("#request_job_history").val(${projectRequestDTO.getF_request_history()});
+
+            //프리랜서 경험 ( true , false ) 값을 반환하고 radio 박스이므로 checked 처리함
+            let experience = "${projectRequestDTO.getF_request_exp()}";
+            if (experience === "true") {
+                $("#experience_true").prop("checked", true);
+            } else {
+                $("#experience_false").prop("checked", true);
+            }
+
+            //희망금액
+            $("#money").val(${projectRequestDTO.getF_request_money()});
+
+            //진행가능 날짜 형식 맞춤
+            let date = "${projectRequestDTO.getF_request_startDate()}".split(" ")[0];
+            $("#request_startDate").val(date);
+
+            //각종동의
+            $("#agree_1").prop("checked", true);
+            $("#agree_2").prop("checked", true);
+
+
+            if(sessionUserNo === projectUserNo && isAgree === "true"){
+                //버튼 비활성화
+                agree_button.hide();
+                //다운로드 a태그 활성화
+                requestForm.find('a').off('click');
+                // 버튼을 동적으로 추가할 HTML 문자열
+                let matchButtonHtml = '<button type="button" class="btn btn-primary mb-2" id="match_button">매칭</button>';
+                let cancelButtonHtml = '<button type="button" class="btn btn-secondary" id="cancel_button">취소</button>';
+
+                // 버튼을 추가할 div 선택
+                let buttonContainer = $('#btn-container');
+
+                // 버튼들을 추가
+                buttonContainer.append(matchButtonHtml);
+                buttonContainer.append(cancelButtonHtml);
+
+                // 버튼 클릭 이벤트 처리
+                $('#match_button').click(function() {
+                    console.log('매칭 버튼 클릭됨');
+                    location.href="${pageContext.request.contextPath}/chatting/${projectDTO.getPboard_id()}"
+                });
+
+                $('#cancel_button').click(function() {
+                    console.log('취소 버튼 클릭됨');
+                    location.href="${pageContext.request.contextPath}/projectReqFalse/${projectDTO.getPboard_id()}"
+                });
+            }
+        }
+    }
+</script>
 <script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
 <script>
     $(document).ready(function() {
         $('#projectReadForm').on('submit', function(event) {
+            $('#agree_button').prop('disabled', true);
             event.preventDefault(); // 폼의 기본 제출 동작을 방지
             const form = $(this);
-            //name 있는 모든 폼 데이터 가져와서 직렬화
-            let formData = $(this).serializeArray();
+
+            //formData 형식으로 반환
+            const formData = new FormData(this);
             console.log(formData);
 
             //비동기 ajax 처리
@@ -329,6 +470,8 @@
                 url: '${pageContext.request.contextPath}/projectReadReq/${projectDTO.getPboard_id()}',
                 type: 'POST', //post 방식
                 data: formData,
+                contentType: false, // jQuery가 자동으로 설정한 컨텐츠 타입을 사용하지 않음
+                processData: false, // jQuery가 자동으로 데이터를 처리하지 않음
                 success: function(response) {
                     if (response) {
                         // 성공적으로 데이터가 제출되었을 때의 처리
@@ -355,6 +498,7 @@
                         keyboard: false
                     });
                     falseModal.show();
+                    $('#agree_button').prop('disabled', false);
                 }
             });
         });

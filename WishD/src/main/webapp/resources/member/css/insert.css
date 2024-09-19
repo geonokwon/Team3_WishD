@@ -1,52 +1,59 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #0E1117;
-    color: #fff;
+.signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 화면 전체 높이 */
-}
-
-.signup-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    min-height: 50vh;
+    background-color: #0E1117;
+    color: #fff;
+    padding: 50px;
 }
 
 .signup-box {
-    width: 100%;
-    max-width: 500px; /* 너비 조정 */
-    border-radius: 10px;
     background-color: #1E2229;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 30px;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin : 100px;
+    z-index: 2; /* 별보다 앞으로 나와 있는지 확인 */
 }
 
 .signup-box h2 {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
-    text-align: center;
+    padding : 20px;
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin : 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  
+    
+}
+
+.input-group p {
+    margin: -10px 0 5px 10px;
+    font-size: 13px;
+    width: 100px;
+   
 }
 
 .input-group input {
-    width: calc(100% - 120px); /* 버튼 너비를 고려한 조정 */
+   	width: 48%;
     padding: 12px;
-    border-radius: 5px;
+    margin-bottom: 20px;
+    border-radius: 8px !important;
     border: none;
     background-color: #333743;
     color: white;
     font-size: 14px;
     transition: border-color 0.3s ease;
+    margin-right : 10px;
+    
 }
 
 .input-group input:focus {
@@ -54,26 +61,52 @@ body {
     border: 2px solid #2a2370;
 }
 
-.check-btn {
-    width: 100px;
-    padding: 10px;
+.input-group button {
+    width: auto; /* 버튼의 너비는 콘텐츠에 따라 자동 조정 */
+    padding: 8px;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px !important;
     background-color: #6F40C8;
-    color: white;
-    font-size: 12px;
+    color: #fff;
+    font-size: 11px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 10px;
+    margin-bottom : 20px;
+
 }
 
-.check-btn:hover {
+.input-group button:hover {
     background-color: #5a34a1;
 }
 
+
+.agree {
+	display: flex;
+    align-items: center;
+    margin-bottom: 30px; /* 위아래 간격 */
+    font-size: 11px;
+}
+
+.agree-item {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 10px; 
+    margin-left: 50px;
+    
+    
+}
+
+.agree-item input[type="checkbox"] {
+    margin-right: 12px;
+    width: 16px;
+    height: 16px;
+}
+
+
+
 .signup-btn {
     padding: 12px;
-    width: 100%;
+    width: 80%;
     border: none;
     border-radius: 5px;
     background-color: #6F40C8;
@@ -82,39 +115,254 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .signup-btn:hover {
     background-color: #5a34a1;
 }
 
-.error-msg {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+
+/* 별 배경 */
+
+.noite {
+    z-index: -1;
+    background: #0e1117;
+    width: 100vw; /* 뷰포트 너비 */
+    height: 100vh; /* 뷰포트 높이 */
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.success-msg {
-    color: green;
-    font-size: 14px;
-    margin-top: 20px;
+.constelacao {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: rotate 600s infinite linear;
 }
 
-.agree {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 14px;
+.estrela {
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    animation-name: estrela;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+   
 }
 
-.agree input[type="checkbox"] {
-    margin: 0;
-    width: 16px;
-    height: 16px;
+/* 스타일 및 애니메이션에 대한 클래스는 그대로 유지 */
+.estrela.style1 {
+    animation-duration: 0.5s;
+}
+
+.estrela.style2 {
+    animation-duration: 1s;
+}
+
+.estrela.style3 {
+    animation-duration: 1.5s;
+}
+
+.estrela.style4 {
+    animation-duration: 2s;
+    animation-name: estrelaDestacada;
+}
+
+.estrela.tam1 {
+    width: 1px;
+    height: 1px;
+}
+
+.estrela.tam2 {
+    width: 2px;
+    height: 2px;
+}
+
+.estrela.tam3 {
+    width: 3px;
+    height: 3px;
+}
+
+.estrela.opacity1 {
+    opacity: 1;
+}
+
+.estrela.opacity2 {
+    opacity: 0.5;
+}
+
+.estrela.opacity3 {
+    opacity: 0.1;
+}
+
+.meteoro {
+    position: fixed;
+    background-color: #fff;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    transform: rotate(-35deg);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    
+}
+
+.meteoro:before {
+    content: "";
+    display: inline-block;
     vertical-align: middle;
+    margin-right: 10px;
+    width: 0;
+    height: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-left: 85px solid white;
+    position: absolute;
+    left: 2px;
+    top: 0;
 }
 
-.agree label {
-    margin-left: 8px;
-    margin-bottom: 0;
+.meteoro.style1 {
+    animation-name: meteoroStyle1;
 }
+
+.meteoro.style2 {
+    animation-name: meteoroStyle2;
+}
+
+.meteoro.style3 {
+    animation-name: meteoroStyle3;
+}
+
+.meteoro.style4 {
+    animation-name: meteoroStyle4;
+}
+
+@keyframes escurecer {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes estrela {
+    0% {
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
+    }
+}
+
+@keyframes estrelaDestacada {
+    0% {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 1);
+    }
+    20% {
+        background-color: #ffc4c4;
+        box-shadow: 0 0 10px 0px rgb(255, 196, 196, 1);
+    }
+    80% {
+        background-color: #c4cfff;
+        box-shadow: 0 0 10px 0px rgb(196, 207, 255, 1);
+    }
+    100% {
+        background-color: #ffffff;
+        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.2);
+    }
+}
+
+@keyframes meteoroStyle1 {
+    0% {
+        opacity: 0;
+        right: 300px;
+        top: 100px;
+    }
+    30% {
+        opacity: 0.3;
+    }
+    60% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        right: 1000px;
+        top: 600px;
+    }
+}
+
+@keyframes meteoroStyle2 {
+    0% {
+        opacity: 0;
+        right: 700px;
+        top: 100px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1400px;
+        top: 600px;
+    }
+}
+
+@keyframes meteoroStyle3 {
+    0% {
+        opacity: 0;
+        right: 300px;
+        top: 300px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1000px;
+        top: 800px;
+    }
+}
+
+@keyframes meteoroStyle4 {
+    0% {
+        opacity: 0;
+        right: 700px;
+        top: 300px;
+    }
+    30% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        right: 1400px;
+        top: 800px;
+    }
+}
+
+

@@ -1,13 +1,14 @@
 package com.teamproject.domain;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 public class FreelancerDTO {
 	
 	
 	private Long freelancer_id;
-	private Long user_id;
+	private Long user_no;
 	
 	private int freelancer_salary;
 	private String freelancer_startdate; //프로젝트 시작 가능일, DB에 넣을때 Timestamp 자료형으로 넣어야함
@@ -21,19 +22,32 @@ public class FreelancerDTO {
 	private Timestamp freelancer_update;
 	
     //skill String 으로 가져와서 배열로 나누는 값
-    private String skillList;
+    private Integer[] skillIdList;
+	private String skillList;
 	
+    
     private List<FreelancerSkillDTO> skills;
 
-    //toString 오버라이드
+    //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
+    private String user_name;
+
+    
+    //전체job 조회시 사용
+    private String jobList;
+    private int job_id;
+    private String job_name;
+    
+	//toString 오버라이드
 	@Override
 	public String toString() {
-		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_id=" + user_id + ", freelancer_salary="
+		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_no=" + user_no + ", freelancer_salary="
 				+ freelancer_salary + ", freelancer_startdate=" + freelancer_startdate + ", freelancer_exp="
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
 				+ ", freelancer_introdution=" + freelancer_introdution + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
-				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills + "]";
+				+ ", freelancer_update=" + freelancer_update + ", skillIdList=" + Arrays.toString(skillIdList) + ", skills="
+				+ skills + ", user_name=" + user_name + ", jobList=" + jobList + ", job_id=" + job_id + ", job_name="
+				+ job_name + "]";
 	}
 
 	public Long getFreelancer_id() {
@@ -44,12 +58,12 @@ public class FreelancerDTO {
 		this.freelancer_id = freelancer_id;
 	}
 
-	public Long getUser_id() {
-		return user_id;
+	public Long getUser_no() {
+		return user_no;
 	}
 
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+	public void setUser_no(Long user_no) {
+		this.user_no = user_no;
 	}
 
 	public int getFreelancer_salary() {
@@ -132,12 +146,15 @@ public class FreelancerDTO {
 		this.freelancer_update = freelancer_update;
 	}
 
-	public String getSkillList() {
-		return skillList;
+
+
+
+	public Integer[] getSkillIdList() {
+		return skillIdList;
 	}
 
-	public void setSkillList(String skillList) {
-		this.skillList = skillList;
+	public void setSkillIdList(Integer[] skillIdList) {
+		this.skillIdList = skillIdList;
 	}
 
 	public List<FreelancerSkillDTO> getSkills() {
@@ -147,16 +164,57 @@ public class FreelancerDTO {
 	public void setSkills(List<FreelancerSkillDTO> skills) {
 		this.skills = skills;
 	}
-    
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getJobList() {
+		return jobList;
+	}
+
+	public void setJobList(String jobList) {
+		this.jobList = jobList;
+	}
 
 
 
-	
-	
-	
-	
 
-	
-	
-	
+	public int getJob_id() {
+		return job_id;
+	}
+
+
+
+
+	public void setJob_id(int job_id) {
+		this.job_id = job_id;
+	}
+
+
+
+
+	public String getJob_name() {
+		return job_name;
+	}
+
+
+
+
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
+
+
+	public String getSkillList() {
+		return skillList;
+	}
+
+	public void setSkillList(String skillList) {
+		this.skillList = skillList;
+	}
 }

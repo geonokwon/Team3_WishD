@@ -8,13 +8,17 @@
     <!-- 프로젝트 등록 start -->
     <!-- useGeneratedKeys -> auto_increment  로 등록된 pboard_id 값을 등록과 동시에 반환하여 ProjectDTO 의 pboard_id 값에 저장한다. -->
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="pboard_id" keyColumn="pboard_id">
-        INSERT INTO project_board (user_id, pboard_title, pboard_content,
-                                   pboard_money, pboard_startDate, pboard_rangeMonth, pboard_job)
+        INSERT INTO project_board (
+        user_no, pboard_title, pboard_content,
+        pboard_money, pboard_startDate,
+        pboard_rangeMonth, pboard_job,
+        pboard_manager_phone, pboard_company_name )
         VALUES (
-            1,
+            #{user_no},
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
-            #{pboard_rangeMonth}, #{pboard_job}
+            #{pboard_rangeMonth}, #{pboard_job},
+            #{pboard_manager_phone}, #{pboard_company_name}
         );
     </insert>
     <!-- 프로젝트 등록 id 값으로 projectSkill 테이블 등록 -->
@@ -34,16 +38,29 @@
     <!-- 전체 프로젝트 등록 개수 가져오기 ( 10개 단위로 )-->
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
+    <!-- 진행중 모집중 필터 추가 -->
     <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
         SELECT p.*
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
         <where>
-            <if test="skill_id != null">
-                ps.skill_id = #{skill_id}
+            <if test="state == 0">
+                p.pboard_state = '모집중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
-            <if test="search != null">
-                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            <if test="state != 0">
+                p.pboard_state = '진행중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
         </where>
         GROUP BY p.pboard_id
@@ -65,13 +82,23 @@
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
         <where>
-            <!-- 스킬 필터가 있을 경우 -->
-            <if test="skill_id != null">
-                ps.skill_id = #{skill_id}
+            <if test="state == 0">
+                p.pboard_state = '모집중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
-            <!-- 검색어가 있을 경우 -->
-            <if test="search != null">
-                p.pboard_title LIKE CONCAT('%', #{search}, '%')
+            <if test="state != 0">
+                p.pboard_state = '진행중'
+                <if test="skill_id != null">
+                    AND ps.skill_id = #{skill_id}
+                </if>
+                <if test="search != null">
+                    AND p.pboard_title LIKE CONCAT('%', #{search}, '%')
+                </if>
             </if>
         </where>;
     </select>
@@ -114,18 +141,17 @@
         INSERT INTO request_freelancer(user_no, pboard_id, f_request_title,
                                        f_request_history, f_request_exp,
                                        f_request_money, f_request_startDate, job_id)
-        VALUES(1, #{pboard_id}, #{f_request_title}, #{f_request_history},
+        VALUES(#{user_no}, #{pboard_id}, #{f_request_title}, #{f_request_history},
                #{f_request_exp}, #{f_request_money}, #{f_request_startDate}, #{job_id});
     </insert>
 
     <!-- project_read_Request request_skill 테이블 스킬 추가 -->
     <insert id="insetProjectRequestSkill">
-        INSERT INTO request_skill
+        INSERT INTO request_skill (f_request_id, skill_id)
         VALUES
         <foreach collection="skill_id" item="skill_id" separator=",">
             ( #{f_request_id}, #{skill_id} )
         </foreach>
-        ;
     </insert>
     <!-- 승인요청시 Project_board 의 state 의 상태값 변경 -->
     <update id="updateProjectState">
@@ -134,5 +160,59 @@
         WHERE pboard_id = #{pboard_id};
     </update>
 
+    <!-- 승인요청시 Project_request_files 테이블 file 정보 추가 -->
+    <insert id="insetProjectRequestFile">
+        INSERT INTO project_request_files (f_request_id, pboard_id, p_file_name, p_file_path , fileOriginName)
+        VALUES (#{f_request_id}, #{pboard_id}, #{p_file_name}, #{p_file_path}, #{fileOriginName});
+    </insert>
+
+    <!-- 승인요청한 유저가 다시 페이지로 돌아왔을시 요청중이기 때문에 값을 불러와서 form에 뿌려주기 위한 select -->
+    <select id="getRequestFreelancer" resultType="com.teamproject.domain.ProjectRequestDTO">
+        SELECT *
+        FROM request_freelancer
+        WHERE pboard_id = #{pboard_id};
+    </select>
+    <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
+    <select id="getRequestSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT rs.skill_id, s.skill_name
+        FROM request_skill rs JOIN skills s
+        ON rs.skill_id = s.skill_id
+        WHERE rs.f_request_id = #{pboard_id};
+    </select>
+
+    <!-- project_request_file -->
+    <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
+        SELECT *
+        FROM project_request_files
+        WHERE pboard_id = #{pboard_id};
+    </select>
+
+    <!-- 매칭 성공시 isMatching 변경 -->
+    <update id="setProjectIsMatching">
+        UPDATE project_board
+        SET pboard_isMatching = true
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!--request 단계에서 매칭 실패시 데이터 삭제 -->
+    <delete id="deleteProjectRequest">
+        DELETE FROM request_freelancer
+        WHERE pboard_id = #{pboard_id}
+    </delete>
+    <!-- 매칭 취소시 -->
+    <!-- project_board 의 state 값 변경 및 isMatching 값 변경 -->
+    <update id="setBoardState">
+        UPDATE project_board
+        SET pboard_state = '모집중'
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!-- user_no 로 user_name 불러오기 -->
+    <select id="getUserName" resultType="String">
+        SELECT ui.user_name
+        FROM user u JOIN user_info ui
+        ON u.user_no = ui.user_no
+        WHERE u.user_no = #{user_no}
+    </select>
 
 </mapper>

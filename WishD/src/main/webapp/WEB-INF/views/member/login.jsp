@@ -19,9 +19,11 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
+     <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<!-- 로그인 외부 CSS 연결 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/member/css/login.css">
+	
 </head>
 <body class="text-light">
 <!-- Header -->
@@ -35,9 +37,9 @@
             <!-- 왼쪽 로그인 영역 -->
             <div class="login-left">
                 <h2>Login</h2>
-                <form id="loginForm">
-                    <input type="text" id="userId" placeholder="아이디를 입력하세요" required>
-                    <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                <form id="loginForm" action="${pageContext.request.contextPath}/loginPro" method="post">
+                    <input type="text" id="userId" name="user_id" placeholder="아이디를 입력하세요" required>
+                    <input type="password" id="password" name="user_pass" placeholder="비밀번호를 입력하세요" required>
                     
                     <div class="remember-me">
                         <input type="checkbox" id="rememberMe">
@@ -49,13 +51,13 @@
                     <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
                    <ul class="nav1 justify-content-center">
     			   	  <li class="nav2">
-        				<a class="nav3" aria-current="page" href="#">아이디 찾기</a>
+        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/idFind">아이디 찾기</a>
     				  </li>
     				  <li class="nav2">
-        				<a class="nav3" href="#">비밀번호 찾기</a>
+        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/passFind">비밀번호 찾기</a>
     				  </li>
    					  <li class="nav2">
-       					<a class="nav3" href="#">회원가입</a>
+       					<a class="nav3" href="${pageContext.request.contextPath}/insert">회원가입</a>
     				  </li>
 				  </ul>
 
@@ -64,6 +66,7 @@
                     <!-- 간편 로그인 버튼 -->
                     <div class="social-login">
                         <a href="#" class="social-btn">
+
                             <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image">
                         </a>
                         <a href="#" class="social-btn">
@@ -78,18 +81,19 @@
             <div class="login-right">
                 <div class="image-container">
                     <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image">
+
                     <div class="image-text">WishD에 오신 것을 환영합니다!</div>
 				</div> 
-                <div class="stars"></div>
+				 
                 </div>
+                
             </div>
+           
         </div>
-    </div>
-    <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
-    
-        
-<!-- Footer -->
-<jsp:include page="../include/footer.jsp"/>
+<!-- 별배경 -->
+<div class="noite"></div>
+<div class="constelacao"></div>
+<div class="chuvaMeteoro"></div>
 
 </body>
 </html>

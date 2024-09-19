@@ -3,11 +3,12 @@ package com.teamproject.domain;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 public class ProjectDTO {
 
     private Long pboard_id;
-    private Long user_id;
+    private Long user_no;
     private String pboard_title;
     private String pboard_content;
     private int pboard_money;
@@ -17,6 +18,10 @@ public class ProjectDTO {
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
+    private Boolean pboard_isMatching;
+    private String pboard_manager_phone;
+    private String pboard_company_name;
+
 
     //skill String 으로 가져와서 배열로 나누는 값
     private String skillList;
@@ -41,12 +46,12 @@ public class ProjectDTO {
         this.pboard_id = pboard_id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Long user_id) {
+        this.user_no = user_id;
     }
 
     public String getPboard_title() {
@@ -128,11 +133,36 @@ public class ProjectDTO {
         this.skills = skills;
     }
 
+    public Boolean getPboard_isMatching() {
+        return pboard_isMatching;
+    }
+
+    public void setPboard_isMatching(Boolean pboard_isMatching) {
+        this.pboard_isMatching = pboard_isMatching;
+    }
+
+    public String getPboard_manager_phone() {
+        return pboard_manager_phone;
+    }
+
+    public void setPboard_manager_phone(String pboard_manager_phone) {
+        this.pboard_manager_phone = pboard_manager_phone;
+    }
+
+    public String getPboard_company_name() {
+        return pboard_company_name;
+    }
+
+    public void setPboard_company_name(String pboard_company_name) {
+        this.pboard_company_name = pboard_company_name;
+    }
+
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
                 "pboard_id=" + pboard_id +
-                ", user_id=" + user_id +
+                ", user_no=" + user_no +
                 ", pboard_title='" + pboard_title + '\'' +
                 ", pboard_content='" + pboard_content + '\'' +
                 ", pboard_money=" + pboard_money +
@@ -142,7 +172,11 @@ public class ProjectDTO {
                 ", pboard_state='" + pboard_state + '\'' +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +
+                ", pboard_isMatching=" + pboard_isMatching +
+                ", pboard_manager_phone='" + pboard_manager_phone + '\'' +
+                ", pboard_company_name='" + pboard_company_name + '\'' +
                 ", skillList='" + skillList + '\'' +
+                ", skills=" + skills +
                 '}';
     }
 }

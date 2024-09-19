@@ -19,15 +19,41 @@ public class FreelancerService {
 	@Autowired
 	private FreelancerDAO freelancerDAO;
 	
+	//프리랜서 등록
+	public void registFreelancer(FreelancerDTO freelancerDTO) {
+		System.out.println("FreelancerService RegPro");
+		
+		//현재 시간 변수에 저장
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		//가입날짜 설정
+		freelancerDTO.setFreelancer_date(timestamp);
+		//최종수정날짜 설정
+		freelancerDTO.setFreelancer_update(timestamp);
+		
+		System.out.println("servece에서 freelancerDTO" + freelancerDTO);
+		freelancerDAO.registFreelancer(freelancerDTO);
+		
+	}
+    //전체 job 리스트 가져오기
+    public List<FreelancerDTO> getJobList() {
+        logger.info("-> getJobList()");
+        return freelancerDAO.getJobList();
+    }
+	
+	
     //전체 프리랜서 등록 List 불러오기
     public List<FreelancerDTO> getFreelancerList(FreelancerPageDTO freelancerPageDTO){
         logger.info("-> getFreelancerList()");
         //freelancerDTO 사용자가 등록한 board 를 가져옴
         List<FreelancerDTO> freelancerDTOList = freelancerDAO.getFreelancer_all(freelancerPageDTO);
+        
+
+        
         for (FreelancerDTO freelancerDTO : freelancerDTOList) {
             //가져온 freelancerDTO.getfreelancer() board에 선택된 스킬들을 List 형태로 받음
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
         	freelancerDTO.setSkills(freelancerDAO.getFreelancerSkill(freelancerDTO.getFreelancer_id()));
+ 
         }
         return freelancerDTOList;
     }
@@ -46,6 +72,7 @@ public class FreelancerService {
     //freelancerRead > 선택한 프리랜서 와 선택된 프리랜서 freelancer_id 기준으로 선택된 skill 가져오기
     public FreelancerDTO getFreelancer(Long freelancer_id) {
         logger.info("-> getFreelancer()");
+        
         FreelancerDTO freelancerDTO = freelancerDAO.getFreelancer(freelancer_id);
         freelancerDTO.setSkills(freelancerDAO.getSkill(freelancer_id));
         return freelancerDTO;
@@ -55,20 +82,7 @@ public class FreelancerService {
 	
 	
 	
-	//프리랜서 등록
-	public void registFreelancer(FreelancerDTO freelancerDTO) {
-		System.out.println("service RegPro");
-		
-		//현재 시간 변수에 저장
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//가입날짜 설정
-		freelancerDTO.setFreelancer_date(timestamp);
-		//최종수정날짜 설정
-		freelancerDTO.setFreelancer_update(timestamp);
-		
-		freelancerDAO.registFreelancer(freelancerDTO);
-		
-	}
+
 
 	
 	
