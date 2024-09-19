@@ -42,8 +42,9 @@
                 <input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요">
                 <button type="button" class="check-btn" id="id_check">중복 확인</button>
                 <!-- 결과출력 -->
-                <div id="output"></div>
-                <span id="usernameError" style="color: red; display: none;"></span> 
+				<div id="output" style="color: black; text-align: center;"></div>
+				<span id="usernameError" style="color: red; display: none;"></span>
+                
                 
             </div>
             <div class="input-group">
@@ -101,33 +102,39 @@
 <div class="chuvaMeteoro"></div>
 
 <script type="text/javascript">
-// 아이디 중복체크
-$(function(){
-	$('#id_check').click(function(){
-		const userId = $('#user_id').val(); // 입력된 아이디 값 
-		if (!userId){
-			$('#output').html('아이디를 입력하세요').css('color', 'red');
-			return;
-		}
-		$.ajax({
-			url: `${pageContext.request.contextPath}/idCheck`, // 요청url
-			type: 'GET',
-			data:{id:userId}, // 쿼리스트링 방식으로 전달 
-			success: function(result){
-				if(result === 'iddup'){
-					
-					$('#output').html('이미 존재하는 아이디 입니다.').css('color', 'red');
-					
-				} else {
-					
-					$('#output').html('사용가능한 아이디 입니다.').css('color', 'green');
-				}
-			}
-		});
-		
-	}); // blur()
-	
-}); // 시작
+// 아이디 중복체크 및 유효성 검사
+$(function() {
+    $('#id_check').click(function() {
+        const userId = $('#user_id').val(); // 입력된 아이디 값
+        
+        // 1. 아이디 입력 여부 체크
+        if (!userId) {
+            $('#output').html('아이디를 입력하세요').css('color', 'red');
+            return;
+        }
+        
+        // 2. 데이터베이스 중복 체크 (길이와 상관없이 중복 확인)
+        $.ajax({
+            url: `${pageContext.request.contextPath}/idCheck`, // 요청 URL
+            type: 'GET',
+            data: { id: userId }, // 쿼리스트링 방식으로 전달
+            success: function(result) {
+                if (result === 'iddup') {
+                    $('#output').html('이미 존재하는 아이디입니다.').css('color', 'red');
+                    return; // 중복된 경우, 이후 검사는 하지 않음
+                } else {
+                    // 3. 중복되지 않은 경우에만 유효성 검사
+                    if (userId.length < 5) {
+                        $('#output').html('아이디는 최소 5자 이상이어야 합니다.').css('color', 'red');
+                    } else {
+                        $('#output').html('사용 가능한 아이디입니다.').css('color', 'green');
+                    }
+                }
+            }
+        });
+    });
+});
+
 </script>
 <script>
 // 이메일 중복체크

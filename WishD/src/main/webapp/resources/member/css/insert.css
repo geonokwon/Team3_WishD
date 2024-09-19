@@ -72,13 +72,13 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom : 20px;
-   
-    
+
 }
 
 .input-group button:hover {
     background-color: #5a34a1;
 }
+
 
 .agree {
 	display: flex;
