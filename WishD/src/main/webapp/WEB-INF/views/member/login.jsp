@@ -19,9 +19,11 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
+     <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<!-- 로그인 외부 CSS 연결 -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/member/css/login.css">
+	
 </head>
 <body class="text-light">
 <!-- Header -->
@@ -35,9 +37,9 @@
             <!-- 왼쪽 로그인 영역 -->
             <div class="login-left">
                 <h2>Login</h2>
-                <form id="loginForm">
-                    <input type="text" id="userId" placeholder="아이디를 입력하세요" required>
-                    <input type="password" id="password" placeholder="비밀번호를 입력하세요" required>
+                <form id="loginForm" action="${pageContext.request.contextPath}/loginPro" method="post">
+                    <input type="text" id="userId" name="user_id" placeholder="아이디를 입력하세요" required>
+                    <input type="password" id="password" name="user_pass" placeholder="비밀번호를 입력하세요" required>
                     
                     <div class="remember-me">
                         <input type="checkbox" id="rememberMe">
@@ -88,14 +90,10 @@
             </div>
            
         </div>
-		<!-- 별배경 -->
-         <div class="noite"></div>
-   		<div class="constelacao"></div>
-   		<div class="chuvaMeteoro"></div>
-        
-    
-    <script src="${pageContext.request.contextPath}/resources/member/js/login.js"></script>
-    
+<!-- 별배경 -->
+<div class="noite"></div>
+<div class="constelacao"></div>
+<div class="chuvaMeteoro"></div>
 
 </body>
 </html>

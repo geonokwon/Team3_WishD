@@ -3,21 +3,20 @@ var selectedSkills = [];  // 선택된 스킬을 저장할 배열
 // 스킬 추가 함수
 function addSkill() {
     var skillSelect = document.getElementById("skill");
-    var selectedSkillId = skillSelect.value;  // 선택된 스킬의 ID
-    var selectedSkillName = skillSelect.options[skillSelect.selectedIndex].text;  // 선택된 스킬의 이름
+    var selectedSkill = skillSelect.value;
 
     // 스킬 선택 시 중복 방지
-    if (selectedSkillId && !selectedSkills.includes(selectedSkillId)) {
-        selectedSkills.push(selectedSkillId);
+    if (selectedSkill && !selectedSkills.includes(selectedSkill)) {
+        selectedSkills.push(selectedSkill);
 
         // 선택된 스킬을 화면에 추가 표시
-        var selectedItemsDiv = document.getElementById("selected_skill_container");
+        var selectedItemsDiv = document.getElementById("selected_skill");
         var skillItem = document.createElement("div");
         skillItem.className = "selected-item";
-        skillItem.innerHTML = selectedSkillName + ' <span onclick="removeSkill(\'' + selectedSkillId + '\')">x</span>';
+        skillItem.innerHTML = selectedSkill + ' <span onclick="removeSkill(\'' + selectedSkill + '\')">x</span>';
         selectedItemsDiv.appendChild(skillItem);
 
-        // 숨겨진 input 필드에 선택된 스킬들의 id 저장 
+        // 숨겨진 input 필드에 선택된 스킬들 저장
         document.getElementById("skills_hidden").value = selectedSkills.join(",");
     }
 }
@@ -33,7 +32,7 @@ function removeSkill(skill) {
     document.getElementById("skills_hidden").value = selectedSkills.join(",");
 
     // 선택된 스킬 표시 업데이트
-    var selectedItemsDiv = document.getElementById("selected_skill_container");
+    var selectedItemsDiv = document.getElementById("selected_skill");
     selectedItemsDiv.innerHTML = '';
     selectedSkills.forEach(function(item) {
         var skillItem = document.createElement("div");

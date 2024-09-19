@@ -59,102 +59,33 @@
 
         <!-- 글 목록 -->
         <div class="col-8 second-section-2">
+			<c:forEach items="${communityList}" var="communityDTO">
+	            <div class="row">
+	                    <div class="col">
+	                        <div class=""><a href="${pageContext.request.contextPath}/notice_detail?ncommunity_num=${communityDTO.ncommunity_num}" class="custom-title text-change-box text-decoration-none">${communityDTO.ncommunity_title}</a></div>
+	                        <div class="custom-content">${communityDTO.ncommunity_content}</div>
+	                    </div>
+	                    <div class="col">
+	                        <div class="custom-date">${communityDTO.ncommunity_date}</div>
+	                        <div class="custom-writer">${communityDTO.user_no}</div>
+	                    </div>
+	                <div class="row-line"></div>
+	            </div>
+	        </c:forEach>
+	            
+<!-- 	            <div class="row"> -->
+<!-- 	                    <div class="col"> -->
+<!-- 	                        <div class="custom-title text-change-box">${communityDTO.ncommunity_title}</div> --%>
+<!-- 	                        <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div> -->
+<!-- 	                    </div> -->
+<!-- 	                    <div class="col"> -->
+<!-- 	                        <div class="custom-date">2024 07 08</div> -->
+<!-- 	                        <div class="custom-writer">@manager</div> -->
+<!-- 	                    </div> -->
+<!-- 	                <div class="row-line"></div> -->
+<!-- 	            </div> -->
 
-            <div class="row">
-                    <div class="col">
-                        <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                        <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                    </div>
-                    <div class="col">
-                        <div class="custom-date">2024 07 08</div>
-                        <div class="custom-writer">@manager</div>
-                    </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="custom-title text-change-box">7월 30일 사전 점검</div>
-                    <div class="custom-content">안녕하세요. 금일 어쩌구저쩌구 사전점검할거예요...</div>
-                </div>
-                <div class="col">
-                    <div class="custom-date">2024 07 08</div>
-                    <div class="custom-writer">@manager</div>
-                </div>
-                <div class="row-line"></div>
-            </div>
+            
         </div> <!-- 글 목록 -->
 
     <div class="col-2 second-section-1 menutext-right">
@@ -162,6 +93,37 @@
     </div>
 
 </div>
+
+<!-- 	페이지네이션 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${communityPageDTO.startPage > communityPageDTO.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communityPageDTO.startPage - 10}"></a>
+            </li>
+            </c:if>
+
+            <c:forEach begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/notice?noticePageNum=${page}">${page}</a>
+                </li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communityPageDTO.endPage + 10}"></a>
+            </li>
+            </c:if>
+        </ul>
+    </nav>
+
+
+
     <div class="last-line"></div> <!-- 하단선 -->
 
 </div> <!-- 컨테이너 -->
