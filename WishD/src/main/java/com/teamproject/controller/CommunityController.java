@@ -336,6 +336,7 @@ public class CommunityController {
 		 //만약에 로그인 안 했으면 로그인 화면 띄워주기
 		 if(user_no != communityQnaDTO.getUser_no()) {
 			 model.addAttribute("fail", false);
+			 
 			 return "redirect:/qna";
 		 }
 		model.addAttribute("communityQnaDTO", communityQnaDTO);

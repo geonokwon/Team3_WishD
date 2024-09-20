@@ -66,6 +66,7 @@
 	                    <div class="col">
 	                        <div class=""><a href="${pageContext.request.contextPath}/qna_detail?qcommunity_num=${communityQnaDTO.qcommunity_num}" class="custom-title text-change-box text-decoration-none">${communityQnaDTO.qcommunity_title}</a></div>
 	                        
+<!-- 	                        자신이 작성한 질문이면 미리보기 보여 주기 -->
 	                    	<c:if test="${user_no == communityQnaDTO.getUser_no()}">
 							    <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
 							</c:if>
