@@ -101,14 +101,12 @@
 		    		<!-- 2-2) 직무 -->
 		    		<div class="col-md-6 my-5 p-4">
 						<h6>직무<span style="color:red;"> *</span></h6>
-							<select name="freelancer_job" class="form-select bg-dark form-control" style="color:white; width:200px;" >
+							<select name="job_id" class="form-select bg-dark form-control" style="color:white; width:200px;" >
 								<option selected>직무를 선택하세요</option>
-								<option value="front">프론트</option>
-								<option value="backend">백엔드</option>
-								<option value="app">앱 개발자</option>
-								<option value="web">웹 개발자</option>
-								<option value="data-science">데이터 사이언스</option>
-								<option value="detect">보안</option>
+								<c:forEach items="${myFreeJobsDTO }" var="myFreeJobs">
+									<option <c:if test="${myfreelancerDTO.job_id == myFreeJobs.job_id}">selected</c:if>
+									value="${myFreeJobs.job_id }">${myFreeJobs.job_name }</option>
+								</c:forEach>
 							</select>    		
 		    		</div>
 		    		

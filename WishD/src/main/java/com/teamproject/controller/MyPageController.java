@@ -1,5 +1,7 @@
 package com.teamproject.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
+import com.teamproject.domain.JobsDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -160,7 +163,7 @@ public class MyPageController {
         
         String search = request.getParameter("search");
         
-     	
+        
         //검색어 파라미터 넣기
         
      	if(search != null) {
@@ -176,8 +179,8 @@ public class MyPageController {
      		System.out.println("projectStatus 파라미터가 공백일때 : " + projectStatus);
      	}
      	else if(projectStatus != null){ // 공백제거
-     		myProjectPageDTO.setProjectStatus(projectStatus);
          	System.out.println("projectStatus 파라미터가 있을때 : " + projectStatus);
+         	myProjectPageDTO.setProjectStatus(projectStatus);
      	}
      	
         // 내프로젝트글 개수 가져오기
@@ -237,6 +240,99 @@ public class MyPageController {
         
         
         
+        // === 요청한 글 가져오기
+        String requestProject = request.getParameter("requestProject");
+     	if(requestProject != null) {
+     		System.out.println("보낸요청 파라미터 : " + requestProject);
+         	if(requestProject.equals("보낸요청")) {
+         		System.out.println("보낸요청");
+         		String projectRequestPageNum = request.getParameter("projectRequestPageNum");
+        		if(projectRequestPageNum == null) {
+        			projectRequestPageNum = "1";
+        		}
+        		
+        		int requestPageNumToInt = Integer.parseInt(projectRequestPageNum);
+        		System.out.println("eequestPageNumToInt :" + requestPageNumToInt);
+        				
+        		//한 화면에 보여줄 글 개수 설정
+                int projectRequestpageSize = 5;
+                //한 화면에 보여줄 페이지 개수 5 설정
+                int projectRequestpageBlock = 5;
+
+                //PageDTO 객체 생성
+                MyProjectPageDTO myProjectRequestPageDTO = new MyProjectPageDTO();
+                
+                String requestSearch = request.getParameter("requestsearch");
+                
+                List<MyProjectDTO> myRequestProjectDTOList = myPageService.getRequestListCount(myProfile.getUser_no());
+         		
+                //검색어 파라미터 넣기
+                
+             	if(requestSearch != null) {
+             		myProjectRequestPageDTO.setSearch(request.getParameter("requestsearch"));
+             		System.out.println("requestsearch : " + request.getAttribute("requestsearch"));
+             	}
+             	myProjectRequestPageDTO.setUser_no(myProfile.getUser_no());
+             	myProfile.setSearch(requestSearch);
+//             	myProjectPageDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+             	// 프로젝트 글 상태도 넘겨야함
+//             	myProfile.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+             	myProjectRequestPageDTO.setCount(myRequestProjectDTOList.size());
+                System.out.println("getCount : " + myProjectRequestPageDTO.getCount());
+                myProjectRequestPageDTO.setCurrentPage(requestPageNumToInt);
+                myProjectRequestPageDTO.setPageSize(projectRequestpageSize);
+                myProjectRequestPageDTO.setPageNum(requestPageNumToInt + 1);
+                
+                // 시작하는 페이지 번호 구하기
+                int requestStartPage = ((requestPageNumToInt - 1) / projectRequestpageBlock) * projectRequestpageBlock + 1;
+                System.out.println("requestStartPage : " + requestStartPage);
+                //끝나는 페이지 번호 구하기
+                int requestEndPage = requestStartPage + projectRequestpageBlock - 1;
+                System.out.println("requestEndPage : " + requestEndPage);
+
+                //페이지 카운트 구하기
+                int requestPageCount = myProjectRequestPageDTO.getCount() / projectRequestpageBlock + (myProjectRequestPageDTO.getCount() % projectRequestpageBlock == 0 ? 0 : 1);
+                if (requestEndPage > requestPageCount) {
+                	requestEndPage = requestPageCount;
+                }
+                System.out.println("requestPageCount : " + requestPageCount);
+                
+                //projectPageDTO 셋팅
+                myProjectPageDTO.setStartPage(requestStartPage);
+                myProjectPageDTO.setEndPage(requestEndPage);
+                myProjectPageDTO.setPageCount(requestPageCount);
+                myProjectPageDTO.setPageBlock(projectRequestpageBlock);
+                System.out.println("requestStartPage : " + requestStartPage);
+                System.out.println("requestEndPage : " + requestEndPage);
+
+                // 시작하는 행 번호 구하기
+                int requestStartRow = (requestPageNumToInt - 1) * projectRequestpageSize + 1;
+                // 끝나는 행 번호 구하기
+                int requestEndRow = requestStartRow + projectRequestpageSize - 1;
+                // DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
+                System.out.println("requestStartRow - 1 전 값 : " + requestStartRow);
+                myProjectRequestPageDTO.setStartRow(requestStartRow - 1);
+                myProjectRequestPageDTO.setEndRow(requestEndRow);
+                System.out.println("requestStartRow : " + requestStartRow);
+                System.out.println("requestEndRow : " + requestEndRow);
+                
+                myProjectRequestPageDTO.setUser_no(myProfile.getUser_no());
+                //project_find page 글 개수 10개씩 가져옴
+                model.addAttribute("myProjectRequestDTOList", myPageService.getMyRequestProject(myProjectRequestPageDTO));
+                
+                model.addAttribute("myProjectRequestPageDTO", myProjectRequestPageDTO);
+                
+                // getMyProject에서 스킬도 가져옴
+//                model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
+//                System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
+             	                
+//         		model.addAttribute("myRequestProjectDTOList", myRequestProjectDTOList);
+//         		System.out.println("내가 보낸 글 리스트 : " + myRequestProjectDTOList.size());
+         	}
+     	}
+     	
+        
+        
         // ======= QnA 글 페이지네이션 시작 ======== 
         String qnaPageNum = request.getParameter("qnaPageNum");
 		if(qnaPageNum == null) {
@@ -294,9 +390,10 @@ public class MyPageController {
 		return "mypage/mypage";
 	}
 	
+	// 비밀번호 업데이트
 	@PostMapping("mypage/mypageUpdatePro")
 	public String mypageUpdatePro(HttpSession session, MemberDTO memberDTO) {
-		System.out.println("mypageUpdatePro : " + memberDTO);
+		System.out.println("비밀번호 업데이트 넘어 왔을때 mypageUpdatePro : " + memberDTO);
 //		MemberDTO result = myPageService.getNormalMember((String)session.getAttribute("user_id"));
 //		if(result != null) {
 //			memberDTO.setUser_no(result.getUser_no());
@@ -318,6 +415,10 @@ public class MyPageController {
 	public String myProjectUpdate(HttpServletRequest request, Model model) {
 //		System.out.println("myProjectUpdate request.getParameter("projectPageNum") : " + request.getParameter("projectPageNum"));
 		System.out.println("myprojectupdate - myprojectupdate");
+		
+		// 직무 가져오기
+		List<JobsDTO> jobsDTO = myPageService.getJobsList();
+		model.addAttribute("myProjectJobsDTO", jobsDTO);
 		
 		// 프로젝트 내용 가져오기
 		MyProjectDTO myProjectDTO = myPageService.getProjectForUpdate(Integer.parseInt(request.getParameter("projectPageNum")));
@@ -346,6 +447,10 @@ public class MyPageController {
 	@GetMapping("mypage/myfreelancerupdate")
 	public String myFreelancerUpdate(HttpServletRequest request, Model model) {
 		System.out.println("myFreelancerUpdate 매핑 확인");
+		
+		List<JobsDTO> jobsDTO = myPageService.getJobsList();
+		System.out.println("직무리스트 : " + jobsDTO);
+		model.addAttribute("myFreeJobsDTO", jobsDTO);
 		
 		FreelancerDTO myfreelancerDTO = myPageService.getMyFreelancerForUpdate(Long.parseLong(request.getParameter("freelancerPageNum")));
 		model.addAttribute("myfreelancerDTO", myfreelancerDTO);
