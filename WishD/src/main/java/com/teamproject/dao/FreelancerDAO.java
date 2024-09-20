@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
+import com.teamproject.domain.FreelancerRequestDTO;
+import com.teamproject.domain.FreelancerRequestFileDTO;
 import com.teamproject.domain.FreelancerSkillDTO;
+
 
 
 
@@ -88,15 +91,85 @@ public class FreelancerDAO {
     }
 
     
-    //프리랜서의 이름 구하기
+    //선택한 프리랜서의 이름 구하기
 	public String getFreelancerName(Long freelancer_id) {
 		
 		return sqlSession.selectOne(nameSpace + "getFreelancerName", freelancer_id);	
 	}
-    
+	
+	//선택한 프리랜서의 직군(job) 구하기
+	public String getFreelancerJobName(Long freelancer_id) {
+		
+		return sqlSession.selectOne(nameSpace + "getFreelancerJobName", freelancer_id);
+	}
+	
+	
+	 //프리랜서 리퀘스트 폼 등록하기
+    public void insertFreelancerRequest(FreelancerRequestDTO freelancerRequestDTO) {
+        logger.info("-> getFreelancerRequest()");
+        sqlSession.insert(nameSpace + "insertFreelancerRequest", freelancerRequestDTO);
+    }
+    //프리랜서 리퀘스트 폼 skill 등록하기
+    public void insetFreelancerRequestSkill(Map<String, Object> freelancerRequestSkillSet) {
+        logger.info("-> getFreelancerRequestSkill()");
+        sqlSession.insert(nameSpace + "insetFreelancerRequestSkill", freelancerRequestSkillSet);
+    }
+    //프리랜서 리퀘스트 폼 등록시 freelancer_state 값 '진행중' 으로 변경
+    public void updateFreelancerState(Long freelancerId) {
+        logger.info("-> getFreelancer()");
+        sqlSession.update(nameSpace + "updateFreelancerState", freelancerId);
+    }
+
+    //프리랜서 리퀘스트 폼 등록시 file 테이블 등록
+    public void insetFreelancerRequestFile(FreelancerRequestFileDTO freelancerRequestFileDTO) {
+        logger.info("-> insetFreelancerRequestFile()");
+        sqlSession.insert(nameSpace + "insetFreelancerRequestFile", freelancerRequestFileDTO);
+    }
+
+    //프리랜서 freelancer_state 가 진행중일때 request_client 데이터 가져오기
+    public FreelancerRequestDTO getRequestClient(Long freelancer_id) {
+        logger.info("-> getRequestClient()");
+        return sqlSession.selectOne(nameSpace + "getRequestClient", freelancer_id);
+    }
+
+    //request_client 데이터 가져올때 request_skill 테이블에 skill 불러오기
+    public List<FreelancerSkillDTO> getRequestSkill(Long freelancerId) {
+        logger.info("-> getRequestSkill()");
+        return sqlSession.selectList(nameSpace + "getRequestSkill", freelancerId);
+    }
+
+    //request_from 승인요청 시 보여줄 file 정보도 함께 가져간다
+    public FreelancerRequestFileDTO getFreelancerRequestFile(Long freelancer_id) {
+        logger.info("-> getFreelancerRequestFile()");
+        return sqlSession.selectOne(nameSpace + "getFreelancerRequestFile", freelancer_id);
+    }
+
+    //매칭 성공시 isMatching true 변경
+    public void setFreelancerIsMatching(Long freelancerId) {
+        logger.info("-> getFreelancer()");
+        sqlSession.update(nameSpace + "setFreelancerIsMatching", freelancerId);
+    }
+
+    //request_client 데이터 삭제
+    public void deleteFreelancerRequest(Long freelancer_id) {
+        logger.info("-> deleteFreelancer()");
+        sqlSession.update(nameSpace + "deleteFreelancerRequest", freelancer_id);
+    }
+    //Freelancer_board 의 상태값 변경 '모집중'
+    public void setBoardState(Long freelancerId) {
+        logger.info("-> setBoardState()");
+        sqlSession.update(nameSpace + "setBoardState", freelancerId);
+    }
+
+    //session 의 user_no 로 user_name 불러오기
+    public String getUserName(Long user_no) {
+        logger.info("-> getUserName()");
+        return sqlSession.selectOne(nameSpace + "getUserName", user_no);
+    }
 
 
-	
-	
-	
 }
+
+	
+	
+	

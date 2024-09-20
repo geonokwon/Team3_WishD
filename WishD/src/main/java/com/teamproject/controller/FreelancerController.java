@@ -1,6 +1,6 @@
 package com.teamproject.controller;
 
-import java.util.Arrays;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
-import com.teamproject.domain.ProjectDTO;
-import com.teamproject.domain.ProjectRequestDTO;
-import com.teamproject.domain.ProjectRequestFileDTO;
+import com.teamproject.domain.FreelancerRequestDTO;
+import com.teamproject.domain.FreelancerRequestFileDTO;
 import com.teamproject.service.FreelancerService;
 
 
@@ -139,7 +138,7 @@ public class FreelancerController {
         System.out.println(freelancerPageDTO.getCurrentPage());
 		return "freelancer/freelancer_find";
 	}
-	/*
+	
 	//프리랜서 읽기 페이지
     @GetMapping("/freelancerRead/{freelancer_id}")
     public String freelancerRead(@PathVariable("freelancer_id")Long freelancer_id,
@@ -155,16 +154,16 @@ public class FreelancerController {
         //session 에서 user_no 가져오기
         session.setAttribute("user_no", 1L);
         Long user_no = (Long) session.getAttribute("user_no");
-
+        System.out.println("프리랜서 읽기 freelancerDTO" + freelancerDTO);
         if (user_no != null) {
             //선택된 freelancer_id 가 진행중 인지 구직중 인지 조회
 
             if (freelancerDTO.getFreelancer_state().equals("진행중")) {
                 //진행중 이라면 ?
-                //request_freelancer 테이블에 작성을 했으니
+                //request_client 테이블에 작성을 했으니
                 //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서 input 안에 값들을 전부 채워넣기 modal 이용해서 DTO 넘겨주기
                 //그러면 먼저 여기 페이지 올때 디비 freelancer_id로 조회해서 state 값이 '구직중' '진행중' 인지 확인하기.
-                FreelancerRequestDTO freelancerRequestDTO = freelancerService.getRequestFreelancer(freelancer_id);
+                FreelancerRequestDTO freelancerRequestDTO = freelancerService.getRequestClient(freelancer_id);
                 System.out.println(freelancerRequestDTO.toString());
 
                 //user_no 가 글 작성자 인지 판단!
@@ -187,5 +186,5 @@ public class FreelancerController {
 
         return "/freelancer/freelancer_read";
     }
-*/
+
 }
