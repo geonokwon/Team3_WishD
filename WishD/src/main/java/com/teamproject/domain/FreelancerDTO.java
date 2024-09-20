@@ -1,6 +1,7 @@
 package com.teamproject.domain;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 public class FreelancerDTO {
@@ -14,31 +15,38 @@ public class FreelancerDTO {
 	private boolean freelancer_exp; //프리랜서 경험 유무
 	private int dev_exp; 			//개발자 경력
 	private String freelancer_job;
-	private String freelancer_introdution;
+	private String freelancer_introduction;
 	private String freelancer_link;
 	private String freelancer_state;
 	private Timestamp freelancer_date;
 	private Timestamp freelancer_update;
 	
     //skill String 으로 가져와서 배열로 나누는 값
-    private String skillList;
-	
+    private Integer[] skillIdList;
+	private String skillList;
+    
     private List<FreelancerSkillDTO> skills;
 
     //프리랜서의 이름, FreelancerMapper.xml의 selectFreelancer_all에서 가져올수있음
     private String user_name;
 
     
-    //toString 오버라이드
+    //전체job 조회시 사용
+    private String jobList;
+    private int job_id;
+    private String job_name;
+    
+	//toString 오버라이드
 	@Override
 	public String toString() {
 		return "FreelancerDTO [freelancer_id=" + freelancer_id + ", user_no=" + user_no + ", freelancer_salary="
 				+ freelancer_salary + ", freelancer_startdate=" + freelancer_startdate + ", freelancer_exp="
 				+ freelancer_exp + ", dev_exp=" + dev_exp + ", freelancer_job=" + freelancer_job
-				+ ", freelancer_introdution=" + freelancer_introdution + ", freelancer_link=" + freelancer_link
+				+ ", freelancer_introduction=" + freelancer_introduction + ", freelancer_link=" + freelancer_link
 				+ ", freelancer_state=" + freelancer_state + ", freelancer_date=" + freelancer_date
-				+ ", freelancer_update=" + freelancer_update + ", skillList=" + skillList + ", skills=" + skills
-				+ ", user_name=" + user_name + "]";
+				+ ", freelancer_update=" + freelancer_update + ", skillIdList=" + Arrays.toString(skillIdList) + ", skills="
+				+ skills + ", user_name=" + user_name + ", jobList=" + jobList + ", job_id=" + job_id + ", job_name="
+				+ job_name + "]";
 	}
 
 	public Long getFreelancer_id() {
@@ -97,12 +105,12 @@ public class FreelancerDTO {
 		this.freelancer_job = freelancer_job;
 	}
 
-	public String getFreelancer_introdution() {
-		return freelancer_introdution;
+	public String getFreelancer_introduction() {
+		return freelancer_introduction;
 	}
 
-	public void setFreelancer_introdution(String freelancer_introdution) {
-		this.freelancer_introdution = freelancer_introdution;
+	public void setFreelancer_introduction(String freelancer_introduction) {
+		this.freelancer_introduction = freelancer_introduction;
 	}
 
 	public String getFreelancer_link() {
@@ -137,12 +145,15 @@ public class FreelancerDTO {
 		this.freelancer_update = freelancer_update;
 	}
 
-	public String getSkillList() {
-		return skillList;
+
+
+
+	public Integer[] getSkillIdList() {
+		return skillIdList;
 	}
 
-	public void setSkillList(String skillList) {
-		this.skillList = skillList;
+	public void setSkillIdList(Integer[] skillIdList) {
+		this.skillIdList = skillIdList;
 	}
 
 	public List<FreelancerSkillDTO> getSkills() {
@@ -160,15 +171,50 @@ public class FreelancerDTO {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
+
+	public String getJobList() {
+		return jobList;
+	}
+
+	public void setJobList(String jobList) {
+		this.jobList = jobList;
+	}
+
+
+
+
+	public int getJob_id() {
+		return job_id;
+	}
+
+
+
+
+	public void setJob_id(int job_id) {
+		this.job_id = job_id;
+	}
+
+
+
+
+	public String getJob_name() {
+		return job_name;
+	}
+
+
+
+
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
     
 
 
-	
-	
-	
-	
+	public String getSkillList() {
+		return skillList;
+	}
 
-	
-	
-	
+	public void setSkillList(String skillList) {
+		this.skillList = skillList;
+	}
 }

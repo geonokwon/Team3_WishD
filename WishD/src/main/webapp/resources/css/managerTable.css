@@ -19,3 +19,37 @@
 .list{
 	margin-bottom:200px;
 }
+
+/* 리스트 테이블 */
+th, td{
+	border:1px solid black;
+	text-align: center;
+}
+
+/* 페이지 변환 버튼 */
+.pagination {
+	padding:40px 0 0; text-align:center;
+	width:50%;
+	margin:auto;
+}
+
+.pagination a {
+	display:inline-block; 
+	margin:0 auto;
+}
+
+.pagination a.pbtn {
+	display:inline-block; padding:7px; text-align:center; vertical-align:middle; font-size:0;
+}
+
+.pagination a .pagenum {
+	display:inline-block; width:25px; height:25px; line-height:25px; text-align:center; vertical-align:middle;
+}
+
+.pagination a .currentpage {
+	border-radius:3px; background:#384d75; color:#fff;
+}
+
+.pagination a:hover .pagenum {
+	border-radius:3px; background:#ddd;
+}

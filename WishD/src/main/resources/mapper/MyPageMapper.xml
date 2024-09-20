@@ -7,9 +7,9 @@
 	
 	<!-- 어떤 로그인인지 체크하는 용도 -->
 	<select id="getLoginMember" resultType="com.teamproject.domain.MemberDTO">
-		SELECT *
-		FROM user_info
-		WHERE user_info.user_no = #{user_no}
+		select * from user_info join user
+		on user_info.user_no = user.user_no
+		where user_info.user_no = #{user_no};
 	</select>
 	
  	<!-- 일반유저의 정보 가져오기 --> 
@@ -20,12 +20,12 @@
 <!-- 		WHERE user.user_no = #{user_no} -->
 <!-- 	</select> -->
 	
- 	<!-- 간편회원의 정보 가져오기--> 
-<!-- 	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO"> -->
-<!-- 		select * from user_info join simple_user -->
-<!-- 		on user_info.user_no = simple_user.user_no -->
-<!-- 		where user_no = #{user_no} -->
-<!-- 	</select> -->
+<!--  	간편회원의 정보 가져오기  -->
+	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info join simple_user
+		on user_info.user_no = simple_user.user_no
+		where user_no = #{user_no}
+	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		SELECT * 
@@ -94,7 +94,8 @@
 		where pboard_id = #{projectPageNum}
 	</select>
 	
-	<!-- 내 프리랜서글개수 가져오기, 검색어 있으면 검색결과 글개수 반환 -->
+	
+	<!-- 내 프리랜서글개수 가져오기, 검색어 있으면 검색결과 글개수 반환, 상태값들어오면 상태에따른 개수반환 -->
 	<select id="getFreelancerCount" resultType="int">
   		select count(*)
   		from freelancer
@@ -112,7 +113,7 @@
 			select * from freelancer
         	where user_no = #{user_no}
         	<if test="freelancerSearch != null">
-<!--         	and pboard_title LIKE CONCAT('%', #{freelancerSearch}, '%') -->
+        	and freelancer_introdution LIKE CONCAT('%', #{freelancerSearch}, '%')
         	</if>
         	<if test="freelancerStatus != null">
         	and freelancer_state = #{freelancerStatus}
@@ -128,4 +129,113 @@
         ON freelancer_skill.skill_id = skills.skill_id
         WHERE freelancer_skill.freelancer_id = #{freelancer_id}
 	</select>
+	
+	<!-- qna 글 개수 가져오기 -->
+	<select id="getMyQnaCount" resultType="int">
+		select count(*)
+		from community_QnA
+		where user_no = #{user_no}
+	</select>
+	
+	<!-- qna 내글 리스트 -->
+	<select id="getMyQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
+		select *
+		from community_QnA
+		where user_no = #{user_no}
+		limit #{startRow}, #{endRow};
+	</select>
+	
+	
+	 
+	<!-- 테스트 먼저 이메일이랑 이름으로 user_no 얻고-->
+	<select id="idFindTest" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info
+		where user_name = #{user_name}
+		and email = #{email};
+	</select>
+	
+	<!-- 여기가 그다음실행구문 트랜젝션에서 화긴  얻어온 user_no로 id 조회-->
+	<select id="idFindTest2" resultType="com.teamproject.domain.MemberDTO">
+		select * from user join user_info
+		on user.user_no = user_info.user_no
+		where user.user_no = #{user_no};
+	</select>
+	
+	<!-- 내프로젝트 수정 -->
+	<update id="updateMyProject">
+		update project_board
+		set
+		pboard_title = #{pboard_title},
+		pboard_money = #{pboard_money},
+		pboard_content = #{pboard_content},
+		pboard_startDate = STR_TO_DATE(#{pboard_startDate}, '%Y-%m-%d %H:%i:%s'),
+		pboard_rangeMonth = #{pboard_rangeMonth},
+		pboard_job = #{pboard_job},
+		pboard_update = now(),
+		pboard_manager_phone = #{pboard_manager_phone},
+		pboard_company_name = #{pboard_company_name}
+		where pboard_id = #{pboard_id};
+	</update>
+	<delete id="updateMyProjectSkillDelete">
+		delete
+		from project_skill
+		<if test="skillList != ''">
+			where pboard_id = #{pboard_id};
+		</if>
+	</delete>
+	<insert id="updateMyProjectSkillInsert">
+        insert
+        into project_skill
+        values
+        <foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{pboard_id}, #{skill_id} )
+        </foreach>
+        ;
+    </insert>
+    <!-- 내프로젝트 수정 끝 -->
+    
+    <!-- 프리랜서 수정전 글 정보가져오기 -->
+    <select id="getMyFreelancerForUpdate" resultType="com.teamproject.domain.FreelancerDTO">
+    	select * from freelancer
+    	where freelancer_id = #{freelancer_id};	
+    </select>
+    
+    <!-- 프리랜서 글 수정 시작 -->
+    <update id="updateMyFreelancer">
+		update freelancer
+		set
+		freelancer_salary = #{freelancer_salary},
+		freelancer_startdate = STR_TO_DATE(#{freelancer_startdate}, '%Y-%m-%d %H:%i:%s'),
+		freelancer_exp = #{freelancer_exp},
+		dev_exp = #{dev_exp},
+		freelancer_introduction = #{freelancer_introduction},
+		freelancer_link = #{freelancer_link},
+		freelancer_update = now()
+<!-- 		job_id = #{job_id} -->
+		where freelancer_id = #{freelancer_id};
+    </update>
+	<delete id="updateMyFreelancerSkillDelete">
+		delete
+		from freelancer_skill
+		<if test="skillList != ''">
+			where freelancer_id = #{freelancer_id};
+		</if>
+	</delete>
+	<insert id="updateMyFreelancerSkillInsert">
+		insert
+		into freelancer_skill
+		values
+		<foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{freelancer_id}, #{skill_id} )
+        </foreach>
+	</insert>
+	<!-- 프리랜서 글 수정 끝 -->
+
+	<select id="userIdCheck" resultType="String">
+		select user_id
+		from user
+		where user_id = #{id}
+	</select>
+
+
 </mapper>

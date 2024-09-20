@@ -21,6 +21,7 @@
 	href="${pageContext.request.contextPath}/resources/project/project.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/community/notice.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<!-- Header -->
@@ -39,28 +40,33 @@
 				id="user-info-form">
 				<div class="input-group">
 					<input type="text" id="user_name" name="user_name"
-						value="${memberDTO.user_name}" readonly placeholder=" " /> <label
+						value="${myProfile.user_name}" readonly placeholder=" " /> <label
 						for="user_name">이름</label>
 				</div>
 				<div class="input-group">
 					<input type="email" id="email" name="email"
-						value="${memberDTO.email}" readonly placeholder=" " /> <label
+						value="${myProfile.email}" readonly placeholder=" " /> <label
 						for="email">이메일</label>
 				</div>
+				<c:if test="${myProfile.user_id != null }"> 
 				<div class="input-group">
-					<input type="text" id="user_id" name="user_id"
-						value="${memberDTO.user_id}" placeholder=" " /> <label
-						for="user_id">아이디</label>
+    				<input type="text" id="user_id" name="user_id" value="${myProfile.user_id}" placeholder=" " />
+    				<label for="user_id">아이디</label>
+					
 				</div>
+				<div class="input-group">
+					<input type="text" id="user_phone" name="user_phone"
+						value="${myProfile.user_phone}" placeholder=" " /> <label
+						for="user_phone">연락처</label>
+				</div>
+				<button type="button" id="id_check" class="btn btn-primary btn-sm">중복확인</button>
+				<div id="idcheck"></div> <!-- 결과 메시지를 표시할 div -->
 				<div class="input-group">
 					<input type="password" id="user_pass" name="user_pass"
 						placeholder=" " /> <label for="user_pass">비밀번호</label>
 				</div>
-				<div class="input-group">
-					<input type="text" id="user_phone" name="user_phone"
-						value="${memberDTO.user_phone}" placeholder=" " /> <label
-						for="user_phone">연락처</label>
-				</div>
+				
+				</c:if>
 			</form>
 		</div>
 		<!-- 폼부분 끝 -->
@@ -128,21 +134,21 @@
 							<form
 								action="${pageContext.request.contextPath}/mypage?freelancerStatus=모집중"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="freelancerStatus" value="모집중">모집중</button>
 							</form>
 							<div class="me-4"></div>
 							<form
 								action="${pageContext.request.contextPath}/mypage?freelancerStatus=진행중"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="freelancerStatus" value="진행중">진행중</button>
 							</form>
 							<div class="me-4"></div>
 							<form
 								action="${pageContext.request.contextPath}/mypage?freelancerStatus=완료"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="freelancerStatus" value="완료">완료</button>
 							</form>
 						</div>
@@ -202,10 +208,13 @@
 											업무 시작일:
 											<fmt:parseDate
 												value="${myFreelancerDTO.getFreelancer_startdate()}"
-												var="parsedDate" pattern="yyyy-MM-dd" />
-											<fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
+												var="myFreeStartDate" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${myFreeStartDate}" pattern="yyyy년 MM월 dd일" />
 										</p>
-										<!-- 예상 기간 -->
+										<p class="col-3 card-text"></p>
+										<button class="btn btn-primary ms-3"
+											onclick="location.href='${pageContext.request.contextPath}/mypage/myfreelancerupdate?freelancerPageNum=${myFreelancerDTO.freelancer_id}'"
+											style="width: auto; justify-content: flex-end;">글수정</button>
 										<!-- 	                        <p class="col-3 card-text"></p> -->
 									</div>
 								</div>
@@ -267,7 +276,7 @@
 									<div class="input-group">
 										<input type="text" id="search"
 											class="form-control text border-0 bg-primary" name="search"
-											placeholder="프로젝트명 검색" autocomplete="off" />
+											placeholder="프로젝트 글 검색" autocomplete="off" />
 										<button type="submit" class="btn bg-primary">
 											<img
 												src="${pageContext.request.contextPath}/resources/project/svg/search.svg"
@@ -281,21 +290,21 @@
 							<form
 								action="${pageContext.request.contextPath}/mypage?projectStatus=모집중"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="projectStatus" value="모집중">모집중</button>
 							</form>
 							<div class="me-4"></div>
 							<form
 								action="${pageContext.request.contextPath}/mypage?projectStatus=진행중"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="projectStatus" value="진행중">진행중</button>
 							</form>
 							<div class="me-4"></div>
 							<form
 								action="${pageContext.request.contextPath}/mypage?projectStatus=완료"
 								method="get">
-								<button type="submit" class="btn bg-primary"
+								<button type="submit" class="btn btn-primary"
 									name="projectStatus" value="완료">완료</button>
 							</form>
 						</div>
@@ -346,8 +355,11 @@
 										<!-- 시작 예정일 -->
 										<p class="col-4 card-text mb-1">
 											시작 예정일:
-											<fmt:formatDate value="${myprojectDTO.pboard_startDate}"
-												pattern="yyyy년 MM월 dd일" />
+											<fmt:parseDate
+												value="${myprojectDTO.pboard_startDate}"
+												var="myProjectStartDate" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${myProjectStartDate}" pattern="yyyy년 MM월 dd일" />
+											
 										</p>
 										<!-- 예상 기간 -->
 										<p class="col-3 card-text">예상 기간:
@@ -392,33 +404,42 @@
 
 			<!-- QnA 내용 -->
 			<div class="tab-content" id="qna-content">
-					<div class="col-8 second-section-2">
+					<div class="col-8 col-8-c second-section-2">
 
+					<c:forEach items="${myQnaDTOList}" var="myQnaDTO">
 						<div class="row">
 							<div class="col">
-								<div class="custom-title text-change-box">문의드립니다</div>
-								<div class="custom-content">비밀글입니다</div>
+								<div class="custom-title text-change-box">${myQnaDTO.qcommunity_title }</div>
+								<div class="custom-content">${myQnaDTO.qcommunity_content }</div>
 							</div>
 							<div class="col">
-								<div class="custom-date">2024 07 08</div>
-								<div class="custom-writer">@nihw****</div>
+								<div class="custom-date">${myQnaDTO.qcommunity_date }</div>
+								<div class="custom-writer">
+								<c:if test="${ empty myQnaDTO.qcommunity_answer }">
+									<p class="col-auto card-text mb-1">답변대기</p>
+								</c:if>
+								<c:if test="${ ! empty myQnaDTO.qcommunity_answer }">
+									<p class="col-auto card-text mb-1">답변완료</p>
+								</c:if>
+								</div>
 							</div>
 							<div class="row-line"></div>
 						</div>
+					</c:forEach>
 					</div>
 					<!-- qna 페이지네이션 -->
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 10칸씩 뒤로 이동 버튼 -->
 							<c:if
-								test="${myProjectPageDTO.startPage > myProjectPageDTO.pageBlock}">
+								test="${myQnaPageDTO.startPage > myQnaPageDTO.pageBlock}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.startPage - 10}"></a>
+									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myQnaPageDTO.startPage - 10}"></a>
 								</li>
 							</c:if>
 
-							<c:forEach begin="${myProjectPageDTO.startPage}"
-								end="${myProjectPageDTO.endPage}" var="page">
+							<c:forEach begin="${myQnaPageDTO.startPage}"
+								end="${myQnaPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
 									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${page}">${page}</a>
 								</li>
@@ -426,9 +447,9 @@
 
 							<!-- 10칸씩 앞으로 이동 -->
 							<c:if
-								test="${myProjectPageDTO.endPage < myProjectPageDTO.pageCount}">
+								test="${myQnaPageDTO.endPage < myQnaPageDTO.pageCount}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myProjectPageDTO.endPage + 10}"></a>
+									href="${pageContext.request.contextPath}/mypage?qnaPageNum=${myQnaPageDTO.endPage + 10}"></a>
 								</li>
 							</c:if>
 						</ul>
@@ -437,9 +458,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
 	<!-- 탭 내용 끝-->
-	</div>
 	<!-- 탭 전체 끝 -->
 	<!-- 상단 내정보와 폼 부분 끝 -->
 
@@ -486,26 +505,27 @@
                 let tabData = tab.getAttribute("data-tab");
 
                 updateTabs(index);
-//                 loadContent(tabData, index);
             });
         });
-
-//         function loadContent(tabData, tabIndex) {
-//             // 이 함수는 서버에서 데이터를 로드하거나 DOM을 업데이트하는 데 사용됩니다.
-//             // 예를 들어, AJAX 요청을 통해 탭 콘텐츠를 가져오고 처리합니다.
-
-//             // AJAX 요청의 예 (fetch를 사용하는 경우):
-//             fetch(`/path/to/your/content/${tabData}`)
-//                 .then(response => response.text())
-//                 .then(data => {
-//                     // 탭 콘텐츠를 업데이트
-//                     document.getElementById(`${tabData}-content`).innerHTML = data;
-
-//                     // 콘텐츠 로드 후 높이 조정
-//                     updateTabs(tabIndex);
-//                 })
-//                 .catch(error => console.error('Error loading content:', error));
-//         }
+		
+        $(function(){
+        	console.log(`중복 확인 버튼 클릭됨`); 
+    		$('#id_check').click(function(){
+    			$.ajax({
+    				url:'${pageContext.request.contextPath}/mypage/idCheck',
+    				data:{'id':$('#user_id').val()}, // input id=user_id에값을 저장
+    				success:function(result){
+    					if(result == 'iddup'){
+    						result = "아이디 중복";
+    						$('#idcheck').html(result).css('color','red');
+    					}else{
+    						result = "아이디 사용가능";
+    						$('#idcheck').html(result).css('color','green');
+    					}
+    				}
+    			});//ajax()
+    		});//blur()
+    	});//시작()
 
         // 정보수정 버튼 클릭 이벤트
         document.getElementById("member_update_btn").addEventListener("click", function(event) {
@@ -578,6 +598,8 @@
             }
         });
     });
+    
+    
     </script>
 
 	<!-- Include Bootstrap JS -->

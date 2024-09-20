@@ -225,6 +225,10 @@
 	display: block; /* 활성화된 탭 내용만 표시합니다. */
 }
 
+.tab-item.active {
+    font-weight: bold;
+}
+
 /* 탭 바디 스타일 */
 .tabs .tab-body {
 	position: relative;
@@ -248,4 +252,9 @@
 	top: 0;
 	opacity: 1;
 	transform: scale(1);
+}
+
+/* qna 가로 길이 조정 */
+.col-8-c {
+	width: 100%;
 }

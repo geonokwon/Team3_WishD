@@ -10,17 +10,57 @@ public class MyProjectDTO {
 	private String pboard_title;
 	private String pboard_content;
 	private int pboard_money;
-	private Timestamp pboard_startDate;
+	private String pboard_startDate;
 	private int pboard_history;
 	private int pboard_rangeMonth;
 	private String pboard_state;
 	private Timestamp pboard_date;
 	private Timestamp pboard_update;
 	private String pboard_manager_phone;
-	private String pboard_ee_name;
+	private String pboard_company_name;
+	private String pboard_job;
+	
+	private String skillList;
+
+	private Timestamp pboard_startDate_Ex;
 	
 	
-	
+	public Timestamp getPboard_startDate_Ex() {
+		return pboard_startDate_Ex;
+	}
+
+
+
+	public void setPboard_startDate_Ex(Timestamp pboard_startDate_Ex) {
+		this.pboard_startDate_Ex = pboard_startDate_Ex;
+	}
+
+
+
+	public String getSkillList() {
+		return skillList;
+	}
+
+
+
+	public void setSkillList(String skillList) {
+		this.skillList = skillList;
+	}
+
+
+
+	public String getPboard_job() {
+		return pboard_job;
+	}
+
+
+
+	public void setPboard_job(String pboard_job) {
+		this.pboard_job = pboard_job;
+	}
+
+
+
 	// 프로젝트의 스킬리스트
 	private List<ProjectSkillDTO> skills;
 
@@ -120,13 +160,14 @@ public class MyProjectDTO {
 	}
 
 
-	public Timestamp getPboard_startDate() {
+
+	public String getPboard_startDate() {
 		return pboard_startDate;
 	}
 
 
 
-	public void setPboard_startDate(Timestamp pboard_startDate) {
+	public void setPboard_startDate(String pboard_startDate) {
 		this.pboard_startDate = pboard_startDate;
 	}
 
@@ -167,19 +208,6 @@ public class MyProjectDTO {
 	}
 
 
-
-	public String getPboard_ee_name() {
-		return pboard_ee_name;
-	}
-
-
-
-	public void setPboard_ee_name(String pboard_ee_name) {
-		this.pboard_ee_name = pboard_ee_name;
-	}
-
-
-
 	public List<ProjectSkillDTO> getSkills() {
 		return skills;
 	}
@@ -192,16 +220,28 @@ public class MyProjectDTO {
 
 
 
+	public String getPboard_company_name() {
+		return pboard_company_name;
+	}
+
+
+
+	public void setPboard_company_name(String pboard_company_name) {
+		this.pboard_company_name = pboard_company_name;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "MyProjectDTO [pboard_id=" + pboard_id + ", user_no=" + user_no + ", pboard_title=" + pboard_title
 				+ ", pboard_content=" + pboard_content + ", pboard_money=" + pboard_money + ", pboard_startDate="
 				+ pboard_startDate + ", pboard_history=" + pboard_history + ", pboard_rangeMonth=" + pboard_rangeMonth
 				+ ", pboard_state=" + pboard_state + ", pboard_date=" + pboard_date + ", pboard_update=" + pboard_update
-				+ ", pboard_manager_phone=" + pboard_manager_phone + ", pboard_ee_name=" + pboard_ee_name + ", skills="
-				+ skills + "]";
+				+ ", pboard_manager_phone=" + pboard_manager_phone + ", pboard_company_name=" + pboard_company_name
+				+ ", pboard_job=" + pboard_job + ", skillList=" + skillList + ", skills=" + skills + "]";
 	}
-	
+
 	
 	
 }

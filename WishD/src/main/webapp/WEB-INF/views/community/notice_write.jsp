@@ -63,8 +63,11 @@
         </div>
 
         <!-- 글쓰기 -->
+        
         <div class="col-8 second-section-2">
-
+        
+		  <form action="notice_writePro" method="post">
+		  
             <div class="col">
                 <div class="col">
                     <div class="col-6 second-section-2"> 
@@ -72,8 +75,10 @@
                         <label for="notice_label" class="noticeLabelText">Notice </label>                    
                         <div class="write-line"></div>
 
+						
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+  
+                        <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -82,19 +87,21 @@
                         <div class="write-line"></div> <!-- 구분선 -->
 
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea name="ncommunity_content" class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="button" class="btn btn-primary2">글쓰기 완료</button>
+                            <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
                         </div>
                     </div>
-
+						
                  
                 </div>
             </div> <!-- 글쓰기 섹션 -->
-
+            
+		  </form>
+		  
         </div> <!-- 섹션 2 - 2 종료 -->
 
         <!-- 섹션 2 - 3 -->
