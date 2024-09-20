@@ -97,6 +97,7 @@ public class ProjectService {
         PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
         personalFileCopyUtils.fileCopy(projectRequestFileDTO, projectRequestDTO.getPboard_id(), projectRequestDTO.getF_request_id());
         System.out.println(projectRequestDTO.toString());
+        logger.info(projectRequestDTO.toString());
         projectDAO.insetProjectRequestFile(projectRequestFileDTO);
 
     }
@@ -104,7 +105,7 @@ public class ProjectService {
     //진행중인 board 가 있다면 request form의 값을 가져오기
     public ProjectRequestDTO getRequestFreelancer(Long pboardId) {
         ProjectRequestDTO projectRequestDTO = projectDAO.getRequestFreelancer(pboardId);
-        projectRequestDTO.setSkills(projectDAO.getRequestSkill(projectRequestDTO.getPboard_id()));
+        projectRequestDTO.setSkills(projectDAO.getRequestSkill(projectRequestDTO.getF_request_id()));
         return projectRequestDTO;
     }
 
@@ -134,6 +135,13 @@ public class ProjectService {
         return projectDAO.getUserName(user_no);
     }
 
+
+    //job List 불러오기
+    public List<JobDTO> getJobList() {
+        logger.info("-> getJobList()");
+        return projectDAO.getJobList();
+    }
+
 //============================================================================================================
     //skillList String -> List  형태로 반환하는 메서드
     public List<Integer> getSkillList(String str_skillList){
@@ -144,7 +152,6 @@ public class ProjectService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
-
 
 
 }

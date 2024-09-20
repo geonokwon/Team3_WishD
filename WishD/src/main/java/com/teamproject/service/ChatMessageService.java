@@ -17,6 +17,9 @@ public class ChatMessageService {
     @Autowired
     private ChatMessageDAO chatMessageDAO;
 
+
+
+
     public void saveMessage(ChatMessageDTO messageDTO) {
         logger.info("-> saveMessage()");
         messageDTO.setChat_isMatching(true);
@@ -46,4 +49,11 @@ public class ChatMessageService {
         //기존에 왔던 request_form 삭제
         chatMessageDAO.setDeleteRequest(pboardId);
     }
+
+    //pboard_id 기준으로 매칭 완료시 state 값 변경
+    public void setCompleteState(Long pboard_id) {
+        logger.info("-> setCompleteState()");
+        chatMessageDAO.setCompleteState(pboard_id);
+    }
+
 }

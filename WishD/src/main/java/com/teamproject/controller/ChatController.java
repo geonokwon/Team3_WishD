@@ -46,7 +46,7 @@ public class ChatController {
         //session 에 user_no 로 user_name 값 불러오기
         model.addAttribute("user_name", projectService.getUserName(user_no));
 
-        if (user_no != null && projectDTO.getPboard_state().equals("진행중")) {
+        if (user_no != null) {
             projectService.setProjectIsMatching(pboard_id);
             ProjectRequestDTO projectRequestDTO = projectService.getRequestFreelancer(pboard_id);
             if (projectDTO.getUser_no().longValue() == user_no || projectRequestDTO.getUser_no().longValue() == user_no) {
@@ -81,6 +81,7 @@ public class ChatController {
 
         //메세지 보내기
         messagingTemplate.convertAndSend("/topic/board/" + pboard_id, chatMessageDTO);
+        chatMessageService.getMe();
     }
 
     //매칭 취소시
@@ -94,7 +95,9 @@ public class ChatController {
     //매칭 완료시
     @GetMapping("matchingComplete/{pboard_id}")
     public String matchingComplete(@PathVariable("pboard_id")Long pboard_id){
-        return "redirect:/mypage";
+        logger.info( "-> matchingComplete()");
+        chatMessageService.setCompleteState(pboard_id);
+        return "redirect:/chatting/{pboard_id}";
     }
 
 

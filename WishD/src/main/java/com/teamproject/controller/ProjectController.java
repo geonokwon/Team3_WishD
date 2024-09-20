@@ -85,11 +85,16 @@ public class ProjectController {
         System.out.println(projectDTO.toString());
         model.addAttribute("projectDTO", projectDTO);
         model.addAttribute("projectSkillList", projectService.getSkillList());
+        model.addAttribute("projectJobList", projectService.getJobList());
 
         //session 에서 user_no 가져오기
         Long user_no = (Long) session.getAttribute("user_no");
 
         if (user_no != null) {
+            if (projectDTO.getPboard_state().equals("완료")){
+                return "redirect:/chatting/" + pboard_id;
+            }
+
             //선택된 pboard_id 가 진행중 인지 모집중 인지 조회
             //그러면 먼저 여기 페이지 올때 디비 pboard_id로 조회해서 state 값이 '모집중' '진행중' 인지 확인하기.
             if (projectDTO.getPboard_state().equals("진행중")) {
@@ -147,6 +152,7 @@ public class ProjectController {
         if (session.getAttribute("user_no") != null) {
             //전체스킬 조회시 필요한 전체 스킬 데이터
             model.addAttribute("projectSkillList", projectService.getSkillList());
+            model.addAttribute("projectJobList", projectService.getJobList());
         }
         else {
             return "redirect:/login";

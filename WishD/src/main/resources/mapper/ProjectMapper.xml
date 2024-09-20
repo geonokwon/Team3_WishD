@@ -11,13 +11,13 @@
         INSERT INTO project_board (
         user_no, pboard_title, pboard_content,
         pboard_money, pboard_startDate,
-        pboard_rangeMonth, pboard_job,
+        pboard_rangeMonth, job_id,
         pboard_manager_phone, pboard_company_name )
         VALUES (
             #{user_no},
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
-            #{pboard_rangeMonth}, #{pboard_job},
+            #{pboard_rangeMonth}, #{job_id},
             #{pboard_manager_phone}, #{pboard_company_name}
         );
     </insert>
@@ -120,9 +120,11 @@
 
     <!-- project_read - start -->
     <!-- pboard_id 에 해당하는 프로젝트 불러오기 -->
+
     <select id="getProject" resultType="com.teamproject.domain.ProjectDTO">
-        SELECT *
-        FROM project_board
+        SELECT pb.*, j.job_name
+        FROM project_board pb JOIN jobs j
+        ON pb.job_id = j.job_id
         WHERE pboard_id = #{pboard_id};
     </select>
 
@@ -213,6 +215,12 @@
         FROM user u JOIN user_info ui
         ON u.user_no = ui.user_no
         WHERE u.user_no = #{user_no}
+    </select>
+
+    <!-- jobList 불러오기 -->
+    <select id="getJobList" resultType="com.teamproject.domain.JobDTO">
+        SELECT *
+        FROM jobs
     </select>
 
 </mapper>

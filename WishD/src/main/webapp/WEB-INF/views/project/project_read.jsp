@@ -91,7 +91,7 @@
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_job()}</p>
+                            <p class="mb-0">${projectDTO.getJob_name()}</p>
                         </div>
                     </div>
 
@@ -177,9 +177,9 @@
                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label>
                                 <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required>
                                     <option value="" disabled selected>직무를 선택하세요</option>
-                                    <option value="1" >앱 개발자</option>
-                                    <option value="2">웹 개발자</option>
-                                    <option value="3">시스템 개발자</option>
+                                    <c:forEach items="${projectJobList}" var="jobList">
+                                        <option value="${jobList.getJob_id()}" >${jobList.getJob_name()}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
 
