@@ -60,11 +60,19 @@
 
         <!-- 질문 목록 -->
         <div class="col-8 second-section-2">
+          <form method="post" action="/qna">
 			<c:forEach items="${communityQnaList}" var="communityQnaDTO">
 	            <div class="row">
 	                    <div class="col">
 	                        <div class=""><a href="${pageContext.request.contextPath}/qna_detail?qcommunity_num=${communityQnaDTO.qcommunity_num}" class="custom-title text-change-box text-decoration-none">${communityQnaDTO.qcommunity_title}</a></div>
-	                        <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
+	                        
+	                    	<c:if test="${user_no == communityQnaDTO.getUser_no()}">
+							    <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
+							</c:if>
+							<c:if test="${user_no != communityQnaDTO.getUser_no()}">
+							    <div class="custom-content">비밀글입니다</div>
+							</c:if>
+	                    
 	                    </div>
 	                    <div class="col">
 	                        <div class="custom-date">${communityQnaDTO.qcommunity_date}</div>
@@ -73,19 +81,45 @@
 	                <div class="row-line"></div>
 	            </div>
 			</c:forEach>
-
+		  </form>
         </div> <!-- 질문 목록 -->
 
-    <div class="col-2 second-section-1 menutext-right">
-        <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
-    </div>
+	    <div class="col-2 second-section-1 menutext-right">
+	        <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
+	    </div>
 
-</div>
-    <div class="last-line"></div> <!-- 하단선 -->
+	</div>
 
 </div> <!-- 컨테이너 -->
+<!-- 	페이지네이션 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center" style="">
+            <!-- 10칸씩 뒤로 이동 버튼 -->
+            <c:if test="${communitypageDTO.startPage > communitypageDTO.pageBlock}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communitypageDTO.startPage - 10}"></a>
+            </li>
+            </c:if>
 
-  
+            <c:forEach begin="${communitypageDTO.startPage}" end="${communitypageDTO.endPage}" var="page">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/notice?noticePageNum=${page}">${page+1}</a>
+                </li>
+            </c:forEach>
+
+            <!-- 10칸씩 앞으로 이동 -->
+            <c:if test="${communitypageDTO.endPage < communitypageDTO.pageCount}">
+                <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communitypageDTO.endPage + 10}"></a>
+            </li>
+            </c:if>
+        </ul>
+    </nav>
+    
+<div class = "last-line"></div> <!-- 하단선 -->  
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>

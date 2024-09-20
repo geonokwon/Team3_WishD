@@ -23,6 +23,7 @@
 
 </head>
 <body class="text-light">
+
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
@@ -94,8 +95,7 @@
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
                             <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
                         </div>
-                    </div>
-						
+                    </div>	
                  
                 </div>
             </div> <!-- 글쓰기 섹션 -->

@@ -58,7 +58,7 @@
         </div>
 
         <!-- 글 목록 -->
-        <div class="col-8 second-section-2">
+        <div class="col-8 container second-section-2">
 			<c:forEach items="${communityList}" var="communityDTO">
 	            <div class="row">
 	                    <div class="col">
@@ -67,7 +67,7 @@
 	                    </div>
 	                    <div class="col">
 	                        <div class="custom-date">${communityDTO.ncommunity_date}</div>
-	                        <div class="custom-writer">${communityDTO.user_no}</div>
+	                        <div class="custom-writer">@manager</div>
 	                    </div>
 	                <div class="row-line"></div>
 	            </div>
@@ -91,12 +91,22 @@
     <div class="col-2 second-section-1 menutext-right">
         <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>Search</a><br>
     </div>
-
+    
+    
+	
+    
 </div>
 
+
+
+
+
+    
+
+</div> <!-- 컨테이너 -->
 <!-- 	페이지네이션 -->
     <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" style="">
             <!-- 10칸씩 뒤로 이동 버튼 -->
             <c:if test="${communitypageDTO.startPage > communitypageDTO.pageBlock}">
                 <li class="page-item">
@@ -108,7 +118,7 @@
             <c:forEach begin="${communitypageDTO.startPage}" end="${communitypageDTO.endPage}" var="page">
                 <li class="page-item">
                     <a class="page-link"
-                       href="${pageContext.request.contextPath}/notice?noticePageNum=${page}">${page}</a>
+                       href="${pageContext.request.contextPath}/notice?noticePageNum=${page}">${page+1}</a>
                 </li>
             </c:forEach>
 
@@ -121,14 +131,7 @@
             </c:if>
         </ul>
     </nav>
-
-
-
-    <div class="last-line"></div> <!-- 하단선 -->
-
-</div> <!-- 컨테이너 -->
-
-  
+  <div class = "last-line"></div> <!-- 하단선 -->
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>

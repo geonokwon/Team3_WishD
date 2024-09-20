@@ -101,7 +101,8 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="submit" class="btn btn-primary2"><a href="qna" class="text-light text-decoration-none">돌아가기</a></button>
+                            <a href="qna" class="btn btn-primary2 text-light text-decoration-none">돌아가기</a>
+
                         </div>
                     </div>
                 </div>

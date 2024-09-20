@@ -51,10 +51,10 @@
 	
 	<!-- 질문 쓰기 -->
 	<insert id="insertCommunityQna">
-        INSERT INTO community_Qna (user_no, user_name, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
-        VALUES (#{user_no}, #{user_name}, #{qcommunity_title}, #{qcommunity_content}, #{qcommunity_answer}, NOW());
-       
-    </insert>
+	    INSERT INTO community_QnA (user_no, user_name,  user_email, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
+	    VALUES (#{user_no}, #{user_name}, #{user_email}, #{qcommunity_title}, #{qcommunity_content}, #{qcommunity_answer}, NOW())
+	</insert>
+
   
 	<!-- 질문 목록 -->
 	<select id="getCommunityQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
@@ -68,6 +68,13 @@
     		community_QnA
     	WHERE
     		qcommunity_num = #{qcommunity_num}
+	</select>
+	
+	<!-- 	user_info에서 user_name 갖고오기 -->
+	<select id="getUserName" resultType="String">
+		SELECT user_name
+		FROM user_info
+		WHERE user_no = #{user_no}
 	</select>
   
 </mapper>

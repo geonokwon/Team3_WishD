@@ -93,8 +93,18 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="submit" class="btn btn-primary2"><a href="community" class="text-light text-decoration-none">돌아가기</a></button>
+                            <a href="community" class="btn btn-primary2 text-light text-decoration-none">돌아가기</a>
+                            
+                            <!-- 로그인한 경우에만 수정하기 버튼 표시 -->
+		        			<c:if test="${sessionScope.user_no == 999}">
+		            			<div class="d-flex justify-content-center px-4">
+		                			<a href="${pageContext.request.contextPath}/notice_update?ncommunity_num=${communityDTO.ncommunity_num}" class="btn btn-primary2 text-light text-decoration-none">수정하기</a>
+		           				</div>
+		       				</c:if>
+                            
                         </div>
+<!--                         /* <a href="" class="custom-title text-change-box text-decoration-none"></a> */ -->
+                        
                     </div>
 						
                  

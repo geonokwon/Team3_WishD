@@ -67,6 +67,13 @@ public class CommunityDAO {
 		System.out.println("CommunityDAO getCommunityCount()");
 			
 		return sqlSession.selectOne(namespace + ".getCommunityCount",communitypageDTO);
+	}
+
+	//sql에서 user_no 가져와서 반환하기
+	public String getUserName(Long user_no) {
+		System.out.println("CommunityDAO getUserName()");
+		return sqlSession.selectOne(namespace + ".getUserName", user_no);
+		
 	}	
 	
 }

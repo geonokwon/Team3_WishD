@@ -60,8 +60,13 @@ public class CommunityService {
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
 		System.out.println("CommunityService insertCommunityQna");
 			
+		//user 이름 가져오기
+		
+		communityQnaDTO.setUser_name(communityDAO.getUserName(communityQnaDTO.getUser_no()));
+		System.out.println(communityQnaDTO.getUser_name());
 		//글 번호
 		communityDAO.insertCommunityQna(communityQnaDTO);
+		
 			
 	}
 	
@@ -87,6 +92,8 @@ public class CommunityService {
 	public CommunityQnaDTO getCommunityQnaById(long qcommunity_num) {
 	    return communityDAO.getCommunityQnaById(qcommunity_num);
 	}
+	
+	
 	
 	//검색어 포함
 	public int getCommunityCount(CommunityPageDTO communitypageDTO) {
