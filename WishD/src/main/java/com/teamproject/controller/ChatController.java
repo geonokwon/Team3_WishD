@@ -81,7 +81,6 @@ public class ChatController {
 
         //메세지 보내기
         messagingTemplate.convertAndSend("/topic/board/" + pboard_id, chatMessageDTO);
-        chatMessageService.getMe();
     }
 
     //매칭 취소시
