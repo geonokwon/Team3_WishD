@@ -53,11 +53,11 @@
                 <!-- 직무 선택 -->
                 <div class="ms-2 mb-4">
                     <label for="jobGroup" class="mb-1">직무(선택)</label>
-                    <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px" required>
+                    <select class="form-select bg-dark" id="jobGroup" name="job_id" style="width: 320px" required>
                         <option value="" disabled selected>직무를 선택하세요</option>
-                        <option value="앱 개발자">앱 개발자</option>
-                        <option value="웹 개발자">웹 개발자</option>
-                        <option value="시스템 개발자">시스템 개발자</option>
+                        <c:forEach items="${projectJobList}" var="jobList">
+                            <option value="${jobList.getJob_id()}">${jobList.getJob_name()}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -68,7 +68,7 @@
                     <select class="form-select bg-dark mb-2" id="skill" >
                         <option value="" disabled selected>스킬선택</option>
                         <c:forEach items="${projectSkillList}" var="skill">
-                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
+                            <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
                         </c:forEach>
                     </select>
                     <div id="badge_container">

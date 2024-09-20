@@ -2,7 +2,6 @@ package com.teamproject.dao;
 
 
 import com.teamproject.domain.ChatMessageDTO;
-import com.teamproject.service.ChatMessageService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,6 +24,7 @@ public class ChatMessageDAO {
         logger.info("-> getRequestFreelancerID()");
         return sqlSession.selectOne(namespace + "getRequestFreelancerID", pboardId);
     }
+
 
 
     // 메시지 저장
@@ -57,4 +57,13 @@ public class ChatMessageDAO {
         logger.info("-> setChatMessageIsMatching()");
         sqlSession.update(namespace + "setChatMessageIsMatching", pboardId);
     }
+
+    //매칭 완료시 project_board -> state 값 변경
+    public void setCompleteState(Long pboard_id) {
+        logger.info("-> setCompleteState()");
+        sqlSession.update(namespace + "setCompleteState", pboard_id);
+    }
+
+
+
 }

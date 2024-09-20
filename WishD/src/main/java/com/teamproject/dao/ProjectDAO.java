@@ -96,9 +96,9 @@ public class ProjectDAO {
     }
 
     //request_freelancer 데이터 가져올때 request_skill 테이블에 skill 불러오기
-    public List<ProjectSkillDTO> getRequestSkill(Long pboardId) {
+    public List<ProjectSkillDTO> getRequestSkill(Long request_id) {
         logger.info("-> getRequestSkill()");
-        return sqlSession.selectList(nameSpace + "getRequestSkill", pboardId);
+        return sqlSession.selectList(nameSpace + "getRequestSkill", request_id);
     }
 
     //request_from 승인요청 시 보여줄 file 정보도 함께 가져간다
@@ -128,5 +128,11 @@ public class ProjectDAO {
     public String getUserName(Long user_no) {
         logger.info("-> getUserName()");
         return sqlSession.selectOne(nameSpace + "getUserName", user_no);
+    }
+
+    //job List 불러오기
+    public List<JobDTO> getJobList() {
+        logger.info("-> getJobList()");
+        return sqlSession.selectList(nameSpace + "getJobList");
     }
 }
