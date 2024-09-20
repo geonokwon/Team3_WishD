@@ -392,7 +392,7 @@
 													var="myProjectStartDate" pattern="yyyy-MM-dd" />
 												<fmt:formatDate value="${myProjectStartDate}"
 													pattern="yyyy년 MM월 dd일" />
-
+ 
 											</p>
 											<!-- 예상 기간 -->
 											<p class="col-3 card-text">예상 기간:
