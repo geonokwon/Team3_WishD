@@ -14,6 +14,7 @@ import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
+import com.teamproject.domain.JobsDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -145,6 +146,25 @@ public class MyPageService {
 
 	public String userIdCheck(String id) {
 		return myPageDAO.userIdCheck(id);
+	}
+
+	public List<JobsDTO> getJobsList() {
+		return myPageDAO.getJobsList();
+	}
+
+	public List<MyProjectDTO> getRequestListCount(Long user_no) {
+		return myPageDAO.getRequestListCount(user_no);
+	}
+
+	public List<MyProjectDTO> getMyRequestProject(MyProjectPageDTO myProjectRequestPageDTO) {
+		List<MyProjectDTO> myProjectList = myPageDAO.getMyRequestProject(myProjectRequestPageDTO);
+		
+		for(MyProjectDTO i : myProjectList) {
+			i.setSkills(myPageDAO.getMyProjectSkillList(i.getPboard_id()));
+			System.out.println(i);
+		}
+		System.out.println(myProjectList.size());
+		return myProjectList;
 	}
 
 	

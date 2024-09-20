@@ -23,9 +23,20 @@ public class MyProjectPageDTO {
     private String projectStatus;
     // 내가쓴글 가져오는 용도
     private Long user_no;
+    // 내가 신청한글
+	private String request_project;
     
-    
-    public String getProjectStatus() {
+	
+	
+    public String getRequest_project() {
+		return request_project;
+	}
+
+	public void setRequest_project(String request_project) {
+		this.request_project = request_project;
+	}
+
+	public String getProjectStatus() {
 		return projectStatus;
 	}
 

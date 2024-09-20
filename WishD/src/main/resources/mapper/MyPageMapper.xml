@@ -55,6 +55,7 @@
         	<if test="projectStatus != null">
         	and pboard_state = #{projectStatus}
         	</if>
+        	order by pboard_id desc
         	limit #{startRow}, #{endRow};
 			
 <!--   		select * from project_board  -->
@@ -162,7 +163,7 @@
 	</select>
 	
 	<!-- 내프로젝트 수정 -->
-	<update id="updateMyProject">
+	<update id="updateMyProject"> <!-- 테이블수정먼저 -->
 		update project_board
 		set
 		pboard_title = #{pboard_title},
@@ -170,20 +171,20 @@
 		pboard_content = #{pboard_content},
 		pboard_startDate = STR_TO_DATE(#{pboard_startDate}, '%Y-%m-%d %H:%i:%s'),
 		pboard_rangeMonth = #{pboard_rangeMonth},
-		pboard_job = #{pboard_job},
+		job_id = #{job_id},
 		pboard_update = now(),
 		pboard_manager_phone = #{pboard_manager_phone},
 		pboard_company_name = #{pboard_company_name}
 		where pboard_id = #{pboard_id};
 	</update>
-	<delete id="updateMyProjectSkillDelete">
+	<delete id="updateMyProjectSkillDelete"> <!-- 스킬테이블에서 삭제 -->
 		delete
 		from project_skill
 		<if test="skillList != ''">
 			where pboard_id = #{pboard_id};
 		</if>
 	</delete>
-	<insert id="updateMyProjectSkillInsert">
+	<insert id="updateMyProjectSkillInsert"> <!-- 스킬테이블에 다시 등록 -->
         insert
         into project_skill
         values
@@ -210,8 +211,8 @@
 		dev_exp = #{dev_exp},
 		freelancer_introduction = #{freelancer_introduction},
 		freelancer_link = #{freelancer_link},
-		freelancer_update = now()
-<!-- 		job_id = #{job_id} -->
+		freelancer_update = now(),
+		job_id = #{job_id}
 		where freelancer_id = #{freelancer_id};
     </update>
 	<delete id="updateMyFreelancerSkillDelete">
@@ -236,6 +237,38 @@
 		from user
 		where user_id = #{id}
 	</select>
+	
+	<select id="getJobsList" resultType="com.teamproject.domain.JobsDTO">
+		select * from jobs
+	</select>
 
-
+	<!-- 요청한 글 가운트용 -->
+	<select id="getRequestListCount" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+	</select>
+	
+	<!-- 요청한 글 가운트용 -->
+	<select id="getRequestList" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+	</select>
+	
+	<!-- 요청한 글 페이징해서 -->
+	<select id="getMyRequestProject" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+		<if test="search != null">
+        and pboard_title LIKE CONCAT('%', #{search}, '%')
+        </if>
+        order by project_board.pboard_state asc
+        limit #{startRow}, #{endRow};
+	</select>
+	
 </mapper>

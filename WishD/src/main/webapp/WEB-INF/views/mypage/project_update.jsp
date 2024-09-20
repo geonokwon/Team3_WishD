@@ -57,11 +57,12 @@
                 <!-- 직무 선택 -->
                 <div class="ms-2 mb-4">
                     <label for="pboard_job" class="mb-1">직무(선택)</label>
-                    <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px" required>
+                    <select class="form-select bg-dark" id="jobGroup" name="job_id" style="width: 320px" required>
                         <option value="" disabled>직무를 선택하세요</option>
-                        <option value="앱 개발자" ${project.job == '앱 개발자' ? 'selected' : ''}>앱 개발자</option>
-                        <option value="웹 개발자" ${project.job == '웹 개발자' ? 'selected' : ''}>웹 개발자</option>
-                        <option value="시스템 개발자" ${project.job == '시스템 개발자' ? 'selected' : ''}>시스템 개발자</option>
+                        <c:forEach items="${myProjectJobsDTO}" var="myProjectJobs">
+                        	<option <c:if test="${myProjectDTO.job_id eq myProjectJobs.job_id}">selected</c:if>
+                        		value="${myProjectJobs.job_id}">${myProjectJobs.job_name}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -182,7 +183,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-sm btn-primary" id="agree_btn" value="수정하기">
-                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">돌아가기</button>
+                                <button type="button" onclick="" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">돌아가기</button>
                             </div>
                         </div>
                     </div>
