@@ -51,7 +51,7 @@
 			<c:forEach var="projectRequestDTO" items="${rqfList }">
 				<tr>
 					<td>${projectRequestDTO.f_request_id }</td>
-					<td>${projectRequestDTO.f_request_title }</td>
+					<td><a href="${pageContext.request.contextPath}/manager/projectRead/${projectRequestDTO.getPboard_id()}">${projectRequestDTO.f_request_title }</a></td>
 					<td style="width:30%;">${projectRequestDTO.f_request_date }</td>
 				</tr>
 			</c:forEach>

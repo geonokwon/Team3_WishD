@@ -8,19 +8,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>관리자 페이지</title>
+    <title>project_read</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerP.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerAside.css">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
+
+<div class="wrap">
+<!-- Aside -->
+<jsp:include page="../include/managerAside.jsp"/>
 
 <!-- Main Content -->
 <div class="container my-4 mx-5 px-5 py-5">
@@ -91,7 +104,7 @@
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_job()}</p>
+                            <p class="mb-0">${projectDTO.getJob_id()}</p>
                         </div>
                     </div>
 
@@ -123,8 +136,21 @@
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
                             <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
-                        <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
-                        <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                        <div class="overlay-container"  style="height: 520px">
+                            <c:if test="${!empty sessionScope.user_no}">
+                                <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
+                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                            </c:if>
+                            <c:if test="${empty sessionScope.user_no}">
+                                <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
+                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                                <div class="overlay-message active">
+                                    <div>
+                                        <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
 
                     <!-- 끝단 -->
@@ -195,15 +221,14 @@
                                     </c:forEach>
                                 </select>
 
+                                <!--클릭시 베지 추가-->
                                 <div id="badge_container">
                                     <c:if test="${! empty projectRequestDTO}">
-                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skills">
-                                        <p class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skills.getSkill_name()}</p>
+                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList">
+                                            <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div>
                                         </c:forEach>
                                     </c:if>
-                                    <!--클릭시 베지 추가-->
                                 </div>
-
                                 <input type="hidden" name="skillList" id="skillList" required/>
                             </div>
 
@@ -303,21 +328,13 @@
                         </div>
                     </div>
 
-                    <!-- 로그인시 -->
-                    <div class="card" id="matching_button">
-                        <button type="button" class="btn btn-primary">매칭하기</button>
-                    </div>
-
-                    <!-- 비로그인시 -->
-                    <div class="card" style="display: none">
-                        <button class="btn btn-primary my-2 mx-4" >로그인 / 회원가입</button>
-                    </div>
-
                 </div>
             </div>
+
             <!-- side rquest-form end-->
         </div>
     </div>
+</div>
 </div>
 
 <!-- Footer -->
@@ -336,6 +353,9 @@
         $("#requestForm").show();
         $("#matching_button").hide();
         $("#agree_button").show();
+        $("#badge_container").hide();
+        $("#matching_button_waiting").hide();
+
 
         //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
         let requestForm = $("#projectReadForm");
@@ -362,9 +382,11 @@
         console.log("requestUserNo : " +requestUserNo);
         let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
 
-        if (sessionUserNo === requestUserNo || ((sessionUserNo === projectUserNo) && isAgree === "true")){
+        
             $("#formFile").hide();
             $("#requestFile").show();
+            $("#badge_container").show();
+
             //한줄 자기 소개
             $("#request_title").val("${projectRequestDTO.getF_request_title()}");
 
@@ -413,13 +435,14 @@
                 // 버튼 클릭 이벤트 처리
                 $('#match_button').click(function() {
                     console.log('매칭 버튼 클릭됨');
+                    location.href="${pageContext.request.contextPath}/chatting/${projectDTO.getPboard_id()}"
                 });
 
                 $('#cancel_button').click(function() {
                     console.log('취소 버튼 클릭됨');
+                    location.href="${pageContext.request.contextPath}/projectReqFalse/${projectDTO.getPboard_id()}"
                 });
             }
-        }
     }
 </script>
 <script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
