@@ -32,7 +32,7 @@ public class MyPageService {
 		// 처음에 user 테이블에서 가져옴
 		MemberDTO memberDTO = myPageDAO.getLoginMember(user_no);
 		System.out.println("일반 memberDTO : " + memberDTO);
-		if(memberDTO.getUser_id() == null) { // user_id가 없으면 simple_user 테이블에서 가져옴
+		if(memberDTO == null) { // user_id가 없으면 simple_user 테이블에서 가져옴
 			memberDTO = myPageDAO.getSimpleMember(user_no);
 			System.out.println("심플 memberDTO : " + memberDTO);
 		}

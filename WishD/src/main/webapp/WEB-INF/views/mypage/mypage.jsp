@@ -50,6 +50,8 @@
 							for="email">이메일</label>
 					</div>
 				</div>
+				
+				<c:if test="${myProfile.user_id != null }">
 				<div class="form-row">
 					<div class="input-group">
 						<input type="text" id="user_phone" name="user_phone" readonly
@@ -69,8 +71,9 @@
 					</c:if>
 				</div>
 
+				
+				
 				<hr>
-				<c:if test="${myProfile.user_id != null }">
 					<div class="form-row">
 						<div class="input-group">
 							<input type="password" id="user_pass" name="user_pass"

@@ -24,7 +24,7 @@
 	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join simple_user
 		on user_info.user_no = simple_user.user_no
-		where user_no = #{user_no}
+		where user_info.user_no = #{user_no}
 	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
