@@ -27,13 +27,12 @@
 }
 
 .input-group {
-    margin : 20px;
-    display: flex;
-    align-items: center;
+    margin: 20px;
+    display: flex; /* 가로로 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
     position: relative;
-  
-    
 }
+
 
 .input-group p {
     margin: -10px 0 5px 10px;
@@ -52,7 +51,7 @@
     color: white;
     font-size: 14px;
     transition: border-color 0.3s ease;
-    margin-right : 10px;
+    margin-right : 15px;
     
 }
 
@@ -123,7 +122,6 @@
 .signup-btn:hover {
     background-color: #5a34a1;
 }
-
 
 /* 별 배경 */
 

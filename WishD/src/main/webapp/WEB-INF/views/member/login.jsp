@@ -38,58 +38,78 @@
             <div class="login-left">
                 <h2>Login</h2>
                 <form id="loginForm" action="${pageContext.request.contextPath}/loginPro" method="post">
-                    <input type="text" id="userId" name="user_id" placeholder="아이디를 입력하세요" required>
-                    <input type="password" id="password" name="user_pass" placeholder="비밀번호를 입력하세요" required>
+                	<!-- 아이디 입력란 -->
+                    <input 
+                    	type="text" 
+                    	id="user_Id" 
+                    	name="user_id" 
+                    	placeholder="아이디를 입력하세요" 
+                    	required
+                    	/>
+                    	
+                    <!-- 비밀번호 입력란 -->
+                    <input 
+                    	type="password" 
+                    	id="password" 
+                    	name="user_pass" 
+                    	placeholder="비밀번호를 입력하세요" 
+                    	required
+                    	/>
                     
+                    <!-- 아이디 기억하기 체크박스 -->
                     <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">아이디 기억하기</label>
-                    </div>
+    					<input type="checkbox" id="rememberMe">
+    					<label for="rememberMe">아이디 기억하기</label>
+					</div>
 
+					<!-- 로그인 버튼 -->
                     <button type="submit" class="login-btn">로그인</button>
 
                     <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
                    <ul class="nav1 justify-content-center">
     			   	  <li class="nav2">
-        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/idFind">아이디 찾기</a>
+        				<a 
+        				   class="nav3" 
+        				   aria-current="page" 
+        				   href="${pageContext.request.contextPath}/idFind">
+        				   아이디 찾기
+        				</a>
     				  </li>
     				  <li class="nav2">
-        				<a class="nav3" aria-current="page" href="${pageContext.request.contextPath}/passFind">비밀번호 찾기</a>
+        				<a 
+        				  class="nav3" 
+        				  aria-current="page" 
+        				  href="${pageContext.request.contextPath}/passFind">
+        				  비밀번호 찾기
+        				</a>
     				  </li>
    					  <li class="nav2">
        					<a class="nav3" href="${pageContext.request.contextPath}/insert">회원가입</a>
     				  </li>
 				  </ul>
-
+					<!-- 에러메세지 -->
                     <div id="errorMsg" class="error-msg">아이디와 비밀번호가 일치하지 않습니다.</div>
                     
                     <!-- 간편 로그인 버튼 -->
                     <div class="social-login">
-                        <a href="#" class="social-btn">
-
+                        <a href="" class="social-btn">
                             <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image">
                         </a>
-                        <a href="#" class="social-btn">
+                        <a href="${pageContext.request.contextPath}/naver" class="social-btn">
                             <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image">
                         </a>
                     </div>
-
                 </form>
             </div>
-
             <!-- 오른쪽 이미지 영역 -->
             <div class="login-right">
                 <div class="image-container">
                     <img src="${pageContext.request.contextPath}/resources/member/images/WishD.png" alt="WishD 로고" class="promo-image">
-
                     <div class="image-text">WishD에 오신 것을 환영합니다!</div>
 				</div> 
-				 
-                </div>
-                
-            </div>
-           
-        </div>
+           </div>
+      </div>
+  </div>
 <!-- 별배경 -->
 <div class="noite"></div>
 <div class="constelacao"></div>
