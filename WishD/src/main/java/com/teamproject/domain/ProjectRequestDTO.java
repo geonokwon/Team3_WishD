@@ -15,14 +15,8 @@ public class ProjectRequestDTO {
     private String f_request_date;
     private boolean f_request_isAgree;
 
-
-
-
     private String skillList;
     private List<ProjectSkillDTO> skills;
-
-
-
 
     public List<ProjectSkillDTO> getSkills() {
         return skills;

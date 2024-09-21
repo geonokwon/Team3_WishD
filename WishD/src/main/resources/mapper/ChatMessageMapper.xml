@@ -59,5 +59,13 @@
         WHERE pboard_id = #{pboard_id}
     </update>
 
+    <!-- 채팅중 매칭취소시 파일삭제 -->
+    <!-- project_request_file -->
+    <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
+        SELECT *
+        FROM project_request_files
+        WHERE pboard_id = #{pboard_id};
+    </select>
+
 
 </mapper>

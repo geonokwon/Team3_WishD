@@ -1,8 +1,8 @@
 package com.teamproject.domain;
 
-import java.util.Objects;
+import com.teamproject.utils.PaginationIF;
 
-public class ProjectPageDTO {
+public class ProjectPageDTO implements PaginationIF {
     private int pageSize;
     private int pageNum;
     private int currentPage;
@@ -25,33 +25,6 @@ public class ProjectPageDTO {
     private Integer createdDateFilter;
     //진행중 , 모집중 모아보기
     private Integer state;
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProjectPageDTO that = (ProjectPageDTO) o;
-        return pageSize == that.pageSize &&
-                pageNum == that.pageNum &&
-                currentPage == that.currentPage &&
-                startRow == that.startRow &&
-                endRow == that.endRow &&
-                count == that.count &&
-                startPage == that.startPage &&
-                endPage == that.endPage &&
-                pageCount == that.pageCount &&
-                pageBlock == that.pageBlock &&
-                Objects.equals(search, that.search) &&
-                Objects.equals(skill_id, that.skill_id) &&
-                Objects.equals(createdDateFilter, that.createdDateFilter) &&
-                Objects.equals(state, that.state);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pageSize, pageNum, currentPage, startRow, endRow, count, startPage, endPage, pageCount, pageBlock, search, skill_id, createdDateFilter, state);
-    }
 
 
 
@@ -87,82 +60,102 @@ public class ProjectPageDTO {
         this.search = search;
     }
 
+    @Override
     public int getStartPage() {
         return startPage;
     }
 
+    @Override
     public void setStartPage(int startPage) {
         this.startPage = startPage;
     }
 
+    @Override
     public int getEndPage() {
         return endPage;
     }
 
+    @Override
     public void setEndPage(int endPage) {
         this.endPage = endPage;
     }
 
+    @Override
     public int getPageCount() {
         return pageCount;
     }
 
+    @Override
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
+    @Override
     public int getPageBlock() {
         return pageBlock;
     }
 
+    @Override
     public void setPageBlock(int pageBlock) {
         this.pageBlock = pageBlock;
     }
 
+    @Override
     public int getCount() {
         return count;
     }
 
+    @Override
     public void setCount(int count) {
         this.count = count;
     }
 
+    @Override
     public int getStartRow() {
         return startRow;
     }
 
+    @Override
     public void setStartRow(int startRow) {
         this.startRow = startRow;
     }
 
+    @Override
     public int getEndRow() {
         return endRow;
     }
 
+    @Override
     public void setEndRow(int endRow) {
         this.endRow = endRow;
     }
 
+    @Override
     public int getPageSize() {
         return pageSize;
     }
 
+    @Override
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
+    @Override
     public int getPageNum() {
         return pageNum;
     }
 
+    @Override
     public void setPageNum(int pageNum) {
         this.pageNum = pageNum;
     }
 
+    @Override
     public int getCurrentPage() {
         return currentPage;
     }
 
+    @Override
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }

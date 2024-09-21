@@ -289,7 +289,6 @@ body {
 
 /* 섹션 2 */
 .second-section {
-    height: 700px;
     display: flex; /* 자식 요소들을 수평으로 배치 */
 }
 
@@ -351,6 +350,4 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: 15rem;
-    margin-bottom: 1rem;
 }

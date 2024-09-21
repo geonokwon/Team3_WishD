@@ -8,9 +8,6 @@ public class ProjectSkillDTO {
     private int f_request_id;
 
 
-
-
-
     public int getF_request_id() {
         return f_request_id;
     }

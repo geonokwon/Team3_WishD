@@ -19,13 +19,13 @@
 	</insert>
 	
 	
-	
 	<!-- 회원여부확인 -->
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
 		SELECT * 
-		FROM user
-		WHERE user_id = #{user_id} 
-		AND user_pass = #{user_pass}
+		FROM user u JOIN user_info ui
+		ON u.user_no = ui.user_no
+		WHERE u.user_id = #{user_id} 
+		AND u.user_pass = #{user_pass}
 	</select>
 	
 	<!--아이디 찾기 -->
@@ -72,23 +72,26 @@
 		SELECT email
 		FROM user_info
 		WHERE email = #{id}
-	
-	
 	</select>
 	
+	<!-- 네이버 간편로그인 -->
+	<!-- 통합회원정보 -->
+	<insert id="setSimpleUserInfo"  useGeneratedKeys="true" keyProperty="user_no" keyColumn="user_no"> 
+		INSERT INTO user_info(user_name, email, user_type)
+		VALUES(#{user_name}, #{email}, #{user_type})
+	</insert>
 	
 	
+	<insert id="setSimpleUesr" >
+		INSERT INTO simple_user(user_no, access_token)
+		VALUES (#{user_no}, #{access_token})
+	</insert>
 
- 		<!-- 간편회원 로그인 --> 
-<!-- 	<insert id="insertSimpleMember"> -->
-<!-- 		insert into simple_user(user_no, access_Token) -->
-<!-- 		values(#{user_no}, #{access_Token}) -->
-
-<!-- 	</insert> -->
-	
-	
-
-	
-	
+	<!-- 간편로그인 중복가입 오류 방지 -->
+	<select id="CheckToken" resultType="com.teamproject.domain.SimpleUserDTO">
+		SELECT *
+		FROM simple_user
+		WHERE access_token = #{access_token}
+	</select>
 
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.teamproject.domain.MemberDTO;
+import com.teamproject.domain.SimpleUserDTO;
 
 @Repository
 public class MemberDAO {
@@ -57,8 +58,6 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + "userEmailCheck", id);
 	}
 		
-		
-
 	// 아이디 찾기
 	@Transactional
 	public MemberDTO idFind(MemberDTO memberDTO) {
@@ -82,6 +81,23 @@ public class MemberDAO {
 		return memberDTO;
 	}
 	
+	// 네이버 간편로그인
+	public void setSimpleUesr(SimpleUserDTO simpleUserDTO) {
+		System.out.println("MemberDAO setSimpleUesr()");
+		sqlSession.insert(namespace + "setSimpleUesr", simpleUserDTO);
+
+	}
+
+	//간편로그인 회원가입 공통 정보 저장
+	public void setSimpleUserInfo(SimpleUserDTO simpleUserDTO) {
+		sqlSession.insert(namespace + "setSimpleUserInfo", simpleUserDTO);
+
+	}
+
+	public SimpleUserDTO checkToken(String access_token) {
+		return sqlSession.selectOne(namespace + "CheckToken", access_token);
+	}
+
 	
 
 }//클래스
