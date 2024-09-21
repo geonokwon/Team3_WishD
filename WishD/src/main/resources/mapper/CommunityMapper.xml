@@ -10,12 +10,13 @@
 	<!-- 공지사항 글쓰기 등록 -->
 	<insert id="insertCommunity">
         INSERT INTO community_notice (admin_id, ncommunity_title, ncommunity_content, ncommunity_date, ncommunity_update)
-        	VALUES (1, #{ncommunity_title}, #{ncommunity_content}, NOW(), NOW());
+        	VALUES (1, #{ncommunity_title}, #{ncommunity_content}, NOW(), NOW())
     </insert>
   
 	<!-- 공지사항 목록 -->
 	<select id="getCommunityList" resultType="com.teamproject.domain.CommunityDTO">
-		SELECT * FROM community_notice;
+		SELECT * FROM community_notice
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
 	<!-- 공지사항 상세 페이지 -->
@@ -27,24 +28,35 @@
     		ncommunity_num = #{ncommunity_num}
 	</select>
 	
-	
-	<!-- 공지사항 수정 -->
-	<update id="updateCommunity">
-		 UPDATE community_notice
-    	 	SET 
-        		ncommunity_title = #{ncommunity_title},
-        		ncommunity_content = #{ncommunity_content},
-        		ncommunity_update = NOW()
-    		WHERE 
-        		admin_id = #{admin_id};
+	<!-- 공지사항 수정  -->
+	<update id="updateCommunity" parameterType="com.teamproject.domain.CommunityDTO">
+   	 	UPDATE community_notice
+   	 	SET ncommunity_title = #{ncommunity_title},
+       		ncommunity_content = #{ncommunity_content}
+    	WHERE ncommunity_num = #{ncommunity_num}
 	</update>
+	
+	<!-- 공지사항 삭제  -->
+	<delete id="deleteCommunity" parameterType="long">
+   	 	DELETE FROM community_notice
+   	 	WHERE ncommunity_num = #{ncommunity_num}
+	</delete>
+	
+	<!-- 공지사항 페이지 카운팅 -->
+    <select id="noticePageCount" parameterType="com.teamproject.domain.CommunityDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            community_notice
+    </select>
+
 	
 	<!-- 질문 쓰기 -->
 	<insert id="insertCommunityQna">
-        INSERT INTO community_Qna (user_no, user_name, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
-        VALUES (#{user_no}, #{user_name}, #{qcommunity_title}, #{qcommunity_content}, #{qcommunity_answer}, NOW());
-       
-    </insert>
+	    INSERT INTO community_QnA (user_no, user_name,  user_email, qcommunity_title, qcommunity_content, qcommunity_answer, qcommunity_date)
+	    VALUES (#{user_no}, #{user_name}, #{user_email}, #{qcommunity_title}, #{qcommunity_content}, #{qcommunity_answer}, NOW())
+	</insert>
+
   
 	<!-- 질문 목록 -->
 	<select id="getCommunityQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
@@ -58,6 +70,36 @@
     		community_QnA
     	WHERE
     		qcommunity_num = #{qcommunity_num}
+	</select>
+	
+	<!-- 질문 수정  -->
+	<update id="updateCommunityQna" parameterType="com.teamproject.domain.CommunityQnaDTO">
+   	 	UPDATE community_QnA
+   	 	SET qcommunity_title = #{qcommunity_title},
+       		qcommunity_content = #{qcommunity_content},
+        	user_email = #{user_email}
+    	WHERE qcommunity_num = #{qcommunity_num}
+	</update>
+	
+	<!-- 질문 삭제  -->
+	<delete id="deleteCommunityQna" parameterType="long">
+   	 	DELETE FROM community_QnA
+   	 	WHERE qcommunity_num = #{qcommunity_num}
+	</delete>
+	
+	<!-- 질문 답변 -->
+	<update id="updateQnaAnswer" parameterType="com.teamproject.domain.CommunityQnaDTO">
+    UPDATE community_QnA
+    SET qcommunity_answer = 'complete'
+    WHERE qcommunity_num = #{qcommunity_num}
+	</update>
+	
+	
+	<!-- 	user_info에서 user_name 갖고오기 -->
+	<select id="getUserName" resultType="String">
+		SELECT user_name
+		FROM user_info
+		WHERE user_no = #{user_no}
 	</select>
   
 </mapper>

@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qna_update</title>
+    <title>WishD | 커뮤니티 Q&A</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -64,16 +65,18 @@
 
         <!-- 섹션 2 - 2 글쓰기 -->
         <div class="col-8 second-section-2">
-
+		  <form action="${pageContext.request.contextPath}/qna_updatePro" method="post">
+				<input type="hidden" name="qcommunity_num" value="${communityQnaDTO.qcommunity_num}" />
             <div class="row">
-
                 <!-- Q&A 제목란 -->
                 <div class="col">
+                
                     <div class="col-12 second-section-2"> 
                         <label for="notice_label" class="noticeLabelText">Notice </label>   
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+                        <input type="text" name="qcommunity_title" class="custom-textbox no-border"
+                         value="${communityQnaDTO.qcommunity_title}">
                     </div>
                 </div>
 
@@ -83,7 +86,8 @@
                         <label for="" class="noticeLabelText">&nbsp;</label>
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Email </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="답변 받으실 이메일을 작성해주세요......">
+                        <input type="text" name="user_email" class="custom-textbox no-border"
+						value="${communityQnaDTO.user_email}">
                     </div>
                 </div>
 
@@ -92,20 +96,26 @@
                     <div class="col">
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="custom-textbox1 input-box no-border" name="qcommunity_content">${communityQnaDTO.qcommunity_content}</textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
                             <div class="" style="padding-right: 4%;">
-                                <button type="button" class="btn btn-primary2">질문 수정</button>
+                                <button type="submit" class="btn btn-primary2">질문 수정</button>
                             </div>
-                            <button type="button" class="btn btn-outline-primary3">질문 삭제</button>
+           </form>         
+                            <form action="${pageContext.request.contextPath}/qna_deletePro" method="post">
+    						<input type="hidden" name="qcommunity_num" value="${communityQnaDTO.qcommunity_num}" />
+                            	<button type="submit" class="btn btn-outline-primary3">질문 삭제</button>
+                    		</form>                   
+                       
                         </div>
                     </div>
                 </div>
-
             </div>
+            
+           
         </div> <!-- 섹션 2 - 2 종료 -->
 
         <!-- 섹션 2 - 3 -->
