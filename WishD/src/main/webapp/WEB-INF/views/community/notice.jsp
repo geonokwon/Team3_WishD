@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>community_main</title>
+    <title>WishD | 커뮤니티</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -19,6 +19,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/notice.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -54,7 +55,11 @@
         <div class="col-2 second-section-1 menutext-left">
             <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
             <a href="qna" class=" qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            
+			<!-- 관리자면 write 버튼 뜨게. -->
+			<c:if test="${(user_no == 999)}">
             <a href="notice_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a>
+        	</c:if>
         </div>
 
         <!-- 글 목록 -->
@@ -89,7 +94,7 @@
         </div> <!-- 글 목록 -->
 
     <div class="col-2 second-section-1 menutext-right">
-        <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>Search</a><br>
+<!--         <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>Search</a><br> -->
     </div>
     
     

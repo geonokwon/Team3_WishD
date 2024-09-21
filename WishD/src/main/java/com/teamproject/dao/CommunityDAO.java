@@ -44,6 +44,11 @@ public class CommunityDAO {
 		sqlSession.update(namespace + ".updateCommunity", communityDTO);
 	}
 	
+	//공지사항 삭제하기
+	public void deleteCommunity(long ncommunity_num) {
+		sqlSession.delete(namespace + ".deleteCommunity", ncommunity_num);
+	}
+	
 	//질문 쓰기
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
 		sqlSession.insert(namespace + ".insertCommunityQna", communityQnaDTO);
@@ -62,6 +67,22 @@ public class CommunityDAO {
 		return sqlSession.selectOne(namespace + ".getCommunityQnaById", qcommunity_num);
 	}
 	
+	//질문 수정하기
+	public void updateCommunityQna(CommunityQnaDTO communityQnaDTO) {
+		sqlSession.update(namespace + ".updateCommunityQna", communityQnaDTO);
+	}
+	
+	//질문 삭제하기
+	public void deleteCommunityQna(long qcommunity_num) {
+		sqlSession.delete(namespace + ".deleteCommunityQna", qcommunity_num);
+	}
+	
+	//질문 답변
+	public void updateQnaAnswer(long qcommunity_num) {
+		sqlSession.update(namespace + ".updateQnaAnswer", qcommunity_num);
+		
+	}	
+	
 	//검색어 포함
 	public int getCommunityCount(CommunityPageDTO communitypageDTO) {
 		System.out.println("CommunityDAO getCommunityCount()");
@@ -74,6 +95,8 @@ public class CommunityDAO {
 		System.out.println("CommunityDAO getUserName()");
 		return sqlSession.selectOne(namespace + ".getUserName", user_no);
 		
-	}	
+	}
+
+
 	
 }

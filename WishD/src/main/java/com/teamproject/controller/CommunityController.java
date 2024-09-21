@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mysql.cj.Session;
 import com.teamproject.domain.CommunityDTO;
 import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.CommunityQnaDTO;
-import com.teamproject.domain.MemberDTO;
 import com.teamproject.service.CommunityService;
 
 @Controller
@@ -146,69 +144,52 @@ public class CommunityController {
 	
 	
 	
-	//공지사항 수정
-	// 글 수정 페이지로 이동
-	    @GetMapping("/notice_update")
-	    public String noticeUpdate() {
-	    
-	    	
-	        return "community/notice_update";  // 수정할 글 데이터를 담아 수정 페이지로 이동
-	    }
-	    
-//		//공지사항 수정
-//		// 글 수정 페이지로 이동
-//		    @GetMapping("/notice_updatePro")
-//		    public String noticeUpdatePro(@RequestParam("ncommunity_num") long ncommunity_num, Model model, HttpSession session) {
-////		        // 세션에서 관리자 확인
-////		        Long adminId = (Long) session.getAttribute("admin_id");
-//	//
-////		        // 관리자 권한 체크
-////		        if (adminId == null) {
-////		            return "redirect:/login";  // 관리자 로그인이 안된 경우 로그인 페이지로 리다이렉트
-////		        }
-//	//
-//		        // 글 정보 가져오기
-//		        CommunityDTO communityDTO = communityService.getCommunityById(ncommunity_num);
-//		        
-//		        // 글 정보를 모델에 담아서 수정 페이지로 전달
-//		        model.addAttribute("communityDTO", communityDTO);
-//
-//		        return "community/update";  // 수정할 글 데이터를 담아 수정 페이지로 이동
-//		    }
-	    
-	    
-	    
+		//공지사항 수정 페이지
+		@GetMapping("/notice_update")
+		public String noticeUpdate(@RequestParam("ncommunity_num") long ncommunity_num, Model model) {
+			
+			//id에 해당하는 질문 불러오기
+			CommunityDTO communityDTO = communityService.getCommunityById(ncommunity_num);
+			model.addAttribute("communityDTO", communityDTO);
+			
+			return "community/notice_update";
+			
+		}
+		
+		//공지사항 수정 처리
+		@PostMapping("/notice_updatePro")
+		public String noticeUpdatePro(@RequestParam("ncommunity_num")long ncommunity_num,
+									  @RequestParam("ncommunity_title")String ncommunity_title,
+								      @RequestParam("ncommunity_content")String ncommunity_content) {
+			
+			// DTO에 수정된 데이터 담기
+		    CommunityDTO communityDTO = new CommunityDTO();
+		    
+		    communityDTO.setNcommunity_num(ncommunity_num);
+		    communityDTO.setNcommunity_title(ncommunity_title);
+		    communityDTO.setNcommunity_content(ncommunity_content);
+
+		    // 서비스 호출해서 수정된 내용으로 업데이트
+		    communityService.updateCommunity(communityDTO);
+
+		    // 수정 후 수정된 페이지로 리다이렉트
+		    return "redirect:/notice_detail?ncommunity_num=" + ncommunity_num;
+			}
+		
+		//공지사항 삭제 처리
+		@PostMapping("/notice_deletePro")
+		public String noticeDeletePro(@RequestParam("ncommunity_num") long ncommunity_num) {
+			
+			//서비스 호출해서 삭제
+			communityService.deleteCommunity(ncommunity_num);
+			
+			//삭제 후 공지사항 페이지로 리다이렉트
+		    return "redirect:/community";
+		}
 	    
 
-	    // 글 수정 처리 (Post 방식)
-//	    @PostMapping("/community/update")
-//	    public String update(@ModelAttribute("communityDTO") CommunityDTO communityDTO, HttpSession session) {
-	        // 세션에서 관리자 확인
-//	        Long adminId = (Long) session.getAttribute("admin_id");
-//
-//	        // 관리자 권한 체크
-//	        if (adminId == null) {
-//	            return "redirect:/login";  // 관리자 로그인이 안된 경우 로그인 페이지로 리다이렉트
-//	        }
-//
-//	        // 서비스 계층을 통해 글 업데이트
-//	        communityService.updateCommunity(communityDTO);
-//
-//	        return "redirect:/community";  // 수정이 완료되면 목록 페이지로 리다이렉트
-//	    }
-//	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		//qna 페이지
 		@GetMapping("qna")
 		public String qna(HttpServletRequest request, Model model) {
 			
@@ -333,8 +314,8 @@ public class CommunityController {
 		//세션에서 로그인 정보 가져오기
 		 Long user_no = (Long) session.getAttribute("user_no");
 		 
-		 //만약에 로그인 안 했으면 로그인 화면 띄워주기
-		 if(user_no != communityQnaDTO.getUser_no()) {
+		 //만약에 본인이나 관리자가 아니라면 다시 qna 페이지로
+		 if((user_no != communityQnaDTO.getUser_no()) && user_no != 999) {
 			 model.addAttribute("fail", false);
 			 
 			 return "redirect:/qna";
@@ -344,12 +325,58 @@ public class CommunityController {
 		return "/community/qna_detail"; // JSP 경로
 	}	
 	
-	//질문 수정
+	//질문 수정 페이지
 	@GetMapping("/qna_update")
-	public String qnaUpdate() {
+	public String qnaUpdate(@RequestParam("qcommunity_num") long qcommunity_num, Model model) {
+		
+		//id에 해당하는 질문 불러오기
+		CommunityQnaDTO communityQnaDTO = communityService.getCommunityQnaById(qcommunity_num);
+		model.addAttribute("communityQnaDTO", communityQnaDTO);
 		
 		return "community/qna_update";
+		
 	}
 
-}
 
+	//질문 수정 처리
+	@PostMapping("/qna_updatePro")
+	public String qnaUpdatePro(@RequestParam("qcommunity_num")long qcommunity_num,
+							   @RequestParam("qcommunity_title")String qcommunity_title,
+							   @RequestParam("user_email") String user_email,
+							   @RequestParam("qcommunity_content")String qcommunity_content) {
+		
+		// DTO에 수정된 데이터 담기
+	    CommunityQnaDTO communityQnaDTO = new CommunityQnaDTO();
+	    
+	    communityQnaDTO.setQcommunity_num(qcommunity_num);
+	    communityQnaDTO.setQcommunity_title(qcommunity_title);
+	    communityQnaDTO.setUser_email(user_email);
+	    communityQnaDTO.setQcommunity_content(qcommunity_content);
+
+	    // 서비스 호출해서 수정된 내용으로 업데이트
+	    communityService.updateCommunityQna(communityQnaDTO);
+
+	    // 수정 후 수정된 페이지로 리다이렉트
+	    return "redirect:/qna_detail?qcommunity_num=" + qcommunity_num;
+		}
+	
+		//질문 삭제 처리
+		@PostMapping("/qna_deletePro")
+		public String qnaDeletePro(@RequestParam("qcommunity_num") long qcommunity_num) {
+			
+			//서비스 호출해서 삭제
+			communityService.deleteCommunityQna(qcommunity_num);
+			
+			//삭제 후 qna 페이지로 리다이렉트
+		    return "redirect:/qna";
+		}
+		
+		//답변 완료 처리
+		@PostMapping("/qna_answerPro")
+		public String qnaAnswerPro(@RequestParam("qcommunity_num") long qcommunity_num) {
+			communityService.qnaAnswer(qcommunity_num);
+			
+			return "redirect:/qna";
+		}
+
+}

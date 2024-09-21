@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qna_write</title>
+    <title>WishD | 커뮤니티 Q&A</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -54,12 +55,9 @@
         <!-- 섹션 2 - 1 -->    
         <div class="col-2 second-section-1 menutext-left">
            
-            <!-- <div class="col">
-                <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-                <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-                <a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
-            </div>
-       -->
+          <div class="col">
+                </div> 
+       
         </div>
 
         <!-- 섹션 2 - 2 글쓰기 -->
@@ -101,7 +99,10 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
+                        	<div class="" style="padding-right: 4%;">
                             <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
+                            </div>
+                            <a href="qna" class="btn btn-primary2 text-light text-decoration-none px-4">돌아가기</a>
                         </div>
                     </div>
                 </div>
@@ -113,9 +114,9 @@
 
         <!-- 섹션 2 - 3 -->
         <div class="col-2 second-section-3 menutext-right-1">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-            <a href="" class="myqna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>My Q&A</a>
+<!--             <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br> -->
+<!--             <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br> -->
+<!--             <a href="" class="myqna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>My Q&A</a> -->
         </div>
 
     </div> <!-- 섹션 2 종료 -->
