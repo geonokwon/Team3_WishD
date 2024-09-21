@@ -1,6 +1,7 @@
 package com.teamproject.controller;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -277,7 +278,7 @@ public class CommunityController {
 		 
 		 //만약에 본인이나 관리자가 아니라면 다시 qna 페이지로
 		 if((user_no != communityQnaDTO.getUser_no()) && user_no != 999) {
-			 model.addAttribute("fail", false);
+			 model.addAttribute("fail", true);
 			 
 			 return "redirect:/qna";
 		 }
@@ -332,12 +333,13 @@ public class CommunityController {
 		    return "redirect:/qna";
 		}
 		
-		//답변 완료 처리
-		@PostMapping("/qna_answerPro")
-		public String qnaAnswerPro(@RequestParam("qcommunity_num") long qcommunity_num) {
-			communityService.qnaAnswer(qcommunity_num);
+	
+	//답변 완료 처리
+	@PostMapping("/qna_answerPro")
+	public String qnaAnswerPro(@RequestParam("qcommunity_num") long qcommunity_num) {
+		communityService.qnaAnswer(qcommunity_num);
 			
-			return "redirect:/qna";
-		}
+		return "redirect:/qna";
+	}
 
 }

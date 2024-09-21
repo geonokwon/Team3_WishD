@@ -50,19 +50,24 @@
     </div>
 
     <!-- 섹션 2 -->
-    <div class="second-section d-flex">
+    <div class="second-section d-flex" style="height: 900px;">
 
         <div class="col-2 second-section-1 menutext-left">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+            <a href="community" class="comnotice text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
             
 			<!-- 로그인한 사람만 질문하기 게시판 들어갈 수 있게 -->
             <c:if test="${(user_no != null)}">
-            	<a href="qna" class=" qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            	<a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            </c:if>
+            
+            <!-- 비회원이 질문하기 게시판 들어가려면 로그인 페이지로 -->
+            <c:if test="${(user_no == null)}">
+            	<a href="http://localhost:8080/testProject/login" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
             </c:if>
 			
 			<!-- 관리자면 write 버튼 뜨게. -->
 			<c:if test="${(user_no == 999)}">
-            <a href="notice_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a>
+            <a href="notice_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>공지 작성</a>
         	</c:if>
         </div>
 
@@ -101,16 +106,7 @@
 <!--         <a href="" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>Search</a><br> -->
     </div>
     
-    
-	
-    
 </div>
-
-
-
-
-
-    
 
 </div> <!-- 컨테이너 -->
 <!-- 	페이지네이션 -->

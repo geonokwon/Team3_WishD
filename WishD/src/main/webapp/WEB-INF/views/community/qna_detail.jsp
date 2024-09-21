@@ -69,19 +69,19 @@
             <div class="row">
 
                 <!-- Q&A 제목란 -->
-                <div class="col">
+                <div class="col" style="padding-left: 0;">
                     <div class="col-12 second-section-2"> 
                         <label for="notice_label" class="noticeLabelText">Q & A </label>   
                         <div class="write-line"></div>
-<!--                         <label for="notice_title" class="noticeTitleText">Title </label> -->
+                        <label for="notice_title" class="noticeTitleText">작성자: ${communityQnaDTO.user_no}</label>
 <!--                         <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......"> -->
-
-							<p class="custom-textbox no-border readonly">${communityQnaDTO.qcommunity_title}</p>
+						<div class="write-line" style="margin-top:0.6rem; margin-bottom: 0.6rem;"></div>
+							<p class="customRead-textbox no-border readonly">${communityQnaDTO.qcommunity_title}</p>
                     </div>
                 </div>
 
                 <!-- Q&A 이메일란 -->
-                <div class="col">
+                <div class="col" style="padding-right: 0";>
                     <div class="col-12 second-section-2">
                         <label for="" class="noticeLabelText">&nbsp;</label>
                         <div class="write-line"></div>
@@ -94,11 +94,14 @@
                 <!-- 내용란 -->
                 <div class="col-12 second-section-2">
                     <div class="col">
+                      <div class="d-flex justify-content-center">
                         <div class="write-line"></div>
+                      </div>
 <!--                         <label for="notice_title" class="noticeTitleText">Content </label> -->
 <!--                         <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea> -->
-                
+                	
                 		<p class="custom-textbox1 input-box no-border readonly">${communityQnaDTO.qcommunity_content}</p>
+                    
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">

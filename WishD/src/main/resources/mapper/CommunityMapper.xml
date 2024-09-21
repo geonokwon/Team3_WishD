@@ -16,6 +16,7 @@
 	<!-- 공지사항 목록 -->
 	<select id="getCommunityList" resultType="com.teamproject.domain.CommunityDTO">
 		SELECT * from community_notice
+		ORDER BY ncommunity_date DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	

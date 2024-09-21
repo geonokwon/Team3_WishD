@@ -51,12 +51,16 @@
     </div>
 
     <!-- 섹션 2 -->
-    <div class="second-section d-flex">
+    <div class="second-section d-flex" style="height: 900px;">
 
         <div class="col-2 second-section-1 menutext-left">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class=" qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q & A</a><br>
-            <a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문하기</a>
+            <a href="community" class="comnotice text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            
+			<!-- 관리자는 질문 작성란이 안 뜸 -->
+            <c:if test="${user_no != 999}">
+            	<a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문 작성</a>
+        	</c:if>
         </div>
 
         <!-- 질문 목록 -->
@@ -69,7 +73,7 @@
 	                        	
 								<!-- 관리자가 답변 완료 버튼 눌렀으면 답변 완료 표시 -->
 	                        	<c:if test="${communityQnaDTO.qcommunity_answer == 'complete'}">
-								    <button class="btn btn-small btn-success" disabled>답변 완료</button>
+								    <button class="btn answer-btn" disabled>답변 완료</button>
 								</c:if>
 	                        </div>
 
@@ -84,7 +88,7 @@
 	                    </div>
 	                    <div class="col">
 	                        <div class="custom-date">${communityQnaDTO.qcommunity_date}</div>
-	                        <div class="custom-writer">@${communityQnaDTO.user_name}</div>
+	                        <div class="custom-writer" id="username">@${communityQnaDTO.user_name}</div>
 	                        
 	                    </div>
 	                <div class="row-line"></div>
@@ -129,9 +133,36 @@
         </ul>
     </nav>
 
-    
-    
+
 <div class = "last-line"></div> <!-- 하단선 -->  
+<script>
+//마스킹 처리
+function maskUsername(username) {
+	//유저 네임이 없거나 2자 이하라면
+    if (!username || username.length < 3) {
+    	//2자 이하면 끝자리 잘라내고, 비어있어나 없으면 그대로 반환
+    	return username ? username.slice(0, -1) + '*' : username;
+    }
+
+    //사용자 이름의 길이를 변수 length에 저장
+    const length = username.length;
+  	//첫글자와 마지막 글자 2개를 빼고 저장
+    const maskLength = length - 2;
+  	//2개 뺀 나머지는 *로 치환
+    const maskedPart = '*'.repeat(maskLength);
+
+    return username.charAt(0) + maskedPart + username.charAt(length - 1);
+}
+
+document.querySelectorAll('.custom-writer').forEach(element => {
+    const originalUsername = element.textContent.trim().substring(1); // '@' 제거
+    const maskedUsername = maskUsername(originalUsername);
+    element.textContent = '@' + maskedUsername; // '@' 추가
+});
+
+
+</script>
+
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>

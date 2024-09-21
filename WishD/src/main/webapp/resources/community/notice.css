@@ -187,16 +187,20 @@ body {
     letter-spacing: 0.03rem;
 }
 
+.comnotice {
+	display: inline-block;
+	margin-right: 1.3rem;
+}
+
 .qna {
     display: inline-block;
-    padding-top: 20%;
-   
+    margin-top: 5rem;
+   	margin-right: 1.8rem;
 }
 
 .write {
     display: inline-block;
-    padding-top: 30%;
-    
+    margin-top: 5rem;
 }
 
 /* 우측 메뉴 */
@@ -350,4 +354,11 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
+}
+
+/* 답변 완료 버튼 */
+.answer-btn {
+	padding: 5px 10px; /* 위 아래 5px, 좌 우 10px */
+	margin-left: 0.3rem;
+    font-size: 12px; /* 글자 크기 조정 */
 }
