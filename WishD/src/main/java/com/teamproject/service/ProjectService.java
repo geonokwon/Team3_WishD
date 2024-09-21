@@ -26,7 +26,6 @@ public class ProjectService {
 
     //전체 프로젝트 등록 List 불러오기
     public List<ProjectDTO> getProjectList(ProjectPageDTO projectPageDTO){
-        logger.info("-> Cache Miss: Executing getProjectList()");
         logger.info("-> getProjectList()");
         //projectDTO 사용자가 등록한 board 를 가져옴
         List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
@@ -35,7 +34,6 @@ public class ProjectService {
             //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
             projectDTO.setSkills(projectDAO.getProjectSkill(projectDTO.getPboard_id()));
         }
-        System.out.println(projectDTOList);
         return projectDTOList;
     }
 
