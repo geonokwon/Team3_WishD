@@ -13,7 +13,7 @@ import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerSkillDTO;
-import com.teamproject.domain.JobsDTO;
+import com.teamproject.domain.JobDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -116,7 +116,7 @@ public class MyPageDAO {
 		return sqlSession.selectOne(namespace + ".userIdCheck", id);
 	}
 
-	public List<JobsDTO> getJobsList() {
+	public List<JobDTO> getJobsList() {
 		return sqlSession.selectList(namespace + ".getJobsList");
 	}
 
@@ -126,6 +126,14 @@ public class MyPageDAO {
 
 	public List<MyProjectDTO> getMyRequestProject(MyProjectPageDTO myProjectRequestPageDTO) {
 		return sqlSession.selectList(namespace + ".getMyRequestProject", myProjectRequestPageDTO);
+	}
+
+	public List<FreelancerDTO> getRequestFreeListCount(Long user_no) {
+		return sqlSession.selectList(namespace + ".getRequestFreeListCount", user_no);
+	}
+
+	public List<FreelancerPageDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+		return sqlSession.selectList(namespace + ".getMyRequestFree", myFreelancerRequestPageDTO);
 	}
 
 	

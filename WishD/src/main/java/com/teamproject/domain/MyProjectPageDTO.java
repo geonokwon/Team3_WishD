@@ -25,7 +25,6 @@ public class MyProjectPageDTO {
     private Long user_no;
     // 내가 신청한글
 	private String request_project;
-    
 	
 	
     public String getRequest_project() {

@@ -60,7 +60,7 @@
 					<c:if test="${myProfile.user_id != null }">
 						<div class="input-group">
 							<input type="text" id="user_id" name="user_id"
-								value="${myProfile.user_id}" placeholder=" " /> <label
+								value="${myProfile.user_id}" placeholder=" " readonly/> <label
 								for="user_id">아이디</label>
 						</div>
 						<!-- 							<button type="button" id="id_check" -->
@@ -139,13 +139,15 @@
 							<!-- 검색 창 -->
 							<div class="col-auto ">
 								<form
-									action="${pageContext.request.contextPath}/mypage?freelancerSearch="
+									action="${pageContext.request.contextPath}/mypage"
 									method="get">
 									<div class="input-group">
 										<input type="text" id="search"
 											class="form-control text border-0 bg-primary"
 											name="freelancerSearch" placeholder="프리랜서 글 검색"
 											autocomplete="off" />
+											<input type="hidden" name="freelancerStatus" value="${param.freelancerStatus}" />
+											<input type="hidden" name="requestFreelancer" value="${param.requestFreelancer}" />
 										<button type="submit" class="btn bg-primary">
 											<img
 												src="${pageContext.request.contextPath}/resources/project/svg/search.svg"
@@ -176,8 +178,18 @@
 								<button type="submit" class="btn btn-primary"
 									name="freelancerStatus" value="완료">완료</button>
 							</form>
+							<div class="me-4"></div>
+							<form
+								action="${pageContext.request.contextPath}/mypage?requestFreelancer=보낸요청"
+								method="get">
+								<button type="submit" class="btn btn-primary"
+									name="requestFreelancer" value="보낸요청">보낸요청</button>
+							</form>
 						</div>
 					</div>
+					
+					<!-- 보낸요청 아닐때 -->
+					<c:if test="${ empty myFreeRequestDTOList}">
 					<c:forEach items="${myFreelancerDTOList}" var="myFreelancerDTO">
 						<div class="container mb-4 px-5">
 							<div class="board_card card h-100 p-2" style="height: 200px">
@@ -205,8 +217,9 @@
 
 									<!-- 이름 -->
 									<a class="nav-link mb-3 fs-4"
-										href="${pageContext.request.contextPath}/freelancerRead/${myFreelancerDTO.getFreelancer_id()}">김*동(중간이름
-										*처리, user_info.user_name 필요)}</a>
+										href="${pageContext.request.contextPath}/freelancerRead/${myFreelancerDTO.getFreelancer_id()}">
+										${myFreelancerDTO.freelancer_introduction}
+										</a>
 
 									<!-- 필요 스킬 -->
 									<div class="d-flex mb-2">
@@ -254,7 +267,7 @@
 							<!-- 10칸씩 뒤로 이동 버튼 -->
 							<c:if test="${myFreelancerPageDTO.startPage > pageBlock}">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/freeLencerPageNum?pageNum=${myFreelancerPageDTO.startPage - 10}&freelencerSearch=${param.freelancerSearch}&freelencerStatus=${param.freelancerStatus}"></a>
+									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum?=${myFreelancerPageDTO.startPage - 10}&freelencerSearch=${param.freelancerSearch}&freelencerStatus=${param.freelancerStatus}"></a>
 								</li>
 							</c:if>
 
@@ -274,9 +287,108 @@
 							</c:if>
 						</ul>
 					</nav>
+					</c:if> <!-- 보낸글 아닐때 끝 -->
+					
+					<!-- 보낸글 눌렀을때 -->
+					<c:if test="${ ! empty myFreeRequestDTOList}">
+					<c:forEach items="${myFreeRequestDTOList}" var="myFreeRequestDTO">
+						<div class="container mb-4 px-5">
+							<div class="board_card card h-100 p-2" style="height: 200px">
+
+								<div class="card-body position-relative">
+									<!-- 현재 상태 -->
+									<!-- 구직중 일때 -->
+									<c:if test="${myFreeRequestDTO.getFreelancer_state() == '구직중'}">
+										<span
+											class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+											${myFreeRequestDTO.getFreelancer_state()} </span>
+									</c:if>
+									<!-- 진행중 일때 -->
+									<c:if test="${myFreeRequestDTO.getFreelancer_state() == '진행중'}">
+										<span
+											class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+											${myFreeRequestDTO.getFreelancer_state()} </span>
+									</c:if>
+									<!-- 완료 일때 -->
+									<c:if test="${myFreeRequestDTO.getFreelancer_state() == '완료'}">
+										<span
+											class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+											${myFreeRequestDTO.getFreelancer_state()} </span>
+									</c:if>
+
+									<!-- 이름 -->
+									<a class="nav-link mb-3 fs-4"
+										href="${pageContext.request.contextPath}/freelancerRead/${myFreeRequestDTO.getFreelancer_id()}">
+										${myFreeRequestDTO.freelancer_introduction}
+										</a>
+
+									<!-- 필요 스킬 -->
+									<div class="d-flex mb-2">
+										<!-- 반복되는 스킬배지 -->
+										<c:forEach items="${myFreeRequestDTO.getSkills()}"
+											var="myFreelancerRequestSkill">
+											<span class="badge mb-1 me-2">#
+												${myFreelancerRequestSkill.getSkill_name()}</span>
+										</c:forEach>
+									</div>
+
+									<!-- 희망 급여 -->
+									<p class="col-auto card-text mb-1">
+										희망 월급:
+										<fmt:formatNumber
+											value="${myFreeRequestDTO.getFreelancer_salary	()}"
+											pattern="###,###,###" />
+										만원
+									</p>
+
+									<div class="row d-flex">
+										<!--업무 시작 가능 날짜 -->
+										<p class="col-4 card-text mb-1">
+											업무 시작일:
+											<fmt:parseDate
+												value="${myFreeRequestDTO.getFreelancer_startdate()}"
+												var="myFreeStartDate" pattern="yyyy-MM-dd" />
+											<fmt:formatDate value="${myFreeStartDate}"
+												pattern="yyyy년 MM월 dd일" />
+										</p>
+										<p class="col-3 card-text"></p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<!-- 반복 end -->
+					<!-- Pagination -->
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<!-- 10칸씩 뒤로 이동 버튼 -->
+							<c:if test="${myFreelancerRequestPageDTO.startPage > pageBlock}">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum?pageNum=${myFreelancerRequestPageDTO.startPage - 10}&freelencerSearch=${param.freelancerSearch}&requestFreelancer=${param.requestFreelancer}"></a>
+								</li>
+							</c:if>
+
+							<c:forEach begin="${myFreelancerRequestPageDTO.startPage}"
+								end="${myFreelancerPageDTO.endPage}" var="page">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${page}&freelancerSearch=${param.search}&requestFreelancer=${param.requestFreelancer}">${page}</a>
+								</li>
+							</c:forEach>
+
+							<!-- 10칸씩 앞으로 이동 -->
+							<c:if
+								test="${myFreelancerRequestPageDTO.endPage < myFreelancerRequestPageDTO.pageCount}">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${myFreelancerRequestPageDTO.endPage + 10}&freelancerSearch=${param.freelancerSearch}&requestFreelancer=${param.requestFreelancer}"></a>
+								</li>
+							</c:if>
+						</ul>
+					</nav>
+					</c:if>
 				</div>
 			</div>
-
+			
 
 
 			<!-- 프로젝트 글 내용 -->
@@ -297,12 +409,14 @@
 
 							<!-- 검색 창 -->
 							<div class="col-auto ">
-								<form action="${pageContext.request.contextPath}/mypage?search="
+								<form action="${pageContext.request.contextPath}/mypage"
 									method="get">
 									<div class="input-group">
 										<input type="text" id="search"
 											class="form-control text border-0 bg-primary" name="search"
 											placeholder="프로젝트 글 검색" autocomplete="off" />
+											<input type="hidden" name="projectStatus" value="${param.projectStatus}" />
+											<input type="hidden" name="requestProject" value="${param.requestProject}" />
 										<button type="submit" class="btn bg-primary">
 											<img
 												src="${pageContext.request.contextPath}/resources/project/svg/search.svg"
@@ -342,7 +456,10 @@
 							</form>
 						</div>
 					</div>
+					
+					<!-- 보낸요청이면 -->
 					<c:if test="${ empty myProjectRequestDTOList}">
+						
 						<c:forEach items="${myProjectDTOList}" var="myprojectDTO">
 							<div class="container mb-4 px-5">
 								<div class="card h-100 p-2" style="height: 200px">
@@ -437,6 +554,7 @@
 						</nav>
 					</c:if>
 					
+					
 					<!-- 내가 요청한글 눌렀을때 -->
 					<c:if test="${ ! empty myProjectRequestDTOList}">
 							<c:forEach items="${myProjectRequestDTOList}" var="myRequestProjectDTO">
@@ -501,6 +619,31 @@
 							</div>
 						</c:forEach>
 						<!-- 반복 end -->
+						<nav aria-label="Page navigation">
+							<ul class="pagination justify-content-center">
+								<!-- 10칸씩 뒤로 이동 버튼 -->
+								<c:if test="${myProjectRequestPageDTO.startPage > pageBlock}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/mypage?projectRequestPageNum=${myProjectRequestPageDTO.startPage - 10}&search=${param.search}&requestProject=${param.requestProject}"></a>
+									</li>
+								</c:if>
+								
+								<c:forEach begin="${myProjectRequestPageDTO.startPage}"
+									end="${myProjectRequestPageDTO.endPage}" var="page">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/mypage?projectRequestPageNum=${page}&search=${param.search}&requestProject=${param.requestProject}&">${page}</a>
+									</li>
+								</c:forEach>
+
+								<!-- 10칸씩 앞으로 이동 -->
+								<c:if
+									test="${myProjectRequestPageDTO.endPage < myProjectRequestPageDTO.pageCount}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/mypage?projectRequestPageNum=${myProjectRequestPageDTO.endPage + 10}&search=${param.search}&requestProject=${param.requestProject}"></a>
+									</li>
+								</c:if>
+							</ul>
+						</nav>
 					</c:if>
 					
 				</div>

@@ -14,7 +14,7 @@ import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
-import com.teamproject.domain.JobsDTO;
+import com.teamproject.domain.JobDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -148,7 +148,7 @@ public class MyPageService {
 		return myPageDAO.userIdCheck(id);
 	}
 
-	public List<JobsDTO> getJobsList() {
+	public List<JobDTO> getJobsList() {
 		return myPageDAO.getJobsList();
 	}
 
@@ -156,6 +156,7 @@ public class MyPageService {
 		return myPageDAO.getRequestListCount(user_no);
 	}
 
+	// 프로젝트에 요청보낸것
 	public List<MyProjectDTO> getMyRequestProject(MyProjectPageDTO myProjectRequestPageDTO) {
 		List<MyProjectDTO> myProjectList = myPageDAO.getMyRequestProject(myProjectRequestPageDTO);
 		
@@ -165,6 +166,16 @@ public class MyPageService {
 		}
 		System.out.println(myProjectList.size());
 		return myProjectList;
+	}
+
+	// 프리랜서에 요청보낸글 카운트
+	public List<FreelancerDTO> getRequestFreeListCount(Long user_no) {
+		return myPageDAO.getRequestFreeListCount(user_no);
+	}
+
+	// 프리랜서에 요청보낸글 가져오기 
+	public List<FreelancerPageDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+		return myPageDAO.getMyRequestFree(myFreelancerRequestPageDTO);
 	}
 
 	
