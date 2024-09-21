@@ -39,10 +39,11 @@
     <!-- 동적 쿼리 이용 => 검색어 있으면 sql 구문 추가 -->
     <!-- 스킬필터 가 있으면 sql 구문 추가 -->
     <!-- 진행중 모집중 필터 추가 -->
-    <select id="selectProject_all" resultType="com.teamproject.domain.ProjectDTO">
-        SELECT p.*
+    <select id="selectProject_all" resultMap="ProjectWithSkillsMap">
+        SELECT p.*, s.skill_id, s.skill_name
         FROM project_board p
         LEFT JOIN project_skill ps ON p.pboard_id = ps.pboard_id
+        LEFT JOIN skills s ON ps.skill_id = s.skill_id
         <where>
             <if test="state == 0">
                 p.pboard_state = '모집중'
@@ -63,7 +64,6 @@
                 </if>
             </if>
         </where>
-        GROUP BY p.pboard_id
         ORDER BY p.pboard_date
         <if test="createdDateFilter == 1">
             ASC
@@ -73,6 +73,30 @@
         </if>
         LIMIT #{startRow}, #{endRow};
     </select>
+    <!-- resultMap 사용 -->
+    <resultMap id="ProjectWithSkillsMap" type="com.teamproject.domain.ProjectDTO">
+        <id property="pboard_id" column="pboard_id"/>
+        <result property="user_no" column="user_no"/>
+        <result property="pboard_title" column="pboard_title"/>
+        <result property="pboard_content" column="pboard_content"/>
+        <result property="pboard_money" column="pboard_money"/>
+        <result property="pboard_startDate" column="pboard_startDate"/>
+        <result property="pboard_rangeMonth" column="pboard_rangeMonth"/>
+        <result property="job_id" column="job_id"/>
+        <result property="job_name" column="job_name"/>
+        <result property="pboard_state" column="pboard_state"/>
+        <result property="pboard_date" column="pboard_date"/>
+        <result property="pboard_update" column="pboard_update"/>
+        <result property="pboard_isMatching" column="pboard_isMatching"/>
+        <result property="pboard_manager_phone" column="pboard_manager_phone"/>
+        <result property="pboard_company_name" column="pboard_company_name"/>
+
+        <!-- 스킬 목록을 List<ProjectSkillDTO>로 맵핑 -->
+        <collection property="skills" ofType="com.teamproject.domain.ProjectSkillDTO">
+            <id property="skill_id" column="skill_id"/>
+            <result property="skill_name" column="skill_name"/>
+        </collection>
+    </resultMap>
 
     <!-- 전체 프로젝트 등록 개수 반환 -->
     <!-- 검색어 포함 -->
@@ -101,14 +125,6 @@
                 </if>
             </if>
         </where>;
-    </select>
-
-    <!-- 프로젝트 당 등록된 전체 스킬 반환 -->
-    <select id="selectProjectSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
-        SELECT s.skill_id, s.skill_name
-        FROM project_skill p JOIN skills s
-        ON p.skill_id = s.skill_id
-        WHERE p.pboard_id = #{pboard_id};
     </select>
 
     <!-- skills 에 있는 모든값 가져오기 -->
@@ -155,6 +171,7 @@
             ( #{f_request_id}, #{skill_id} )
         </foreach>
     </insert>
+
     <!-- 승인요청시 Project_board 의 state 의 상태값 변경 -->
     <update id="updateProjectState">
         UPDATE project_board
@@ -174,6 +191,7 @@
         FROM request_freelancer
         WHERE pboard_id = #{pboard_id};
     </select>
+
     <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
     <select id="getRequestSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
         SELECT rs.skill_id, s.skill_name
@@ -201,6 +219,7 @@
         DELETE FROM request_freelancer
         WHERE pboard_id = #{pboard_id}
     </delete>
+
     <!-- 매칭 취소시 -->
     <!-- project_board 의 state 값 변경 및 isMatching 값 변경 -->
     <update id="setBoardState">

@@ -1,4 +1,12 @@
+@font-face {
+    font-family: "jua";
+    src: url("http://localhost:8080/testProject/resources/fonts/Jua-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
+    font-family: "jua", sans-serif;
     background-color: #0e1117; /* 어두운 배경색 */
     color: #fff; /* 밝은 텍스트 색상 */
 }
@@ -8,6 +16,10 @@ body {
 }
 .btn-primary:hover {
     background-color: #5e36a8;
+}
+
+.navbar {
+    background-color: #141826; /* 네비게이션 바 배경색 */
 }
 .navbar-nav .nav-link {
     color: #fff; /* 네비게이션 링크 색상 */

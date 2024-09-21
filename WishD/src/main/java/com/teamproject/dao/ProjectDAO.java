@@ -31,11 +31,6 @@ public class ProjectDAO {
         return sqlSession.selectOne(nameSpace + "getProjectCount", projectPageDTO);
     }
 
-    //프로젝트 board 에 선택된 스킬들 포함
-    public List<ProjectSkillDTO> getProjectSkill(Long pboard_id){
-        logger.info("-> getProjectSkill()");
-        return sqlSession.selectList(nameSpace + "selectProjectSkill", pboard_id);
-    }
 
     //전체 스킬 리스트 반환
     public List<ProjectSkillDTO> getProjectSkillList() {
