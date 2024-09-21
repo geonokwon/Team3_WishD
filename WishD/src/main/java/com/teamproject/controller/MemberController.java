@@ -264,7 +264,7 @@ public class MemberController {
 	        	return "redirect:/login";
 	        }
 	        	
-		
+
 	    private String getAccessToken(SimpleUserDTO simpleUserDTO){
 	        String baseUrl = "https://nid.naver.com/oauth2.0/token";
 
@@ -355,13 +355,8 @@ public class MemberController {
 		            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
 		        }
 		    }
-	
-	
-	
-	
-}//클래스 
-	
-	
+		
+	}//클래스 
 	
 	
 	
