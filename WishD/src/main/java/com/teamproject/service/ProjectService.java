@@ -3,13 +3,16 @@ package com.teamproject.service;
 import com.teamproject.dao.ProjectDAO;
 import com.teamproject.domain.*;
 import com.teamproject.utils.PersonalFileCopyUtils;
+import com.teamproject.utils.PersonalFileDeleteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -28,13 +31,7 @@ public class ProjectService {
     public List<ProjectDTO> getProjectList(ProjectPageDTO projectPageDTO){
         logger.info("-> getProjectList()");
         //projectDTO 사용자가 등록한 board 를 가져옴
-        List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
-        for (ProjectDTO projectDTO : projectDTOList) {
-            //가져온 projectDTO.getPboard() board에 선택된 스킬들을 List 형태로 받음
-            //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
-            projectDTO.setSkills(projectDAO.getProjectSkill(projectDTO.getPboard_id()));
-        }
-        return projectDTOList;
+        return projectDAO.getProject_all(projectPageDTO);
     }
 
     //총 프로젝트 등록 count 가져오기
@@ -75,29 +72,24 @@ public class ProjectService {
     public void insertProjectRequest(ProjectRequestDTO projectRequestDTO,
                                      ProjectRequestFileDTO projectRequestFileDTO) throws Exception {
         logger.info("-> getProjectRequest()");
+
         //프로젝트 리퀘스트 폼 저장
-        System.out.println(projectRequestDTO.toString());
         projectDAO.insertProjectRequest(projectRequestDTO);
 
         //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장
         Map<String, Object> projectRequestSkillSet = new HashMap<>();
         projectRequestSkillSet.put("f_request_id", projectRequestDTO.getF_request_id());
         projectRequestSkillSet.put("skill_id", getSkillList(projectRequestDTO.getSkillList()));
-        System.out.println(projectRequestSkillSet);
         projectDAO.insetProjectRequestSkill(projectRequestSkillSet);
 
         //처리할때 project_board 의 state -> 를 진행중으로 변경
-        System.out.println(projectRequestDTO.toString());
         projectDAO.updateProjectState(projectRequestDTO.getPboard_id());
 
         //프로젝트 리퀘스트 file 부분 request_file table 저장
         //파일 Copy 처리 utils class -> Resources/upload/fileCopy
         PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
         personalFileCopyUtils.fileCopy(projectRequestFileDTO, projectRequestDTO.getPboard_id(), projectRequestDTO.getF_request_id());
-        System.out.println(projectRequestDTO.toString());
-        logger.info(projectRequestDTO.toString());
         projectDAO.insetProjectRequestFile(projectRequestFileDTO);
-
     }
 
     //진행중인 board 가 있다면 request form의 값을 가져오기
@@ -107,6 +99,8 @@ public class ProjectService {
         return projectRequestDTO;
     }
 
+
+    //진행중인 board 가 있으면 request form 에 따라 file DTO 도 가져오기
     public ProjectRequestFileDTO getProjectRequestFile(Long pboard_id) {
         logger.info("-> getProjectRequestFile()");
         return projectDAO.getProjectRequestFile(pboard_id);
@@ -123,6 +117,8 @@ public class ProjectService {
     @Transactional
     public void deleteProjectRequest(Long pboard_id) {
         logger.info("-> getProjectRequest()");
+        ProjectRequestFileDTO projectRequestFileDTO = projectDAO.getProjectRequestFile(pboard_id);
+        PersonalFileDeleteUtils.deleteFile(projectRequestFileDTO.getP_file_name(), projectRequestFileDTO.getP_file_path());
         projectDAO.setBoardState(pboard_id);
         projectDAO.deleteProjectRequest(pboard_id);
     }

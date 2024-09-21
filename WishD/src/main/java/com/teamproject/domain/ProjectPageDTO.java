@@ -2,8 +2,6 @@ package com.teamproject.domain;
 
 import com.teamproject.utils.PaginationIF;
 
-import java.util.Objects;
-
 public class ProjectPageDTO implements PaginationIF {
     private int pageSize;
     private int pageNum;
@@ -27,7 +25,6 @@ public class ProjectPageDTO implements PaginationIF {
     private Integer createdDateFilter;
     //진행중 , 모집중 모아보기
     private Integer state;
-
 
 
 
@@ -63,82 +60,102 @@ public class ProjectPageDTO implements PaginationIF {
         this.search = search;
     }
 
+    @Override
     public int getStartPage() {
         return startPage;
     }
 
+    @Override
     public void setStartPage(int startPage) {
         this.startPage = startPage;
     }
 
+    @Override
     public int getEndPage() {
         return endPage;
     }
 
+    @Override
     public void setEndPage(int endPage) {
         this.endPage = endPage;
     }
 
+    @Override
     public int getPageCount() {
         return pageCount;
     }
 
+    @Override
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
+    @Override
     public int getPageBlock() {
         return pageBlock;
     }
 
+    @Override
     public void setPageBlock(int pageBlock) {
         this.pageBlock = pageBlock;
     }
 
+    @Override
     public int getCount() {
         return count;
     }
 
+    @Override
     public void setCount(int count) {
         this.count = count;
     }
 
+    @Override
     public int getStartRow() {
         return startRow;
     }
 
+    @Override
     public void setStartRow(int startRow) {
         this.startRow = startRow;
     }
 
+    @Override
     public int getEndRow() {
         return endRow;
     }
 
+    @Override
     public void setEndRow(int endRow) {
         this.endRow = endRow;
     }
 
+    @Override
     public int getPageSize() {
         return pageSize;
     }
 
+    @Override
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
+    @Override
     public int getPageNum() {
         return pageNum;
     }
 
+    @Override
     public void setPageNum(int pageNum) {
         this.pageNum = pageNum;
     }
 
+    @Override
     public int getCurrentPage() {
         return currentPage;
     }
 
+    @Override
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }

@@ -208,5 +208,26 @@ if (projectWrite || projectRead) {
     });
 }
 
+let managerPhone = document.getElementById("pboard_manager_phone");
+if (managerPhone) {
+    managerPhone.addEventListener("input",(e) => {
+        let input = e.target.value.replace(/\D/g, ""); // 숫자가 아닌 문자는 제거
+        let formattedNumber = "";
+
+        if (input.length <= 3) {
+            // 첫 3자리까지만 입력
+            formattedNumber = input;
+        } else if (input.length <= 7) {
+            // 3자리 이후 4자리
+            formattedNumber = input.slice(0, 3) + "-" + input.slice(3);
+        } else {
+            // 3-4-4 형식으로 나눔
+            formattedNumber = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
+        }
+        e.target.value = formattedNumber; // 입력 필드에 다시 포맷된 값을 넣음
+    });
+}
+
+
 
 //projectRequestDTO 파일관련

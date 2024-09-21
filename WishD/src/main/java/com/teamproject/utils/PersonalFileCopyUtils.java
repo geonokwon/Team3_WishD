@@ -1,6 +1,5 @@
 package com.teamproject.utils;
 
-import com.teamproject.domain.ProjectRequestFileDTO;
 import org.springframework.util.FileCopyUtils;
 import java.io.File;
 import java.util.UUID;
