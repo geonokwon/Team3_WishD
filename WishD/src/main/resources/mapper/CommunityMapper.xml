@@ -15,7 +15,7 @@
   
 	<!-- 공지사항 목록 -->
 	<select id="getCommunityList" resultType="com.teamproject.domain.CommunityDTO">
-		SELECT * FROM community_notice
+		SELECT * from community_notice
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
@@ -43,12 +43,10 @@
 	</delete>
 	
 	<!-- 공지사항 페이지 카운팅 -->
-    <select id="noticePageCount" parameterType="com.teamproject.domain.CommunityDTO" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            community_notice
-    </select>
+	<select id="getCommunityCount" resultType="int">
+		SELECT count(*)
+		FROM community_notice	
+	</select>
 
 	
 	<!-- 질문 쓰기 -->
@@ -60,7 +58,9 @@
   
 	<!-- 질문 목록 -->
 	<select id="getCommunityQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
-		SELECT * from community_QnA;
+		SELECT * from community_QnA
+		ORDER BY qcommunity_date DESC
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 
 	<!-- 질문 상세 페이지 -->
@@ -94,6 +94,11 @@
     WHERE qcommunity_num = #{qcommunity_num}
 	</update>
 	
+	<!-- 질문 페이지 카운팅 -->
+	<select id="getCommunityQnaCount" resultType="int">
+		SELECT count(*)
+		FROM community_QnA	
+	</select>
 	
 	<!-- 	user_info에서 user_name 갖고오기 -->
 	<select id="getUserName" resultType="String">

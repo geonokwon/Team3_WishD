@@ -49,6 +49,12 @@ public class CommunityDAO {
 		sqlSession.delete(namespace + ".deleteCommunity", ncommunity_num);
 	}
 	
+	//공지사항 카운트
+	public int getCommunityCount(CommunityPageDTO communitypageDTO) {
+		System.out.println("CommunityDAO getCommunityCount()");
+		return sqlSession.selectOne(namespace + ".getCommunityCount",communitypageDTO);
+	}
+	
 	//질문 쓰기
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
 		sqlSession.insert(namespace + ".insertCommunityQna", communityQnaDTO);
@@ -83,11 +89,10 @@ public class CommunityDAO {
 		
 	}	
 	
-	//검색어 포함
-	public int getCommunityCount(CommunityPageDTO communitypageDTO) {
-		System.out.println("CommunityDAO getCommunityCount()");
-			
-		return sqlSession.selectOne(namespace + ".getCommunityCount",communitypageDTO);
+	//질문 카운트
+	public int getCommunityQnaCount(CommunityPageDTO communitypageDTO) {
+		System.out.println("CommunityDAO getCommunityQnaCount()");
+		return sqlSession.selectOne(namespace + ".getCommunityQnaCount",communitypageDTO);
 	}
 
 	//sql에서 user_no 가져와서 반환하기

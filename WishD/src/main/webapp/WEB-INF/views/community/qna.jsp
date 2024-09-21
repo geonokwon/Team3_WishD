@@ -100,33 +100,36 @@
 	</div>
 
 </div> <!-- 컨테이너 -->
+
 <!-- 	페이지네이션 -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center" style="">
             <!-- 10칸씩 뒤로 이동 버튼 -->
-            <c:if test="${communitypageDTO.startPage > communitypageDTO.pageBlock}">
+            <c:if test="${communityPageDTO.startPage > communityPageDTO.pageBlock}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communitypageDTO.startPage - 10}"></a>
+                   href="${pageContext.request.contextPath}/qna?pageNum=${communityPageDTO.startPage - 10}"></a>
             </li>
             </c:if>
 
-            <c:forEach begin="${communitypageDTO.startPage}" end="${communitypageDTO.endPage}" var="page">
+            <c:forEach begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}" var="page">
                 <li class="page-item">
                     <a class="page-link"
-                       href="${pageContext.request.contextPath}/notice?noticePageNum=${page}">${page+1}</a>
+                       href="${pageContext.request.contextPath}/qna?pageNum=${page}">${page}</a>
                 </li>
             </c:forEach>
 
             <!-- 10칸씩 앞으로 이동 -->
-            <c:if test="${communitypageDTO.endPage < communitypageDTO.pageCount}">
+            <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/notice?noticePageNum=${communitypageDTO.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/qns?pageNum=${communityPageDTO.endPage + 10}"></a>
             </li>
             </c:if>
         </ul>
     </nav>
+
+    
     
 <div class = "last-line"></div> <!-- 하단선 -->  
 
