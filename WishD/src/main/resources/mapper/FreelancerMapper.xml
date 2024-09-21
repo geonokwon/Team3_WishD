@@ -44,8 +44,13 @@
 	
 	<!-- 	프리랜서 등록 -->
 	<insert id="resistFreelancer">
-		insert into freelancer
-		values(#{freelancer_id},#{user_no},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_introduction},#{freelancer_link},"구직중",#{freelancer_date},#{freelancer_update},#{freelancer_job});
+		insert into freelancer(freelancer_id, user_no, freelancer_salary, freelancer_startdate,
+								 freelancer_exp, dev_exp, freelancer_introduction, freelancer_link, freelancer_state,
+								 freelancer_date, freelancer_update, job_id)
+		values(	#{freelancer_id},#{user_no},#{freelancer_salary},
+				#{freelancer_startdate},#{freelancer_exp},#{dev_exp},
+				#{freelancer_introduction},#{freelancer_link},"구직중",
+				#{freelancer_date},#{freelancer_update},#{job_id});
 	</insert>
 	
 	<!-- 	프리랜서 스킬들 등록 -->
@@ -202,7 +207,7 @@
     </insert>
     
     <!-- 승인요청한 유저가 다시 페이지로 돌아왔을시 요청중이기 때문에 값을 불러와서 form에 뿌려주기 위한 select -->
-    <select id="getRequestFreelancer" resultType="com.teamproject.domain.FreelancerRequestDTO">
+    <select id="getRequestClient" resultType="com.teamproject.domain.FreelancerRequestDTO">
         SELECT *
         FROM request_client
         WHERE freelancer_id = #{freelancer_id};

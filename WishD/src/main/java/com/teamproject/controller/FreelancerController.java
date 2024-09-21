@@ -31,25 +31,34 @@ public class FreelancerController {
 	
 	// 프리랜서 등록 페이지 이동
 	@GetMapping("/freelancer_reg")
-	public String freelancer_reg(Model model) {
+	public String freelancer_reg(Model model, HttpSession session) {
 		System.out.println("freelancer_controller freelancer_reg()");
 		
-		//job 조회시 필요한 모든 job 데이터
-		model.addAttribute("jobList", freelancerService.getJobList());
+		//회원인 경우에만 프리랜서 등록 가능
+        if (session.getAttribute("user_no") != null) {
+    		//job 조회시 필요한 모든 job 데이터
+    		model.addAttribute("jobList", freelancerService.getJobList());
+    		
+    		//전체스킬 조회시 필요한 전체 스킬 데이터
+    		model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
+        }
+        else { //회원이 아니면 로그인 페이지로 이동
+            return "redirect:/login";
+        }
 		
-		//전체스킬 조회시 필요한 전체 스킬 데이터
-		model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
+
 		
 		return "freelancer/freelancer_reg";
 	}
 	
 	// 프리랜서 등록 처리
 	@PostMapping("/freelancer_regPro") 
-		public String freelancer_regPro(FreelancerDTO freelancerDTO) {
+		public String freelancer_regPro(FreelancerDTO freelancerDTO, HttpSession session) {
 		System.out.println("freelancer_controller freelancer_regPro()");
 		System.out.println(freelancerDTO);
-
-
+		
+		// 세션에 있는 회원번호를 DTO에 저장
+		freelancerDTO.setUser_no((Long) session.getAttribute("user_no"));
 		// 프리랜서 등록 처리
 		freelancerService.registFreelancer(freelancerDTO);
 		
