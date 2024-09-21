@@ -42,8 +42,12 @@ public class MemberController {
 	
 	// 로그인 
 	@GetMapping("/login")
-	public String login() {  
+	public String login(HttpSession session) {
 		System.out.println("MemberController login()");
+		//로그인 되어 있는 유저가 URL 로 접속시 막는 작업
+		if (session.getAttribute("user_no") != null){
+			return "redirect:/";
+		}
 		return "/member/login";
 	}
 	
@@ -181,88 +185,79 @@ public class MemberController {
 	}
 	
 	//네이버 간편 로그인
-		@GetMapping("/naver")
-		public void simpleNaverLogin(HttpServletResponse response)throws IOException {
-			String basicURL = "https://nid.naver.com/oauth2.0/authorize";
-			String uri = UriComponentsBuilder
-					.fromUriString(basicURL)
-					.queryParam("response_type", "code")
-					.queryParam("client_id", clientID_naver)
-					.queryParam("redirect_uri", "http://localhost:8080/testProject/naver-login")
-					.queryParam("state", "11111")
-					.build().toString();
-			response.sendRedirect(uri);
-					
+	@GetMapping("/naver")
+	public void simpleNaverLogin(HttpServletResponse response)throws IOException {
+		String basicURL = "https://nid.naver.com/oauth2.0/authorize";
+		String uri = UriComponentsBuilder
+				.fromUriString(basicURL)
+				.queryParam("response_type", "code")
+				.queryParam("client_id", clientID_naver)
+				.queryParam("redirect_uri", "http://localhost:8080/testProject/naver-login")
+				.queryParam("state", "11111")
+				.build().toString();
+		response.sendRedirect(uri);
+
+	}
+
+	@GetMapping("/naver-login")
+	public String getNaverLogin (SimpleUserDTO simpleUserDTO,
+			Model model, HttpSession session,
+			HttpServletResponse response) throws IOException {
+
+		System.out.println("code = " + simpleUserDTO.getCode());
+		System.out.println("state = " + simpleUserDTO.getState());
+
+		session.setAttribute("loginUser", simpleUserDTO);
+		model.addAttribute("loggedIn", simpleUserDTO);
+
+
+		if (simpleUserDTO == null) {
+			response.sendRedirect("/login");
 		}
-		
-		@GetMapping("/naver-login")
-		public String getNaverLogin (SimpleUserDTO simpleUserDTO, 
-				Model model, HttpSession session, 
-				HttpServletResponse response) throws IOException {
-			
-			System.out.println("code = " + simpleUserDTO.getCode());
-			System.out.println("state = " + simpleUserDTO.getState());
-			
-			session.setAttribute("loginUser", simpleUserDTO);
-			model.addAttribute("loggedIn", simpleUserDTO);
-			
-		
-	        if (simpleUserDTO == null) {
-	        	response.sendRedirect("/login");
-	        }  
-	         
-	        String json = getAccessToken(simpleUserDTO);
-	        System.out.println("JSON: " + json);
 
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        JsonNode jsonNode = objectMapper.readTree(json);
-	        String access_token = jsonNode.get("access_token").textValue();
-	        
-	        
-	     // if 엑세스 토큰 한번 뒤지고 똑같은 값있으면 그값으로 로그인처리해주고 아니면 그냥 로그인 화면으로 가고 
-	        if (access_token != null) {
-	        	
-	     // 토큰 체크 => 있으면 user_no 로그인 처리 -> 메인으로 이동
-	         SimpleUserDTO simpleUserDTO1 = memberService.CheckToken(access_token);
-	        
-	         session.setAttribute("user_no",simpleUserDTO1.getUser_no() );
-	         return "redirect:/";
-	        	
-	        }
-	       
-	        	System.out.println("토큰 : " + access_token);
-	            
-	            String token = access_token; // 네이버 로그인 접근 토큰;
-	            String header = "Bearer " + token; // Bearer 다음에 공백 추가
+		String json = getAccessToken(simpleUserDTO);
+//		System.out.println("JSON: " + json);
 
-	            String apiURL = "https://openapi.naver.com/v1/nid/me";
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode jsonNode = objectMapper.readTree(json);
+		String access_token = jsonNode.get("access_token").textValue();
 
-	            Map<String, String> requestHeaders = new HashMap<>();
-	            requestHeaders.put("Authorization", header);
-	            String responseBody = get(apiURL,requestHeaders);
-	            System.out.println(responseBody);
 
-	            ObjectMapper for_model = new ObjectMapper();
-	            JsonNode jsonNode1 = for_model.readTree(responseBody);
-//	            System.out.println("resultcode : " + jsonNode.get("resultcode").textValue());
-//	            System.out.println("message : " + jsonNode1.get("message").textValue());
-	           
-	            JsonNode for_model_responseNode = jsonNode1.get("response");
-	            
-	            System.out.println("email : " + for_model_responseNode.get("email").textValue());
-	            System.out.println("name : " + for_model_responseNode.get("name").textValue());
-	            simpleUserDTO.setAccess_token(access_token);
-	            simpleUserDTO.setEmail(for_model_responseNode.get("email").textValue());
-	            simpleUserDTO.setUser_name(for_model_responseNode.get("name").textValue());
-	            simpleUserDTO.setUser_type("simple");
+		// if 엑세스 토큰 한번 뒤지고 똑같은 값있으면 그값으로 로그인처리해주고 아니면 그냥 로그인 화면으로 가고
+		SimpleUserDTO simpleUserDTO1 = memberService.checkToken(access_token);
+		if (simpleUserDTO1 != null) {
+			// 토큰 체크 => 있으면 user_no 로그인 처리 -> 메인으로 이동
+			session.setAttribute("user_no", simpleUserDTO1.getUser_no());
+			return "redirect:/";
+		}
 
-	            
-	            memberService.setSimpleUesr(simpleUserDTO);
-	            session.setAttribute("user_no", simpleUserDTO.getUser_no());
-	            
-	        	// 없으면 로그인 화면으로가고 
-	        	return "redirect:/login";
-	        }
+		System.out.println("토큰 : " + access_token);
+
+        String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
+
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+
+		Map<String, String> requestHeaders = new HashMap<>();
+		requestHeaders.put("Authorization", header);
+		String responseBody = get(apiURL,requestHeaders);
+//		System.out.println(responseBody);
+
+		ObjectMapper for_model = new ObjectMapper();
+		JsonNode jsonNode1 = for_model.readTree(responseBody);
+		JsonNode for_model_responseNode = jsonNode1.get("response");
+//		System.out.println("email : " + for_model_responseNode.get("email").textValue());
+//		System.out.println("name : " + for_model_responseNode.get("name").textValue());
+		simpleUserDTO.setAccess_token(access_token);
+		simpleUserDTO.setEmail(for_model_responseNode.get("email").textValue());
+		simpleUserDTO.setUser_name(for_model_responseNode.get("name").textValue());
+		simpleUserDTO.setUser_type("simple");
+
+		memberService.setSimpleUesr(simpleUserDTO);
+		session.setAttribute("user_no", simpleUserDTO.getUser_no());
+
+		// 없으면 회원가입후(DB에 저장후) 메인화면
+		return "redirect:/";
+	}
 	        	
 
 	    private String getAccessToken(SimpleUserDTO simpleUserDTO){
@@ -306,26 +301,26 @@ public class MemberController {
 	    }
 		
 		
-		  private static String get(String apiUrl, Map<String, String> requestHeaders){
-		        HttpURLConnection con = connect(apiUrl);
-		        try {
-		            con.setRequestMethod("GET");
-		            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
-		                con.setRequestProperty(header.getKey(), header.getValue());
-		            }
+		private static String get(String apiUrl, Map<String, String> requestHeaders){
+			HttpURLConnection con = connect(apiUrl);
+			try {
+				con.setRequestMethod("GET");
+				for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+					con.setRequestProperty(header.getKey(), header.getValue());
+				}
 
-		            int responseCode = con.getResponseCode();
-		            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
-		                return readBody(con.getInputStream());
-		            } else { // 에러 발생
-		                return readBody(con.getErrorStream());
-		            }
-		        } catch (IOException e) {
-		            throw new RuntimeException("API 요청과 응답 실패", e);
-		        } finally {
-		            con.disconnect();
-		        }
-		    }
+				int responseCode = con.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+					return readBody(con.getInputStream());
+				} else { // 에러 발생
+					return readBody(con.getErrorStream());
+				}
+			} catch (IOException e) {
+				throw new RuntimeException("API 요청과 응답 실패", e);
+			} finally {
+				con.disconnect();
+			}
+		}
 
 		
 		private static HttpURLConnection connect(String apiUrl){
@@ -339,22 +334,22 @@ public class MemberController {
 	        }
 	    }
 		
-		 private static String readBody(InputStream body){
-		        InputStreamReader streamReader = new InputStreamReader(body);
+		private static String readBody(InputStream body){
+			InputStreamReader streamReader = new InputStreamReader(body);
 
-		        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
-		            StringBuilder responseBody = new StringBuilder();
+			try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+				StringBuilder responseBody = new StringBuilder();
 
-		            String line;
-		            while ((line = lineReader.readLine()) != null) {
-		                responseBody.append(line);
-		            }
+				String line;
+				while ((line = lineReader.readLine()) != null) {
+					responseBody.append(line);
+				}
 
-		            return responseBody.toString();
-		        } catch (IOException e) {
-		            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
-		        }
-		    }
+				return responseBody.toString();
+			} catch (IOException e) {
+				throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+			}
+		}
 		
 	}//클래스 
 	

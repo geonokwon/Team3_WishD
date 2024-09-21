@@ -82,23 +82,22 @@ public class MemberDAO {
 	}
 	
 	// 네이버 간편로그인
-		public void setSimpleUesr(SimpleUserDTO simpleUserDTO) {
-			System.out.println("MemberDAO setSimpleUesr()");
-			sqlSession.insert(namespace + "setSimpleUesr", simpleUserDTO);
-			
-		}
+	public void setSimpleUesr(SimpleUserDTO simpleUserDTO) {
+		System.out.println("MemberDAO setSimpleUesr()");
+		sqlSession.insert(namespace + "setSimpleUesr", simpleUserDTO);
 
-		//간편로그인 회원가입 공통 정보 저장
-		public void setSimpleUserInfo(SimpleUserDTO simpleUserDTO) {
-			sqlSession.insert(namespace + "setSimpleUserInfo", simpleUserDTO);
-			
-		}
+	}
 
-		public SimpleUserDTO CheckToken(String access_token) {
-			
-			return sqlSession.selectOne(namespace + "CheckToken", access_token);
-		}
-		
+	//간편로그인 회원가입 공통 정보 저장
+	public void setSimpleUserInfo(SimpleUserDTO simpleUserDTO) {
+		sqlSession.insert(namespace + "setSimpleUserInfo", simpleUserDTO);
+
+	}
+
+	public SimpleUserDTO checkToken(String access_token) {
+		return sqlSession.selectOne(namespace + "CheckToken", access_token);
+	}
+
 	
 
 }//클래스
