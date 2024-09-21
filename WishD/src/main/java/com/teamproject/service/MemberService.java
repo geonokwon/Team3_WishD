@@ -72,23 +72,23 @@ public class MemberService {
 	}
 	
 	//네이버 간편 로그인
-		@Transactional
-		public void setSimpleUesr(SimpleUserDTO simpleUserDTO) {
-			System.out.println("MemberService setSimpleUesr()");
-			
-			//간편로그인 회원가입 공통 정보 저장
-			memberDAO.setSimpleUserInfo(simpleUserDTO);
-			System.out.println(simpleUserDTO.getUser_no());
-			
-			memberDAO.setSimpleUesr(simpleUserDTO);
-		}
+	@Transactional
+	public void setSimpleUesr(SimpleUserDTO simpleUserDTO) {
+		System.out.println("MemberService setSimpleUesr()");
 
-		//간편로그인시 이메일로 DB에서 사용자 조회 => 있으면 로그인 처리
-		public SimpleUserDTO CheckToken(String access_token) {
-			System.out.println("MemberService CheckToken()");
-			return memberDAO.CheckToken(access_token);
-		}
-		
+		//간편로그인 회원가입 공통 정보 저장
+		memberDAO.setSimpleUserInfo(simpleUserDTO);
+		System.out.println(simpleUserDTO.getUser_no());
+
+		memberDAO.setSimpleUesr(simpleUserDTO);
+	}
+
+	//간편로그인시 이메일로 DB에서 사용자 조회 => 있으면 로그인 처리
+	public SimpleUserDTO checkToken(String access_token) {
+		System.out.println("MemberService CheckToken()");
+		return memberDAO.checkToken(access_token);
+	}
+
 	
 	
 	
