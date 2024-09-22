@@ -335,10 +335,17 @@ public class ManagerController {
 		System.out.println("managerUserList()");
 		
 		String pageNum = request.getParameter("pageNum");
+		String search = request.getParameter("search");
 		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
+		
+		if(search == null) {
+			search = "0";
+		}
+		
+		System.out.println(search);
 		
 		int currentPage = Integer.parseInt(pageNum);
 		int pageSize = 20;
@@ -348,6 +355,9 @@ public class ManagerController {
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setPageSize(pageSize);
+		
+		long key = Long.parseLong(search);
+		pageDTO.setKey(key);
 		
 		List<MemberDTO> userList = managerService.getUserList(pageDTO);
 		

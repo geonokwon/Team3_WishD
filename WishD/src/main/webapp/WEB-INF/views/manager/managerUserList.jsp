@@ -90,6 +90,14 @@
 			<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	
 		</c:if>
 		</div>
+<!-- 		<div> -->
+<%-- 			<form action="${pageContext.request.contextPath}/manager/managerUserList" method="get"> --%>
+<!--             	<div class="input-group"> -->
+<!--                 	<input type="number"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="식별번호 검색" autocomplete="off" /> -->
+<%--                     <button type="submit" class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button> --%>
+<!--             	</div> -->
+<!--            </form> -->
+<!-- 		</div> -->
 	</div>
 	</div>
 </div>

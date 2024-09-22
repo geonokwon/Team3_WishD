@@ -111,6 +111,9 @@
 	<!-- 	회원을 전달함 -->
 	<select id="getUserList" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info 
+		<if test='key != 0'>
+			where user_no = #{key}
+		</if>
 		order by join_date DESC
 		limit #{startRow},#{pageSize}
 	</select>
