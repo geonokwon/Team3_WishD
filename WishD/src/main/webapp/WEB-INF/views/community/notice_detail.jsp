@@ -74,13 +74,13 @@
                     <div class="col-6 second-section-2"> 
                         <!-- Notice 제목란 -->
                         <label for="notice_label" class="noticeLabelText">Notice </label>                    
-                        <div class="write-line"></div>
+                        <div class="write-line" style="margin-bottom:0.6rem"></div>
 
 						
 <!--                         <label for="notice_title" class="noticeTitleText">Title </label> -->
   
 <!--                         <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......"> -->
-                    	 <p class="custom-textbox no-border readonly">${communityDTO.ncommunity_title}</p>
+                    	 <p class="customRead-textbox no-border readonly">${communityDTO.ncommunity_title}</p>
                     </div>
                 </div>
                 <!-- 내용란 -->

@@ -70,7 +70,7 @@
             <div class="row">
   
                 <!-- Q&A 제목란 -->
-                <div class="col">
+                <div class="col" style="padding-left: 0";>
                     <div class="col-12 second-section-2"> 
                         <label for="notice_label" class="noticeLabelText">Notice </label>   
                         <div class="write-line"></div>
@@ -80,7 +80,7 @@
                 </div>
 
                 <!-- Q&A 이메일란 -->
-                <div class="col">
+                <div class="col" style="padding-right: 0";>
                     <div class="col-12 second-section-2">
                         <label for="" class="noticeLabelText">&nbsp;</label>
                         <div class="write-line"></div>
