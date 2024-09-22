@@ -56,7 +56,7 @@
    	 				<input 
    	 					type="password" 
    	 					id="password" 
-   	 					name="user_pass" 
+   	 					name="user_pass1"
    	 					placeholder="비밀번호를 입력하세요"
    	 					/>
    	 					<!--에러메세지-->
@@ -68,7 +68,7 @@
                 	<input 
                 		type="password" 
                 		id="password-confirm" 
-                		name="user_pass" 
+                		name="user_pass2"
                 		placeholder="비밀번호를 다시 입력하세요"
                 		/>
                 		<!--에러메세지-->
@@ -93,27 +93,29 @@
     				<input 
     					type="text" 
     					id="email" 
-    					name="email" 
+    					name="email"
     					placeholder="이메일주소를 입력하세요" 
     					/>
     					<button type="button" class="check-btn" id="email_check">중복 확인</button>
     					<button type="button" class="check-btn" id="send-code" style="display: none;">전송하기</button>
-   				 		<!-- 결과출력 -->
-    					<div id="output1"></div>
 				</div>
-			
+				<!-- 결과출력 -->
+				<div id="output1"></div>
+
 			 	<div class="input-group">
             		<p>인증코드 입력</p>
-    				<input 
-    					type="text" 
-    					id="verification-code" 
-    					name="email" 
-    					placeholder="인증코드를 입력하세요" 
+    				<input
+    					type="text"
+    					id="code"
+    					name="emailCode"
+    					placeholder="인증코드를 입력하세요"
+						required
     					/>
     					<button type="button" class="check-btn" id="code-check">인증하기</button>
-    					<!--에러메세지-->
-    					<span id="verification-code" style="color: red; display: none;"></span>
 				</div>
+				<!--에러, 성공 메세지 -->
+				<div id="mailValidate" class="ms-4"></div>
+
 
            		<div class="input-group">
     				<p>전화번호</p>
@@ -136,7 +138,7 @@
                 	<label for="marketing-consent">(선택) 마케팅 활용 동의와 광고성 정보의 수신에 동의합니다.</label>
             	</div>
             	
-            	<button class="signup-btn" type="submit">회원가입</button>
+            	<button class="signup-btn" type="submit" >회원가입</button>
         	</form>
         	<!-- 폼 태그 끝 -->
     	</div>
@@ -197,18 +199,18 @@ $(function() {
         }
     });
 
- // 이름 필드 확인
-   $('#name').blur(function() {
-    const name = $(this).val();
-    if (!name) {
-        $('#usernameError').text('이름 입력란이 비어있습니다.').css('display', 'block');
-    } else {
-        $('#usernameError').hide();
-    }
-});
+ 	// 이름 필드 확인
+   	$('#name').blur(function() {
+		const name = $(this).val();
+		if (!name) {
+			$('#usernameError').text('이름 입력란이 비어있습니다.').css('display', 'block');
+		} else {
+			$('#usernameError').hide();
+		}
+	});
 
     // 이메일 중복 체크 + 유효성 검사
-    $('#email_check').click(function() {
+	$('#email_check').click(function() {
         const userEmail = $('#email').val();
 
         if (!userEmail) {
@@ -220,7 +222,7 @@ $(function() {
         if (!emailRegex.test(userEmail)) {
             $('#output1').html('올바른 이메일 주소를 입력하세요').css('color', 'red');
             return;
-        }
+		}
 
         $.ajax({
             url: `${pageContext.request.contextPath}/emailCheck`,
@@ -239,13 +241,61 @@ $(function() {
         });
     });
 
-    // 인증코드 필드 확인
-    $('#verification-code').blur(function() {
+	//인증코드 발송 SMTP
+	//메일 중복확인 완료시 인증코드 전송
+	let emailCode;
+	$('#send-code').click(() => {
+		let email = $('#email');
+		$('#send-code').prop('disabled', true);
+		$.ajax({
+			url: '${pageContext.request.contextPath}/emailSendCode',  //이메일 전송
+			type: 'POST',
+			data: {
+				'userEmail': email.val()
+			},
+			success: (response) => {
+				if(response !== 'failed'){
+					email.prop('readonly', true);
+					$('#output1').html('이메일 전송 완료.').css('color', 'green');
+					$('#send-code').prop('disabled', true);
+					emailCode = parseInt(response);
+				} else {
+					$('#output1').html('이메일 전송 오류 이메일을 확인하세요!.').css('color', 'red');
+				}
+			},
+			error: function() {
+				$('#output1').html('서버 오류 발생').css('color', 'red');
+			}
+		});
+	})
+
+	let isCodeState;
+	$('#code-check').click(() => {
+		let inputCode = parseInt($('#code').val());
+
+		console.log(emailCode);
+		if (inputCode === emailCode ){
+			$('#mailValidate').html('인증완료').css('color', 'green');
+			$('#code-check').prop('disabled', true);
+			$('#code').prop('disabled', true);
+			$('#email').prop('readonly', true);
+			isCodeState = true;
+		}
+		else{
+			$('#mailValidate').html('인증코드가 틀립니다.').css('color', 'red');
+			$('#email').prop('readonly', false);
+			$('#code').val('');
+			isCodeState = false;
+		}
+	})
+
+    //인증코드 필드 확인
+    $('#code').blur(function() {
         const code = $(this).val();
         if (!code) {
-            $('#verification-code').next('span').text('인증코드를 입력하세요').css('color', 'red').show();
+            $('#mailValidate').next('span').text('인증코드를 입력하세요').css('color', 'red').show();
         } else {
-            $('#verification-code').next('span').hide();
+            $('#mailValidate').next('span').hide();
         }
     });
 
@@ -268,6 +318,12 @@ $(function() {
             alert('개인정보 수집에 동의해야 합니다.');
             e.preventDefault();
         }
+		else if(!isCodeState){
+			alert('이메일 인증을 하지 않으셨습니다.');
+			e.preventDefault();
+		}
+		else
+			location.href='${pageContext.request.contextPath}/insertPro';
     });
 });
 
