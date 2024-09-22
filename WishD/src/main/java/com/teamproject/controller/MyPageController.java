@@ -51,12 +51,18 @@ public class MyPageController {
 		System.out.println("myProfile : " + myProfile);
 		// ======= 회원 정보 가져오기 끝 =======
 
+		
 		// ======= 내가 쓴 프리랜서 글 가져오기 시작 =====
+		String requestProject = request.getParameter("requestProject");
+		String search = request.getParameter("search");
+		System.out.println("프로젝트 검색어 : " + search);
+		String requestSearch = request.getParameter("search");
+		
 		String requestFree = request.getParameter("requestFreelancer");
 		String freelancerSearch = request.getParameter("freelancerSearch");
 		String freeRequestSearch = request.getParameter("freelancerSearch");
 
-		if (requestFree == null) {
+		if (requestFree == null || requestFree == "") {
 			String freeLencerPageNum = request.getParameter("freeLencerPageNum");
 			if (freeLencerPageNum == null) {
 				freeLencerPageNum = "1";
@@ -232,13 +238,12 @@ public class MyPageController {
 		}
 
 		// ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 시작 ========
-		String requestProject = request.getParameter("requestProject");
-		String search = request.getParameter("search");
-		String requestSearch = request.getParameter("search");
+		
 		
 		// 파라미터값 projectPageNum 없으면 => 1페이지로 설정
-		if(requestProject == null) {
+		if(requestProject == null || requestProject == "") {
 		String projectPageNum = request.getParameter("projectPageNum");
+		System.out.println("requestProject 널일때");
 		if (projectPageNum == null) {
 			projectPageNum = "1";
 		}
@@ -258,7 +263,7 @@ public class MyPageController {
 		// 검색어 파라미터 넣기
 		if (search != null) {
 			myProjectPageDTO.setSearch(request.getParameter("search"));
-			System.out.println("search : " + request.getAttribute("search"));
+			System.out.println("진짜 search : " + request.getAttribute("search"));
 		}
 		System.out.println("프로젝트 검색어 : " + search);
 
