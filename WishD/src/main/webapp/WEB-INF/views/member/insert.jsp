@@ -106,13 +106,13 @@
             		<p>인증코드 입력</p>
     				<input 
     					type="text" 
-    					id="verification-code" 
+    					id="code"
     					name="email" 
     					placeholder="인증코드를 입력하세요" 
     					/>
     					<button type="button" class="check-btn" id="code-check">인증하기</button>
-    					<!--에러메세지-->
-    					<span id="verification-code" style="color: red; display: none;"></span>
+    					<!--에러, 성공 메세지 -->
+    					<div id="mailValidate"></div>
 				</div>
 
            		<div class="input-group">
@@ -239,6 +239,33 @@ $(function() {
         });
     });
 
+	//인증코드 발송 SMTP
+	//메일 중복확인 완료시 인증코드 전송
+	$('#send-code').click(() => {
+		let email = $('#email');
+		$.ajax({
+			url: '${pageContext.request.contextPath}/emailSendCode',  //이메일 전송
+			type: 'POST',
+			dataType:"json",
+			data: {
+				'userEmail': email.val()
+			},
+			success: (response) => {
+				if(response === 'success'){
+					$('#output1').html('이메일 전송 오류 이메일을 확인하세요!.').css('color', 'red');
+				} else {
+					email.prop('disabled', true);
+					$('#mailValidate').html('이메일 인증 완료.').css('color', 'green');
+					$('#code-check').prop('disabled', true);
+					$('#send-code').prop('disabled', true);
+				}
+			},
+			error: function() {
+				$('#output1').html('서버 오류 발생').css('color', 'red');
+			}
+		});
+	})
+
     // 인증코드 필드 확인
     $('#verification-code').blur(function() {
         const code = $(this).val();
@@ -270,6 +297,8 @@ $(function() {
         }
     });
 });
+
+
 
 </script>
 

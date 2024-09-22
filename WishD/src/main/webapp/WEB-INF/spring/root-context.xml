@@ -13,12 +13,12 @@
 <!--		<property name="username" value="root"/>-->
 		<property name="password" value="1234"/>
 	</bean>
+
 	<!-- 메일인증 SMTP 관련 설정 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="furitstore1@gmail.com" />
-		<property name="password" value="sbay ogjt fhiv qfjq" />
 
 		<property name="javaMailProperties">
 			<props>
