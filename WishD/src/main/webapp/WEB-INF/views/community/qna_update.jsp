@@ -101,7 +101,7 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <div class="" style="padding-right: 4%;">
+                            <div class="px-4">
                                 <button type="submit" class="btn btn-primary2">질문 수정</button>
                             </div>
            </form>         

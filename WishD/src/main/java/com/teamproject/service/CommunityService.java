@@ -63,6 +63,12 @@ public class CommunityService {
 	    return communityDAO.getCommunityById(ncommunity_num);
 	}
 
+	//공지사항 페이지 카운트
+	public int getCommunityCount(CommunityPageDTO communityPageDTO) {
+		System.out.println("CommunityService getCommunityCount");
+		
+		return communityDAO.getCommunityCount(communityPageDTO);
+	}
 	
 	//질문 작성
 	public void insertCommunityQna(CommunityQnaDTO communityQnaDTO) {
@@ -74,15 +80,14 @@ public class CommunityService {
 		System.out.println(communityQnaDTO.getUser_name());
 		//글 번호
 		communityDAO.insertCommunityQna(communityQnaDTO);
-		
 			
 	}
 	
 	//질문 목록 가져오기
 	public List<CommunityQnaDTO> getCommunityQnaList(CommunityPageDTO communitypageDTO) {
 		System.out.println("CommunityService getCommunityQnaList");
-		// 시작하는 행번호 구하기  1, 11, 21,...
-				
+		
+		// 시작하는 행번호 구하기
 		int startRow = (communitypageDTO.getCurrentPage()-1) * communitypageDTO.getPageSize() + 1;
 				
 		// 끝나는 행번호 구하기 10 20 30 
@@ -96,6 +101,13 @@ public class CommunityService {
 	    return communityDAO.getCommunityQnaList(communitypageDTO);
 	}
 
+	//질문 페이지 카운트
+	public int getCommunityQnaCount(CommunityPageDTO communityPageDTO) {
+		System.out.println("CommunityService getCommunityQnaCount");
+			
+		return communityDAO.getCommunityQnaCount(communityPageDTO);
+	}
+		
 	//질문 상세 페이지
 	public CommunityQnaDTO getCommunityQnaById(long qcommunity_num) {
 	    return communityDAO.getCommunityQnaById(qcommunity_num);
