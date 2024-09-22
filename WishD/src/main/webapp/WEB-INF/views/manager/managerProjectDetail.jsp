@@ -118,6 +118,28 @@
                             <p class="mb-0">2 년차</p>
                         </div>
                     </div>
+                    
+                    <!-- 회사명 -->
+                    <div class="row mb-3">
+                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />
+                            <p class="mb-0">회사명</p>
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-end-fixed">
+                            <p class="mb-0">${projectDTO.getPboard_company_name()}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 회사명 -->
+                    <div class="row mb-3">
+                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />
+                            <p class="mb-0">회사 연락처</p>
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-end-fixed">
+                            <p class="mb-0">${projectDTO.getPboard_manager_phone()}</p>
+                        </div>
+                    </div>
 
                     <!-- 필요스킬 -->
                     <!-- 포문으로 skill 전부 다가져오기 -->
@@ -172,7 +194,7 @@
                         </div>
 
                         <!-- 폼 시작 -->
-                        <form action="${pageContext.request.contextPath}/projectReadReq" method="post" id="projectReadForm">
+                        <form action="${pageContext.request.contextPath}/manager/freelancerApprove/${projectDTO.getPboard_id()}" method="post" id="projectReadForm">
                             <!-- 한줄 자기소개 -->
                             <div class="mb-4">
                                 <label for="request_title" class="mb-1">소개(타이틀)</label>
@@ -305,7 +327,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="agreeTitle">승인요청 완료 하였습니다.</h1>
+                                    <h1 class="modal-title fs-6" id="agreeTitle">승인되었습니다.</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -319,7 +341,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="disagreeTitle">승인 요청 오류 (관리자 문의 바랍니다).</h1>
+                                    <h1 class="modal-title fs-6" id="disagreeTitle">승인 도중에 오류가 발생했습니다.</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -368,9 +390,9 @@
         //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
         $('#badge_container .badge').addClass('disabled');
 
-        let agree_button = $('#agree_button');
-        agree_button.prop('disabled', true);
-        agree_button.text("승인 대기중");
+//         let agree_button = $('#agree_button');
+//         agree_button.prop('disabled', true);
+//         agree_button.text("승인 대기중");
         //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
 
         //projectRequestDTO
@@ -459,7 +481,7 @@
 
             //비동기 ajax 처리
             $.ajax({
-                url: '${pageContext.request.contextPath}/projectReadReq/${projectDTO.getPboard_id()}',
+                url: '${pageContext.request.contextPath}/manager/freelancerApprove/${projectDTO.getPboard_id()}',
                 type: 'POST', //post 방식
                 data: formData,
                 contentType: false, // jQuery가 자동으로 설정한 컨텐츠 타입을 사용하지 않음
@@ -479,9 +501,9 @@
                         $('#badge_container .badge').addClass('disabled');
 
                         //버튼 비활성화
-                        let agree_button = $('#agree_button');
-                        agree_button.prop('disabled', true);
-                        agree_button.text("승인 대기중");
+//                         let agree_button = $('#agree_button');
+//                         agree_button.prop('disabled', true);
+//                         agree_button.text("승인 대기중");
                     }
                 },
                 error: function(xhr, status, error) {

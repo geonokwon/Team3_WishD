@@ -32,13 +32,29 @@ public class ManagerDAO {
 //	요청 프로젝트 리스트
 	public List<FreelancerRequestDTO> getRqcList(PageDTO pageDTO) {
 		
-		return null;
+		return sqlSession.selectList(namespace+"getRqcList", pageDTO);
 	}
 
 //	요청 프로젝트 수
 	public int getRqcCount(PageDTO pageDTO) {
 		
-		return 0;
+		return sqlSession.selectOne(namespace+"getRqcCount",pageDTO);
+	}
+
+//	요청 프리랜서 승인
+	public void freelancerApprove(Long pboard_id) {
+		
+		sqlSession.update(namespace+"freelancerApprove", pboard_id);
+	}
+
+	public List<CommunityDTO> getNcoList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getNcoList", pageDTO);
+	}
+
+	public int getNcoCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getNcoCount",pageDTO);
 	}
 
 	

@@ -53,4 +53,29 @@ public class ManagerService {
 		return managerDAO.getRqcCount(pageDTO);
 	}
 	
+//	요청 프리랜서 승인
+	public void freelancerApprove(Long pboard_id) {
+		
+		managerDAO.freelancerApprove(pboard_id);
+	}
+	
+//	공지사항 리스트
+	public List<CommunityDTO> getNcoList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getNcoList(pageDTO);
+	}
+
+//	공지사항 수
+	public int getNcoCount(PageDTO pageDTO) {
+		
+		return managerDAO.getNcoCount(pageDTO);
+	}
+	
 }

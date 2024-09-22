@@ -5,16 +5,47 @@
 
 <mapper namespace="com.teamproject.mapper.ManagerMapper">
 
-<!-- 	미승인된 요청 프리랜서를 전달함 -->
+	<!-- 	미승인된 요청 프리랜서를 전달함 -->
 	<select id="getRqfList" resultType="com.teamproject.domain.ProjectRequestDTO">
 		select * from request_freelancer 
 		where f_request_isAgree = 0 
 		order by f_request_Date
 	</select>
 	
-<!-- 	미승인된 요청 프로젝트를 전달함 -->
+	<!-- 	미승인된 요청 프리랜서의 수를 전달함 -->
 	<select id="getRqfCount" resultType="java.lang.Integer">
 		select count(*) from request_freelancer	
 		where f_request_isAgree = 0	
+	</select>
+	
+	<!-- 	요청 프리랜서 승인 -->
+	<update id="freelancerApprove">
+		update request_freelancer
+		set f_request_isAgree = 1
+		where pboard_id = #{pboard_id}
+	</update>
+	
+	<!-- 	미승인된 요청 프로젝트를 전달함 -->
+	<select id="getRqcList" resultType="com.teamproject.domain.FreelancerRequestDTO">
+		select * from request_client 
+		where cl_request_isAgree = 0 
+		order by cl_request_Date
+	</select>
+	
+	<!-- 	미승인된 요청 프로젝트의 수를 전달함 -->
+	<select id="getRqcCount" resultType="java.lang.Integer">
+		select count(*) from request_client
+		where cl_request_isAgree = 0	
+	</select>
+	
+	<!-- 	공지사항을 전달함 -->
+	<select id="getNcoList" resultType="com.teamproject.domain.CommunityDTO">
+		select * from community_notice 
+		order by ncommunity_date
+	</select>
+	
+	<!-- 	공지사항의 수를 전달함 -->
+	<select id="getNcoCount" resultType="java.lang.Integer">
+		select count(*) from community_notice
 	</select>
 </mapper>
