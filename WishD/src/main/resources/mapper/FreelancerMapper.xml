@@ -11,6 +11,30 @@
 	    SELECT COALESCE(MAX(freelancer_id), 0) FROM freelancer
 	</select>
 
+	<!-- 	프리랜서id로 프리랜서 이름의 가운데를 마스킹처리하며 구하기 -->
+	<select id="getFreelancerName" resultType="String">
+		select distinct CASE 
+            WHEN CHAR_LENGTH(ui.user_name) = 2 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*')
+            WHEN CHAR_LENGTH(ui.user_name) = 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*', SUBSTRING(ui.user_name, 3, 1))
+            WHEN CHAR_LENGTH(ui.user_name) > 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), REPEAT('*', CHAR_LENGTH(ui.user_name) - 2), SUBSTRING(ui.user_name, CHAR_LENGTH(ui.user_name), 1))
+            ELSE ui.user_name
+	      END AS user_name
+	    FROM freelancer f
+		LEFT JOIN user_info ui ON f.user_no = ui.user_no
+		where ui.user_no = (select user_no from freelancer where freelancer_id = #{freelancer_id});
+	</select>
+	
+	<!-- 	프리랜서id로 선택한 프리랜서의 직업 이름 구하기 -->
+	<select id="getFreelancerJobName" resultType="String">
+		select distinct job_name
+			from freelancer f
+			LEFT JOIN jobs j ON f.job_id = j.job_id
+			where j.job_id = (select job_id from freelancer where freelancer_id = #{freelancer_id});
+	</select>
+	
 <!-- 	프리랜서 등록 -->
 	<!-- 	job리스트 불러오기 -->
 	<select id="getJobList" resultType="com.teamproject.domain.FreelancerDTO">
@@ -20,8 +44,13 @@
 	
 	<!-- 	프리랜서 등록 -->
 	<insert id="resistFreelancer">
-		insert into freelancer
-		values(#{freelancer_id},#{user_no},#{freelancer_salary},#{freelancer_startdate},#{freelancer_exp},#{dev_exp},#{freelancer_introduction},#{freelancer_link},"구직중",#{freelancer_date},#{freelancer_update},#{freelancer_job});
+		insert into freelancer(freelancer_id, user_no, freelancer_salary, freelancer_startdate,
+								 freelancer_exp, dev_exp, freelancer_introduction, freelancer_link, freelancer_state,
+								 freelancer_date, freelancer_update, job_id)
+		values(	#{freelancer_id},#{user_no},#{freelancer_salary},
+				#{freelancer_startdate},#{freelancer_exp},#{dev_exp},
+				#{freelancer_introduction},#{freelancer_link},"구직중",
+				#{freelancer_date},#{freelancer_update},#{job_id});
 	</insert>
 	
 	<!-- 	프리랜서 스킬들 등록 -->
@@ -127,5 +156,104 @@
         FROM skills;
     </select>
     <!-- freelancer_find - end -->
-  
+    
+    
+      <!-- project_read - start -->
+    <!-- freelancer_id 에 해당하는 프로젝트 불러오기 -->
+    <select id="getFreelancer" resultType="com.teamproject.domain.FreelancerDTO">
+        SELECT *
+        FROM freelancer
+        WHERE freelancer_id = #{freelancer_id};
+    </select>
+
+    <!-- freelancer_id 에 해당하는 프로젝트가 선택한 스킬 불러오기 -->
+    <select id="getSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
+        SELECT s.*
+        FROM freelancer_skill fs JOIN skills s
+        ON fs.skill_id = s.skill_id
+        WHERE fs.freelancer_id = #{freelancer_id};
+    </select>
+    <!-- project_read - end -->
+    
+    <!-- freelancer_read_Request -->
+    <insert id="insertFreelancerRequest" useGeneratedKeys="true" keyProperty="request_num" keyColumn="request_num">
+        INSERT INTO request_freelancer(user_no, freelancer_id, cl_subject,
+                                       cl_date, cl_startdate,
+                                       cl_content, cl_name, cl_email, cl_request_date)
+        VALUES(#{user_no}, #{freelancer_id}, #{cl_subject}, #{cl_date},
+               #{cl_startdate}, #{cl_content}, #{cl_name}, #{cl_email}, cl_request_date);
+    </insert>
+    
+    <!-- freelancer_read_Request request_skill 테이블 스킬 추가 -->
+    <insert id="insetFreelancerRequestSkill">
+        INSERT INTO request_skill (request_num, skill_id)
+        VALUES
+        <foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{request_num}, #{skill_id} )
+        </foreach>
+    </insert>
+    
+    <!-- 승인요청시 Project_board 의 state 의 상태값 변경 -->
+    <update id="updateFreelancerState">
+        UPDATE freelancer
+        SET freelancer_state = '진행중'
+        WHERE freelancer_id = #{freelancer_id};
+    </update>
+    
+    <!-- 승인요청시 Project_request_files 테이블 file 정보 추가 -->
+    <insert id="insetFreelancerRequestFile">
+        INSERT INTO project_request_files (request_num, freelancer_id, f_file_name, f_file_path , fileOriginName)
+        VALUES (#{request_num}, #{freelancer_id}, #{f_file_name}, #{f_file_path}, #{fileOriginName});
+    </insert>
+    
+    <!-- 승인요청한 유저가 다시 페이지로 돌아왔을시 요청중이기 때문에 값을 불러와서 form에 뿌려주기 위한 select -->
+    <select id="getRequestClient" resultType="com.teamproject.domain.FreelancerRequestDTO">
+        SELECT *
+        FROM request_client
+        WHERE freelancer_id = #{freelancer_id};
+    </select>
+    <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
+<!--     WHERE crs.request_num = #{freelancer_id}; 이부분 오류날것 같은데 수정해야함 -->
+    <select id="getRequestSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
+        SELECT rs.skill_id, s.skill_name
+        FROM cli_req_skill crs JOIN skills s
+        ON crs.skill_id = s.skill_id
+        WHERE crs.request_num = #{freelancer_id};
+    </select>
+    
+        <!-- project_request_file -->
+    <select id="getFreelacnerRequestFile" resultType="com.teamproject.domain.FreelancerRequestFileDTO">
+        SELECT *
+        FROM freelancer_file
+        WHERE freelancer_id = #{freelancer_id};
+    </select>
+
+    <!-- 매칭 성공시 isMatching 변경 -->
+    <update id="setFreelancerIsMatching">
+        UPDATE freelancer
+        SET freelancer_isMatching = true
+        WHERE freelancer_id = #{freelancer_id}
+    </update>
+    
+    <!--request 단계에서 매칭 실패시 데이터 삭제 -->
+    <delete id="deleteFreelancerRequest">
+        DELETE FROM request_freelancer
+        WHERE freelancer_id = #{freelancer_id}
+    </delete>
+    <!-- 매칭 취소시 -->
+    <!-- freelancer 의 state 값 변경 및 isMatching 값 변경 -->
+    <update id="setBoardState">
+        UPDATE freelancer
+        SET freelancer_state = '구직중'
+        WHERE freelancer_id = #{freelancer_id}
+    </update>
+
+    <!-- user_no 로 user_name 불러오기 -->
+    <select id="getUserName" resultType="String">
+        SELECT ui.user_name
+        FROM user u JOIN user_info ui
+        ON u.user_no = ui.user_no
+        WHERE u.user_no = #{user_no}
+    </select>
+    
 </mapper>

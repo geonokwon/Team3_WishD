@@ -1,6 +1,8 @@
 package com.teamproject.domain;
 
-public class FreelancerPageDTO {
+import com.teamproject.utils.PaginationIF;
+
+public class FreelancerPageDTO implements PaginationIF{
 	private int pageSize;
     private int pageNum;
     private int currentPage;

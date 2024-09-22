@@ -5,11 +5,11 @@ import java.util.List;
 
 public class FreelancerRequestDTO {
 	
-	private long request_num;
-	private long freelancer_id;
-	private long user_no;
+	private Long request_num;
+	private Long freelancer_id;
+	private Long user_no;
 	private String cl_subject;
-	private Timestamp cl_date;
+	private int cl_date;
 	private Timestamp cl_startdate;
 	private String cl_content;
 	private String cl_name;
@@ -18,7 +18,7 @@ public class FreelancerRequestDTO {
 	private Boolean cl_request_isAgree;
 	
     private String skillList;
-    private List<ProjectSkillDTO> skills;
+    private List<FreelancerSkillDTO> skills;
 	
 	
 	
@@ -32,7 +32,7 @@ public class FreelancerRequestDTO {
 				+ skillList + ", skills=" + skills + "]";
 	}
 
-	public long getRequest_num() {
+	public Long getRequest_num() {
 		return request_num;
 	}
 
@@ -40,7 +40,7 @@ public class FreelancerRequestDTO {
 		this.request_num = request_num;
 	}
 
-	public long getFreelancer_id() {
+	public Long getFreelancer_id() {
 		return freelancer_id;
 	}
 
@@ -48,7 +48,7 @@ public class FreelancerRequestDTO {
 		this.freelancer_id = freelancer_id;
 	}
 
-	public long getUser_no() {
+	public Long getUser_no() {
 		return user_no;
 	}
 
@@ -64,11 +64,11 @@ public class FreelancerRequestDTO {
 		this.cl_subject = cl_subject;
 	}
 
-	public Timestamp getCl_date() {
+	public int getCl_date() {
 		return cl_date;
 	}
 
-	public void setCl_date(Timestamp cl_date) {
+	public void setCl_date(int cl_date) {
 		this.cl_date = cl_date;
 	}
 
@@ -128,11 +128,11 @@ public class FreelancerRequestDTO {
 		this.skillList = skillList;
 	}
 
-	public List<ProjectSkillDTO> getSkills() {
+	public List<FreelancerSkillDTO> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<ProjectSkillDTO> skills) {
+	public void setSkills(List<FreelancerSkillDTO> skills) {
 		this.skills = skills;
 	}
 
