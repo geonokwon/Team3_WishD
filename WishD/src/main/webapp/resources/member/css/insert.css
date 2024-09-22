@@ -1,12 +1,57 @@
-
 .signup-container {
     display: flex;
-    justify-content: center;
+    justify-content: center;  /* 수평 중앙 정렬 */
+    align-items: center;      /* 수직 중앙 정렬 */
+	margin-top : 100px;
+	margin-bottom : 40px;
+}
+
+.input-container {
+    display: flex;
     align-items: center;
-    min-height: 50vh;
-    background-color: #0E1117;
+    justify-content: space-between;
+    width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+    position: relative; /* 상대 위치 설정 */
+	
+}
+
+.input-container input {
+    flex: 1; /* 입력란을 최대한으로 확장 */
+    min-width: 0; /* 부모 요소의 너비를 초과하지 않도록 설정 */
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+	background-color: #0e1117!important;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+	color : #fff !important;
+}
+/* 에러메세지 */
+.invalid-feedback {
+    display: none; /* 기본적으로 숨김 */
+    color: red; /* 에러 메시지 색상 */
+    margin-top: 0.5rem; /* 입력란과의 간격 */
+}
+
+#user_id, #email, #code {
+    flex: 1; /* 입력 필드의 너비를 최대로 */
+    margin-right: 10px; /* 버튼과 간격 조정 */
+    align-items: center;
+}
+
+.btn-custom {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6F40C8;
     color: #fff;
-    padding: 50px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #563399;
 }
 
 .signup-box {
@@ -26,59 +71,6 @@
     padding : 20px;
 }
 
-.input-group {
-    margin: 20px;
-    display: flex; /* 가로로 정렬 */
-    align-items: center; /* 세로 가운데 정렬 */
-    position: relative;
-}
-
-
-.input-group p {
-    margin: -10px 0 5px 10px;
-    font-size: 13px;
-    width: 100px;
-   
-}
-
-.input-group input {
-   	width: 48%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px !important;
-    border: none;
-    background-color: #333743;
-    color: white;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-    margin-right : 15px;
-    
-}
-
-.input-group input:focus {
-    outline: none;
-    border: 2px solid #2a2370;
-}
-
-.input-group button {
-    width: auto; /* 버튼의 너비는 콘텐츠에 따라 자동 조정 */
-    padding: 8px;
-    border: none;
-    border-radius: 5px !important;
-    background-color: #6F40C8;
-    color: #fff;
-    font-size: 11px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom : 20px;
-
-}
-
-.input-group button:hover {
-    background-color: #5a34a1;
-}
-
-
 .agree {
 	display: flex;
     align-items: center;
@@ -91,7 +83,7 @@
     align-items: center; 
     margin-bottom: 10px; 
     margin-left: 50px;
-    
+    margin-top : 15px;
     
 }
 
