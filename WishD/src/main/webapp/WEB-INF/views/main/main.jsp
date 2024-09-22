@@ -103,10 +103,11 @@
 				<td>
 					<p><a class="nav-link" href="${pageContext.request.contextPath}/projectRead/${projectDTO.getPboard_id()}">${projectDTO.pboard_title }</a></p>
 					<div class="col-12 card-text mb-1">
-						<!-- 반복되는 스킬배지 -->
+<!-- 						요구 기술 목록 -->
 						<c:forEach items="${projectDTO.getSkills()}" var="projectSkill" begin="0" end="4" step="1">
 							<span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
 						</c:forEach>
+<!-- 						기술이 5개 이상인 이유로 생략됨을 표시 -->
 						<c:if test="${projectDTO.getSkills().size() gt 5}">
 							<span class="badge mb-1 me-2">...</span>
 						</c:if>
@@ -119,17 +120,18 @@
 	
 <!-- 	프리랜서 리스트 -->
 	<div class="freelancer-list">
-		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind';">모집 중인 프리랜서 목록</div>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind';">구직 중인 프리랜서 목록</div>
 		<table class="instant-table">
 		<c:forEach var="freelancerDTO" items="${mainFreeList }">
 			<tr>
 				<td>
 					<p><a class="nav-link" href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.getFreelancer_id()}">${freelancerDTO.getUser_name() }</a></p>
 					<div class="col-12 card-text mb-1">
-						<!-- 반복되는 스킬배지 -->
+<!-- 						보유 기술 목록 -->
 						<c:forEach items="${freelancerDTO.getSkills()}" var="freelancerSkill" begin="0" end="4" step="1">
 							<span class="badge mb-1 me-2"># ${freelancerSkill.getSkill_name()}</span>
 						</c:forEach>
+<!-- 						기술이 5개 이상인 이유로 생략됨을 표시 -->
 						<c:if test="${freelancerDTO.getSkills().size() gt 5}">
 							<span class="badge mb-1 me-2">...</span>
 						</c:if>

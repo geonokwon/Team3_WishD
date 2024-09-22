@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.teamproject.dao.ManagerDAO;
+import com.teamproject.dao.MemberDAO;
 import com.teamproject.domain.*;
 
 @Service
@@ -102,6 +103,25 @@ public class ManagerService {
 		
 		return managerDAO.getNcoCount(pageDTO);
 	}
+	
+//	질문 게시판 리스트
+	public List<CommunityQnaDTO> getQcoList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getQcoList(pageDTO);
+	}
+
+//	질문 게시글 수
+	public int getQcoCount(PageDTO pageDTO) {
+		
+		return managerDAO.getQcoCount(pageDTO);
+	}
 
 //	회원 리스트
 	public List<MemberDTO> getUserList(PageDTO pageDTO) {
@@ -121,5 +141,12 @@ public class ManagerService {
 		
 		return managerDAO.getUserCount(pageDTO);
 	}
+
+	public MemberDTO getUserInfo(Long user_no) {
+		
+		return managerDAO.getUserInfo(user_no);
+	}
+
+	
 	
 }

@@ -42,7 +42,8 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
+					<th scope="col" style="width:20%;">신청자 식별번호</th>
+					<th scope="col" style="width:20%;">요청글 번호</th>
 					<th scope="col">제목</th>
 					<th scope="col" style="width:30%;">등록일자</th>
 				</tr>
@@ -50,7 +51,8 @@
 			<tbody>
 			<c:forEach var="freelancerRequestDTO" items="${rqcList }">
 				<tr>
-					<td>${freelancerRequestDTO.request_num }</td>
+					<td style="width:20%;">${freelancerRequestDTO.user_no }</td>
+					<td style="width:20%;">${freelancerRequestDTO.request_num }</td>
 					<td>${freelancerRequestDTO.cl_subject }</td>
 					<td style="width:30%;">${freelancerRequestDTO.cl_request_date }</td>
 				</tr>

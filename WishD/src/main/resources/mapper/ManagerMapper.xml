@@ -52,7 +52,7 @@
 	<select id="getRqfList" resultType="com.teamproject.domain.ProjectRequestDTO">
 		select * from request_freelancer 
 		where f_request_isAgree = 0 
-		order by f_request_Date
+		order by f_request_Date ASC
 		limit #{startRow},#{pageSize}
 	</select>
 	
@@ -73,7 +73,7 @@
 	<select id="getRqcList" resultType="com.teamproject.domain.FreelancerRequestDTO">
 		select * from request_client 
 		where cl_request_isAgree = 0 
-		order by cl_request_Date
+		order by cl_request_Date ASC
 		limit #{startRow},#{pageSize}
 	</select>
 	
@@ -83,10 +83,10 @@
 		where cl_request_isAgree = 0	
 	</select>
 	
-	<!-- 	공지사항을 전달함 -->
+	<!-- 	공지사항 목록을 전달함 -->
 	<select id="getNcoList" resultType="com.teamproject.domain.CommunityDTO">
 		select * from community_notice 
-		order by ncommunity_date
+		order by ncommunity_date DESC
 		limit #{startRow},#{pageSize}
 	</select>
 	
@@ -95,15 +95,33 @@
 		select count(*) from community_notice
 	</select>
 	
+	<!-- 	미답변 질문 게시판 목록을 전달함 -->
+	<select id="getQcoList" resultType="com.teamproject.domain.CommunityQnaDTO">
+		select * from community_QnA 
+		where qcommunity_answer is NULL
+		order by qcommunity_date DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<!-- 	질문 게시글의 수를 전달함 -->
+	<select id="getQcoCount" resultType="java.lang.Integer">
+		select count(*) from community_QnA
+	</select>
+	
 	<!-- 	회원을 전달함 -->
 	<select id="getUserList" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info 
-		order by join_date
+		order by join_date DESC
 		limit #{startRow},#{pageSize}
 	</select>
 	
 	<!-- 	회원 수를 전달함 -->
 	<select id="getUserCount" resultType="java.lang.Integer">
 		select count(*) from user_info
+	</select>
+	
+	<select id="getUserInfo" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info
+		where user_no = #{user_no}
 	</select>
 </mapper>

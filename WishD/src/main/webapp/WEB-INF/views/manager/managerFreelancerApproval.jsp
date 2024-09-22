@@ -42,7 +42,8 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
+					<th scope="col">신청자 식별번호</th>
+					<th scope="col">요청글 번호</th>
 					<th scope="col">제목</th>
 					<th scope="col" style="width:30%;">등록일자</th>
 				</tr>
@@ -50,7 +51,8 @@
 			<tbody>
 			<c:forEach var="projectRequestDTO" items="${rqfList }">
 				<tr>
-					<td>${projectRequestDTO.f_request_id }</td>
+					<td style="width:20%;">${projectRequestDTO.user_no }</td>
+					<td style="width:20%;">${projectRequestDTO.f_request_id }</td>
 					<td><a href="${pageContext.request.contextPath}/manager/projectRead/${projectRequestDTO.getPboard_id()}">${projectRequestDTO.f_request_title }</a></td>
 					<td style="width:30%;">${projectRequestDTO.f_request_date }</td>
 				</tr>

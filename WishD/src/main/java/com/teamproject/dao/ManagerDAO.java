@@ -29,6 +29,18 @@ public class ManagerDAO {
 		return sqlSession.selectList(namespace+"getMainFreeList");
 	}
 	
+//	메인 페이지에 넣을 프로젝트의 기술들
+	public List<FreelancerSkillDTO> getMainFreeSkill(Long freelancer_id) {
+
+		return sqlSession.selectList(namespace+"getMainFreeSkill", freelancer_id);
+	}
+	
+//	메인 페이지에 넣을 프리랜서의 기술들
+	public List<ProjectSkillDTO> getMainProSkill(Long pboard_id) {
+		
+		return sqlSession.selectList(namespace+"getMainProSkill", pboard_id);
+	}
+	
 //	요청 프리랜서 리스트
 	public List<ProjectRequestDTO> getRqfList(PageDTO pageDTO) {
 		
@@ -70,6 +82,18 @@ public class ManagerDAO {
 		
 		return sqlSession.selectOne(namespace+"getNcoCount",pageDTO);
 	}
+	
+//	질문 게시판 목록
+	public List<CommunityQnaDTO> getQcoList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getQcoList", pageDTO);
+	}
+
+//	질문 게시글 수
+	public int getQcoCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getQcoCount",pageDTO);
+	}
 
 //	전체 회원 목록
 	public List<MemberDTO> getUserList(PageDTO pageDTO) {
@@ -83,14 +107,10 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+"getUserCount", pageDTO);
 	}
 
-	public List<FreelancerSkillDTO> getMainFreeSkill(Long freelancer_id) {
-
-	  return sqlSession.selectList(namespace+"getMainFreeSkill", freelancer_id);
-	}
-
-	public List<ProjectSkillDTO> getMainProSkill(Long pboard_id) {
+//	회원 상세 정보
+	public MemberDTO getUserInfo(Long user_no) {
 		
-		return sqlSession.selectList(namespace+"getMainProSkill", pboard_id);
+		return sqlSession.selectOne(namespace+"getUserInfo", user_no);
 	}
 
 	

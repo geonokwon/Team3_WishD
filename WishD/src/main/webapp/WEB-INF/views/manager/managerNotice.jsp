@@ -35,21 +35,23 @@
 	<jsp:include page="../include/managerAside.jsp"/>
 	<div class="content">
 <!-- 	페이지 제목 -->
-	<div class="content-head">머리</div>
+	<div class="content-head">공지사항</div>
 <!-- 	페이지 내용 -->
 	<div class="list">
 <!-- 		테이블 -->
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
+					<th scope="col" style="width:20%;">작성자 식별번호</th>
+					<th scope="col" style="width:20%;">글 번호</th>
 					<th scope="col">제목</th>
-					<th scope="col">등록일자</th>
+					<th scope="col" style="width:20%;">등록일자</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:forEach var="communityDTO" items="${NcoList }">
 				<tr>
+					<td>${communityDTO.admin_id }</td>
 					<td>${communityDTO.ncommunity_num }</td>
 					<td><a href="${pageContext.request.contextPath}/notice_detail?ncommunity_num=${communityDTO.ncommunity_num}">${communityDTO.ncommunity_title }</a></td>
 					<td style="width:30%;">${communityDTO.ncommunity_date }</td>

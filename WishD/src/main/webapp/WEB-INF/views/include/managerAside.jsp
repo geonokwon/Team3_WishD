@@ -14,7 +14,6 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="${pageContext.request.contextPath}/manager/managerApProject" class="link-body-emphasis d-inline-flex text-decoration-none rounded">프로젝트 승인</a></li>
             <li><a href="${pageContext.request.contextPath}/manager/managerApFreelancer" class="link-body-emphasis d-inline-flex text-decoration-none rounded">프리랜서 승인</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">비공개 프로젝트 관리</a></li>
           </ul>
         </div>
       </li>
@@ -24,7 +23,7 @@
         </button>
         <div class="collapse show" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath}/manager/managerQnA" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 게시판</a></li>
             <li><a href="${pageContext.request.contextPath}/manager/managerNotice" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a></li>
           </ul>
         </div>

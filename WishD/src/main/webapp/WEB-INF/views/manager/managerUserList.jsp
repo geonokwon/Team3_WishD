@@ -55,7 +55,7 @@
 			<c:forEach var="memberDTO" items="${userList }">
 				<tr>
 					<td>${memberDTO.user_no }</td>
-					<td><a href="${pageContext.request.contextPath}/manager/userInfo/${memberDTO.getUser_id()}">${memberDTO.user_name }</a></td>
+					<td><a href="${pageContext.request.contextPath}/manager/userInfo/${memberDTO.getUser_no()}">${memberDTO.user_name }</a></td>
 					<td>${memberDTO.email }</td>
 					<td>${memberDTO.join_date }</td>
 					<td>${memberDTO.user_type }</td>
