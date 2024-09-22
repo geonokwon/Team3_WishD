@@ -18,11 +18,11 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
     ></script>
-	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerAside.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/managerTable.css">
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 </head>
 <body class="text-light">
@@ -33,52 +33,60 @@
 <div class="wrap">
 	<!-- Aside -->
 	<jsp:include page="../include/managerAside.jsp"/>
-	<div class="content">
+	<div class="content" style="width:75%; margin-left:100px;">
 <!-- 	페이지 제목 -->
-	<div class="content-head">승인 대기 중인 요청 프리랜서</div>
+	<div class="content-head">이용자 목록</div>
 <!-- 	페이지 내용 -->
 	<div class="list">
 <!-- 		테이블 -->
-		<table class="table">
+		<table class="table" style="width:100%">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col" style="width:30%;">등록일자</th>
+					<th scope="col">고유번호</th>
+					<th scope="col">이름</th>
+					<th scope="col">이메일</th>
+					<th scope="col">가입일</th>
+					<th scope="col">로그인 유형</th>
+					<th scope="col">계정 유형</th>
+					<th scope="col">차단 여부</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="projectRequestDTO" items="${rqfList }">
+			<c:forEach var="memberDTO" items="${userList }">
 				<tr>
-					<td>${projectRequestDTO.f_request_id }</td>
-					<td><a href="${pageContext.request.contextPath}/manager/projectRead/${projectRequestDTO.getPboard_id()}">${projectRequestDTO.f_request_title }</a></td>
-					<td style="width:30%;">${projectRequestDTO.f_request_date }</td>
+					<td>${memberDTO.user_no }</td>
+					<td><a href="${pageContext.request.contextPath}/manager/userInfo/${memberDTO.getUser_id()}">${memberDTO.user_name }</a></td>
+					<td>${memberDTO.email }</td>
+					<td>${memberDTO.join_date }</td>
+					<td>${memberDTO.user_type }</td>
+					<td>${memberDTO.getUser_Role()}</td>
+					<td>${memberDTO.user_yn }</td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
-			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
 <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne 1}">
-					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
+					<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
 					<c:if test="${pageDTO.currentPage eq i}">
-						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+						<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
 					</c:if>
 					<c:if test="${pageDTO.currentPage ne i}">
-						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum">${i}</span></a>
+						<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${i}"><span class="pagenum">${i}</span></a>
 					</c:if>
 				</c:forEach>
 <!-- 				마지막 페이지 아닌 경우 => 다음 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
-					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
+					<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
 				</c:if>
 				
-			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	
 		</div>
 	</div>
 	</div>

@@ -5,11 +5,55 @@
 
 <mapper namespace="com.teamproject.mapper.ManagerMapper">
 
+	<!-- 	메인 페이지에 넣을 프로젝트 리스트 -->
+	<select id="getMainProList" resultType="com.teamproject.domain.ProjectDTO">
+		select * from project_board 
+		where pboard_state = '모집중'
+		order by pboard_date DESC
+		limit 0,7
+	</select>
+	
+	<!-- 프로젝트의 스킬 목록들 -->
+    <select id="getMainProSkill" resultType="com.teamproject.domain.ProjectSkillDTO">
+        SELECT s.skill_id, s.skill_name
+        FROM project_skill p JOIN skills s
+        ON p.skill_id = s.skill_id
+        WHERE p.pboard_id = #{pboard_id};
+    </select>
+	
+	<!-- 	FreelancerMapper의 selectFreelancer_all를 복사함 -->
+	<!-- 	메인 페이지에 넣을 프리랜서 리스트 -->
+	<select id="getMainFreeList" resultType="com.teamproject.domain.FreelancerDTO">
+		select f.*, CASE 
+            WHEN CHAR_LENGTH(ui.user_name) = 2 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*')
+            WHEN CHAR_LENGTH(ui.user_name) = 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), '*', SUBSTRING(ui.user_name, 3, 1))
+            WHEN CHAR_LENGTH(ui.user_name) > 3 THEN 
+                CONCAT(SUBSTRING(ui.user_name, 1, 1), REPEAT('*', CHAR_LENGTH(ui.user_name) - 2), SUBSTRING(ui.user_name, CHAR_LENGTH(ui.user_name), 1))
+            ELSE ui.user_name
+          END AS user_name
+		from freelancer f
+		LEFT JOIN user_info ui ON f.user_no = ui.user_no
+		where freelancer_state = '구직중'
+		order by freelancer_date DESC
+		limit 0,7;
+	</select>
+	
+	<!-- 프리랜서의 스킬 목록들 -->
+    <select id="getMainFreeSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
+        SELECT s.skill_id, s.skill_name
+        FROM freelancer_skill f JOIN skills s
+        ON f.skill_id = s.skill_id
+        WHERE f.freelancer_id = #{freelancer_id};
+    </select>
+
 	<!-- 	미승인된 요청 프리랜서를 전달함 -->
 	<select id="getRqfList" resultType="com.teamproject.domain.ProjectRequestDTO">
 		select * from request_freelancer 
 		where f_request_isAgree = 0 
 		order by f_request_Date
+		limit #{startRow},#{pageSize}
 	</select>
 	
 	<!-- 	미승인된 요청 프리랜서의 수를 전달함 -->
@@ -30,6 +74,7 @@
 		select * from request_client 
 		where cl_request_isAgree = 0 
 		order by cl_request_Date
+		limit #{startRow},#{pageSize}
 	</select>
 	
 	<!-- 	미승인된 요청 프로젝트의 수를 전달함 -->
@@ -42,10 +87,23 @@
 	<select id="getNcoList" resultType="com.teamproject.domain.CommunityDTO">
 		select * from community_notice 
 		order by ncommunity_date
+		limit #{startRow},#{pageSize}
 	</select>
 	
 	<!-- 	공지사항의 수를 전달함 -->
 	<select id="getNcoCount" resultType="java.lang.Integer">
 		select count(*) from community_notice
+	</select>
+	
+	<!-- 	회원을 전달함 -->
+	<select id="getUserList" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info 
+		order by join_date
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<!-- 	회원 수를 전달함 -->
+	<select id="getUserCount" resultType="java.lang.Integer">
+		select count(*) from user_info
 	</select>
 </mapper>

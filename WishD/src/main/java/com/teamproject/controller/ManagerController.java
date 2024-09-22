@@ -196,6 +196,7 @@ public class ManagerController {
         return "redirect:/manager/managerApFreelancer";
     }
 	
+//	공지사항 목록
 	@GetMapping("/managerNotice")
 	public String managerNotice(HttpServletRequest request, Model model, HttpSession session) {
 		if(managerCert(session)) return "redirect:/";
@@ -244,6 +245,70 @@ public class ManagerController {
 		
 		return "/manager/managerNotice";
 	}
+	
+//	회원 리스트 호출
+	@GetMapping("/managerUserList")
+	public String userList(HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerUserList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 20;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		
+		List<MemberDTO> userList = managerService.getUserList(pageDTO);
+		
+		int count = managerService.getUserCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("userList", userList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		return "/manager/managerUserList";
+	}
+	
+	@GetMapping("/userInfo")
+	public String userInfo(HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerUserInfo()");
+		
+		return "/manager/managerUserInfo";
+	}
+	
+	
+	
 	
 //	테스트용 코드
 	@GetMapping("/managerTest1")

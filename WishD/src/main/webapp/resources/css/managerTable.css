@@ -21,6 +21,10 @@
 }
 
 /* 리스트 테이블 */
+table{
+	background-color: #967E76;
+}
+
 th, td{
 	border:1px solid black;
 	text-align: center;

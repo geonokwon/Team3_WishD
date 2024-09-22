@@ -99,6 +99,11 @@ public class PageDTO {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		return "PageDTO [pageSize=" + pageSize + ", pageNum=" + pageNum + ", currentPage=" + currentPage + ", startRow="
+				+ startRow + ", endRow=" + endRow + ", count=" + count + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", pageBlock=" + pageBlock + ", pageCount=" + pageCount + ", search=" + search + "]";
+	}
 	
 }

@@ -15,6 +15,31 @@ public class ManagerService {
 	@Inject
 	private ManagerDAO managerDAO;
 	
+//	메인 페이지에 넣을 프로젝트 리스트
+	public List<ProjectDTO> getMainProList(){
+		
+		List<ProjectDTO> projectList = managerDAO.getMainProList();
+		
+		for (ProjectDTO projectDTO : projectList) {
+        	projectDTO.setSkills(managerDAO.getMainProSkill(projectDTO.getPboard_id()));
+        }
+		
+		return projectList;
+	}
+	
+//	메인 페이지에 넣을 프리랜서 리스트
+	public List<FreelancerDTO> getMainFreeList(){
+		
+//		getFreelancerList에서 복사함
+		List<FreelancerDTO> freelancerList = managerDAO.getMainFreeList();
+		
+		for (FreelancerDTO freelancerDTO : freelancerList) {
+        	freelancerDTO.setSkills(managerDAO.getMainFreeSkill(freelancerDTO.getFreelancer_id()));
+         }
+		
+		return freelancerList;
+	}
+	
 //	요청 프리랜서 리스트
 	public List<ProjectRequestDTO> getRqfList(PageDTO pageDTO){
 		
@@ -76,6 +101,25 @@ public class ManagerService {
 	public int getNcoCount(PageDTO pageDTO) {
 		
 		return managerDAO.getNcoCount(pageDTO);
+	}
+
+//	회원 리스트
+	public List<MemberDTO> getUserList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getUserList(pageDTO);
+	}
+
+//	회원 수
+	public int getUserCount(PageDTO pageDTO) {
+		
+		return managerDAO.getUserCount(pageDTO);
 	}
 	
 }

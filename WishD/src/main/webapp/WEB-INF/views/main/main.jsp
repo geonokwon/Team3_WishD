@@ -20,6 +20,7 @@
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/freelancer/freelancer.css">
 	
 </head>
 <body class="text-light">
@@ -70,88 +71,72 @@
 	
 <!-- 	기술 스택별 프로젝트 찾기 -->
 	<div class="tab__contents show" data-order="1">
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">JAVA</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">Python</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">C++</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">JavaScript</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">Kotlin</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">PHP</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=1&state=0';">JAVA</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=2&state=0';">Python</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=4&state=0';">C++</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=3&state=0';">JavaScript</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=9&state=0';">Kotlin</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind?skill=6&state=0';">PHP</div>
 	</div>
 	
 <!-- 	기술 스택별 프리랜서 찾기 -->
 	<div class="tab__contents" data-order="2">
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack6</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack5</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack4</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack3</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack2</div>
-		<div class="stack" style="cursor:pointer;" onclick="location.href='#';">stack1</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=1&state=0';">JAVA</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=2&state=0';">Python</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=4&state=0';">C++</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=3&state=0';">JavaScript</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=9&state=0';">Kotlin</div>
+		<div class="stack" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind?skill=6&state=0';">PHP</div>
 	</div>
 </div>
 </div>
 
 <!-- 소형 리스트들 -->
-<div class="wrap">
+<div class="wrap" style="margin-bottom:300px;">
 <div class="instant-list">
 <!-- 	프로젝트 리스트 -->
 	<div class="project-list">
-		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind';">프로젝트 목록</div>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/projectFind';">모집 중인 프로젝트 목록</div>
 		<table class="instant-table">
+		<c:forEach var="projectDTO" items="${mainProList }">
 			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
+				<td>
+					<p><a class="nav-link" href="${pageContext.request.contextPath}/projectRead/${projectDTO.getPboard_id()}">${projectDTO.pboard_title }</a></p>
+					<div class="col-12 card-text mb-1">
+						<!-- 반복되는 스킬배지 -->
+						<c:forEach items="${projectDTO.getSkills()}" var="projectSkill" begin="0" end="4" step="1">
+							<span class="badge mb-1 me-2"># ${projectSkill.getSkill_name()}</span>
+						</c:forEach>
+						<c:if test="${projectDTO.getSkills().size() gt 5}">
+							<span class="badge mb-1 me-2">...</span>
+						</c:if>
+					</div>
+				</td>
 			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
+		</c:forEach>
 		</table>
 	</div>
 	
 <!-- 	프리랜서 리스트 -->
 	<div class="freelancer-list">
-		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind';">프리랜서 목록</div>
+		<div class="list-head" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath }/freelancerFind';">모집 중인 프리랜서 목록</div>
 		<table class="instant-table">
+		<c:forEach var="freelancerDTO" items="${mainFreeList }">
 			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
+				<td>
+					<p><a class="nav-link" href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.getFreelancer_id()}">${freelancerDTO.getUser_name() }</a></p>
+					<div class="col-12 card-text mb-1">
+						<!-- 반복되는 스킬배지 -->
+						<c:forEach items="${freelancerDTO.getSkills()}" var="freelancerSkill" begin="0" end="4" step="1">
+							<span class="badge mb-1 me-2"># ${freelancerSkill.getSkill_name()}</span>
+						</c:forEach>
+						<c:if test="${freelancerDTO.getSkills().size() gt 5}">
+							<span class="badge mb-1 me-2">...</span>
+						</c:if>
+					</div>
+				</td>
 			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
-			<tr>
-				<td><p>ㅁㄴㅇㄹ</p></td>
-			</tr>
+		</c:forEach>
 		</table>
 	</div>
 </div>

@@ -17,6 +17,18 @@ public class ManagerDAO {
 	@Inject
 	private SqlSession sqlSession;
 	
+//	메인 페이지에 넣을 프로젝트 목록
+	public List<ProjectDTO> getMainProList() {
+		
+		return sqlSession.selectList(namespace+"getMainProList");
+	}
+
+//	메인 페이지에 넣을 프리랜서 목록
+	public List<FreelancerDTO> getMainFreeList() {
+		
+		return sqlSession.selectList(namespace+"getMainFreeList");
+	}
+	
 //	요청 프리랜서 리스트
 	public List<ProjectRequestDTO> getRqfList(PageDTO pageDTO) {
 		
@@ -47,14 +59,38 @@ public class ManagerDAO {
 		sqlSession.update(namespace+"freelancerApprove", pboard_id);
 	}
 
+//	공지사항 목록
 	public List<CommunityDTO> getNcoList(PageDTO pageDTO) {
 		
 		return sqlSession.selectList(namespace+"getNcoList", pageDTO);
 	}
 
+//	공지사항 수
 	public int getNcoCount(PageDTO pageDTO) {
 		
 		return sqlSession.selectOne(namespace+"getNcoCount",pageDTO);
+	}
+
+//	전체 회원 목록
+	public List<MemberDTO> getUserList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getUserList", pageDTO);
+	}
+
+//	전체 회원 수
+	public int getUserCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getUserCount", pageDTO);
+	}
+
+	public List<FreelancerSkillDTO> getMainFreeSkill(Long freelancer_id) {
+
+	  return sqlSession.selectList(namespace+"getMainFreeSkill", freelancer_id);
+	}
+
+	public List<ProjectSkillDTO> getMainProSkill(Long pboard_id) {
+		
+		return sqlSession.selectList(namespace+"getMainProSkill", pboard_id);
 	}
 
 	
