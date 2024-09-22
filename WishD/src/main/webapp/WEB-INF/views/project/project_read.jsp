@@ -8,13 +8,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_read</title>
+    <title>WishD | 프로젝트 보기</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
 
 </head>
@@ -91,7 +92,7 @@
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_job()}</p>
+                            <p class="mb-0">${projectDTO.getJob_name()}</p>
                         </div>
                     </div>
 
@@ -177,9 +178,9 @@
                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label>
                                 <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required>
                                     <option value="" disabled selected>직무를 선택하세요</option>
-                                    <option value="1" >앱 개발자</option>
-                                    <option value="2">웹 개발자</option>
-                                    <option value="3">시스템 개발자</option>
+                                    <c:forEach items="${projectJobList}" var="jobList">
+                                        <option value="${jobList.getJob_id()}" >${jobList.getJob_name()}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
 

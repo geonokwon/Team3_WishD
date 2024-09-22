@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>notice_update</title>
+    <title>WishD | 커뮤니티</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -64,7 +65,8 @@
 
         <!-- 글쓰기 -->
         <div class="col-8 second-section-2">
-
+		  <form action="${pageContext.request.contextPath}/notice_updatePro" method="post">
+		   <input type="hidden" name="ncommunity_num" value="${communityDTO.ncommunity_num}" />
             <div class="col">
                 <div class="col">
                     <div class="col-6 second-section-2"> 
@@ -73,7 +75,8 @@
                         <div class="write-line"></div>
 
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+                        <input type="text" name="ncommunity_title" class="custom-textbox no-border"
+                         value="${communityDTO.ncommunity_title}">
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -82,15 +85,19 @@
                         <div class="write-line"></div> <!-- 구분선 -->
 
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="custom-textbox1 input-box no-border" name="ncommunity_content">${communityDTO.ncommunity_content}</textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <div class="" style="padding-right: 4%;">
-                                <button type="button" class="btn btn-primary2">글 수정</button>
+                            <div class="px-4"">
+                                <button type="submit" class="btn btn-primary2">글 수정</button>
                             </div>
-                            <button type="button" class="btn btn-outline-primary3">글 삭제</button>
+           </form>
+           					<form action="${pageContext.request.contextPath}/notice_deletePro" method="post">
+    						<input type="hidden" name="ncommunity_num" value="${communityDTO.ncommunity_num}" />
+                            	<button type="submit" class="btn btn-outline-primary3">글 삭제</button>
+                            </form>
                         </div>
                     </div>
                     
@@ -101,10 +108,7 @@
         </div> <!-- 섹션 2 - 2 종료 -->
 
         <!-- 섹션 2 - 3 -->
-        <div class="col-2 second-section-3 menutext-right-1">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-        </div>
+        <div class="col-2 second-section-3 menutext-right-1"> </div>
 
     </div> <!-- 섹션 2 종료 -->
 

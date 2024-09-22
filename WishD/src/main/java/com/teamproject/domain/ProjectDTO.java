@@ -3,7 +3,6 @@ package com.teamproject.domain;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 
 public class ProjectDTO {
 
@@ -14,7 +13,8 @@ public class ProjectDTO {
     private int pboard_money;
     private String pboard_startDate;
     private int pboard_rangeMonth;
-    private String pboard_job;
+    private int job_id;
+    private String job_name;
     private String pboard_state;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
@@ -28,6 +28,7 @@ public class ProjectDTO {
 
     //pboard_id 값에 따른 skill 등록한것 가져오기
     private List<ProjectSkillDTO> skills;
+
 
 
     public String getSkillList() {
@@ -94,12 +95,12 @@ public class ProjectDTO {
         this.pboard_rangeMonth = pboard_rangemonth;
     }
 
-    public String getPboard_job() {
-        return pboard_job;
+    public int getJob_id() {
+        return job_id;
     }
 
-    public void setPboard_job(String pboard_job) {
-        this.pboard_job = pboard_job;
+    public void setJob_id(int job_id) {
+        this.job_id = job_id;
     }
 
     public String getPboard_state() {
@@ -157,6 +158,13 @@ public class ProjectDTO {
         this.pboard_company_name = pboard_company_name;
     }
 
+    public String getJob_name() {
+        return job_name;
+    }
+
+    public void setJob_name(String job_name) {
+        this.job_name = job_name;
+    }
 
     @Override
     public String toString() {
@@ -168,7 +176,8 @@ public class ProjectDTO {
                 ", pboard_money=" + pboard_money +
                 ", pboard_startDate='" + pboard_startDate + '\'' +
                 ", pboard_rangeMonth=" + pboard_rangeMonth +
-                ", pboard_job='" + pboard_job + '\'' +
+                ", job_id=" + job_id +
+                ", job_name='" + job_name + '\'' +
                 ", pboard_state='" + pboard_state + '\'' +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +

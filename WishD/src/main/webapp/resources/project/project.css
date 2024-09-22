@@ -76,15 +76,7 @@ input[type="file"]::file-selector-button:hover {
     color: #fff;
     opacity: 1; /* Firefox */
 }
-.navbar {
-    background-color: #141826; /* 네비게이션 바 배경색 */
-}
-.navbar-nav .nav-link {
-    color: #fff; /* 네비게이션 링크 색상 */
-}
-.navbar-nav .nav-link:hover {
-    color: #bfbfbf; /* 네비게이션 링크 호버 색상 */
-}
+
 
 .btn-primary {
     /* 버튼 텍스트 색상 */

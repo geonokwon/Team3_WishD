@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>notice_write</title>
+    <title>WishD | 커뮤니티</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -73,13 +74,13 @@
                     <div class="col-6 second-section-2"> 
                         <!-- Notice 제목란 -->
                         <label for="notice_label" class="noticeLabelText">Notice </label>                    
-                        <div class="write-line"></div>
+                        <div class="write-line" style="margin-bottom:0.6rem"></div>
 
 						
 <!--                         <label for="notice_title" class="noticeTitleText">Title </label> -->
   
 <!--                         <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......"> -->
-                    	 <p class="custom-textbox no-border readonly">${communityDTO.ncommunity_title}</p>
+                    	 <p class="customRead-textbox no-border readonly">${communityDTO.ncommunity_title}</p>
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -93,8 +94,18 @@
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="submit" class="btn btn-primary2"><a href="community" class="text-light text-decoration-none">돌아가기</a></button>
+                            <a href="community" class="btn btn-primary2 text-light text-decoration-none">돌아가기</a>
+                            
+                            <!-- 로그인한 경우에만 수정하기 버튼 표시 -->
+		        			<c:if test="${sessionScope.user_no == 999}">
+		            			<div class="d-flex justify-content-center px-4">
+		                			<a href="${pageContext.request.contextPath}/notice_update?ncommunity_num=${communityDTO.ncommunity_num}" class="btn btn-primary2 text-light text-decoration-none">수정하기</a>
+		           				</div>
+		       				</c:if>
+                            
                         </div>
+<!--                         /* <a href="" class="custom-title text-change-box text-decoration-none"></a> */ -->
+                        
                     </div>
 						
                  

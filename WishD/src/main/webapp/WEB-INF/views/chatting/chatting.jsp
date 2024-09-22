@@ -8,13 +8,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_read</title>
+    <title>WishD | 매칭 채팅</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
     <title>chatting</title>
 </head>
@@ -91,7 +92,7 @@
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_job()}</p>
+                            <p class="mb-0">${projectDTO.getJob_name()}</p>
                         </div>
                     </div>
 
@@ -130,8 +131,8 @@
                     <!-- 채팅시 프로젝트 완료 및 매칭취소 버튼 -->
                     <div class="mt-auto d-flex justify-content-center">
 
-                        <button type="button" class="btn btn-primary me-2">완료</button>
-                        <button type="button" class="btn btn-secondary"  onclick="location.href='${pageContext.request.contextPath}/matchingEnd/${projectDTO.getPboard_id()}'">매칭 취소</button>
+                        <button type="button" class="btnComplete btn btn-primary me-2" onclick="location.href='${pageContext.request.contextPath}/matchingComplete/${projectDTO.getPboard_id()}'">완료</button>
+                        <button type="button" class="btnComplete btn btn-secondary"  onclick="location.href='${pageContext.request.contextPath}/matchingEnd/${projectDTO.getPboard_id()}'">매칭 취소</button>
                     </div>
                     <!-- 끝단 -->
                 </div>
@@ -180,7 +181,7 @@
                 <!-- 입력창 및 버튼 -->
                 <div class="row d-flex mt-2">
                     <input class="col form-control bg-dark me-2" type="text" id="message" placeholder="메세지 입력" />
-                    <button class="col-2 btn btn-primary" onclick="sendMessage()">전송</button>
+                    <button class="col-2 btn btn-primary" id="sendMessage" onclick="sendMessage()">전송</button>
                 </div>
             </div>
 
@@ -211,6 +212,19 @@
                 let chatMessage = JSON.parse(message.body);
                 showMessage(chatMessage); // 서버로부터 수신된 메시지를 표시
             });
+            // 매칭 상태가 '완료'인 경우 WebSocket을 비활성화
+            let projectBoardState = "${projectDTO.getPboard_state()}";
+            console.log(projectBoardState);
+
+            if (projectBoardState === "완료") {
+                disconnect(); // WebSocket 연결 해제
+                document.getElementById("sendMessage").disabled = true; // 버튼 비활성화
+                Array.from(document.getElementsByClassName("btnComplete")).forEach((e) => {
+                    e.style.display = 'none';
+                });
+                document.getElementById("message").disabled = true; // 인풋 비활성화
+
+            }
         }, (error) => {
             console.error("STOMP connect error : " + error);
         });
@@ -301,6 +315,14 @@
         chat.scrollTop = chat.scrollHeight;
     });
 
+    //매칭완료시 웹소켓 비활성화
+    function disconnect() {
+        if (stompClient !== null && stompClient.connected) {
+            stompClient.disconnect(() => {
+                console.log("Disconnected");
+            });
+        }
+    }
     connect();
 </script>
 

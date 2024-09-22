@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -85,18 +87,22 @@ public class ProjectController {
         System.out.println(projectDTO.toString());
         model.addAttribute("projectDTO", projectDTO);
         model.addAttribute("projectSkillList", projectService.getSkillList());
+        model.addAttribute("projectJobList", projectService.getJobList());
 
         //session 에서 user_no 가져오기
         Long user_no = (Long) session.getAttribute("user_no");
 
         if (user_no != null) {
+            if (projectDTO.getPboard_state().equals("완료")){
+                return "redirect:/chatting/" + pboard_id;
+            }
+
             //선택된 pboard_id 가 진행중 인지 모집중 인지 조회
             //그러면 먼저 여기 페이지 올때 디비 pboard_id로 조회해서 state 값이 '모집중' '진행중' 인지 확인하기.
             if (projectDTO.getPboard_state().equals("진행중")) {
                 //진행중 이라면 ?
                 //request_freelancer 테이블에 작성을 했으니
                 //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서용 input 안에 값들을 전부 채워넣기 modal 로 DTO 넘겨주기(내가 요청한 글)
-
                 //매칭 상태인지 체크 매칭 상태라면 바로 chatting 으로 넘어가기
                 if (projectDTO.getPboard_isMatching()){
                     return "redirect:/chatting/" + pboard_id;
@@ -129,7 +135,6 @@ public class ProjectController {
     @ResponseBody
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
                                      HttpSession session,
-//                                     MultipartFile file,
                                      ProjectRequestFileDTO projectRequestFileDTO,
                                      ProjectRequestDTO projectRequestDTO,
                                      Model model) throws Exception {
@@ -137,8 +142,16 @@ public class ProjectController {
         projectRequestDTO.setPboard_id(pboard_id);
         projectRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
         projectService.insertProjectRequest(projectRequestDTO, projectRequestFileDTO);
-        System.out.println(projectRequestDTO.toString());
         return "true";
+    }
+
+    //프로젝트 request 관리자 승인후 form 데이터 보고 취소시
+    @GetMapping("/projectReqFalse/{pboard_id}")
+    public String projectReqFalse(@PathVariable("pboard_id")Long pboard_id){
+        logger.info("-> projectReqFalse()");
+
+        projectService.deleteProjectRequest(pboard_id);
+        return "redirect:/projectRead/" + pboard_id;
     }
 
     @GetMapping("/projectWrite")
@@ -147,6 +160,7 @@ public class ProjectController {
         if (session.getAttribute("user_no") != null) {
             //전체스킬 조회시 필요한 전체 스킬 데이터
             model.addAttribute("projectSkillList", projectService.getSkillList());
+            model.addAttribute("projectJobList", projectService.getJobList());
         }
         else {
             return "redirect:/login";
@@ -167,10 +181,5 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/projectReqFalse/{pboard_id}")
-    public String projectReqFalse(@PathVariable("pboard_id")Long pboard_id){
-        logger.info("-> projectReqFalse()");
-        projectService.deleteProjectRequest(pboard_id);
-        return "redirect:/projectRead/" + pboard_id;
-    }
+
 }

@@ -52,6 +52,20 @@
     </delete>
 
 
+    <!-- 매칭 완료시 project_board state 변경 -->
+    <update id="setCompleteState">
+        UPDATE project_board
+        SET pboard_state = '완료'
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!-- 채팅중 매칭취소시 파일삭제 -->
+    <!-- project_request_file -->
+    <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
+        SELECT *
+        FROM project_request_files
+        WHERE pboard_id = #{pboard_id};
+    </select>
 
 
 </mapper>

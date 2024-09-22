@@ -7,13 +7,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_find</title>
+    <title>WishD | 프로젝트 등록</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
@@ -53,11 +54,11 @@
                 <!-- 직무 선택 -->
                 <div class="ms-2 mb-4">
                     <label for="jobGroup" class="mb-1">직무(선택)</label>
-                    <select class="form-select bg-dark" id="jobGroup" name="pboard_job" style="width: 320px" required>
+                    <select class="form-select bg-dark" id="jobGroup" name="job_id" style="width: 320px" required>
                         <option value="" disabled selected>직무를 선택하세요</option>
-                        <option value="앱 개발자">앱 개발자</option>
-                        <option value="웹 개발자">웹 개발자</option>
-                        <option value="시스템 개발자">시스템 개발자</option>
+                        <c:forEach items="${projectJobList}" var="jobList">
+                            <option value="${jobList.getJob_id()}">${jobList.getJob_name()}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -68,7 +69,7 @@
                     <select class="form-select bg-dark mb-2" id="skill" >
                         <option value="" disabled selected>스킬선택</option>
                         <c:forEach items="${projectSkillList}" var="skill">
-                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
+                            <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
                         </c:forEach>
                     </select>
                     <div id="badge_container">

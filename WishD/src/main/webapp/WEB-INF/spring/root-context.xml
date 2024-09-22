@@ -14,19 +14,20 @@
 		<property name="password" value="1234"/>
 	</bean>
 
-	<!-- 캐시 기능 활성 -->
-<!--	<cache:annotation-driven cache-manager="cacheManager"/>-->
+	<!-- 메일인증 SMTP 관련 설정 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="furitstore1@gmail.com" />
 
-<!--	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">-->
-<!--		<property name="caches">-->
-<!--			<set>-->
-<!--				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">-->
-<!--					<property name="name" value="projectBoard"/>-->
-<!--				</bean>-->
-<!--			</set>-->
-<!--		</property>-->
-<!--	</bean>-->
-
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.timeout">5000</prop>
+			</props>
+		</property>
+	</bean>
 
 	<!-- MyBatis 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

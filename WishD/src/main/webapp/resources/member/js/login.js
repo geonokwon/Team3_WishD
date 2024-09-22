@@ -1,9 +1,39 @@
-// 쿠키에서 값 가져오기 함수
+// 쿠키를 설정하는 함수
+function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+}
+
+// 쿠키를 가져오는 함수
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
+
+// 페이지 로드 시 실행
+document.addEventListener("DOMContentLoaded", function() {
+    // 쿠키에서 아이디 불러오기
+    const savedId = getCookie("user_Id");
+    if (savedId) {
+        document.getElementById("user_Id").value = savedId; // 아이디 입력란의 ID가 "user_Id"라고 가정
+        document.getElementById("rememberMe").checked = true; // 체크박스 체크
+    }
+
+    // 아이디 기억하기 체크박스 상태에 따라 쿠키 설정
+    document.getElementById("rememberMe").addEventListener("change", function() {
+    if (this.checked) {
+        console.log("체크됨: ", document.getElementById("user_Id").value); // 체크된 경우 아이디 로그
+        setCookie("user_Id", document.getElementById("user_Id").value, 1); // 하루 동안 유지
+    } else {
+        console.log("체크 해제됨"); // 체크 해제된 경우 로그
+        setCookie("user_Id", "", -1); // 쿠키 삭제
+    }
+});
+
+    // 별 배경 및 메테오 초기화
+    initStarsAndMeteors();
+});
 
 // 별 배경 및 메테오 초기화 함수
 function initStarsAndMeteors() {
@@ -53,22 +83,3 @@ function initStarsAndMeteors() {
 
     setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
 }
-
-// 페이지 로드 시 실행
-document.addEventListener("DOMContentLoaded", function() {
-    // 쿠키에서 아이디 불러오기
-    const savedId = getCookie("userId");
-    if (savedId) {
-        let userIdField = document.getElementById("userId");
-        if (userIdField) {
-            userIdField.value = savedId;
-        }
-        let rememberMeCheckbox = document.getElementById("rememberMe");
-        if (rememberMeCheckbox) {
-            rememberMeCheckbox.checked = true;
-        }
-    }
-
-    // 별 배경 및 메테오 초기화
-    initStarsAndMeteors();
-});
