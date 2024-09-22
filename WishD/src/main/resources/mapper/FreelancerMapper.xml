@@ -159,14 +159,14 @@
     
     
       <!-- project_read - start -->
-    <!-- pboard_id 에 해당하는 프로젝트 불러오기 -->
+    <!-- freelancer_id 에 해당하는 프로젝트 불러오기 -->
     <select id="getFreelancer" resultType="com.teamproject.domain.FreelancerDTO">
         SELECT *
         FROM freelancer
         WHERE freelancer_id = #{freelancer_id};
     </select>
 
-    <!-- pboard_id 에 해당하는 프로젝트가 선택한 스킬 불러오기 -->
+    <!-- freelancer_id 에 해당하는 프로젝트가 선택한 스킬 불러오기 -->
     <select id="getSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
         SELECT s.*
         FROM freelancer_skill fs JOIN skills s
@@ -224,8 +224,8 @@
         <!-- project_request_file -->
     <select id="getFreelacnerRequestFile" resultType="com.teamproject.domain.FreelancerRequestFileDTO">
         SELECT *
-        FROM project_request_files
-        WHERE pboard_id = #{pboard_id};
+        FROM freelancer_file
+        WHERE freelancer_id = #{freelancer_id};
     </select>
 
     <!-- 매칭 성공시 isMatching 변경 -->

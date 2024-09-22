@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerRequestDTO;
 import com.teamproject.domain.FreelancerRequestFileDTO;
+import com.teamproject.domain.ProjectRequestDTO;
+import com.teamproject.domain.ProjectRequestFileDTO;
 import com.teamproject.service.FreelancerService;
+import com.teamproject.utils.PaginationUtils;
 
 
 
@@ -100,36 +105,8 @@ public class FreelancerController {
         //프리랜서 등록 개수 전체 가져오기(나중에 state 가 구직중인것만 가져와야함!)
         freelancerPageDTO.setCount(freelancerService.getFreelancerCount(freelancerPageDTO));
         
-        
-        //pageNum, currentPage, pageSize => 값 저장
-        freelancerPageDTO.setCurrentPage(pageNum);
-        freelancerPageDTO.setPageSize(pageSize);
-        freelancerPageDTO.setPageNum(pageNum + 1);
-
-        //시작하는 페이지 번호 구하기
-        int startPage = ((pageNum - 1) / pageBlock) * pageBlock + 1;
-        //끝나는 페이지 번호 구하기
-        int endPage = startPage + pageBlock - 1;
-        //페이지 카운트 구하기
-        int pageCount = freelancerPageDTO.getCount() / pageBlock + (freelancerPageDTO.getCount() % pageBlock == 0 ? 0 : 1);
-        if (endPage > pageCount) {
-            endPage = pageCount;
-        }
-        //freelancerPageDTO 셋팅
-        freelancerPageDTO.setStartPage(startPage);
-        freelancerPageDTO.setEndPage(endPage);
-        freelancerPageDTO.setPageCount(pageCount);
-        freelancerPageDTO.setPageBlock(pageBlock);
-
-        // 시작하는 행 번호 구하기
-        int startRow = (pageNum - 1) * pageSize + 1;
-        // 끝나는 행 번호 구하기
-        int endRow = startRow + pageSize - 1;
-        // DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
-        freelancerPageDTO.setStartRow(startRow - 1);
-        freelancerPageDTO.setEndRow(endRow);
-		
-    	
+        //페이지네이션 처리(utils paginationUtils 클래스)
+        PaginationUtils.pagination(freelancerPageDTO, pageNum, pageSize, pageBlock);
 
 
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
@@ -159,21 +136,26 @@ public class FreelancerController {
         FreelancerDTO freelancerDTO = freelancerService.getFreelancer(freelancer_id);
         model.addAttribute("freelancerDTO", freelancerDTO);
         model.addAttribute("freelancerSkillList", freelancerService.getSkillList());
-
+        model.addAttribute("freelancerJobList", freelancerService.getJobList());
+        
         //session 에서 user_no 가져오기
-        session.setAttribute("user_no", 1L);
         Long user_no = (Long) session.getAttribute("user_no");
+        
         System.out.println("프리랜서 읽기 freelancerDTO" + freelancerDTO);
         if (user_no != null) {
+            if (freelancerDTO.getFreelancer_state().equals("완료")){
+            	System.out.println("완료");
+                return "redirect:/chatting/" + freelancer_id;
+            }
             //선택된 freelancer_id 가 진행중 인지 구직중 인지 조회
-
+            System.out.println("user_no != null");
             if (freelancerDTO.getFreelancer_state().equals("진행중")) {
                 //진행중 이라면 ?
                 //request_client 테이블에 작성을 했으니
                 //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서 input 안에 값들을 전부 채워넣기 modal 이용해서 DTO 넘겨주기
                 //그러면 먼저 여기 페이지 올때 디비 freelancer_id로 조회해서 state 값이 '구직중' '진행중' 인지 확인하기.
                 FreelancerRequestDTO freelancerRequestDTO = freelancerService.getRequestClient(freelancer_id);
-                System.out.println(freelancerRequestDTO.toString());
+                System.out.println("freelancerRequestDTO.toString()" + freelancerRequestDTO.toString());
 
                 //user_no 가 글 작성자 인지 판단!
                 if (freelancerDTO.getUser_no().longValue() == user_no || freelancerRequestDTO.getUser_no().longValue() == user_no) {
@@ -182,6 +164,7 @@ public class FreelancerController {
                     System.out.println(freelancerRequestFileDTO.toString());
                     //여기서 페이로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
                     model.addAttribute("freelancerRequestDTO", freelancerRequestDTO);
+                    System.out.println("freelancerRequestDTO = " +freelancerRequestDTO);
                     model.addAttribute("freelancerRequestFileDTO", freelancerRequestFileDTO);
                 }
                 else {
@@ -189,11 +172,32 @@ public class FreelancerController {
                 }
             }
         }
-        //없다면 매칭하기 버튼 뜨고 빈 폼테그 보여주기
-
-
-
+        
         return "/freelancer/freelancer_read";
     }
 
+    //비동기 처리
+    //request_freelancer 저장
+    @PostMapping("/freelancerReadReq/{freelancer_id}")
+    @ResponseBody
+    public String freelancerReadRequest(@PathVariable("freelancer_id")Long freelancer_id,
+                                     HttpSession session,
+                                     FreelancerRequestFileDTO freelancerRequestFileDTO,
+                                     FreelancerRequestDTO freelancerRequestDTO,
+                                     Model model) throws Exception {
+        System.out.println("비동기 freelancerReadReq");
+        freelancerRequestDTO.setFreelancer_id(freelancer_id);
+        freelancerRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
+        freelancerService.insertFreelancerRequest(freelancerRequestDTO, freelancerRequestFileDTO);
+        return "true";
+    }
+    
+    //프로젝트 request 관리자 승인후 form 데이터 보고 취소시
+    @GetMapping("/freelancerReqFalse/{freelancer_id}")
+    public String freelancerReqFalse(@PathVariable("freelancer_id")Long freelancer_id){
+        
+
+    	freelancerService.deleteFreelancerRequest(freelancer_id);
+        return "redirect:/freelancerRead/" + freelancer_id;
+    }
 }

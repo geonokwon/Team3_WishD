@@ -9,7 +9,7 @@ public class FreelancerRequestDTO {
 	private Long freelancer_id;
 	private Long user_no;
 	private String cl_subject;
-	private Timestamp cl_date;
+	private int cl_date;
 	private Timestamp cl_startdate;
 	private String cl_content;
 	private String cl_name;
@@ -64,11 +64,11 @@ public class FreelancerRequestDTO {
 		this.cl_subject = cl_subject;
 	}
 
-	public Timestamp getCl_date() {
+	public int getCl_date() {
 		return cl_date;
 	}
 
-	public void setCl_date(Timestamp cl_date) {
+	public void setCl_date(int cl_date) {
 		this.cl_date = cl_date;
 	}
 

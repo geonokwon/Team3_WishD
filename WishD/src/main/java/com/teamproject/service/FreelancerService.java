@@ -23,6 +23,7 @@ import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerRequestDTO;
 import com.teamproject.domain.FreelancerRequestFileDTO;
 import com.teamproject.domain.FreelancerSkillDTO;
+import com.teamproject.utils.PersonalFileCopyUtils;
 
 
 
@@ -124,9 +125,8 @@ public class FreelancerService {
 
         //프로젝트 리퀘스트 file 부분 request_file table 저장
         //파일 Copy 처리 utils class -> Resources/upload/fileCopy
-
-        freelancerFileCopy(freelancerRequestFileDTO, freelancerRequestDTO.getFreelancer_id(), freelancerRequestDTO.getRequest_num());
-        System.out.println(freelancerRequestDTO.toString());
+        PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
+        personalFileCopyUtils.fileCopy(freelancerRequestFileDTO, freelancerRequestDTO.getFreelancer_id(), freelancerRequestDTO.getRequest_num());
         freelancerDAO.insetFreelancerRequestFile(freelancerRequestFileDTO);
 
     }
@@ -139,24 +139,24 @@ public class FreelancerService {
         return freelancerRequestDTO;
     }
 	
-    public FreelancerRequestFileDTO getFreelancerRequestFile(Long pboard_id) {
+    public FreelancerRequestFileDTO getFreelancerRequestFile(Long freelancer_id) {
         logger.info("-> getFreelancerRequestFile()");
-        return freelancerDAO.getFreelancerRequestFile(pboard_id);
+        return freelancerDAO.getFreelancerRequestFile(freelancer_id);
 
     }
 
     //매칭성공시 freelancer_board 테이블 isMatching = true 변경
-    public void setFreelancerIsMatching(Long pboard_id) {
+    public void setFreelancerIsMatching(Long freelancer_id) {
         logger.info("-> getFreelancerIsMatching()");
-        freelancerDAO.setFreelancerIsMatching(pboard_id);
+        freelancerDAO.setFreelancerIsMatching(freelancer_id);
     }
 
     //승인와료후 프로젝트 등록자가 requestForm만 보고 취소시
     @Transactional
-    public void deleteFreelancerRequest(Long pboard_id) {
+    public void deleteFreelancerRequest(Long freelancer_id) {
         logger.info("-> getFreelancerRequest()");
-        freelancerDAO.setBoardState(pboard_id);
-        freelancerDAO.deleteFreelancerRequest(pboard_id);
+        freelancerDAO.setBoardState(freelancer_id);
+        freelancerDAO.deleteFreelancerRequest(freelancer_id);
     }
 
     //user_no 로 user_name 가져오기
@@ -175,30 +175,6 @@ public class FreelancerService {
                 .collect(Collectors.toList());
     }
 	
-	//파일복사util
-    public void freelancerFileCopy(FreelancerRequestFileDTO freelancerRequestFileDTO, Long freelancer_id, Long request_num) throws Exception {
-        //파일DTO 보드id 셋팅
-        freelancerRequestFileDTO.setFreelancer_id(freelancer_id);
-
-        //파일DTO request_id 셋팅
-        freelancerRequestFileDTO.setRequest_num(request_num);
-        //파일DTO fileOriginName 셋팅
-        String originName = freelancerRequestFileDTO.getFile().getOriginalFilename();
-        freelancerRequestFileDTO.setFileOriginName(originName);
-        logger.info("originName : " + originName);
-
-        //파일DTO 파일 name 셋팅
-        //파일처리 부분 (파일이름 중복되지 않게 하기 위해 -> (pboard_id)uuid _파일이름
-        UUID uuid = UUID.randomUUID();
-        freelancerRequestFileDTO.setF_file_name("(" + freelancerRequestFileDTO.getFreelancer_id() + ")" + uuid + "_" + originName);
-        logger.info("fileName : " + freelancerRequestFileDTO.getF_file_name());
-
-        //파일DTO 파일 path 셋팅
-        freelancerRequestFileDTO.setF_file_path(uploadPath);
-
-        //파일 복사
-        FileCopyUtils.copy(freelancerRequestFileDTO.getFile().getBytes(), new File(uploadPath, freelancerRequestFileDTO.getF_file_name()));
-    }
 	
 
 }
