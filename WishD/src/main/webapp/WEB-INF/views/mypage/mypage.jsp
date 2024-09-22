@@ -331,8 +331,8 @@
 
 									<a class="nav-link mb-3 fs-4"
 										href="${pageContext.request.contextPath}/freelancerRead/${myFreeRequestDTO.getFreelancer_id()}">
-										${fn:substring(myFreelancerDTO.freelancer_introduction, 0, 40)}
-   										<c:if test="${fn:length(myFreelancerDTO.freelancer_introduction) > 40}">...</c:if>
+										${fn:substring(myFreeRequestDTO.freelancer_introduction, 0, 40)}
+   										<c:if test="${fn:length(myFreeRequestDTO.freelancer_introduction) > 40}">...</c:if>
 										</a>
 
 									<!-- 필요 스킬 -->
