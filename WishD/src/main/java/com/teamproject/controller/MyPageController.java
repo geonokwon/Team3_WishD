@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,98 +52,101 @@ public class MyPageController {
 		// ======= 회원 정보 가져오기 끝 =======
 
 		// ======= 내가 쓴 프리랜서 글 가져오기 시작 =====
-		String freeLencerPageNum = request.getParameter("freeLencerPageNum");
-		if (freeLencerPageNum == null) {
-			freeLencerPageNum = "1";
-		}
-
-		int freeLencerPageNumToInt = Integer.parseInt(freeLencerPageNum);
-		System.out.println("freeLencerPageNumToInt :" + freeLencerPageNumToInt);
-
-		// 한 화면에 보여줄 글 개수 설정
-		int freeLencerpageSize = 5;
-		// 한 화면에 보여줄 페이지 개수 5 설정
-		int freeLencerpageBlock = 5;
-
-		// PageDTO 객체 생성
-		FreelancerPageDTO myFreePageDTO = new FreelancerPageDTO();
-
+		String requestFree = request.getParameter("requestFreelancer");
 		String freelancerSearch = request.getParameter("freelancerSearch");
+		String freeRequestSearch = request.getParameter("freelancerSearch");
 
-		// 검색어 파라미터 넣기
-		if (freelancerSearch != null) {
-			myFreePageDTO.setSearch(freelancerSearch);
+		if (requestFree == null) {
+			String freeLencerPageNum = request.getParameter("freeLencerPageNum");
+			if (freeLencerPageNum == null) {
+				freeLencerPageNum = "1";
+			}
+
+			int freeLencerPageNumToInt = Integer.parseInt(freeLencerPageNum);
+			System.out.println("freeLencerPageNumToInt :" + freeLencerPageNumToInt);
+
+			// 한 화면에 보여줄 글 개수 설정
+			int freeLencerpageSize = 5;
+			// 한 화면에 보여줄 페이지 개수 5 설정
+			int freeLencerpageBlock = 5;
+
+			// PageDTO 객체 생성
+			FreelancerPageDTO myFreePageDTO = new FreelancerPageDTO();
+
+			// 검색어 파라미터 넣기
+			if (freelancerSearch != null) {
+				myFreePageDTO.setSearch(freelancerSearch);
+			}
+			System.out.println("프리랜ㄴ서 검색어 : " + freelancerSearch);
+
+			// 프리랜서 글상태 필터를 위해 글상태 저장
+			String freelancerStatus = request.getParameter("freelancerStatus");
+			System.out.println("파라미터로 넘어왔을때 freelancerStatus: " + freelancerStatus);
+			if (freelancerStatus == "" || freelancerStatus == null) {
+				freelancerStatus = "구직중";
+				System.out.println("freelancerStatus : " + freelancerStatus);
+			}
+			myFreePageDTO.setFreelancerStatus(freelancerStatus);
+
+			// 내프리랜서글 개수 가져오기
+			// 검색어에 따른 프리랜서글 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
+			// getProjectCount에서 검색어를 안넘겨서 카운트가 비정상 작동
+			myFreePageDTO.setUser_no(myProfile.getUser_no());
+			myProfile.setSearch(freelancerSearch);
+			myFreePageDTO.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+			// 프리랜서 글 상태도 넘겨야함
+			myProfile.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+			myFreePageDTO.setCount(myPageService.getFreelancerCount(myProfile));
+			System.out.println("myFreePageDTO Count : " + myFreePageDTO.getCount());
+			myFreePageDTO.setCurrentPage(freeLencerPageNumToInt);
+			myFreePageDTO.setPageSize(freeLencerpageSize);
+			myFreePageDTO.setPageNum(freeLencerPageNumToInt + 1);
+
+			// 시작하는 페이지 번호 구하기
+			int freeLencerstartPage = ((freeLencerPageNumToInt - 1) / freeLencerpageBlock) * freeLencerpageBlock + 1;
+			System.out.println("freeLencerstartPage : " + freeLencerstartPage);
+			// 끝나는 페이지 번호 구하기
+			int freeLencerendPage = freeLencerstartPage + freeLencerpageBlock - 1;
+			System.out.println("freeLencerendPage : " + freeLencerendPage);
+
+			// 페이지 카운트 구하기
+			int freeLencerpageCount = myFreePageDTO.getCount() / freeLencerpageBlock
+					+ (myFreePageDTO.getCount() % freeLencerpageBlock == 0 ? 0 : 1);
+			if (freeLencerendPage > freeLencerpageCount) {
+				freeLencerendPage = freeLencerpageCount;
+			}
+			System.out.println("freeLencerpageCount : " + freeLencerpageCount);
+
+			// projectPageDTO 셋팅
+			myFreePageDTO.setStartPage(freeLencerstartPage);
+			myFreePageDTO.setEndPage(freeLencerendPage);
+			myFreePageDTO.setPageCount(freeLencerpageCount);
+			myFreePageDTO.setPageBlock(freeLencerpageBlock);
+			System.out.println("freeLencerstartPage : " + freeLencerstartPage);
+			System.out.println("freeLencerendPage : " + freeLencerendPage);
+
+			// 시작하는 행 번호 구하기
+			int freeLencerstartRow = (freeLencerPageNumToInt - 1) * freeLencerpageSize + 1;
+			// 끝나는 행 번호 구하기
+			int freeLencerendRow = freeLencerstartRow + freeLencerpageSize - 1;
+			// DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
+			System.out.println("freeLencerstartRow - 1 전 값 : " + freeLencerstartRow);
+			myFreePageDTO.setStartRow(freeLencerstartRow - 1);
+			myFreePageDTO.setEndRow(freeLencerendRow);
+			System.out.println("freeLencerstartRow : " + freeLencerstartRow);
+			System.out.println("freeLencerendRow : " + freeLencerendRow);
+
+			myFreePageDTO.setUser_no(myProfile.getUser_no());
+			// project_find page 글 개수 5개씩 가져옴
+			model.addAttribute("myFreelancerPageDTO", myFreePageDTO);
+			// getMyProject에서 스킬도 가져옴
+
+			model.addAttribute("myFreelancerDTOList", myPageService.getMyFreelancer(myFreePageDTO));
+			System.out.println("myProjectPageDTO size : " + myPageService.getMyFreelancer(myFreePageDTO).size());
 		}
-		System.out.println("프리랜ㄴ서 검색어 : " + freelancerSearch);
-		
-		// 프리랜서 글상태 필터를 위해 글상태 저장
-		String freelancerStatus = request.getParameter("freelancerStatus");
-		System.out.println("파라미터로 넘어왔을때 freelancerStatus: " + freelancerStatus);
-		if (freelancerStatus == "" || freelancerStatus == null) {
-			freelancerStatus = "구직중";
-			System.out.println("freelancerStatus : " + freelancerStatus);
-		}
-		myFreePageDTO.setFreelancerStatus(freelancerStatus);
-
-		// 내프리랜서글 개수 가져오기
-		// 검색어에 따른 프리랜서글 개수 가져오기 유저넘버랑 글넘버를 넘겨야함
-		// getProjectCount에서 검색어를 안넘겨서 카운트가 비정상 작동
-		myFreePageDTO.setUser_no(myProfile.getUser_no());
-		myProfile.setSearch(freelancerSearch);
-		myFreePageDTO.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
-		// 프리랜서 글 상태도 넘겨야함
-		myProfile.setFreelancerStatus(freelancerStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
-		myFreePageDTO.setCount(myPageService.getFreelancerCount(myProfile));
-		System.out.println("myFreePageDTO Count : " + myFreePageDTO.getCount());
-		myFreePageDTO.setCurrentPage(freeLencerPageNumToInt);
-		myFreePageDTO.setPageSize(freeLencerpageSize);
-		myFreePageDTO.setPageNum(freeLencerPageNumToInt + 1);
-
-		// 시작하는 페이지 번호 구하기
-		int freeLencerstartPage = ((freeLencerPageNumToInt - 1) / freeLencerpageBlock) * freeLencerpageBlock + 1;
-		System.out.println("freeLencerstartPage : " + freeLencerstartPage);
-		// 끝나는 페이지 번호 구하기
-		int freeLencerendPage = freeLencerstartPage + freeLencerpageBlock - 1;
-		System.out.println("freeLencerendPage : " + freeLencerendPage);
-
-		// 페이지 카운트 구하기
-		int freeLencerpageCount = myFreePageDTO.getCount() / freeLencerpageBlock
-				+ (myFreePageDTO.getCount() % freeLencerpageBlock == 0 ? 0 : 1);
-		if (freeLencerendPage > freeLencerpageCount) {
-			freeLencerendPage = freeLencerpageCount;
-		}
-		System.out.println("freeLencerpageCount : " + freeLencerpageCount);
-
-		// projectPageDTO 셋팅
-		myFreePageDTO.setStartPage(freeLencerstartPage);
-		myFreePageDTO.setEndPage(freeLencerendPage);
-		myFreePageDTO.setPageCount(freeLencerpageCount);
-		myFreePageDTO.setPageBlock(freeLencerpageBlock);
-		System.out.println("freeLencerstartPage : " + freeLencerstartPage);
-		System.out.println("freeLencerendPage : " + freeLencerendPage);
-
-		// 시작하는 행 번호 구하기
-		int freeLencerstartRow = (freeLencerPageNumToInt - 1) * freeLencerpageSize + 1;
-		// 끝나는 행 번호 구하기
-		int freeLencerendRow = freeLencerstartRow + freeLencerpageSize - 1;
-		// DB에 Limit 시작하는 행 번호 - 1, 글 개수 설정
-		System.out.println("freeLencerstartRow - 1 전 값 : " + freeLencerstartRow);
-		myFreePageDTO.setStartRow(freeLencerstartRow - 1);
-		myFreePageDTO.setEndRow(freeLencerendRow);
-		System.out.println("freeLencerstartRow : " + freeLencerstartRow);
-		System.out.println("freeLencerendRow : " + freeLencerendRow);
-
-		myFreePageDTO.setUser_no(myProfile.getUser_no());
-		// project_find page 글 개수 10개씩 가져옴
-		model.addAttribute("myFreelancerPageDTO", myFreePageDTO);
-		// getMyProject에서 스킬도 가져옴
-		
-		model.addAttribute("myFreelancerDTOList", myPageService.getMyFreelancer(myFreePageDTO));
-		System.out.println("myProjectPageDTO size : " + myPageService.getMyFreelancer(myFreePageDTO).size());
 		// ======= 프리랜서 글 페이지네이션과 내가 쓴글가져오기 끝 ===========
 
 		// === 프리랜서에 요청한 글 가져오기
-		String requestFree = request.getParameter("requestFreelancer");
 		if (requestFree != null) {
 			System.out.println("requestFree 보낸요청 파라미터 : " + requestFree);
 			if (requestFree.equals("보낸요청")) {
@@ -162,9 +166,8 @@ public class MyPageController {
 				// PageDTO 객체 생성
 				FreelancerPageDTO myFreeRequestPageDTO = new FreelancerPageDTO();
 
-				String freeRequestSearch = request.getParameter("freelancerSearch");
-
-				List<FreelancerDTO> myRequestFreeDTOList = myPageService.getRequestFreeListCount(myProfile.getUser_no());
+				List<FreelancerDTO> myRequestFreeDTOList = myPageService
+						.getRequestFreeListCount(myProfile.getUser_no());
 
 				// 검색어 파라미터 넣기
 				if (freeRequestSearch != null) {
@@ -176,6 +179,7 @@ public class MyPageController {
 //             	myProjectPageDTO.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
 				// 프로젝트 글 상태도 넘겨야함
 //             	myProfile.setProjectStatus(projectStatus); // 프로젝트 글상태 넣어줘야 카운트 계산
+				System.out.println("myRequestFreeDTOList.size() : " + myRequestFreeDTOList.size());
 				myFreeRequestPageDTO.setCount(myRequestFreeDTOList.size());
 				System.out.println("myFreeRequestPageDTOgetCount : " + myFreeRequestPageDTO.getCount());
 				myFreeRequestPageDTO.setCurrentPage(freeRequestPageNumToInt);
@@ -216,19 +220,24 @@ public class MyPageController {
 				myFreeRequestPageDTO.setEndRow(freeRequestEndRow);
 				System.out.println("freeRequestStartRow : " + freeRequestStartRow);
 				System.out.println("freeRequestEndRow : " + freeRequestEndRow);
-
+				
 				myFreeRequestPageDTO.setUser_no(myProfile.getUser_no());
-				// project_find page 글 개수 10개씩 가져옴
-				model.addAttribute("myFreeRequestDTOList",
-						myPageService.getMyRequestFree(myFreeRequestPageDTO));
-
+				// project_find page 글 개수 5개씩 가져옴
+				
+				model.addAttribute("myFreeRequestDTOList", myPageService.getMyRequestFree(myFreeRequestPageDTO));
+				System.out.println("myFreeRequestPageDTO getCount 사이즈 : " + myFreeRequestPageDTO.getCount());
 				model.addAttribute("myFreeRequestPageDTO", myFreeRequestPageDTO);
 
 			}
 		}
 
 		// ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 시작 ========
+		String requestProject = request.getParameter("requestProject");
+		String search = request.getParameter("search");
+		String requestSearch = request.getParameter("search");
+		
 		// 파라미터값 projectPageNum 없으면 => 1페이지로 설정
+		if(requestProject == null) {
 		String projectPageNum = request.getParameter("projectPageNum");
 		if (projectPageNum == null) {
 			projectPageNum = "1";
@@ -245,15 +254,14 @@ public class MyPageController {
 		// PageDTO 객체 생성
 		MyProjectPageDTO myProjectPageDTO = new MyProjectPageDTO();
 
-		String search = request.getParameter("search");
-
+		
 		// 검색어 파라미터 넣기
 		if (search != null) {
 			myProjectPageDTO.setSearch(request.getParameter("search"));
 			System.out.println("search : " + request.getAttribute("search"));
 		}
 		System.out.println("프로젝트 검색어 : " + search);
-			
+
 		// 프로젝트 글상태 필터를 위해 글상태 저장
 		String projectStatus = request.getParameter("projectStatus");
 		System.out.println("파라미터로 넘어왔을때 projectStatus: " + projectStatus);
@@ -314,15 +322,15 @@ public class MyPageController {
 		System.out.println("endRow : " + endRow);
 
 		myProjectPageDTO.setUser_no(myProfile.getUser_no());
-		// project_find page 글 개수 10개씩 가져옴
+		// project_find page 글 개수 5개씩 가져옴
 		model.addAttribute("myProjectPageDTO", myProjectPageDTO);
 		// getMyProject에서 스킬도 가져옴
 		model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
 		System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
+		}
 		// ======= 프로젝트 글 페이지네이션과 내가 쓴글가져오기 끝 ===========
 
 		// === 프로젝트에 요청한 글 가져오기
-		String requestProject = request.getParameter("requestProject");
 		if (requestProject != null) {
 			System.out.println("보낸요청 파라미터 : " + requestProject);
 			if (requestProject.equals("보낸요청")) {
@@ -343,8 +351,7 @@ public class MyPageController {
 				// PageDTO 객체 생성
 				MyProjectPageDTO myProjectRequestPageDTO = new MyProjectPageDTO();
 
-				String requestSearch = request.getParameter("search");
-
+				
 				List<MyProjectDTO> myRequestProjectDTOList = myPageService.getRequestListCount(myProfile.getUser_no());
 
 				// 검색어 파라미터 넣기
@@ -400,15 +407,15 @@ public class MyPageController {
 				System.out.println("requestEndRow : " + requestEndRow);
 
 				myProjectRequestPageDTO.setUser_no(myProfile.getUser_no());
-				// project_find page 글 개수 10개씩 가져옴
+				// project_find page 글 개수 5개씩 가져옴
 				model.addAttribute("myProjectRequestDTOList",
 						myPageService.getMyRequestProject(myProjectRequestPageDTO));
 
 				model.addAttribute("myProjectRequestPageDTO", myProjectRequestPageDTO);
 
 				// getMyProject에서 스킬도 가져옴
-//                model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
-//                System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
+//              model.addAttribute("myProjectDTOList", myPageService.getMyProject(myProjectPageDTO));
+//              System.out.println("myProjectPageDTO size : " + myPageService.getMyProject(myProjectPageDTO).size());
 
 //         		model.addAttribute("myRequestProjectDTOList", myRequestProjectDTOList);
 //         		System.out.println("내가 보낸 글 리스트 : " + myRequestProjectDTOList.size());
@@ -476,21 +483,36 @@ public class MyPageController {
 	@PostMapping("mypage/mypageUpdatePro")
 	public String mypageUpdatePro(HttpSession session, MemberDTO memberDTO) {
 		System.out.println("비밀번호 업데이트 넘어 왔을때 mypageUpdatePro : " + memberDTO);
-//		MemberDTO result = myPageService.getNormalMember((String)session.getAttribute("user_id"));
-//		if(result != null) {
-//			memberDTO.setUser_no(result.getUser_no());
-//			myPageService.updateMember(memberDTO);
-//			return "redirect:/mypage";
-//		}
+		memberDTO.setUser_no((Long) session.getAttribute("user_no"));
+		myPageService.updateMember(memberDTO);
 		return "redirect:/mypage";
 	}
 
 	@PostMapping("mypage/myuserDeletePro")
-	public String myuserDeletePro() {
-//		System.out.println(request.getParameter("email")); 
-		System.out.println("MyPageController - myuserDeletePro");
+	@Transactional
+	public String myuserDeletePro(MemberDTO memberDTO, HttpSession session) {
+		memberDTO.setUser_no((Long) session.getAttribute("user_no"));
 
-		return "redirect:/";
+		System.out.println("MyPageController - myuserDeletePro : " + memberDTO);
+	    // 사용자가 존재하는지 확인
+	    MemberDTO result = myPageService.deleteCheck(memberDTO);
+	    System.out.println("존재 체크 : " + result);
+	    
+	    // 사용자가 존재하고 비밀번호가 일치하는 경우
+	    if (result != null) {
+	        if (result.getUser_pass().equals(memberDTO.getAccess_Token())) { // 현재비번은 액세스토큰에 담김
+	            // 삭제 수행
+	            myPageService.deleteMember(memberDTO);
+	            // 세션 무효화
+	            session.invalidate();
+	            return "redirect:/"; 
+	        } else {
+	            // 비밀번호가 일치하지 않는 경우
+//	            session.setAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+	            return "redirect:/mypage";
+	        }
+	    }
+	    return "redirect:/mypage";
 	}
 
 	@GetMapping("mypage/myprojectupdate")

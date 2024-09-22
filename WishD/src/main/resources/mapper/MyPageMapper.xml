@@ -36,8 +36,10 @@
 	</select>
 		
 	<update id="updateMember">
-		update user set user_phone = #{user_phone}
-		WHERE user_id = #{user_id}
+		update user
+		set user_pass = #{user_pass} <!-- 새비밀번호 -->
+		where user_pass = #{access_Token} <!-- access_Token에 현재비밀번호를 저장 -->
+		and user_no = #{user_no}; <!-- 유저넘버 체크 -->
 	</update>
 	
 	<!-- 내프로젝트 가져오기 -->
@@ -285,7 +287,7 @@
 	<!-- 프리랜서에 요청한글 카운트용 -->
 	<select id="getRequestFreeListCount" resultType="com.teamproject.domain.FreelancerDTO">
 		select * from request_client
-		where freelancer_id = #{user_no};
+		where user_no = #{user_no};
 	</select>
 	
 	<!-- 프리랜서에 요청한글 가져오기용 -->
@@ -293,7 +295,7 @@
 		select * from
 		request_client join freelancer
 		on request_client.freelancer_id = freelancer.freelancer_id
-		where freelancer.user_no = #{user_no}
+		where request_client.user_no = #{user_no}
 		<if test="search != null">
         and freelancer.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
         </if>
@@ -301,5 +303,23 @@
         limit #{startRow}, #{endRow};
 	</select>
 
-
+	<!-- 탈퇴전체크 -->
+	<select id="deleteCheck" resultType="com.teamproject.domain.MemberDTO">
+		select * from user
+		where user_pass = #{access_Token} <!-- 비밀번호변경 때문에 인풋네임이 엑세스토큰임 -->
+		and user_no = #{user_no};
+	</select>
+	<!-- 탈퇴 -->
+	<delete id="deleteUser">
+		delete from user
+		where user_pass = #{user_pass} 
+		and user_no = #{user_no};
+	</delete>
+	<delete id="deleteUserInfo">
+		delete from user_info
+		where user_no = #{user_no};
+	</delete>
+	
+	
+	
 </mapper>

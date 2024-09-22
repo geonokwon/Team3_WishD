@@ -40,7 +40,7 @@ public class MyPageDAO {
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MyPageDAO - updateMember()");
+//		System.out.println("MyPageDAO - updateMember()");
 		sqlSession.update(namespace + ".updateMember", memberDTO);
 	}
 	
@@ -132,8 +132,19 @@ public class MyPageDAO {
 		return sqlSession.selectList(namespace + ".getRequestFreeListCount", user_no);
 	}
 
-	public List<FreelancerPageDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+	public List<FreelancerDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
 		return sqlSession.selectList(namespace + ".getMyRequestFree", myFreelancerRequestPageDTO);
+	}
+	
+	//회원탈퇴
+	public MemberDTO deleteCheck(MemberDTO memberDTO) {
+		return sqlSession.selectOne(namespace + ".deleteCheck", memberDTO);
+	}
+	public void deleteUser(MemberDTO memberDTO) {
+		sqlSession.delete(namespace + ".deleteUser", memberDTO);
+	}
+	public void deleteUserInfo(MemberDTO memberDTO) {
+		sqlSession.delete(namespace + ".deleteUserInfo", memberDTO);
 	}
 
 	

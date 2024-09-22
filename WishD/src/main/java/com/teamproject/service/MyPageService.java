@@ -39,12 +39,13 @@ public class MyPageService {
 		return memberDTO;
 	}
 	
-	public MemberDTO userCheck(MemberDTO memberDTO) {
-		return myPageDAO.userCheck(memberDTO);	
-	}
+//	public MemberDTO userCheck(MemberDTO memberDTO) {
+//		return myPageDAO.userCheck(memberDTO);	
+//	}
 	
+	//비밀번호 업데이트 
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MyPageService - updateMember()");
+		System.out.println("MyPageService - updateMember() : " + memberDTO);
 		myPageDAO.updateMember(memberDTO);
 	}
 	
@@ -174,8 +175,22 @@ public class MyPageService {
 	}
 
 	// 프리랜서에 요청보낸글 가져오기 
-	public List<FreelancerPageDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
-		return myPageDAO.getMyRequestFree(myFreelancerRequestPageDTO);
+	public List<FreelancerDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+		List<FreelancerDTO> freelancerDTO = myPageDAO.getMyRequestFree(myFreelancerRequestPageDTO);
+		for(FreelancerDTO i : freelancerDTO) { // 스킬가져오기
+			i.setSkills(myPageDAO.getMyFreelancerSkillList(i.getFreelancer_id()));
+			System.out.println(i);
+		}
+		return freelancerDTO;
+	}
+	
+	//회원탈퇴
+	public MemberDTO deleteCheck(MemberDTO memberDTO) {
+		return myPageDAO.deleteCheck(memberDTO);
+	}
+	public void deleteMember(MemberDTO memberDTO) {
+		myPageDAO.deleteUser(memberDTO);
+		myPageDAO.deleteUserInfo(memberDTO);
 	}
 
 	
