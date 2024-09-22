@@ -37,17 +37,17 @@ public class ManagerController {
 		
 		System.out.println(sessionNo+" "+sessionRole);
 		
-//		if(sessionNo == null) {
-//			System.out.println("Access Denied");
-//			return true;
-//		}
-//		
-//		if(sessionRole!=null) {
-//			if(!sessionRole.equals("admin")) {
-//				System.out.println("Access Denied");
-//				return true;
-//			}
-//		}
+		if(sessionNo == null) {
+			System.out.println("Access Denied");
+			return true;
+		}
+		
+		if(sessionRole!=null) {
+			if(!sessionRole.equals("admin")) {
+				System.out.println("Access Denied");
+				return true;
+			}
+		}
 		
 		return false;
 	}
@@ -191,33 +191,33 @@ public class ManagerController {
         return "/manager/managerProjectDetail";
     }
 	
-////	요청 받은 프리랜서와 요청한 프로젝트의 상세 내용
-//	@GetMapping("/freelancerRead/{freelancer_id}")
-//    public String freelancerRead(@PathVariable("freelancer_id")Long freelancer_id, HttpSession session, Model model){
-//		if(managerCert(session)) return "redirect:/";
-//		
-//		System.out.println("managerProjectRead()");
-//		
-//        //선택된 pboard_id 값으로 프로젝트 등록 글 가져오기
-//        FreelancerDTO freelancerDTO = freelancerService.getFreelancer(freelancer_id);
-//        System.out.println(freelancerDTO.toString());
-//        model.addAttribute("freelancerDTO", freelancerDTO);
-//        model.addAttribute("freelancerSkillList",freelancerService.getSkillList());
-//        
-//        //진행중 이라면 ?
-//        //request_freelancer 테이블에 작성을 했으니
-//        //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서용 input 안에 값들을 전부 채워넣기 modal 로 DTO 넘겨주기(내가 요청한 글)
-//
-//        FreelancerRequestDTO freelancerRequestDTO = freelancerService.getRequestProject(freelancer_id);
-//
-//        //projectRequest_file 도 불러와서 같이 줘야한다
-//        FreelancerRequestFileDTO freelancerRequestFileDTO = freelancerService.getFreelancerRequestFile(freelancer_id);
-//
-//        //여기서 페이지 로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
-//        model.addAttribute("freelancerRequestDTO", freelancerRequestDTO);
-//        model.addAttribute("projectRequestFileDTO", freelancerRequestFileDTO);
-//        return "/manager/managerFreelancerDetail";
-//    }
+//	요청 받은 프리랜서와 요청한 프로젝트의 상세 내용
+	@GetMapping("/freelancerRead/{freelancer_id}")
+    public String freelancerRead(@PathVariable("freelancer_id")Long freelancer_id, HttpSession session, Model model){
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerProjectRead()");
+		
+        //선택된 pboard_id 값으로 프로젝트 등록 글 가져오기
+        FreelancerDTO freelancerDTO = freelancerService.getFreelancer(freelancer_id);
+        System.out.println(freelancerDTO.toString());
+        model.addAttribute("freelancerDTO", freelancerDTO);
+        model.addAttribute("freelancerSkillList",freelancerService.getSkillList());
+        
+        //진행중 이라면 ?
+        //request_freelancer 테이블에 작성을 했으니
+        //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서용 input 안에 값들을 전부 채워넣기 modal 로 DTO 넘겨주기(내가 요청한 글)
+
+        FreelancerRequestDTO freelancerRequestDTO = freelancerService.getRequestClient(freelancer_id);
+
+        //projectRequest_file 도 불러와서 같이 줘야한다
+        FreelancerRequestFileDTO freelancerRequestFileDTO = freelancerService.getFreelancerRequestFile(freelancer_id);
+
+        //여기서 페이지 로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
+        model.addAttribute("freelancerRequestDTO", freelancerRequestDTO);
+        model.addAttribute("projectRequestFileDTO", freelancerRequestFileDTO);
+        return "/manager/managerFreelancerDetail";
+    }
 	
 //	요청 프리랜서 승인하기
 	@PostMapping("freelancerApprove/{pboard_id}")
@@ -391,6 +391,177 @@ public class ManagerController {
 		model.addAttribute("userInfo", userInfo);
 		
 		return "/manager/managerUserInfo";
+	}
+	
+//	회원이 작성한 프로젝트 목록
+	@GetMapping("/managerUserProList/{user_no}")
+	public String userProList(@PathVariable("user_no")Long user_no, HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerUserProList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setKey(user_no);
+		
+		List<ProjectDTO> projectList = managerService.getUserProList(pageDTO);
+		
+		int count = managerService.getUserProCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("projectList", projectList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		MemberDTO userInfo = managerService.getUserInfo(user_no);
+		
+		model.addAttribute("userInfo", userInfo);
+		
+		return "/manager/managerUserProjectList";
+	}
+	
+//	회원이 작성한 프리랜서 목록
+	@GetMapping("/managerUserFreeList/{user_no}")
+	public String userFreeList(@PathVariable("user_no")Long user_no, HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerUserFreeList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setKey(user_no);
+		
+		List<FreelancerDTO> freelancerList = managerService.getUserFreeList(pageDTO);
+		
+		int count = managerService.getUserFreeCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("freelancerList", freelancerList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		MemberDTO userInfo = managerService.getUserInfo(user_no);
+		
+		model.addAttribute("userInfo", userInfo);
+		
+		return "/manager/managerUserFreelancerList";
+	}
+	
+//	회원이 작성한 질문 글 목록
+	@GetMapping("/managerUserQnaList/{user_no}")
+	public String userQnaList(@PathVariable("user_no")Long user_no, HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerUserQnaList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setKey(user_no);
+		
+		List<CommunityQnaDTO> qnaList = managerService.getUserQnaList(pageDTO);
+		
+		int count = managerService.getUserQnaCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		MemberDTO userInfo = managerService.getUserInfo(user_no);
+		
+		model.addAttribute("userInfo", userInfo);
+		
+		return "/manager/managerUserQnaList";
 	}
 	
 	

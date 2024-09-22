@@ -42,7 +42,7 @@
 		<table class="table" style="width:100%">
 			<thead>
 				<tr>
-					<th scope="col">고유번호</th>
+					<th scope="col">식별번호</th>
 					<th scope="col">이름</th>
 					<th scope="col">이메일</th>
 					<th scope="col">가입일</th>
@@ -67,6 +67,7 @@
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
+		<c:if test="${pageDTO.count ne 0 }">
 			<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
 <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne 1}">
@@ -87,6 +88,7 @@
 				</c:if>
 				
 			<a href="${pageContext.request.contextPath}/manager/managerUserList?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	
+		</c:if>
 		</div>
 	</div>
 	</div>

@@ -120,8 +120,51 @@
 		select count(*) from user_info
 	</select>
 	
+<!-- 	특정 회원 정보를 전달함 -->
 	<select id="getUserInfo" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info
 		where user_no = #{user_no}
+	</select>
+	
+<!-- 	특정 회원이 작성한 프로젝트를 전달함 -->
+	<select id="getUserProList" resultType="com.teamproject.domain.ProjectDTO">
+		select * from project_board 
+		where user_no = #{key}
+		order by pboard_date DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	특정 회원이 작성한 프로젝트 수를 전달함 -->
+	<select id="getUserProCount" resultType="java.lang.Integer">
+		select count(*) from project_board
+		where user_no = #{key}
+	</select>
+	
+<!-- 	특정 회원이 작성한 프리랜서를 전달함 -->
+	<select id="getUserFreeList" resultType="com.teamproject.domain.FreelancerDTO">
+		select * from freelancer 
+		where user_no = #{key}
+		order by freelancer_date DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	특정 회원이 작성한 프리랜서 수를 전달함 -->
+	<select id="getUserFreeCount" resultType="java.lang.Integer">
+		select count(*) from freelancer
+		where user_no = #{key}
+	</select>
+	
+<!-- 	특정 회원이 작성한 질문 글을 전달함 -->
+	<select id="getUserQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
+		select * from community_QnA 
+		where user_no = #{key}
+		order by qcommunity_date DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	특정 회원이 작성한 질문 글 수를 전달함 -->
+	<select id="getUserQnaCount" resultType="java.lang.Integer">
+		select count(*) from community_QnA
+		where user_no = #{key}
 	</select>
 </mapper>

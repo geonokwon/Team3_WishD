@@ -44,13 +44,13 @@
 			<div>가입일 : ${userInfo.join_date }</div>
 			<div>로그인 유형 : ${userInfo.user_type }</div>
 			<div>계정 유형 : ${userInfo.getUser_Role() }</div>
-			<div>차단(블랙리스트) 여부 : ${userInfo.user_yn }</div>
+			<div>차단 여부 : ${userInfo.user_yn }</div>
 		</div>
 		
 		<div class="buttons">
-			<a href="${pageContext.request.contextPath}/manager/managerUserProjectList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 프로젝트 보기</a>
-			<a href="${pageContext.request.contextPath}/" class="btn btn-primary2 text-light text-decoration-none">작성한 프리랜서 보기</a>
-			<a href="${pageContext.request.contextPath}/" class="btn btn-primary2 text-light text-decoration-none">작성한 질문 글 보기</a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 프로젝트 보기</a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 프리랜서 보기</a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserQnaList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 질문 글 보기</a>
 			<a href="${pageContext.request.contextPath}/" class="btn btn-primary3 text-light text-decoration-none">블랙리스트에 추가</a>
 		</div>
 	</div>

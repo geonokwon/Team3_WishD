@@ -33,52 +33,58 @@
 <div class="wrap">
 	<!-- Aside -->
 	<jsp:include page="../include/managerAside.jsp"/>
-	<div class="content">
+	<div class="content" style="width:75%; margin-left:100px;">
 <!-- 	페이지 제목 -->
-	<div class="content-head">머리</div>
+	<div class="content-head">${userInfo.user_name } 님의 프로젝트 목록</div>
 <!-- 	페이지 내용 -->
 	<div class="list">
 <!-- 		테이블 -->
-		<table class="table">
+		<table class="table" style="width:100%">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">등록일자</th>
+					<th scope="col">프로젝트 번호</th>
+					<th scope="col">프로젝트 제목</th>
+					<th scope="col">프로젝트 상태</th>
+					<th scope="col">프로젝트 등록일</th>
+					<th scope="col">프로젝트 마지막 수정일</th>
 				</tr>
 			</thead>
 			<tbody>
-<%-- 			<c:forEach var="" items=""> --%>
+			<c:forEach var="projectDTO" items="${projectList }">
 				<tr>
-					<td>100</td>
-					<td>정상화</td>
-					<td>2100-02-31</td>
+					<td>${projectDTO.pboard_id }</td>
+					<td><a href="${pageContext.request.contextPath}/projectRead/${projectDTO.pboard_id}">${projectDTO.pboard_title }</a></td>
+					<td>${projectDTO.pboard_state }</td>
+					<td>${projectDTO.pboard_date }</td>
+					<td>${projectDTO.pboard_update }</td>
 				</tr>
-<%-- 			</c:forEach> --%>
+			</c:forEach>
 			</tbody>
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
-<%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a> --%>
-<!-- <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 --> -->
-<%-- 				<c:if test="${pageDTO.currentPage ne 1}"> --%>
-<%-- 					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a> --%>
-<%-- 				</c:if> --%>
+		<c:if test="${pageDTO.count ne 0 }">
+			<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
+<!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 -->
+				<c:if test="${pageDTO.currentPage ne 1}">
+					<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
+				</c:if>
 				
-<%-- 				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1"> --%>
-<%-- 					<c:if test="${pageDTO.currentPage eq i}"> --%>
-<%-- 						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${pageDTO.currentPage ne i}"> --%>
-<%-- 						<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${i}"><span class="pagenum">${i}</span></a> --%>
-<%-- 					</c:if> --%>
-<%-- 				</c:forEach> --%>
-<!-- <!-- 				마지막 페이지 아닌 경우 => 다음 버튼 보이기 --> -->
-<%-- 				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}"> --%>
-<%-- 					<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a> --%>
-<%-- 				</c:if> --%>
+				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+					<c:if test="${pageDTO.currentPage eq i}">
+						<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+					</c:if>
+					<c:if test="${pageDTO.currentPage ne i}">
+						<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=${i}"><span class="pagenum">${i}</span></a>
+					</c:if>
+				</c:forEach>
+<!-- 				마지막 페이지 아닌 경우 => 다음 버튼 보이기 -->
+				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
+				</c:if>
 				
-<%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	 --%>
+			<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	
+		</c:if>
 		</div>
 	</div>
 	</div>

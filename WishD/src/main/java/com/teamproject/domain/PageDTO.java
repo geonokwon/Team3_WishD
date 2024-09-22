@@ -19,6 +19,18 @@ public class PageDTO {
 	//검색어
 	private String search;
 	
+	private long key;
+
+	
+	
+	public long getKey() {
+		return key;
+	}
+
+	public void setKey(long key) {
+		this.key = key;
+	}
+
 	public String getSearch() {
 		return search;
 	}

@@ -105,7 +105,7 @@
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getJob_id()}</p>
+                            <p class="mb-0">${projectDTO.getJob_name()}</p>
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     
-                    <!-- 회사명 -->
+                    <!-- 회사 연락처 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />

@@ -147,6 +147,63 @@ public class ManagerService {
 		return managerDAO.getUserInfo(user_no);
 	}
 
+//	회원이 작성한 프로젝트 목록
+	public List<ProjectDTO> getUserProList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getUserProList(pageDTO);
+	}
+
+//	회원이 작성한 프로젝트 수
+	public int getUserProCount(PageDTO pageDTO) {
+		
+		return managerDAO.getUserProCount(pageDTO);
+	}
+
+//	회원이 작성한 프리랜서 목록
+	public List<FreelancerDTO> getUserFreeList(PageDTO pageDTO) {
+
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getUserFreeList(pageDTO);
+	}
+
+//	회원이 작성한 프리랜서 수
+	public int getUserFreeCount(PageDTO pageDTO) {
+		
+		return managerDAO.getUserFreeCount(pageDTO);
+	}
+
+//	회원이 작성한 질문 글 목록
+	public List<CommunityQnaDTO> getUserQnaList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getUserQnaList(pageDTO);
+	}
+
+//	회원이 작성한 질문 글 수
+	public int getUserQnaCount(PageDTO pageDTO) {
+		
+		return managerDAO.getUserQnaCount(pageDTO);
+	}
+
 	
 	
 }

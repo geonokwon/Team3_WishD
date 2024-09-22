@@ -53,7 +53,7 @@
 				<tr>
 					<td style="width:20%;">${freelancerRequestDTO.user_no }</td>
 					<td style="width:20%;">${freelancerRequestDTO.request_num }</td>
-					<td>${freelancerRequestDTO.cl_subject }</td>
+					<td><a href="${pageContext.request.contextPath}/manager/freelancerRead/${freelancerRequestDTO.getFreelancer_id()}">${freelancerRequestDTO.cl_subject }</a></td>
 					<td style="width:30%;">${freelancerRequestDTO.cl_request_date }</td>
 				</tr>
 			</c:forEach>
@@ -61,6 +61,7 @@
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
+		<c:if test="${pageDTO.count ne 0 }">
 			<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
 <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne 1}">
@@ -81,6 +82,7 @@
 				</c:if>
 				
 			<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>
+		</c:if>
 		</div>
 	</div>
 	</div>

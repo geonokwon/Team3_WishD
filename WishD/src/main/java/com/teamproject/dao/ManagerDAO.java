@@ -113,6 +113,42 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+"getUserInfo", user_no);
 	}
 
+//	회원이 작성한 프로젝트 목록
+	public List<ProjectDTO> getUserProList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getUserProList", pageDTO);
+	}
+
+//	회원이 작성한 프로젝트 수
+	public int getUserProCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getUserProCount", pageDTO);
+	}
+
+//	회원이 작성한 프리랜서 목록
+	public List<FreelancerDTO> getUserFreeList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getUserFreeList", pageDTO);
+	}
+
+//	회원이 작성한 프리랜서 수
+	public int getUserFreeCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getUserFreeCount", pageDTO);
+	}
+
+//	회원이 작성한 질문 글 목록
+	public List<CommunityQnaDTO> getUserQnaList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getUserQnaList", pageDTO);
+	}
+
+//	회원이 작성한 질문 글 수
+	public int getUserQnaCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getUserQnaCount", pageDTO);
+	}
+
 	
 	
 }
