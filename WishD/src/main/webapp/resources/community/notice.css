@@ -129,45 +129,8 @@ body {
     border-top: 3px solid #445283;
 }
 
-/* 폰트 */
-@font-face {
-    font-family: 'menu'; /* 정의할 폰트 이름 */
-    src: url(fonts/Akkurat-Mono.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'head'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Light.woff2) format('woff'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'title'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'content'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Regular.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'noticeTitle'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
 
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     padding-top: 8%;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -178,7 +141,6 @@ body {
 
 /* 좌측 메뉴 */
 .menutext-left {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -205,7 +167,6 @@ body {
 
 /* 우측 메뉴 */
 .menutext-right {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -243,16 +204,6 @@ body {
     color: #797979; /* 호버 시 텍스트 색상 변화 */
   }
   
-
-/* 섹션 1 */
-/* .first-section { */
-/*     background-image: url('../community/images/back.png'); */
-/*     background-size: auto; */
-/*     display: flex; 자식 요소들을 수평으로 배치 */
-/*     height: 400px; */
-/*     margin-top: 1rem; */
-/*     margin-bottom: 3rem; */
-/* } */
 
 .first-section {
     position: relative;
@@ -306,7 +257,6 @@ body {
 
 /* 섹션 2 - 공지 목록 구성 */
 .custom-title {
-    font-family: 'title', sans-serif;
     font-size: 25px; /* 폰트 크기 설정 */
     color: #ffffff; /* 폰트 색상 설정 */
     text-align: start;
@@ -314,7 +264,6 @@ body {
 }
 
 .custom-content {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #797979; /* 폰트 색상 설정 */
     text-align: start;
@@ -323,7 +272,6 @@ body {
 }
 
 .custom-date {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #ffffff; /* 폰트 색상 설정 */
     text-align: end;
@@ -332,7 +280,6 @@ body {
 }
 
 .custom-writer {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #797979; /* 폰트 색상 설정 */
     text-align: end;
