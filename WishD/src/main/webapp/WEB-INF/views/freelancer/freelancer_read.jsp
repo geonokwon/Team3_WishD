@@ -346,7 +346,7 @@ console.log("sdsd");
 	    requestForm.find('a').on('click', (e) => {
 	        e.preventDefault();
 	    })
-	    requestForm.find('input, select').prop('disabled', true);
+	    requestForm.find('input, select, textarea').prop('disabled', true);
 	    // form.find('select').prop('disabled', true);
 	    requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
 	    //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
