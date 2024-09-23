@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -80,7 +81,16 @@
 
 							<!-- 본인이 작성한 질문이거나 관리자면 미리보기 보여 주기 -->
 	                    	<c:if test="${(user_no == communityQnaDTO.user_no) || user_no == 999}">
-							    <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
+							     <div class="custom-content">
+							    <c:choose>
+							        <c:when test="${fn:length(communityQnaDTO.qcommunity_content) > 40}">
+							            ${fn:substring(communityQnaDTO.qcommunity_content, 0, 40)}...
+							        </c:when>
+							        <c:otherwise>
+							            ${communityDTO.ncommunity_content}
+							        </c:otherwise>
+							    </c:choose>
+							</div>
 							</c:if>
 							<c:if test="${(user_no != communityQnaDTO.user_no) && user_no != 999}">
 							    <div class="custom-content">비밀글입니다</div>

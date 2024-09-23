@@ -94,7 +94,7 @@
                     <div class="col">
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" name="qcommunity_content" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="qcommunity_content custom-textbox1 input-box no-border"  placeholder="내용을 작성해주세요......"></textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
