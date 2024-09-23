@@ -31,7 +31,13 @@ public class ProjectService {
     public List<ProjectDTO> getProjectList(ProjectPageDTO projectPageDTO){
         logger.info("-> getProjectList()");
         //projectDTO 사용자가 등록한 board 를 가져옴
-        return projectDAO.getProject_all(projectPageDTO);
+        List<ProjectDTO> projectDTOList = projectDAO.getProject_all(projectPageDTO);
+        for (ProjectDTO projectDTO : projectDTOList) {
+            //가져온 projectDTO.getPboard() board에 선택된 스킬들을 List 형태로 받음
+            //skill board_id 값들만 체크해서 list 형태로 저장한 후 반환
+            projectDTO.setSkills(projectDAO.getProjectSkill(projectDTO.getPboard_id()));
+        }
+        return projectDTOList;
     }
 
     //총 프로젝트 등록 count 가져오기
