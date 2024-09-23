@@ -290,7 +290,7 @@
 							<c:forEach begin="${myFreelancerPageDTO.startPage}"
 								end="${myFreelancerPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.freelancerSearch}&freelancerStatus=${param.freelancerStatus}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.search}&freelancerStatus=${param.freelancerStatus}">${page}</a>
 								</li>
 							</c:forEach>
 
@@ -565,10 +565,8 @@
 						</c:forEach>
 						<!-- 반복 end -->
 						<!-- Pagination -->
-
-						<!-- 프로젝트 보낸요청에 다른버튼 뜨는 문제 -->
-						<c:if test="${ myProjectRequestDTOList > 0 || ! empty myProjectPageDTO}">
-					
+						
+						<!-- 보낸요청에 다른버튼 뜨는 문제 -->
 						<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
 								<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -594,8 +592,6 @@
 								</c:if>
 							</ul>
 						</nav>
-						</c:if>
-						
 					</c:if>
 					
 					
@@ -847,15 +843,13 @@
                 password_new_check.focus();
                 return;
             }
-			
-            // 비번 조건
-            if (password_new.value.length < 8 || 
-            	    !/[a-zA-Z]/.test(password_new.value) ||  // 영어 문자 포함 확인
-            	    !/[!@#$%^&*(),.?":{}|<>]/.test(password_new.value)) {  // 특수 문자 포함 확인
-            	    alert("새 비밀번호는 8자 이상이어야 하며, 영어 문자와 특수 문자를 포함해야 합니다.");
-            	    password_new.focus();
-            	    return;
-            	}
+
+            // 새 비밀번호가 8자 이상인지 확인
+            if (password_new.value.length < 8) {
+                alert("새 비밀번호는 8자 이상이어야 합니다.");
+                password_new.focus();
+                return;
+            }
 
             // 새 비밀번호 확인이 일치하는지 확인
             if (password_new.value !== password_new_check.value) {
