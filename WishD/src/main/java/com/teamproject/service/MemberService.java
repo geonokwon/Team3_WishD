@@ -1,6 +1,7 @@
 package com.teamproject.service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,6 @@ public class MemberService {
 		//user_no 값 가지고 일반회원 테이블 저장
 		memberDAO.insertUser(memberDTO);
 		
-		
-		
 	}
 
 	// 회원체크
@@ -48,14 +47,15 @@ public class MemberService {
 	public String userIdCheck(String id) {
 		System.out.println("MemberService userIdCheck()");
 		return memberDAO.userIdCheck(id);
-		}
+	}
 
 	// 이메일 중복체크
 	public String userEmailCheck(String id) {
 		System.out.println("MemberService userEmailCheck()");
 		return memberDAO.userEmailCheck(id);
 		
-		}
+	}
+	
 		
 	// 아이디 찾기
 	@Transactional

@@ -74,7 +74,7 @@
     							type="password" 
     							class="form-control bg-dark mt-1" 
     							id="password" 
-    							name="user_pass1" 
+    							name="user_pass" 
                 				placeholder="비밀번호를 입력하세요"
                 				autocomplete="off"
                 				onblur="validateInput(this)"
@@ -201,7 +201,7 @@
             </div>
             <!-- 약관동의 체크박스 -->
             <div class="agree-item">
-  				<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+  				<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
   				<label class="form-check-label" for="flexCheckChecked">
     			(필수)개인정보 수집에 동의합니다.
   				</label>
@@ -216,7 +216,6 @@
 			<button class="signup-btn" type="submit">
     			회원가입
 			</button>
-           	
         	</form>
         	<!-- 폼 태그 끝 -->
     	</div>
@@ -401,10 +400,34 @@ $(document).ready(function() {
 	    }
 	});
 
+	
 	// 폼 제출 시 유효성 검사 통과 여부 확인
 	$('form').submit(function(e) {
 	    e.preventDefault(); // 기본 제출 동작 방지
 	    
+	    let isValid = true; // 유효성 검사 결과 저장
+	 	
+	    $('input.requred').each(function(){
+	    	
+	    	if($(this).val().trim() === ''){
+	    		isValid = false;
+	    	}
+	    	
+	    });
+	    
+	    // 유효성 검사 통과 여부 확인
+	    if(!isValid){
+	    	
+	    	// 경고메세지 보여줌
+	    	$('.required-massage').removeClass('hide');
+	    }
+	    else {
+	    	// 성공메세지
+	    	alert('회원가입이 성공적으로 완료되었습니다!!');
+	    	
+	    	// 폼 제출
+	    	this.submit();
+	    }
 	  
 	});
 
