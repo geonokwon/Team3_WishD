@@ -98,8 +98,7 @@ public class FreelancerController {
         freelancerPageDTO.setCreatedDateFilter(sort);
         //진행중, 구직중 모아보기
         freelancerPageDTO.setState(state);
-        System.out.println("sort = " + freelancerPageDTO.getCreatedDateFilter());
-        System.out.println("state = " + freelancerPageDTO.getState());
+
        
 
         //프리랜서 등록 개수 전체 가져오기(나중에 state 가 구직중인것만 가져와야함!)
@@ -121,7 +120,7 @@ public class FreelancerController {
         model.addAttribute("freelancerPageDTOList", freelancerPageDTO);
        
         
-        System.out.println(freelancerPageDTO.getCurrentPage());
+
 		return "freelancer/freelancer_find";
 	}
 	
@@ -161,10 +160,10 @@ public class FreelancerController {
                 if (freelancerDTO.getUser_no().longValue() == user_no || freelancerRequestDTO.getUser_no().longValue() == user_no) {
                     //freelancerRequest_file 도 불러와서 같이 줘야한다
                     FreelancerRequestFileDTO freelancerRequestFileDTO = freelancerService.getFreelancerRequestFile(freelancer_id);
-                    System.out.println(freelancerRequestFileDTO.toString());
+                    
                     //여기서 페이로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
                     model.addAttribute("freelancerRequestDTO", freelancerRequestDTO);
-                    System.out.println("freelancerRequestDTO = " +freelancerRequestDTO);
+                    System.out.println("글 작성자와 유저가 같음 freelancerRequestDTO = " +freelancerRequestDTO);
                     model.addAttribute("freelancerRequestFileDTO", freelancerRequestFileDTO);
                 }
                 else {

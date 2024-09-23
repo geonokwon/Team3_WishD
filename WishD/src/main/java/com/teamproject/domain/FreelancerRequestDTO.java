@@ -15,6 +15,9 @@ public class FreelancerRequestDTO {
 	private String cl_request_date; //클라이언트가 프리랜서에게 요청한 날짜
 	private Boolean cl_request_isAgree;
 	private int cl_money;
+	
+	
+	
 	public Long getRequest_num() {
 		return request_num;
 	}

@@ -30,7 +30,7 @@
         <div class="container row align-items-start">
             <!-- freelancer Read card -->
             <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
-                <div class="card-body" style="height: 1200px">
+                <div class="card-body" style="height: 1200px;">
                     <!-- 타이틀 -->
                     <p class="card-title fs-3" style="height: 90px">${freelancerDTO.getUser_name()}</p>
 
@@ -137,10 +137,10 @@
                         <form action="${pageContext.request.contextPath}/freelancerReadReq/" method="post" id="freelancerReadForm">
                             <!-- 한줄 자기소개 -->
                             <div class="mb-4">
-                                <label for="request_title" class="mb-1">프로젝트 제목</label>
+                                <label for="cl_subject" class="mb-1">프로젝트 제목</label>
                                 <input type="text"
                                        class="form-control bg-dark"
-                                       id="request_title"
+                                       id="cl_subject"
                                        name="cl_subject"
                                        placeholder="프로젝트 제목"
                                        autocomplete="off"
@@ -157,11 +157,11 @@
 
 <!--                             프로젝트 예상 기간(숫자만 입력하기) -->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="request_date" class="mb-1">예상 기간</label>
+                                <label for="cl_rangeMonth" class="mb-1">예상 기간</label>
                                 <div class="col-4">
                                     <input type="text"
                                            class="form-control bg-dark"
-                                           id="request_job_history"
+                                           id="cl_rangeMonth"
 										   name="cl_rangeMonth"
                                            placeholder="개월 수"
                                            autocomplete="off"
@@ -172,8 +172,9 @@
                             </div>
 
 				    		<div class="mb-4">
-									<h6>프로젝트 상세 소개</h6>
+                                <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
 									 <textarea class="form-control bg-dark" 
+									 	 id="cl_content"
 										 name="cl_content" 
 										 style="height:200px; width:100%; resize:none;" 
 										 rows="5" 
@@ -294,7 +295,9 @@
                                 <button type="button" class="btn btn-primary">매칭하기</button>
                             </div>
                         </c:if>
-                        <c:if test="${sessionScope.user_no == freelancer.getUser_no()}">
+                        
+                        
+                        <c:if test="${sessionScope.user_no == freelancerDTO.getUser_no()}">
                             <div class="card" id="matching_button_waiting">
                                 <button type="button" class="btn btn-primary" disabled>매칭 대기중</button>
                             </div>
@@ -327,9 +330,9 @@
 <script>
 console.log(${sessionScope.user_no});
 console.log("sdsd");
-console.log(${freelancerRequestDTO});
+
 	if(${freelancerRequestDTO != null }){
-	    $("#sideCardBody_background").css("height", "1000px");
+	    $("#sideCardBody_background").css("height", "1200px");
 	    $("#matching_Title").hide();
 	    $("#requestForm").show();
 	    $("#matching_button").hide();
@@ -368,27 +371,20 @@ console.log(${freelancerRequestDTO});
 	        $("#requestFile").show();
 	        $("#badge_container").show();
 	
-	        //한줄 자기 소개
-	        $("#request_title").val("${freelancerRequestDTO.getCl_subject()}");
+	        //프로젝트 제목
+	        $("#cl_subject").val("${freelancerRequestDTO.getCl_subject()}");
 	        
 	        //상세 소개
-	        $("#request_date").val(${freelancerRequestDTO.getCl_content()});
-	        //직군
-// 	        $("#request_jobGroup").val(${freelancerRequestDTO.getJob_id()});
+	        $("#cl_content").val("${freelancerRequestDTO.getCl_content()}");
+
 	
 	        //프로젝트 예상기간
-	        $("#request_date").val(${freelancerRequestDTO.getCl_rangeMonth()});
+	        $("#cl_rangeMonth").val("${freelancerRequestDTO.getCl_rangeMonth()}");
 	
-// 	        //프리랜서 경험 ( true , false ) 값을 반환하고 radio 박스이므로 checked 처리함
-// 	        let experience = "${freelancerRequestDTO.getF_request_exp()}";
-// 	        if (experience === "true") {
-// 	            $("#experience_true").prop("checked", true);
-// 	        } else {
-// 	            $("#experience_false").prop("checked", true);
-// 	        }
+
 	
 	        //희망금액
-	        $("#money").val(${freelancerRequestDTO.getCl_money()});
+	        $("#money").val("${freelancerRequestDTO.getCl_money()}");
 	        console.log("freelancerRequsetDTO.getCl_money(): '" + ${freelancerRequsetDTO.getCl_money()} + "'");
 	        //진행가능 날짜 형식 맞춤
 	        let date = "${freelancerRequestDTO.getCl_startDate()}".split(" ")[0];
@@ -404,7 +400,7 @@ console.log(${freelancerRequestDTO});
 	        $("#agree_1").prop("checked", true);
 	        $("#agree_2").prop("checked", true);
 	
-	
+			
 	        if(sessionUserNo === freelancerUserNo && isAgree === "true"){
 	            //버튼 비활성화
 	            agree_button.hide();
@@ -424,7 +420,8 @@ console.log(${freelancerRequestDTO});
 	            // 버튼 클릭 이벤트 처리
 	            $('#match_button').click(function() {
 	                console.log('매칭 버튼 클릭됨');
-	                location.href="${pageContext.request.contextPath}/chatting/${freelancerDTO.getFreelancer_id()}"
+// 	                채팅기능 미구현?
+// 	                location.href="${pageContext.request.contextPath}/chatting/${freelancerDTO.getFreelancer_id()}"
 	            });
 	
 	            $('#cancel_button').click(function() {
