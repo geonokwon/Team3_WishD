@@ -13,6 +13,7 @@ import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerSkillDTO;
+import com.teamproject.domain.JobDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -39,7 +40,7 @@ public class MyPageDAO {
 	}
 	
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MyPageDAO - updateMember()");
+//		System.out.println("MyPageDAO - updateMember()");
 		sqlSession.update(namespace + ".updateMember", memberDTO);
 	}
 	
@@ -113,6 +114,37 @@ public class MyPageDAO {
 
 	public String userIdCheck(String id) {
 		return sqlSession.selectOne(namespace + ".userIdCheck", id);
+	}
+
+	public List<JobDTO> getJobsList() {
+		return sqlSession.selectList(namespace + ".getJobsList");
+	}
+
+	public List<MyProjectDTO> getRequestListCount(Long user_no) {
+		return sqlSession.selectList(namespace + ".getRequestListCount", user_no);
+	}
+
+	public List<MyProjectDTO> getMyRequestProject(MyProjectPageDTO myProjectRequestPageDTO) {
+		return sqlSession.selectList(namespace + ".getMyRequestProject", myProjectRequestPageDTO);
+	}
+
+	public List<FreelancerDTO> getRequestFreeListCount(Long user_no) {
+		return sqlSession.selectList(namespace + ".getRequestFreeListCount", user_no);
+	}
+
+	public List<FreelancerDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+		return sqlSession.selectList(namespace + ".getMyRequestFree", myFreelancerRequestPageDTO);
+	}
+	
+	//회원탈퇴
+	public MemberDTO deleteCheck(MemberDTO memberDTO) {
+		return sqlSession.selectOne(namespace + ".deleteCheck", memberDTO);
+	}
+	public void deleteUser(MemberDTO memberDTO) {
+		sqlSession.delete(namespace + ".deleteUser", memberDTO);
+	}
+	public void deleteUserInfo(MemberDTO memberDTO) {
+		sqlSession.delete(namespace + ".deleteUserInfo", memberDTO);
 	}
 
 	

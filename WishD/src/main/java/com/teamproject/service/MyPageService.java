@@ -14,6 +14,7 @@ import com.teamproject.domain.CommunityPageDTO;
 import com.teamproject.domain.CommunityQnaDTO;
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
+import com.teamproject.domain.JobDTO;
 import com.teamproject.domain.MemberDTO;
 import com.teamproject.domain.MyProjectDTO;
 import com.teamproject.domain.MyProjectPageDTO;
@@ -31,19 +32,20 @@ public class MyPageService {
 		// 처음에 user 테이블에서 가져옴
 		MemberDTO memberDTO = myPageDAO.getLoginMember(user_no);
 		System.out.println("일반 memberDTO : " + memberDTO);
-		if(memberDTO.getUser_id() == null) { // user_id가 없으면 simple_user 테이블에서 가져옴
+		if(memberDTO == null) { // user_id가 없으면 simple_user 테이블에서 가져옴
 			memberDTO = myPageDAO.getSimpleMember(user_no);
 			System.out.println("심플 memberDTO : " + memberDTO);
 		}
 		return memberDTO;
 	}
 	
-	public MemberDTO userCheck(MemberDTO memberDTO) {
-		return myPageDAO.userCheck(memberDTO);	
-	}
+//	public MemberDTO userCheck(MemberDTO memberDTO) {
+//		return myPageDAO.userCheck(memberDTO);	
+//	}
 	
+	//비밀번호 업데이트 
 	public void updateMember(MemberDTO memberDTO) {
-		System.out.println("MyPageService - updateMember()");
+		System.out.println("MyPageService - updateMember() : " + memberDTO);
 		myPageDAO.updateMember(memberDTO);
 	}
 	
@@ -145,6 +147,50 @@ public class MyPageService {
 
 	public String userIdCheck(String id) {
 		return myPageDAO.userIdCheck(id);
+	}
+
+	public List<JobDTO> getJobsList() {
+		return myPageDAO.getJobsList();
+	}
+
+	public List<MyProjectDTO> getRequestListCount(Long user_no) {
+		return myPageDAO.getRequestListCount(user_no);
+	}
+
+	// 프로젝트에 요청보낸것
+	public List<MyProjectDTO> getMyRequestProject(MyProjectPageDTO myProjectRequestPageDTO) {
+		List<MyProjectDTO> myProjectList = myPageDAO.getMyRequestProject(myProjectRequestPageDTO);
+		
+		for(MyProjectDTO i : myProjectList) {
+			i.setSkills(myPageDAO.getMyProjectSkillList(i.getPboard_id()));
+			System.out.println(i);
+		}
+		System.out.println(myProjectList.size());
+		return myProjectList;
+	}
+
+	// 프리랜서에 요청보낸글 카운트
+	public List<FreelancerDTO> getRequestFreeListCount(Long user_no) {
+		return myPageDAO.getRequestFreeListCount(user_no);
+	}
+
+	// 프리랜서에 요청보낸글 가져오기 
+	public List<FreelancerDTO> getMyRequestFree(FreelancerPageDTO myFreelancerRequestPageDTO) {
+		List<FreelancerDTO> freelancerDTO = myPageDAO.getMyRequestFree(myFreelancerRequestPageDTO);
+		for(FreelancerDTO i : freelancerDTO) { // 스킬가져오기
+			i.setSkills(myPageDAO.getMyFreelancerSkillList(i.getFreelancer_id()));
+			System.out.println(i);
+		}
+		return freelancerDTO;
+	}
+	
+	//회원탈퇴
+	public MemberDTO deleteCheck(MemberDTO memberDTO) {
+		return myPageDAO.deleteCheck(memberDTO);
+	}
+	public void deleteMember(MemberDTO memberDTO) {
+		myPageDAO.deleteUser(memberDTO);
+		myPageDAO.deleteUserInfo(memberDTO);
 	}
 
 	

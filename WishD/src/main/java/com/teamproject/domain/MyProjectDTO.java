@@ -6,33 +6,49 @@ import java.util.List;
 public class MyProjectDTO {
 	
 	private Long pboard_id;
-	private Long user_no;
-	private String pboard_title;
-	private String pboard_content;
-	private int pboard_money;
-	private String pboard_startDate;
+    private Long user_no;
+    private String pboard_title;
+    private String pboard_content;
+    private int pboard_money;
+    private String pboard_startDate;
+    private int pboard_rangeMonth;
+    private int job_id;
+    private String job_name;
+    private String pboard_state;
+    private Timestamp pboard_date;
+    private Timestamp pboard_update;
+    private Boolean pboard_isMatching;
+    private String pboard_manager_phone;
+    private String pboard_company_name;
+    
 	private int pboard_history;
-	private int pboard_rangeMonth;
-	private String pboard_state;
-	private Timestamp pboard_date;
-	private Timestamp pboard_update;
-	private String pboard_manager_phone;
-	private String pboard_company_name;
-	private String pboard_job;
 	
 	private String skillList;
 
-	private Timestamp pboard_startDate_Ex;
 	
 	
-	public Timestamp getPboard_startDate_Ex() {
-		return pboard_startDate_Ex;
+	
+
+	public String getJob_name() {
+		return job_name;
 	}
 
 
 
-	public void setPboard_startDate_Ex(Timestamp pboard_startDate_Ex) {
-		this.pboard_startDate_Ex = pboard_startDate_Ex;
+	public void setJob_name(String job_name) {
+		this.job_name = job_name;
+	}
+
+
+
+	public Boolean getPboard_isMatching() {
+		return pboard_isMatching;
+	}
+
+
+
+	public void setPboard_isMatching(Boolean pboard_isMatching) {
+		this.pboard_isMatching = pboard_isMatching;
 	}
 
 
@@ -49,15 +65,21 @@ public class MyProjectDTO {
 
 
 
-	public String getPboard_job() {
-		return pboard_job;
+
+
+
+	public int getJob_id() {
+		return job_id;
 	}
 
 
 
-	public void setPboard_job(String pboard_job) {
-		this.pboard_job = pboard_job;
+	public void setJob_id(int job_id) {
+		this.job_id = job_id;
 	}
+
+
+
 
 
 
@@ -239,9 +261,12 @@ public class MyProjectDTO {
 				+ pboard_startDate + ", pboard_history=" + pboard_history + ", pboard_rangeMonth=" + pboard_rangeMonth
 				+ ", pboard_state=" + pboard_state + ", pboard_date=" + pboard_date + ", pboard_update=" + pboard_update
 				+ ", pboard_manager_phone=" + pboard_manager_phone + ", pboard_company_name=" + pboard_company_name
-				+ ", pboard_job=" + pboard_job + ", skillList=" + skillList + ", skills=" + skills + "]";
+				+ ", job_id=" + job_id + ", pboard_isMatching=" + pboard_isMatching + ", skillList=" + skillList
+				+ ", skills=" + skills + "]";
 	}
 
 	
+
+
 	
 }
