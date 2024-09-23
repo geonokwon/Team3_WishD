@@ -133,8 +133,7 @@ body {
     --bs-table-color: #fff;
     --bs-table-bg:  var(--bs-primary);
 }
-.textArea1{
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    width: 100%; /* 너비는 원하는 대로 설정 */
+pre.textArea1 {
+    overflow-y: auto;
+    max-height: 100%;
 }
