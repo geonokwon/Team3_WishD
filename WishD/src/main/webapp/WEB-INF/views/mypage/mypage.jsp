@@ -224,7 +224,7 @@
 											class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
 											${myFreelancerDTO.getFreelancer_state()} </span>
 									</c:if>
-
+										
 									<a class="nav-link mb-3 fs-4"
 										href="${pageContext.request.contextPath}/freelancerRead/${myFreelancerDTO.getFreelancer_id()}">
 										${fn:substring(myFreelancerDTO.freelancer_introduction, 0, 40)}
@@ -274,6 +274,8 @@
 					</c:forEach>
 					<!-- 반복 end -->
 					<!-- Pagination -->
+<%-- 					<c:if test="${myFreeRequestDTOList.size() > 0}"> --%>
+					
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -331,6 +333,7 @@
 
 									<a class="nav-link mb-3 fs-4"
 										href="${pageContext.request.contextPath}/freelancerRead/${myFreeRequestDTO.getFreelancer_id()}">
+										
 										${fn:substring(myFreeRequestDTO.freelancer_introduction, 0, 40)}
    										<c:if test="${fn:length(myFreeRequestDTO.freelancer_introduction) > 40}">...</c:if>
 										</a>
@@ -374,6 +377,7 @@
 					<!-- 반복 end -->
 					<!-- Pagination -->
 <%-- 					${myFreeRequestDTOList.size()} --%>
+					
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -386,7 +390,7 @@
 							<c:forEach begin="${myFreeRequestPageDTO.startPage}"
 								end="${myFreeRequestPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${page}&freelancerSearch=${param.search}&requestFreelancer=${param.requestFreelancer}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${page}&freelancerSearch=${param.freelancerSearch}&requestFreelancer=${param.requestFreelancer}">${page}</a>
 								</li>
 							</c:forEach>
 
@@ -400,6 +404,8 @@
 						</ul>
 					</nav>
 					</c:if>
+					
+					
 				</div>
 			</div>
 			
