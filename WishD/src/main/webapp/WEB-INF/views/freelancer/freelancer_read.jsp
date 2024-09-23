@@ -30,7 +30,7 @@
         <div class="container row align-items-start">
             <!-- freelancer Read card -->
             <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
-                <div class="card-body" style="height: 1000px">
+                <div class="card-body" style="height: 1200px">
                     <!-- 타이틀 -->
                     <p class="card-title fs-3" style="height: 90px">${freelancerDTO.getUser_name()}</p>
 
@@ -152,7 +152,7 @@
 <!--                             프로젝트 시작 가능일 -->
                             <div class="mb-4">
                                 <label for="request_startDate" class="mb-2">프로젝트 시작 예정일</label>
-                                <input type="date" class="form-control bg-dark" id="request_startDate" name="cl_startdate" required/>
+                                <input type="date" class="form-control bg-dark" id="request_startDate" name="cl_startDate" required/>
                             </div>
 
 <!--                             프로젝트 예상 기간(숫자만 입력하기) -->
@@ -162,7 +162,7 @@
                                     <input type="text"
                                            class="form-control bg-dark"
                                            id="request_job_history"
-										   name="cl_date"
+										   name="cl_rangeMonth"
                                            placeholder="개월 수"
                                            autocomplete="off"
                                            required />
@@ -172,7 +172,7 @@
                             </div>
 
 				    		<div class="mb-4">
-									<h6>상세 소개</h6>
+									<h6>프로젝트 상세 소개</h6>
 									 <textarea class="form-control bg-dark" 
 										 name="cl_content" 
 										 style="height:200px; width:100%; resize:none;" 
@@ -210,10 +210,34 @@
                                        required/>
 <!--                                 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
                                 <div class="form-control bg-dark" type="text" id="requestFile" style="display: none">
-                                    <a href="${pageContext.request.contextPath}/resources/upload/${freelancerRequestFileDTO.getF_file_name()}"
+                                    <a href="${pageContext.request.contextPath}/resources/upload/${freelancerRequestFileDTO.getP_file_name()}"
                                        download="${freelancerRequestFileDTO.getFileOriginName()}">${freelancerRequestFileDTO.getFileOriginName()}</a>
                                 </div>
 
+                            </div>
+
+							<!-- 담당자 이름 -->
+                            <div class="mb-4">
+                                <label for="request_name" class="mb-1">담당자 이름</label>
+                                <input type="text"
+                                       class="form-control bg-dark"
+                                       id="request_name"
+                                       name="cl_name"
+                                       placeholder="이름을 입력해 주세요"
+                                       autocomplete="off"
+                                       required />
+                            </div>
+
+                            <!-- 담당자 이메일 -->
+                            <div class="mb-4">
+                                <label for="request_email" class="mb-1">담당자 이메일</label>
+                                <input type="email"
+                                       class="form-control bg-dark"
+                                       id="request_email"
+                                       name="cl_email"
+                                       placeholder="이메일을 입력해 주세요"
+                                       autocomplete="off"
+                                       required />
                             </div>
 
                             약관 동의
@@ -353,7 +377,7 @@ console.log(${freelancerRequestDTO});
 // 	        $("#request_jobGroup").val(${freelancerRequestDTO.getJob_id()});
 	
 	        //프로젝트 예상기간
-	        $("#request_date").val(${freelancerRequestDTO.getCl_date()});
+	        $("#request_date").val(${freelancerRequestDTO.getCl_rangeMonth()});
 	
 // 	        //프리랜서 경험 ( true , false ) 값을 반환하고 radio 박스이므로 checked 처리함
 // 	        let experience = "${freelancerRequestDTO.getF_request_exp()}";
@@ -370,6 +394,12 @@ console.log(${freelancerRequestDTO});
 	        let date = "${freelancerRequestDTO.getCl_startDate()}".split(" ")[0];
 	        $("#request_startDate").val(date);
 			
+	        //담당자 이름
+	        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
+	        
+	        //담당자 이메일
+	        $("#request_email").val("${freelancerRequestDTO.getCl_email()}");
+	        
 	        //각종동의
 	        $("#agree_1").prop("checked", true);
 	        $("#agree_2").prop("checked", true);
@@ -419,12 +449,17 @@ console.log(${freelancerRequestDTO});
             const formData = new FormData(this);
             console.log(formData);
 
-        
         // FormData 내용 확인
-        console.log("FormData Entries:");
-        for (let pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]);
-        }
+			for (let pair of formData.entries()) {
+			    if (pair[1] instanceof File) {
+			        console.log(pair[0], pair[1].name);  // 파일 이름 출력
+			        console.log(pair[0], pair[1].size);  // 파일 크기 출력
+			        console.log(pair[0], pair[1].type);  // 파일 타입 출력
+			    } else {
+			        console.log(pair[0] + ', ' + pair[1]); // 다른 필드는 일반적으로 출력
+			    }
+			}
+        
             //비동기 ajax 처리
             $.ajax({
                 url: '${pageContext.request.contextPath}/freelancerReadReq/${freelancerDTO.getFreelancer_id()}',

@@ -186,6 +186,8 @@ public class FreelancerController {
                                      FreelancerRequestDTO freelancerRequestDTO,
                                      Model model) throws Exception {
         System.out.println("비동기 freelancerReadReq");
+        System.out.println("비동기에서 freelancerRequestDTO = " + freelancerRequestDTO);
+        System.out.println("비동기에서 freelancerRequestFileDTO= " + freelancerRequestFileDTO);
         freelancerRequestDTO.setFreelancer_id(freelancer_id);
         freelancerRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
         freelancerService.insertFreelancerRequest(freelancerRequestDTO, freelancerRequestFileDTO);
