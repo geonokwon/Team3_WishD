@@ -84,7 +84,8 @@
                	 	   	</div>
                	 	   	<!-- 에러메세지 -->    
         				<div class="invalid-feedback" id="passwordError" style="display: none;">
-            				비밀번호는 특수문자를 포함하여 8~12글자여야 합니다.
+            				비밀번호는 특수문자를 포함하여 8~12자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.
+            				
        	 				</div>
 				  </div>
             </div>
@@ -218,25 +219,6 @@
            	
         	</form>
         	<!-- 폼 태그 끝 -->
-        	
-        	<!-- 회원가입 완료 모달창알림 -->
-			<div class="modal fade mt-5" id="insertSave" tabindex="-1"  aria-hidden="true">
-  				<div class="modal-dialog">
-    				<div class="modal-content bg-primary ps-2 pt-2">
-     	 				<div class="modal-header">
-        					<h1 class="modal-title fs-6" id="insertTitle">회원가입이 완료되었습니다!</h1>
-        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      					</div>
-      					<div class="modal-body">
-        					WishD 회원이 되신걸 환영합니다!
-      					</div>
-      					<div class="modal-footer">
-        					<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">닫기</button>
-        					<button type="button" class="btn btn-sm btn-secondary" id="goToLogin">로그인</button>
-      					</div>
-    				</div>
-  				</div>
-			</div>
     	</div>
 	</div>
     <!-- 별배경 -->
@@ -423,20 +405,7 @@ $(document).ready(function() {
 	$('form').submit(function(e) {
 	    e.preventDefault(); // 기본 제출 동작 방지
 	    
-	   
-	    // 비밀번호 확인 검사 (필요 시)
-	    if (password !== confirmPassword) {
-	        alert('비밀번호가 일치하지 않습니다.');
-	        return;
-	    }
-
-	    // 모든 유효성 검사가 통과되었을 때 회원가입 완료 모달 표시
-	    $('#insertSave').modal('show'); // 회원가입 완료 모달 띄우기
-	});
-
-	// 모달의 '로그인 화면으로 가기' 버튼 클릭 시 로그인 화면으로 이동
-	$('#goToLogin').click(function() {
-	    location.href = '${pageContext.request.contextPath}/login'; // 로그인 화면으로 이동
+	  
 	});
 
 

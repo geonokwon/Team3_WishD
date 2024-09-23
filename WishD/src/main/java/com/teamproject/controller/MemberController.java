@@ -58,10 +58,12 @@ public class MemberController {
 		MemberDTO memberDTO1 = memberService.userCheck(memberDTO);
 		
 		if(memberDTO1 != null) {
+			// 아이디가 있으면 메인으로 이동한다.
 			session.setAttribute("user_no", memberDTO1.getUser_no()); 
 			return "redirect:/";
 		}
 		else {
+			session.setAttribute("errorMessage", "아이디와 비밀번호를 다시 확인하세요.");
 			return "redirect:/login";
 		}	
 	}
