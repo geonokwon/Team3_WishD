@@ -46,11 +46,11 @@
 	<insert id="resistFreelancer">
 		insert into freelancer(freelancer_id, user_no, freelancer_salary, freelancer_startdate,
 								 freelancer_exp, dev_exp, freelancer_introduction, freelancer_link, freelancer_state,
-								 freelancer_date, freelancer_update, job_id)
+								 freelancer_update, job_id)
 		values(	#{freelancer_id},#{user_no},#{freelancer_salary},
 				#{freelancer_startdate},#{freelancer_exp},#{dev_exp},
 				#{freelancer_introduction},#{freelancer_link},"구직중",
-				#{freelancer_date},#{freelancer_update},#{job_id});
+				#{freelancer_update},#{job_id});
 	</insert>
 	
 	<!-- 	프리랜서 스킬들 등록 -->
@@ -177,11 +177,12 @@
     
     <!-- freelancer_read_Request -->
     <insert id="insertFreelancerRequest" useGeneratedKeys="true" keyProperty="request_num" keyColumn="request_num">
-        INSERT INTO request_freelancer(user_no, freelancer_id, cl_subject,
-                                       cl_date, cl_startdate,
-                                       cl_content, cl_name, cl_email, cl_request_date)
-        VALUES(#{user_no}, #{freelancer_id}, #{cl_subject}, #{cl_date},
-               #{cl_startdate}, #{cl_content}, #{cl_name}, #{cl_email}, cl_request_date);
+        INSERT INTO request_client(user_no, freelancer_id, cl_subject,
+        							cl_startDate, cl_content, cl_name,
+        							cl_email, cl_rangeMonth, cl_money)
+        VALUES(#{user_no}, #{freelancer_id}, #{cl_subject},
+               #{cl_startDate}, #{cl_content}, #{cl_name}, 
+               #{cl_email}, #{cl_rangeMonth}, #{cl_money});
     </insert>
     
     <!-- freelancer_read_Request request_skill 테이블 스킬 추가 -->
@@ -202,7 +203,7 @@
     
     <!-- 승인요청시 Project_request_files 테이블 file 정보 추가 -->
     <insert id="insetFreelancerRequestFile">
-        INSERT INTO project_request_files (request_num, freelancer_id, f_file_name, f_file_path , fileOriginName)
+        INSERT INTO freelancer_file (request_num, freelancer_id, f_file_name, f_file_path , fileOriginName)
         VALUES (#{request_num}, #{freelancer_id}, #{f_file_name}, #{f_file_path}, #{fileOriginName});
     </insert>
     
@@ -214,15 +215,16 @@
     </select>
     <!-- request_freelancer 값 불러올때 스킬 불러오기 -->
 <!--     WHERE crs.request_num = #{freelancer_id}; 이부분 오류날것 같은데 수정해야함 -->
-    <select id="getRequestSkill" resultType="com.teamproject.domain.FreelancerSkillDTO">
-        SELECT rs.skill_id, s.skill_name
-        FROM cli_req_skill crs JOIN skills s
-        ON crs.skill_id = s.skill_id
-        WHERE crs.request_num = #{freelancer_id};
-    </select>
+<!-- 요청클라이언트는 스킬이 필요없음!! 주석처리 -->
+<!--     <select id="getRequestSkill" resultType="com.teamproject.domain.FreelancerSkillDTO"> -->
+<!--         SELECT rs.skill_id, s.skill_name -->
+<!--         FROM cli_req_skill crs JOIN skills s -->
+<!--         ON crs.skill_id = s.skill_id -->
+<!--         WHERE crs.request_num = #{freelancer_id}; -->
+<!--     </select> -->
     
         <!-- project_request_file -->
-    <select id="getFreelacnerRequestFile" resultType="com.teamproject.domain.FreelancerRequestFileDTO">
+    <select id="getFreelancerRequestFile" resultType="com.teamproject.domain.FreelancerRequestFileDTO">
         SELECT *
         FROM freelancer_file
         WHERE freelancer_id = #{freelancer_id};

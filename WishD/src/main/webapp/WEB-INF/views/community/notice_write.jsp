@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -88,8 +89,8 @@
                         <div class="write-line"></div> <!-- 구분선 -->
 
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea name="ncommunity_content" class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
-                
+                        <textarea class="ncommunity_content custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+  
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
@@ -105,9 +106,7 @@
         </div> <!-- 섹션 2 - 2 종료 -->
 
         <!-- 섹션 2 - 3 -->
-        <div class="col-2 second-section-3 menutext-right-1">
-            <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+        <div class="col-2 second-section-3">
         </div>
 
     </div> <!-- 섹션 2 종료 -->
