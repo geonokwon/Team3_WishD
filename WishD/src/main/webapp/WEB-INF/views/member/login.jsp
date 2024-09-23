@@ -40,22 +40,28 @@
                 <form id="loginForm" action="${pageContext.request.contextPath}/loginPro" method="post">
                 	<!-- 아이디 입력란 -->
                     <input 
-                    	type="text" 
-                    	id="user_Id" 
-                    	name="user_id" 
-                    	placeholder="아이디를 입력하세요" 
+    					type="text" 
+    					class="form-control mt-1" 
+    					id="user_Id" 
+    					name="user_id" 
+                		placeholder="아이디를 입력하세요"
+                		autocomplete="off"
+                		onblur="validateInput(this)"
                     	required
-                    	/>
-                    	
+                	/>
+                	
                     <!-- 비밀번호 입력란 -->
-                    <input 
-                    	type="password" 
-                    	id="password" 
-                    	name="user_pass" 
-                    	placeholder="비밀번호를 입력하세요" 
+                    	<input 
+    					type="password" 
+    					class="form-control mt-1" 
+    					id="password" 
+    					name="user_pass" 
+                		placeholder="비밀번호를 입력하세요"
+                		autocomplete="off"
+                		onblur="validateInput(this)"
                     	required
-                    	/>
-                    
+                	/>
+                   
                     <!-- 아이디 기억하기 체크박스 -->
                     <div class="remember-me">
     					<input type="checkbox" id="rememberMe">
@@ -64,6 +70,18 @@
 
 					<!-- 로그인 버튼 -->
                     <button type="submit" class="login-btn">로그인</button>
+                    <!-- 서버에서 전송된 오류 메시지 표시 -->
+					<div id="error-message" style="color: red; text-align: center;">
+   					 	<%
+        				String errorMessage = (String) session.getAttribute("errorMessage");
+        				if (errorMessage != null) {
+    				 	%>
+        				<p><%= errorMessage %></p>
+    					<%
+        				session.removeAttribute("errorMessage");  // 오류 메시지 삭제
+        					}
+    					%>
+					</div>
 
                     <!-- 아이디, 비밀번호찾기, 회원가입 탭 -->
                    <ul class="nav1 justify-content-center">
@@ -87,9 +105,7 @@
        					<a class="nav3" href="${pageContext.request.contextPath}/insert">회원가입</a>
     				  </li>
 				  </ul>
-					<!-- 에러메세지 -->
-                    <div id="errorMsg" class="error-msg">아이디와 비밀번호가 일치하지 않습니다.</div>
-                    
+					
                     <!-- 간편 로그인 버튼 -->
                     <div class="social-login">
                         <a href="" class="social-btn">
@@ -114,6 +130,14 @@
 <div class="noite"></div>
 <div class="constelacao"></div>
 <div class="chuvaMeteoro"></div>
+<script type="text/javascript">
+//비어있는 입력란의 경우 빨간 테두리 준다.
+function validateInput(element) {
+ const isEmpty = element.value.trim() === "";
+ element.style.border = isEmpty ? "1px solid #ff0000ad" : "";
+ 
+}
 
+</script>
 </body>
 </html>

@@ -63,6 +63,7 @@ public class MemberController {
 			return "redirect:/";
 		}
 		else {
+			session.setAttribute("errorMessage", "아이디와 비밀번호를 다시 확인하세요.");
 			return "redirect:/login";
 		}	
 	}

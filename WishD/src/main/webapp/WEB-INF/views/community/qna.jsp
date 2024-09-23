@@ -59,7 +59,8 @@
             
 			<!-- 관리자는 질문 작성란이 안 뜸 -->
             <c:if test="${user_no != 999}">
-            	<a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문 작성</a>
+            	<a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문 작성</a><br>
+            	<a href="http://c1d2405t3.itwillbs.com/WishD/mypage" class="myQna text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
         	</c:if>
         </div>
 
@@ -97,8 +98,7 @@
 		  </form>
         </div> <!-- 질문 목록 -->
 
-	    <div class="col-2 second-section-1 menutext-right">
-	        <a href="http://localhost:8080/testProject/mypage" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
+	    <div class="col-2 second-section-1">
 	    </div>
 
 	</div>

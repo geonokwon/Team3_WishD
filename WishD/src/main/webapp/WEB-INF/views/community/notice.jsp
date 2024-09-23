@@ -62,7 +62,7 @@
             
             <!-- 비회원이 질문하기 게시판 들어가려면 로그인 페이지로 -->
             <c:if test="${(user_no == null)}">
-            	<a href="http://localhost:8080/testProject/login" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+            	<a href="http://c1d2405t3.itwillbs.com/WishD/login" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
             </c:if>
 			
 			<!-- 관리자면 write 버튼 뜨게. -->
