@@ -22,7 +22,14 @@ public class ProjectDAO {
     //프로젝트 전체 가져오기
     public List<ProjectDTO> getProject_all(ProjectPageDTO projectPageDTO){
         logger.info("-> getProject_all()");
+        System.out.println(projectPageDTO.toString());
         return sqlSession.selectList(nameSpace + "selectProject_all", projectPageDTO);
+    }
+
+    //프로젝트 board 에 선택된 스킬들 포함
+    public List<ProjectSkillDTO> getProjectSkill(Long pboard_id){
+        logger.info("-> getProjectSkill()");
+        return sqlSession.selectList(nameSpace + "selectProjectSkill", pboard_id);
     }
 
     //전체 프로젝트 등록된 개수 가져오기
