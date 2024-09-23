@@ -23,8 +23,8 @@
         </button>
         <div class="collapse show" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="${pageContext.request.contextPath}/manager/managerQnA" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 게시판</a></li>
-            <li><a href="${pageContext.request.contextPath}/manager/managerNotice" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a></li>
+            <li><a href="${pageContext.request.contextPath}/qna" class="link-body-emphasis d-inline-flex text-decoration-none rounded">QnA 게시판</a></li>
+            <li><a href="${pageContext.request.contextPath}/community" class="link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a></li>
           </ul>
         </div>
       </li>

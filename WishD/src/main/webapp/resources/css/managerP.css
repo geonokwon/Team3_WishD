@@ -19,7 +19,7 @@ body {
 .wrap{
 	display:inline-flex;
 	align-items: flex-start;
-	margin-top: 1640px;
+/* 	margin-top: 1640px; */
 }
 
 .my-4{

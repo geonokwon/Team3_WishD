@@ -56,12 +56,21 @@
 	background-color:#141826;
 }
 
-/* 소개문 글귀 */
+/* 소개문 글귀와 이미지 */
 .intro-head{
-	margin-top:200px;
+	margin-top:50px;
 	text-align:center;
 	font-weight:900;
 	font-size:1.5em;
+}
+
+.intro img{
+	margin:auto;
+	display:block;
+}
+
+.intro-image{
+	margin-top:50px;
 }
 
 .intro p{
