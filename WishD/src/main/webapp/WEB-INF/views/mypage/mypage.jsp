@@ -290,7 +290,7 @@
 							<c:forEach begin="${myFreelancerPageDTO.startPage}"
 								end="${myFreelancerPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.search}&freelancerStatus=${param.freelancerStatus}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.freelancerSearch}&freelancerStatus=${param.freelancerStatus}">${page}</a>
 								</li>
 							</c:forEach>
 
