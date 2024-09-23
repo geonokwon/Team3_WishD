@@ -157,12 +157,19 @@ body {
 .qna {
     display: inline-block;
     margin-top: 5rem;
-   	margin-right: 1.8rem;
+   	margin-right: 2rem;
 }
 
 .write {
     display: inline-block;
     margin-top: 5rem;
+    margin-right: 0.8rem;
+}
+
+.myQna {
+    display: inline-block;
+    margin-top: 5rem;
+    margin-right: 0.6rem;
 }
 
 /* 우측 메뉴 */
