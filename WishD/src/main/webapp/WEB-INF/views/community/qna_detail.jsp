@@ -100,7 +100,7 @@
 <!--                         <label for="notice_title" class="noticeTitleText">Content </label> -->
 <!--                         <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea> -->
                 	
-                		<p class="custom-textbox1 input-box no-border readonly">${communityQnaDTO.qcommunity_content}</p>
+                		<textarea class="custom-textbox1 input-box no-border readonly" id="dynamicTextarea">${communityQnaDTO.qcommunity_content}</textarea>
                     
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
@@ -122,6 +122,7 @@
 		            				<div class="d-flex justify-content-center px-4">
 		            					<button type="submit" class="btn btn-primary2 text-light text-decoration-none">[답변 완료]</button>
 		           					</div>
+		           					</form>
 		       				</c:if>
 		       				
 		       				
@@ -144,7 +145,19 @@
     <div class="last-line"></div>
 
 </div>    
+<script>
+    const textarea = document.getElementById('dynamicTextarea');
 
+    // 초기 높이 조정
+    textarea.style.height = 'auto'; // 기본 높이를 초기화
+    textarea.style.height = textarea.scrollHeight + 'px'; // 내용에 맞게 높이 설정
+
+    // 입력 이벤트가 발생할 때마다 높이 조정
+    textarea.addEventListener('input', function () {
+        this.style.height = 'auto'; // 초기화
+        this.style.height = this.scrollHeight + 'px'; // 내용에 맞게 높이 설정
+    });
+</script>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 

@@ -132,6 +132,13 @@ public class CommunityService {
 	    communityDAO.updateQnaAnswer(qcommunity_num);
 	}
 	
+	//
+	public String convertNewLines(String input) {
+	    if (input != null) {
+	        return input.replaceAll("\n", "<br>");
+	    }
+	    return input;
+	}
 
-		
+	
 }

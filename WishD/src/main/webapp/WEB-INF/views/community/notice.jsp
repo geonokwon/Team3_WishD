@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -77,7 +78,19 @@
 	            <div class="row">
 	                    <div class="col">
 	                        <div class=""><a href="${pageContext.request.contextPath}/notice_detail?ncommunity_num=${communityDTO.ncommunity_num}" class="custom-title text-change-box text-decoration-none">${communityDTO.ncommunity_title}</a></div>
-	                        <div class="custom-content">${communityDTO.ncommunity_content}</div>
+<%-- 	                        <div class="custom-content">${communityDTO.ncommunity_content}</div> --%>
+	                        
+	                        <div class="custom-content">
+							    <c:choose>
+							        <c:when test="${fn:length(communityDTO.ncommunity_content) > 40}">
+							            ${fn:substring(communityDTO.ncommunity_content, 0, 40)}...
+							        </c:when>
+							        <c:otherwise>
+							            ${communityDTO.ncommunity_content}
+							        </c:otherwise>
+							    </c:choose>
+							</div>
+	                                   
 	                    </div>
 	                    <div class="col">
 	                        <div class="custom-date">${communityDTO.ncommunity_date}</div>
@@ -121,7 +134,7 @@
             </c:if>
 
 
-            <c:forEach begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}" var="page">
+            <c:forEach begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}" var="page" step="1">
                 <li class="page-item">
                     <a class="page-link"
                        href="${pageContext.request.contextPath}/community?pageNum=${page}">${page}</a>
@@ -132,7 +145,7 @@
             <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.endPage + 10}">&gt;</a>
             </li>
             </c:if>
         </ul>
