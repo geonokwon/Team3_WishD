@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>insert</title>
+    <title>WishD | 회원가입</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -45,7 +45,7 @@
         	<!-- 아이디 -->
         	<div class="row justify-content-center align-items-center" >
         		<div class="col-md-7">
-    				<label for="userId" class="mb-1 mt-1 ms-2">아이디</label>
+    				<label for="user_id" class="mb-1 mt-1 ms-2">아이디</label>
     					<div class="input-container">
     						<input 
     							type="text" 
@@ -68,7 +68,7 @@
         	<!-- 비밀번호 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userPass" class="mb-2 mt-3 ms-2">비밀번호</label>
+    				<label for="password" class="mb-2 mt-3 ms-2">비밀번호</label>
     					<div class="input-container">
     						<input 
     							type="password" 
@@ -82,9 +82,10 @@
                 			/>
                 			
                	 	   	</div>
-               	 	   	<!-- 에러메세지 -->    
+               	 	   	<!-- 에러메세지 -->
         				<div class="invalid-feedback" id="passwordError" style="display: none;">
-            				비밀번호는 특수문자를 포함하여 8~12글자여야 합니다.
+            				비밀번호는 특수문자를 포함하여 8~12자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.
+            				
        	 				</div>
 				  </div>
             </div>
@@ -92,12 +93,12 @@
 			<!-- 비밀번호 확인 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userPass" class="mb-2 mt-3 ms-2">비밀번호 확인</label>
+    				<label for="password-1" class="mb-2 mt-3 ms-2">비밀번호 확인</label>
     					<div class="input-container">
     						<input 
     							type="password" 
     							class="form-control bg-dark mt-1" 
-    							id="password-confirm" 
+    							id="password-1"
     							name="user_pass2" 
                 				placeholder="비밀번호를 다시 입력하세요"
                 				autocomplete="off"
@@ -113,7 +114,7 @@
 			<!-- 이름 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userName" class="mb-2 mt-3 ms-2">이름</label>
+    				<label for="name" class="mb-2 mt-3 ms-2">이름</label>
     					<div class="input-container">
     						<input 
     							type="text" 
@@ -132,7 +133,7 @@
 			<!-- 이메일 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userMail" class="mb-1 mt-1 ms-2">이메일</label>
+    				<label for="email" class="mb-1 mt-1 ms-2">이메일</label>
     					<div class="input-container">
     						<input 
     							type="text" 
@@ -156,7 +157,7 @@
             <!-- 이메일 인증코드 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userMail" class="mb-2 mt-3 ms-2">인증코드 입력</label>
+    				<label for="code" class="mb-2 mt-3 ms-2">인증코드 입력</label>
     					<div class="input-container">
     						<input 
     							type="text" 
@@ -181,7 +182,7 @@
   			<!-- 전화번호 -->
             <div class="row justify-content-center align-items-center" >
             	<div class="col-md-7">
-    				<label for="userPhone" class="mb-1 mt-1 ms-2">전화번호</label>
+    				<label for="phone" class="mb-1 mt-1 ms-2">전화번호</label>
     					<div class="input-container">
     						<input 
     							type="text" 
@@ -218,25 +219,6 @@
            	
         	</form>
         	<!-- 폼 태그 끝 -->
-        	
-        	<!-- 회원가입 완료 모달창알림 -->
-			<div class="modal fade mt-5" id="insertSave" tabindex="-1"  aria-hidden="true">
-  				<div class="modal-dialog">
-    				<div class="modal-content bg-primary ps-2 pt-2">
-     	 				<div class="modal-header">
-        					<h1 class="modal-title fs-6" id="insertTitle">회원가입이 완료되었습니다!</h1>
-        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      					</div>
-      					<div class="modal-body">
-        					WishD 회원이 되신걸 환영합니다!
-      					</div>
-      					<div class="modal-footer">
-        					<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">닫기</button>
-        					<button type="button" class="btn btn-sm btn-secondary" id="goToLogin">로그인</button>
-      					</div>
-    				</div>
-  				</div>
-			</div>
     	</div>
 	</div>
     <!-- 별배경 -->
@@ -422,21 +404,24 @@ $(document).ready(function() {
 	// 폼 제출 시 유효성 검사 통과 여부 확인
 	$('form').submit(function(e) {
 	    e.preventDefault(); // 기본 제출 동작 방지
-	    
-	   
+
 	    // 비밀번호 확인 검사 (필요 시)
 	    if (password !== confirmPassword) {
 	        alert('비밀번호가 일치하지 않습니다.');
 	        return;
 	    }
-
+		// 이메일 인증 완료했는지 확인 검사
+		if (!isCodeState){
+			alert('이메일인증 하지 않았습니다.');
+			return;
+		}
 	    // 모든 유효성 검사가 통과되었을 때 회원가입 완료 모달 표시
 	    $('#insertSave').modal('show'); // 회원가입 완료 모달 띄우기
 	});
 
 	// 모달의 '로그인 화면으로 가기' 버튼 클릭 시 로그인 화면으로 이동
 	$('#goToLogin').click(function() {
-	    location.href = '${pageContext.request.contextPath}/login'; // 로그인 화면으로 이동
+	    locat
 	});
 
 
