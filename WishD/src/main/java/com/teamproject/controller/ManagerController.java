@@ -229,6 +229,16 @@ public class ManagerController {
         return "redirect:/manager/managerApFreelancer";
     }
 	
+//	요청 프리랜서 승인 거부하기
+	@GetMapping("/reqDeny/{pboard_id}")
+    public String reqDeny(@PathVariable("pboard_id")Long pboard_id, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+        projectService.deleteProjectRequest(pboard_id);
+        
+        return "redirect:/manager/managerApFreelancer";
+    }
+	
 //	공지사항 목록
 	@GetMapping("/managerNotice")
 	public String managerNotice(HttpServletRequest request, Model model, HttpSession session) {

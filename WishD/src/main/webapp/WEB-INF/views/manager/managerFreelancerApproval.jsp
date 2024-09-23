@@ -42,8 +42,8 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">신청자 식별번호</th>
-					<th scope="col">요청글 번호</th>
+					<th scope="col" style="width:20%;">신청자 식별번호</th>
+					<th scope="col" style="width:20%;">요청글 번호</th>
 					<th scope="col">제목</th>
 					<th scope="col" style="width:30%;">등록일자</th>
 				</tr>

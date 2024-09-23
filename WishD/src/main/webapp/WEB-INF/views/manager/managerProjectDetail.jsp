@@ -319,6 +319,9 @@
                             <div class="card" id="btn-container">
                                 <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
                             </div>
+                            <div class="card" id="btn-container">
+                            	<button type="button" class="btn btn-secondary" onclick="denied()">승인거절</button>
+                            </div>
                         </form>
                         <!-- 폼 end -->
                     </div>
@@ -362,8 +365,16 @@
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+
+<script>
+function denied(){
+	alert("승인을 거절했습니다.");
+	location.href = "${pageContext.request.contextPath}/reqDeny/${projectDTO.getPboard_id()}";
+}
+</script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -437,35 +448,6 @@
             //각종동의
             $("#agree_1").prop("checked", true);
             $("#agree_2").prop("checked", true);
-
-
-            if(sessionUserNo === projectUserNo && isAgree === "true"){
-                //버튼 비활성화
-                agree_button.hide();
-                //다운로드 a태그 활성화
-                requestForm.find('a').off('click');
-                // 버튼을 동적으로 추가할 HTML 문자열
-                let matchButtonHtml = '<button type="button" class="btn btn-primary mb-2" id="match_button">매칭</button>';
-                let cancelButtonHtml = '<button type="button" class="btn btn-secondary" id="cancel_button">취소</button>';
-
-                // 버튼을 추가할 div 선택
-                let buttonContainer = $('#btn-container');
-
-                // 버튼들을 추가
-                buttonContainer.append(matchButtonHtml);
-                buttonContainer.append(cancelButtonHtml);
-
-                // 버튼 클릭 이벤트 처리
-                $('#match_button').click(function() {
-                    console.log('매칭 버튼 클릭됨');
-                    location.href="${pageContext.request.contextPath}/chatting/${projectDTO.getPboard_id()}"
-                });
-
-                $('#cancel_button').click(function() {
-                    console.log('취소 버튼 클릭됨');
-                    location.href="${pageContext.request.contextPath}/projectReqFalse/${projectDTO.getPboard_id()}"
-                });
-            }
     }
 </script>
 <script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
