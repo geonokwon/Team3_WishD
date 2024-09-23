@@ -1,7 +1,5 @@
 package com.teamproject.utils;
 
-import com.teamproject.domain.ProjectPageDTO;
-
 import java.util.logging.Logger;
 
 

@@ -136,6 +136,7 @@ public class ProjectService {
         return projectDAO.getJobList();
     }
 
+
 //============================================================================================================
     //skillList String -> List  형태로 반환하는 메서드
     public List<Integer> getSkillList(String str_skillList){

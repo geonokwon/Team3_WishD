@@ -18,5 +18,5 @@ public interface FileCopyIF {
     String getP_file_path();
     void setP_file_path(String p_file_path);
 
-    MultipartFile getFile();  // Assuming you're using Spring's MultipartFile for file handling
+    MultipartFile getFile();
 }
