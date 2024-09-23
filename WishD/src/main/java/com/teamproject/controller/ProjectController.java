@@ -137,8 +137,7 @@ public class ProjectController {
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
                                      HttpSession session,
                                      ProjectRequestFileDTO projectRequestFileDTO,
-                                     ProjectRequestDTO projectRequestDTO,
-                                     Model model) throws Exception {
+                                     ProjectRequestDTO projectRequestDTO) throws Exception {
         logger.info("-> projectReadRequest()");
         projectRequestDTO.setPboard_id(pboard_id);
         projectRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
