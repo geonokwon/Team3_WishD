@@ -33,28 +33,30 @@
 <div class="wrap">
 	<!-- Aside -->
 	<jsp:include page="../include/managerAside.jsp"/>
-	<div class="content">
+	<div class="content" style="width:75%; margin-left:100px;">
 <!-- 	페이지 제목 -->
-	<div class="content-head">승인 대기 중인 요청 프로젝트</div>
+	<div class="content-head">${userInfo.user_name } 님의 프리랜서 목록</div>
 <!-- 	페이지 내용 -->
 	<div class="list">
 <!-- 		테이블 -->
-		<table class="table">
+		<table class="table" style="width:100%">
 			<thead>
 				<tr>
-					<th scope="col" style="width:20%;">신청자 식별번호</th>
-					<th scope="col" style="width:20%;">요청글 번호</th>
-					<th scope="col">제목</th>
-					<th scope="col" style="width:30%;">등록일자</th>
+					<th scope="col">프리랜서 번호</th>
+					<th scope="col">프리랜서 이름</th>
+					<th scope="col">프리랜서 상태</th>
+					<th scope="col">프로젝트 등록일</th>
+					<th scope="col">프로젝트 마지막 수정일</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="freelancerRequestDTO" items="${rqcList }">
+			<c:forEach var="freelancerDTO" items="${freelancerList }">
 				<tr>
-					<td style="width:20%;">${freelancerRequestDTO.user_no }</td>
-					<td style="width:20%;">${freelancerRequestDTO.request_num }</td>
-					<td><a href="${pageContext.request.contextPath}/manager/freelancerRead/${freelancerRequestDTO.getFreelancer_id()}">${freelancerRequestDTO.cl_subject }</a></td>
-					<td style="width:30%;">${freelancerRequestDTO.cl_request_date }</td>
+					<td>${freelancerDTO.freelancer_id }</td>
+					<td><a href="${pageContext.request.contextPath}/freelancerRead/${freelancerDTO.freelancer_id}">${userInfo.user_name }</a></td>
+					<td>${freelancerDTO.freelancer_state }</td>
+					<td>${freelancerDTO.freelancer_date }</td>
+					<td>${freelancerDTO.freelancer_update }</td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -62,26 +64,26 @@
 <!-- 		페이지 번호 -->
 		<div class="pagination">
 		<c:if test="${pageDTO.count ne 0 }">
-			<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a>
 <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne 1}">
-					<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
+					<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
 					<c:if test="${pageDTO.currentPage eq i}">
-						<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+						<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
 					</c:if>
 					<c:if test="${pageDTO.currentPage ne i}">
-						<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${i}"><span class="pagenum">${i}</span></a>
+						<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=${i}"><span class="pagenum">${i}</span></a>
 					</c:if>
 				</c:forEach>
 <!-- 				마지막 페이지 아닌 경우 => 다음 버튼 보이기 -->
 				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
-					<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
+					<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" alt="다음 페이지로 이동"></a>
 				</c:if>
 				
-			<a href="${pageContext.request.contextPath}/manager/managerApProject?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>
+			<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	
 		</c:if>
 		</div>
 	</div>

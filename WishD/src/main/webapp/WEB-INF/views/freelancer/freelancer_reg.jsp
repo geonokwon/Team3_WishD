@@ -29,77 +29,84 @@
 	
 	<!-- main content -->
 	
-    <div class="container pt-4 mt-5" style="width: 1040px"><span><h1>프리랜서 등록</h1></span></div>
+    <div class="container pt-4 px-5" style="width: 920px; margin-top:150px;"><span><h1>프리랜서 등록</h1></span></div>
 		
 	
-    <div class="container pt-4 mt-5" style="width: 1040px">
+    <div class="container mt-5" style="width: 920px">
     	
     	<div class="card p-2 mt-2">
     	
 			<form action="${pageContext.request.contextPath}/freelancer_regPro" class="appForm" method="post" name="fr">
 			
 				<!-- 1) 근무조건 -->
-		    	<div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid grey;">
+		    	<div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid rgba(128,128,128,0.2);">
 		    		<h6 style="color:red; margin-bottom:20px;"> *필수입력</h6>
 		    		
 		    		<h5><b>1)근무조건을 선택해 주세요.</b></h5>
 		    		
 		    		<!-- 1-1) 희망 월급 -->
-		    		<div class="col-md-6 my-5 p-4">
+		    		<div class="col-md-6 my-1 px-5 p-1 ">
 							<h6>희망 월급<span style="color:red;"> *</span></h6>
-							<span><input type = "number"
+							<div><input type = "number"
 										 name="freelancer_salary" 
 										 class="bg-dark form-control" 
 										 style="color:white; display:inline; width:150px;" 
 										 min= "10" 
-										 name = "freelancer_salary" 
-										 step="10"  required> 만원</span>
+										 step="10"  
+										 required
+										 onblur="validateSalary()"> 만원</div>
+						<span id="salary_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->										 
 		    		</div>
 		    		
 		    		<!-- 1-2) 프로젝트 시작 가능일 -->
-		    		<div class="col-md-6 my-5 p-4">
+		    		<div class="col-md-6 my-1 px-5 p-1">
 							<h6>프로젝트 시작 가능일<span style="color:red;"> *</span></h6>
 							<input type = "date" 
 								   id="date" 
 								   name = "freelancer_startdate"
 								   class="form-control bg-dark" 
 								   style="color:white; width:200px;"
-								   onclick="this.showPicker()">
+								   onclick="this.showPicker()"
+								   required
+								   onblur="validateStartDate()">
+						<span id="startdate_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->	   
 	    			</div>
 		    
 		    	</div>
 		    
 		    
 				<!-- 2) 경력 및 보유 스킬 -->
-		        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid grey;">
+		        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid rgba(128,128,128,0.2);">
 		    		<h5 style="margin-bottom:20px;"><b>2)경력 및 보유 스킬을 입력해 주세요.</b></h5>
 	
 					<!-- 2-1) 프리랜서 경험 -->
-		    		<div class="col-md-6 my-5 p-4"> 
-		    			<h6>프리랜서 경험<span style="color:red;"> *</span></h6>
-			    		<span class="form-check">
-							<input type="radio" class="form-check-input" id="radio1" name="freelancer_exp" value="true">
-							<label class="form-check-label" for="radio1">있음</label>
-						</span>
-						<span class="form-check">
-							<input type="radio" class="form-check-input" id="radio2" name="freelancer_exp" value="false">
-							<label class="form-check-label" for="radio2">없음</label>
-						</span>	    			
-		    		</div>
+					<div class="col-md-6 my-1 px-5 p-1"> 
+					    <h6>프리랜서 경험<span style="color:red;"> *</span></h6>
+					    <span class="form-check">
+					        <input type="radio" class="form-check-input" id="radio1" name="freelancer_exp" value="true" onclick="validateExperience()">
+					        <label class="form-check-label" for="radio1">있음</label>
+					    </span>
+					    <span class="form-check">
+					        <input type="radio" class="form-check-input" id="radio2" name="freelancer_exp" value="false" onclick="validateExperience()">
+					        <label class="form-check-label" for="radio2">없음</label>
+					    </span>	    			
+					    <span id="exp_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->
+					</div>
 		    		
 		    		<!-- 2-2) 직무 -->
-		    		<div class="col-md-6 my-5 p-4">
+		    		<div class="col-md-6 my-1 px-5 p-1">
 						<h6>직무<span style="color:red;"> *</span></h6>
-							<select name="freelancer_job" class="form-select bg-dark form-control" style="color:white; width:200px;">
+							<select name="job_id" class="form-select bg-dark form-control" style="color:white; width:200px;" onblur="validateJob()">
 		                       		<option value="" disabled selected>직무를 선택하세요</option>
 		                        	<c:forEach items="${jobList}" var="job">
 		                        		<option value="${job.getJob_id()}">${job.getJob_name()}</option>
 		                        	</c:forEach>
 	                    	</select>
+	                    <span id="job_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->
 		    		</div>
 		    		
 					<!-- 2-3) 개발자 경력 -->
-		    		<div class="col-md-6 my-5 p-4">
+		    		<div class="col-md-6 my-1 px-5 p-1">
 						<div class="mini_temp2">
 							<h6>개발자 경력<span style="color:red;"> *</span></h6>
 								<input type = "number" 
@@ -108,36 +115,40 @@
 										style="color:white; display:inline; width:200px;" 
 										min= "0" 
 										step="1"  
-										required> 년
+										required
+										onblur="validateDevExp()"> 년
 		    			</div>
+		    			<span id="devexp_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->
 		    		</div>
 		    		
 					<!-- 2-4) 보유 스킬 -->
-		    		<div class="col-md-6 my-5 p-4">
+		    		<div class="col-md-6 my-1 px-5 p-1">
 						<h6>보유 스킬<span style="color:red;"> *</span></h6>
 						<!-- 스킬을 선택할때마다 하단에 있는 영역에 스킬추가 -->
-					  	<select id="skill" class="form-select bg-dark" style="color:white; width:200px;" onchange="addSkill()">
+					  	<select id="skill" class="form-select bg-dark" style="color:white; width:200px;" onchange="addSkill()" required  onblur="validateSkill()">
 	                        <option value="" disabled selected>스킬선택</option>
 	                        <c:forEach items="${freelancerSkillList}" var="skill">
 	                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
 	                        </c:forEach>
                     	</select>
                     	
+                    	<span id="skill_error" class="text-danger" style="font-size: 12px;"></span> <!-- 경고 메시지 -->	
 					  	<!-- 선택된 스킬을 보여주는 영역 -->
 						<div id="selected_skill_container"></div>
-		
+						
 						<!-- 선택된 스킬을 hidden input으로 담아서 서버에 전송 -->
-						<input type="hidden" id="skills_hidden" name="skillIdList" required>    			
+						<input type="hidden" id="skills_hidden" name="skillIdList">    		
+
 		    		</div>
 		    
 		    	</div>
 		    
 				<!-- 3)상세 경력 -->
-		        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid grey;">
+		        <div class="row mx-4 my-4 py-5" style="border-bottom: 1px solid rgba(128,128,128,0.2);">
 		    		<h5><b>3)상세경력을 입력해 주세요.</b></h5>
 		    		
 					<!-- 3-1) 상세 소개 -->
-		    		<div class="col-md-12 my-5 p-4">
+		    		<div class="col-md-12 my-1 px-5 p-1">
 							<h6>상세 소개</h6>
 							 <textarea class="form-control bg-dark" 
 								 name="freelancer_introduction" 
@@ -148,7 +159,7 @@
 		    		</div>
 	
 					<!-- 3-2) 링크 -->
-		    		<div class="col-md-8 my-5 p-4">
+		    		<div class="col-md-8 my-1 px-5 p-1">
 							<h6>링크<span style="color:rgba(128,128,128,0.5);">(깃헙, 포트폴리오, 노션 등)</span></h6>
 							 <input type="text" 
 							 		class="form-control bg-dark" 
@@ -160,8 +171,7 @@
 		    		</div>
 		    
 		    	</div>
-		    	        <!-- 숨겨진 필드로 세션에 저장된 user_no 전달 ${sessionScope.user_no} -->
-        <input type="hidden" name="user_no" value="3">
+
         
 				<!-- 등록 버튼 -->
 		    	<div class="container px-5 mb-5" style="height:50px;">

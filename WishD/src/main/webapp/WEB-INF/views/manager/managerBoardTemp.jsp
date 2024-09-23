@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>temp</title>
+    <title>관리자 페이지</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -59,6 +59,7 @@
 		</table>
 <!-- 		페이지 번호 -->
 		<div class="pagination">
+<%-- 		<c:if test="${pageDTO.count ne 0 }"> --%>
 <%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=1" class="firstpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_firstpage.png" alt="첫 페이지로 이동"></a> --%>
 <!-- <!-- 				처음 페이지 아닌 경우 => 이전 버튼 보이기 --> -->
 <%-- 				<c:if test="${pageDTO.currentPage ne 1}"> --%>
@@ -79,6 +80,7 @@
 <%-- 				</c:if> --%>
 				
 <%-- 			<a href="${pageContext.request.contextPath}/manager/managerApFreelancer?pageNum=${pageDTO.pageCount}" class="lastpage  pbtn"><img src="${pageContext.request.contextPath}/resources/img/btn_lastpage.png" alt="마지막 페이지로 이동"></a>	 --%>
+<%-- 		</c:if> --%>
 		</div>
 	</div>
 	</div>

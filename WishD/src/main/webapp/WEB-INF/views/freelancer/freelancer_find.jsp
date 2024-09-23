@@ -14,7 +14,7 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/freelancer/freelancer.css">
 
 </head>
@@ -139,7 +139,7 @@
 			                        </span>
 			                    </c:if>
 								<div class="row d-flex">
-									<div class="col-6">
+									<div class="col-6" style="border-right : 1px solid rgba(128,128,128,0.1);">
 					                    <!-- 이름 -->
 					                    <div class="col-12 mb-3 fs-4 px-4">${freelancerDTO.getUser_name() }</div>
 								
@@ -150,9 +150,12 @@
 					                        <span class="badge mb-1 me-2"># ${freelancerSkill.getSkill_name()}</span>
 					                        </c:forEach>
 					                    </div>
-					
+										<!-- 직무와 개발자경력-->
+										<p class="col-12 card-text mb-1">${freelancerDTO.getJob_name()} ${freelancerDTO.getDev_exp() }년</p>
+				                         
+				                       					
 					                    <!-- 희망 급여 -->
-					                    <p class="col-12 card-text mb-1">희망 월급:  <fmt:formatNumber value="${freelancerDTO.getFreelancer_salary	()}" pattern="###,###,###"/>  만원</p>
+					                    <p class="col-12 card-text mb-1">희망 월급 :  <fmt:formatNumber value="${freelancerDTO.getFreelancer_salary	()}" pattern="###,###,###"/>  만원</p>
 					
 		
 					                    <!--업무 시작 가능 날짜 -->
@@ -160,11 +163,13 @@
 				                            <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
 				                            <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
 				                        </p>
-	
+				                        
+				                        
+
 									</div>
-									<div class="col-6 card-text px-5" style="
-																			max-height: 3.6rem;
-																			text-align: left; 
+									<div class="col-6 card-text px-5" style="max-height: 3.6rem;
+																			text-align: left;
+																			margin-top: 1.2rem; 
 																			word-break: break-all;
 																		    overflow: hidden;
 																		    text-overflow: ellipsis;

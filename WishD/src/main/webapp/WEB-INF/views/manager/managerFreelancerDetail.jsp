@@ -45,31 +45,31 @@
             <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
                 <div class="card-body project-details" style="height: 1000px">
                     <!-- 타이틀 -->
-                    <p class="card-title fs-3" style="height: 90px">${projectDTO.getPboard_title()}</p>
+                    <p class="card-title fs-3" style="height: 90px">${freelancerDTO.getUser_name() }</p>
 
                     <!-- 현재 상태 -->
 
                     <!-- 모집중 일때 -->
-                    <c:if test="${projectDTO.getPboard_state() == '모집중'}">
-                        <p class="badge rounded-pill fs-7">${projectDTO.getPboard_state()}</p>
+                    <c:if test="${freelancerDTO.getFreelancer_state() == '구직중'}">
+                        <p class="badge rounded-pill fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
                     <!-- 진행중 일때 -->
-                    <c:if test="${projectDTO.getPboard_state() == '진행중'}">
-                        <p class="badge rounded-pill bg-secondary fs-7">${projectDTO.getPboard_state()}</p>
+                    <c:if test="${freelancerDTO.getFreelancer_state() == '진행중'}">
+                        <p class="badge rounded-pill bg-secondary fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
                     <!-- 완료 일때 -->
-                    <c:if test="${projectDTO.getPboard_state() == '완료'}">
-                        <p class="badge rounded-pill bg-secondary fs-7">${projectDTO.getPboard_state()}</p>
+                    <c:if test="${freelancerDTO.getFreelancer_state() == '완료'}">
+                        <p class="badge rounded-pill bg-secondary fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
 
                     <!-- 예상 금액 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/money.svg" style="width: 20px; height: 20px" />
-                            <p class="mb-0">예상 금액</p>
+                            <p class="mb-0">희망 월급</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><span class="money_min"><fmt:formatNumber value="${projectDTO.getPboard_money()}" pattern="###,###,###"/></span> 만원</p>
+                            <p class="mb-0"><span class="money_min"><fmt:formatNumber value="${freelancerDTO.getFreelancer_salary()}" pattern="###,###,###"/></span> 만원</p>
                         </div>
                     </div>
 
@@ -77,75 +77,64 @@
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/calendar.svg" style="width: 20px; height: 20px" />
-                            <p class="mb-0">시작 예정일</p>
+                            <p class="mb-0">시작 가능일</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
                             <p class="mb-0">
-                                <fmt:parseDate value="${projectDTO.getPboard_startDate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                                <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
                                 <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
                             </p>
                         </div>
                     </div>
 
-                    <!-- 예상 기간 -->
-                    <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/date-range.svg" style="width: 20px; height: 20px" />
-                            <p class="mb-0">예상 기간</p>
-                        </div>
-                        <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangeMonth()}</span> 개월</p>
-                        </div>
-                    </div>
+<!--                     예상 기간 -->
+<!--                     <div class="row mb-3"> -->
+<!--                         <div class="col-6 d-flex align-items-center" style="width: 140px"> -->
+<%--                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/date-range.svg" style="width: 20px; height: 20px" /> --%>
+<!--                             <p class="mb-0">예상 기간</p> -->
+<!--                         </div> -->
+<!--                         <div class="col-6 d-flex align-items-center text-end-fixed"> -->
+<%--                             <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangeMonth()}</span> 개월</p> --%>
+<!--                         </div> -->
+<!--                     </div> -->
 
-                    <!-- 직군 -->
+                    <!-- 희망 직군 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/job-group.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getJob_name()}</p>
+                            <p class="mb-0">${freelancerDTO.getJob_name()}</p>
                         </div>
                     </div>
 
-                    <!-- 필요경력 -->
+                    <!-- 보유 경력 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/job-history.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">경력</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">2 년차</p>
+                            <p class="mb-0"><span class="money_min"><fmt:formatNumber value="${freelancerDTO.getDev_exp() }"/></span> 년차</p>
                         </div>
                     </div>
                     
-                    <!-- 회사명 -->
+                    <!-- 포트폴리오 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />
-                            <p class="mb-0">회사명</p>
+                            <p class="mb-0">포트폴리오</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_company_name()}</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 회사 연락처 -->
-                    <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />
-                            <p class="mb-0">회사 연락처</p>
-                        </div>
-                        <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">${projectDTO.getPboard_manager_phone()}</p>
+                            <p class="mb-0"><a href="${freelancerDTO.getFreelancer_link() }">${freelancerDTO.getFreelancer_link() }</a></p>
                         </div>
                     </div>
 
                     <!-- 필요스킬 -->
                     <!-- 포문으로 skill 전부 다가져오기 -->
                     <div class="mb-3">
-                        <c:forEach items="${projectDTO.getSkills()}" var="skill">
+                        <c:forEach items="${freelancerDTO.getSkills()}" var="skill">
                         <div class="badge rounded-pill me-2 mb-1 fs-7">${skill.getSkill_name()}</div>
                         </c:forEach>
                     </div>
@@ -157,21 +146,12 @@
                     <div class="mb-3">
                         <div class="d-flex mb-2">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
-                            <p class="card-title fs-5">프로젝트 세부 내용</p>
+                            <p class="card-title fs-5">프리랜서 소개</p>
                         </div>
                         <div class="overlay-container"  style="height: 520px">
                             <c:if test="${!empty sessionScope.user_no}">
                                 <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
-                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
-                            </c:if>
-                            <c:if test="${empty sessionScope.user_no}">
-                                <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
-                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
-                                <div class="overlay-message active">
-                                    <div>
-                                        <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
-                                    </div>
-                                </div>
+                                <pre class="card-text">${freelancerDTO.getFreelancer_introduction()}</pre>
                             </c:if>
                         </div>
                     </div>
@@ -184,7 +164,7 @@
             <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3">
                 <div class="card-body" id="sideCardBody_background">
                     <div id="matching_Title">
-                        <p class="card-title fs-5">해당 프로젝트가 마음에 드시나요?</p>
+                        <p class="card-title fs-5">해당 프리랜서가 마음에 드시나요?</p>
                         <p class="card-subtitle ms-1 mb-3">지금바로 매칭해보세요.</p>
                     </div>
 
@@ -195,10 +175,10 @@
                         </div>
 
                         <!-- 폼 시작 -->
-                        <form action="${pageContext.request.contextPath}/manager/freelancerApprove/${projectDTO.getPboard_id()}" method="post" id="projectReadForm">
+                        <form action="${pageContext.request.contextPath}/manager/projectApprove/${freelancerDTO.getFreelancer_id()}" method="post" id="projectReadForm">
                             <!-- 한줄 자기소개 -->
                             <div class="mb-4">
-                                <label for="request_title" class="mb-1">소개(타이틀)</label>
+                                <label for="request_title" class="mb-1">프로젝트 제목</label>
                                 <input type="text"
                                        class="form-control bg-dark"
                                        id="request_title"
@@ -208,69 +188,89 @@
                                        required />
                             </div>
 
-                            <!-- 직무 선택(selected) -->
+							<!-- 프로젝트 시작 예정일 -->
                             <div class="mb-4">
-                                <label for="request_jobGroup" class="mb-1">직무(선택)</label>
-                                <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required>
-                                    <option value="" disabled selected>직무를 선택하세요</option>
-                                    <option value="1" >앱 개발자</option>
-                                    <option value="2">웹 개발자</option>
-                                    <option value="3">시스템 개발자</option>
-                                </select>
+                                <label for="request_startDate" class="mb-2">프로젝트 시작 예정일</label>
+                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate" required/>
                             </div>
-
-                            <!-- 경력(년차) 입력(숫자만 입력하기) -->
+							
+							<!-- 예상 기간-->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="request_job_history" class="mb-1">경력</label>
-                                <div class="col-4">
+                                <label for="cl_date" class="mb-1">예상 기간</label>
+                                <div class="col-5">
                                     <input type="text"
                                            class="form-control bg-dark"
-                                           id="request_job_history"
-                                           name="f_request_history"
-                                           placeholder="숫자"
+                                           id="cl_date"
+                                           name="f_request_cl_date"
+                                           placeholder="개월 수"
                                            autocomplete="off"
                                            required />
                                 </div>
-                                <div class="col-4">년차</div>
+                                <div class="col-2"> 개월</div>
                             </div>
+<!--                             직무 선택(selected) -->
+<!--                             <div class="mb-4"> -->
+<!--                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label> -->
+<!--                                 <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required> -->
+<!--                                     <option value="" disabled selected>직무를 선택하세요</option> -->
+<!--                                     <option value="1" >앱 개발자</option> -->
+<!--                                     <option value="2">웹 개발자</option> -->
+<!--                                     <option value="3">시스템 개발자</option> -->
+<!--                                 </select> -->
+<!--                             </div> -->
 
-                            <!-- 보유 스킬 -->
-                            <div class="mb-4">
-                                <label for="skill" class="mb-1">보유스킬</label>
-                                <select class="form-select bg-dark mb-2" id="skill">
-                                    <option value="" selected>스킬선택</option>
-                                    <c:forEach items="${projectSkillList}" var="skill">
-                                        <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option>
-                                    </c:forEach>
-                                </select>
+<!--                             경력(년차) 입력(숫자만 입력하기) -->
+<!--                             <div class="row d-flex align-items-center mb-4"> -->
+<!--                                 <label for="request_job_history" class="mb-1">경력</label> -->
+<!--                                 <div class="col-4"> -->
+<!--                                     <input type="text" -->
+<!--                                            class="form-control bg-dark" -->
+<!--                                            id="request_job_history" -->
+<!--                                            name="f_request_history" -->
+<!--                                            placeholder="숫자" -->
+<!--                                            autocomplete="off" -->
+<!--                                            required /> -->
+<!--                                 </div> -->
+<!--                                 <div class="col-4">년차</div> -->
+<!--                             </div> -->
 
-                                <!--클릭시 베지 추가-->
-                                <div id="badge_container">
-                                    <c:if test="${! empty projectRequestDTO}">
-                                        <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList">
-                                            <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div>
-                                        </c:forEach>
-                                    </c:if>
-                                </div>
-                                <input type="hidden" name="skillList" id="skillList" required/>
-                            </div>
+<!--                             보유 스킬 -->
+<!--                             <div class="mb-4"> -->
+<!--                                 <label for="skill" class="mb-1">보유스킬</label> -->
+<!--                                 <select class="form-select bg-dark mb-2" id="skill"> -->
+<!--                                     <option value="" selected>스킬선택</option> -->
+<%--                                     <c:forEach items="${projectSkillList}" var="skill"> --%>
+<%--                                         <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option> --%>
+<%--                                     </c:forEach> --%>
+<!--                                 </select> -->
 
-                            <!-- 프리랜서 경험 -->
-                            <div class="mb-4">
-                                <label class="request_experience d-block mb-1">프리랜서 경험</label>
-                                <div class="form-check form-check-inline mx-3">
-                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" required />
-                                    <label for="experience_true" class="form-check-label">있다</label>
-                                </div>
-                                <div class="form-check form-check-inline ms-3">
-                                    <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" required />
-                                    <label for="experience_false" class="form-check-label">없다</label>
-                                </div>
-                            </div>
+<!--                                 클릭시 베지 추가 -->
+<!--                                 <div id="badge_container"> -->
+<%--                                     <c:if test="${! empty projectRequestDTO}"> --%>
+<%--                                         <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList"> --%>
+<%--                                             <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div> --%>
+<%--                                         </c:forEach> --%>
+<%--                                     </c:if> --%>
+<!--                                 </div> -->
+<!--                                 <input type="hidden" name="skillList" id="skillList" required/> -->
+<!--                             </div> -->
 
-                            <!-- 희망급여-->
+<!--                             프리랜서 경험 -->
+<!--                             <div class="mb-4"> -->
+<!--                                 <label class="request_experience d-block mb-1">프리랜서 경험</label> -->
+<!--                                 <div class="form-check form-check-inline mx-3"> -->
+<!--                                     <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" required /> -->
+<!--                                     <label for="experience_true" class="form-check-label">있다</label> -->
+<!--                                 </div> -->
+<!--                                 <div class="form-check form-check-inline ms-3"> -->
+<!--                                     <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" required /> -->
+<!--                                     <label for="experience_false" class="form-check-label">없다</label> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+
+                            <!-- 예상 금액-->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="money" class="mb-1">희망금액</label>
+                                <label for="money" class="mb-1">프로젝트 예상 금액</label>
                                 <div class="col-5">
                                     <input type="text"
                                            class="form-control bg-dark"
@@ -283,11 +283,7 @@
                                 <div class="col-2"> 만원</div>
                             </div>
 
-                            <!-- 프로젝트 시작 가능일 -->
-                            <div class="mb-4">
-                                <label for="request_startDate" class="mb-2">프로젝트 시작 가능일</label>
-                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate" required/>
-                            </div>
+                            
 
                             <!-- 이력서 / 경력증명서 / 포토폴리오-->
                             <div class="mb-4">
@@ -399,11 +395,11 @@
         //projectRequestDTO
         let sessionUserNo = parseInt("${sessionScope.user_no}");
         console.log("sessionUserNo : " + sessionUserNo);
-        let projectUserNo = parseInt("${projectDTO.getUser_no()}")
+        let projectUserNo = parseInt("${freelancerDTO.getUser_no()}")
         console.log("projectUserNo : " + projectUserNo);
-        let requestUserNo = parseInt("${projectRequestDTO.getUser_no()}");
+        let requestUserNo = parseInt("${freelancerRequestDTO.getUser_no()}");
         console.log("requestUserNo : " +requestUserNo);
-        let isAgree = "${projectRequestDTO.getF_request_isAgree()}";
+        let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
 
         
             $("#formFile").hide();
@@ -411,27 +407,29 @@
             $("#badge_container").show();
 
             //한줄 자기 소개
-            $("#request_title").val("${projectRequestDTO.getF_request_title()}");
+            $("#request_title").val("${freelancerRequestDTO.getCl_subject()}");
 
             //직군
-            $("#request_jobGroup").val(${projectRequestDTO.getJob_id()});
+//             $("#request_jobGroup").val(${freelancerRequestDTO.getJob_id()});
 
             //경력
-            $("#request_job_history").val(${projectRequestDTO.getF_request_history()});
+//             $("#request_job_history").val(${projectRequestDTO.getF_request_history()});
 
             //프리랜서 경험 ( true , false ) 값을 반환하고 radio 박스이므로 checked 처리함
-            let experience = "${projectRequestDTO.getF_request_exp()}";
-            if (experience === "true") {
-                $("#experience_true").prop("checked", true);
-            } else {
-                $("#experience_false").prop("checked", true);
-            }
-
+//             let experience = "${projectRequestDTO.getF_request_exp()}";
+//             if (experience === "true") {
+//                 $("#experience_true").prop("checked", true);
+//             } else {
+//                 $("#experience_false").prop("checked", true);
+//             }
+// 			예상 기간
+			$("#money").val(${freelancerRequestDTO.getCl_date()});
+			
             //희망금액
-            $("#money").val(${projectRequestDTO.getF_request_money()});
+            $("#money").val(${freelancerRequestDTO.getCl_money()});
 
-            //진행가능 날짜 형식 맞춤
-            let date = "${projectRequestDTO.getF_request_startDate()}".split(" ")[0];
+            //시작 예정일 
+            let date = "${freelancerRequestDTO.getCl_startdate()}".split(" ")[0];
             $("#request_startDate").val(date);
 
             //각종동의
@@ -482,7 +480,7 @@
 
             //비동기 ajax 처리
             $.ajax({
-                url: '${pageContext.request.contextPath}/manager/freelancerApprove/${projectDTO.getPboard_id()}',
+                url: '${pageContext.request.contextPath}/manager/projectApprove/${freelancerDTO.getFreelancer_id()}',
                 type: 'POST', //post 방식
                 data: formData,
                 contentType: false, // jQuery가 자동으로 설정한 컨텐츠 타입을 사용하지 않음
