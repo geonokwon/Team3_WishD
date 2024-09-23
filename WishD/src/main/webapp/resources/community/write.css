@@ -204,36 +204,7 @@ body {
     height: 40px;;
  }
 
-@font-face {
-    font-family: 'menu'; /* 정의할 폰트 이름 */
-    src: url(fonts/Akkurat-Mono.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'head'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Light.woff2) format('woff'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'title'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'content'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Regular.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     padding-top: 4%;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -244,7 +215,6 @@ body {
 
 /* 우측 메뉴 */
 .menutext-right {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -259,7 +229,6 @@ body {
 }
 
 .menutext-right-1 {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 22rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -302,18 +271,7 @@ body {
   .text-change-box:hover {
     color: #797979; /* 호버 시 텍스트 색상 변화 */
   }
-  
-
-/* /* 섹션 1 */ */
-/* .first-section { */
-/*     background-image: url('../community/images/back.png'); */
-/*     background-size: auto; */
-/*     display: flex; 자식 요소들을 수평으로 배치 */
-/*     height: 400px; */
-/*     margin-top: 1rem; */
-/*     margin-bottom: 3rem; */
-/* } */
-
+ 
 .container-fluid {
 	padding-right: 0px;
 	padding-left: 0px;
@@ -379,7 +337,6 @@ body {
 }
 
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     margin-top: 4.5rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -390,7 +347,6 @@ body {
 
 /* 글쓰기 텍스트, 텍스트박스 */
 .noticeLabelText {
-    font-family: 'title', sans-serif; /* 정의한 폰트 사용 */
     font-size: 25px; /* 폰트 크기 설정 */
     margin-top: 0.7rem;
     margin-bottom: 1rem;
@@ -401,7 +357,6 @@ body {
 }
 
 .noticeTitleText {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 16px; /* 폰트 크기 설정 */
     margin-top: 0.7rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -465,7 +420,6 @@ body {
 
 /* placeholder 텍스트 */
 .custom-textbox, .custom-textbox1::placeholder {
-    font-family: 'content', sans-serif;
     color: gray;       /* 색상 */
     font-size: 18px;   /* 폰트 크기 */
     font-weight: bold; /* 폰트 두께 */
