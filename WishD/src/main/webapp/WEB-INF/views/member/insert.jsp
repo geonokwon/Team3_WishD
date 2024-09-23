@@ -379,7 +379,7 @@ $(document).ready(function() {
             $('#mailValidate').next('span').hide();
         }
     });
-
+ 
    
 	// 전화번호 유효성 검사
 	$('#phone').on('input', function() {
