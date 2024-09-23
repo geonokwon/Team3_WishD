@@ -78,7 +78,6 @@ public class ChatController {
         chatMessageDTO.setF_request_id(chatMessageService.getRequestFreelancerID(pboard_id));
         chatMessageService.saveMessage(chatMessageDTO);
         System.out.println("Received message: " + chatMessageDTO.toString());
-
         //메세지 보내기
         messagingTemplate.convertAndSend("/topic/board/" + pboard_id, chatMessageDTO);
     }

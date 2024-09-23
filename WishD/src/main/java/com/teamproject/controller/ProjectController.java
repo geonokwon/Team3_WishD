@@ -154,6 +154,7 @@ public class ProjectController {
         return "redirect:/projectRead/" + pboard_id;
     }
 
+    //프로젝트 등록페이지
     @GetMapping("/projectWrite")
     public String projectWrite(HttpSession session,Model model){
         logger.info("-> projectWrite()");
