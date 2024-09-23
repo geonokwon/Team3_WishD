@@ -33,18 +33,58 @@
 /* 텍스트 폼 컨테이너 스타일 */
 .text-form-container {
 	background-color: #141826;
-	padding: 20px;
-	padding-top: 40px;
-	border-radius: 10px;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 10px;
-	box-sizing: border-box;
+    padding: 20px;
+    padding-top: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 레이아웃 설정 */
+    gap: 20px; /* 각 행 사이의 간격 */
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px; /* 각 input 사이의 간격 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+/* 첫 번째 행의 스타일 (이름과 이메일) */
+.form-row:nth-of-type(1) .input-group {
+    width: calc(50% - 5px); /* 두 개의 input을 가로로 나란히 배치 */
+}
+
+/* 두 번째 행의 스타일 (연락처) */
+.form-row:nth-of-type(2) {
+    justify-content: flex-start; /* 연락처를 왼쪽 정렬 */
+}
+
+/* 아이디와 중복확인 버튼이 있는 행 스타일 */
+.form-row:nth-of-type(3) {
+    justify-content: space-between; /* 아이디와 버튼 사이에 공간 배분 */
+}
+
+/* 비밀번호가 있는 행 스타일 */
+.form-row:nth-of-type(4) {
+    justify-content: flex-start; /* 비밀번호를 왼쪽 정렬 */
+}
+
+/* 입력 그룹 스타일 */
+.input-group {
+    position: relative;
+    flex: 1; /* 가능한 모든 공간을 차지 */
+}
+
+/* ID 컨테이너 스타일 */
+.id-container {
+    display: flex; /* Flexbox 레이아웃 활성화 */
+    align-items: center; /* 수직 정렬을 중앙으로 설정 */
+    gap: 10px; /* ID 입력과 버튼 사이의 간격 */
+    width: calc(50% - 10px); /* 너비 조정 */
 }
 
 /* 텍스트 폼 입력 스타일 */
 .text-form-container input {
-	width: 100%;
+	width: calc(50% - 10px); /* 각 input 요소의 너비를 50%로 설정하고 간격을 맞추기 위해 조정 */
 	padding: 12px;
 	border: 1px solid #ccc;
 	border-radius: 10px !important; /* 모든 input에 border-radius 적용 */
@@ -68,8 +108,9 @@
 
 /* 입력 그룹 스타일 */
 .input-group {
-	position: relative;
+	flex: 1 1 calc(50% - 10px); /* 두 개의 입력 필드가 나란히 배치되도록 설정 */
 	margin-bottom: 20px;
+	position: relative;
 }
 
 /* 입력 그룹의 입력 필드 스타일 */
@@ -257,4 +298,17 @@
 /* qna 가로 길이 조정 */
 .col-8-c {
 	width: 100%;
+}
+
+.idcheck {
+	align-items: center;
+}
+
+.form-row:nth-of-type(2) .input-group {
+    width: calc(50% - 5px); /* 두 개의 input을 가로로 나란히 배치 */
+}
+
+/* 중복확인 버튼 스타일 */
+.form-row:nth-of-type(2) #id_check {
+    margin-left: 10px; /* 중복확인 버튼과 아이디 필드 간격 */
 }
