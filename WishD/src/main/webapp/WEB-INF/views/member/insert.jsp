@@ -21,6 +21,10 @@
             crossorigin="anonymous"
     ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap JS (including Popper.js) -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/member/js/insert.js"></script>
     
@@ -33,114 +37,206 @@
     <jsp:include page="../include/heard.jsp" />
 
     <!-- Main Content -->
-   
      <div class="signup-container">
-    	<div class="signup-box">
+    	<div class="signup-box" style="max-width: 600px; margin: auto;">
         	<h2>Sign up</h2>
         	<form id="signup-form" action="${pageContext.request.contextPath}/insertPro" method="post">
-            	<div class="input-group">
-                	<p>아이디</p>
-                	<input 
-                		type="text" 
-                		id="user_id" 
-                		name="user_id" 
-                		placeholder="아이디를 입력하세요"
-                		/>
-                		<button type="button" class="check-btn" id="id_check">중복 확인</button>
-                		<!-- 결과출력 -->
-						<div id="output" style="color: black; text-align: center;"></div>
-            		</div>
+        	
+        	<!-- 아이디 -->
+        	<div class="row justify-content-center align-items-center" >
+        		<div class="col-md-7">
+    				<label for="userId" class="mb-1 mt-1 ms-2">아이디</label>
+    					<div class="input-container">
+    						<input 
+    							type="text" 
+    							class="form-control bg-dark mt-1" 
+    							id="user_id" 
+    							name="user_id" 
+                				placeholder="아이디를 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+               			<!-- 중복확인버튼 -->
+               			<button type="button" id="id_check" class="btn btn-primary">중복확인</button>
+               		</div>
+                	<!-- 메세지 출력 -->
+   					 <div class="invalid-feedback" id="output"></div>
+    			</div>
+  			</div>
+        	
+        	<!-- 비밀번호 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userPass" class="mb-2 mt-3 ms-2">비밀번호</label>
+    					<div class="input-container">
+    						<input 
+    							type="password" 
+    							class="form-control bg-dark mt-1" 
+    							id="password" 
+    							name="user_pass1" 
+                				placeholder="비밀번호를 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+                			
+               	 	   	</div>
+               	 	   	<!-- 에러메세지 -->    
+        				<div class="invalid-feedback" id="passwordError" style="display: none;">
+            				비밀번호는 특수문자를 포함하여 8~12글자여야 합니다.
+       	 				</div>
+				  </div>
+            </div>
             
-            	<div class="input-group">
-    				<p>비밀번호</p>
-   	 				<input 
-   	 					type="password" 
-   	 					id="password" 
-   	 					name="user_pass1"
-   	 					placeholder="비밀번호를 입력하세요"
-   	 					/>
-   	 					<!--에러메세지-->
-    					<span id="passwordError" style="color: red; display: none;"></span>
+			<!-- 비밀번호 확인 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userPass" class="mb-2 mt-3 ms-2">비밀번호 확인</label>
+    					<div class="input-container">
+    						<input 
+    							type="password" 
+    							class="form-control bg-dark mt-1" 
+    							id="password-confirm" 
+    							name="user_pass2" 
+                				placeholder="비밀번호를 다시 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+               	 		<!-- 에러메세지 -->	
+                		<span id="password-confirm" style="color: red; display: none;"></span>
+               	 	   </div>
 				</div>
+            </div>
 			
-            	<div class="input-group">
-                	<p>비밀번호 확인</p>
-                	<input 
-                		type="password" 
-                		id="password-confirm" 
-                		name="user_pass2"
-                		placeholder="비밀번호를 다시 입력하세요"
-                		/>
-                		<!--에러메세지-->
-                 		<span id="passwordConfirmError" style="color: red; display: none;"></span>
-            	</div>
-            
-            	<div class="input-group">
-    				<p>이름</p>
-    				<input 
-    					type="text" 
-    					id="name" 
-    					name="user_name" 
-    					placeholder="이름을 입력하세요"
-    					/>
-    					<!--에러메세지-->
-    					<span id="usernameError" style="color: red; display: none;"></span>
-				</div>
-
-            
-            	<div class="input-group">
-            		<p>이메일</p>
-    				<input 
-    					type="text" 
-    					id="email" 
-    					name="email"
-    					placeholder="이메일주소를 입력하세요" 
-    					/>
-    					<button type="button" class="check-btn" id="email_check">중복 확인</button>
-    					<button type="button" class="check-btn" id="send-code" style="display: none;">전송하기</button>
-				</div>
-				<!-- 결과출력 -->
-				<div id="output1"></div>
-
-			 	<div class="input-group">
-            		<p>인증코드 입력</p>
-    				<input
-    					type="text"
-    					id="code"
-    					name="emailCode"
-    					placeholder="인증코드를 입력하세요"
-						required
-    					/>
-    					<button type="button" class="check-btn" id="code-check">인증하기</button>
-				</div>
-				<!--에러, 성공 메세지 -->
-				<div id="mailValidate" class="ms-4"></div>
-
-
-           		<div class="input-group">
-    				<p>전화번호</p>
-    				<input 
-    					type="text" 
-    					id="phone" 
-    					name="user_phone" 
-    					placeholder="전화번호를 입력하세요"
-    					/>
-    					<!--에러메세지-->
-    					<span id="phoneError" style="color: red; display: none;"></span>
-				</div>
+			<!-- 이름 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userName" class="mb-2 mt-3 ms-2">이름</label>
+    					<div class="input-container">
+    						<input 
+    							type="text" 
+    							class="form-control bg-dark mt-1" 
+    							id="name" 
+    							name="user_name" 
+                				placeholder="이름을 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+               	 	   </div>
+				 </div>
+            </div>
 			
-            	<div class="agree-item">
-                	<input type="checkbox" id="privacy-policy">
-                	<label for="privacy-policy">(필수) 개인정보 수집에 동의합니다.</label>
-             	</div>
-             	<div class="agree-item">
-                	<input type="checkbox" id="marketing-consent">
-                	<label for="marketing-consent">(선택) 마케팅 활용 동의와 광고성 정보의 수신에 동의합니다.</label>
-            	</div>
-            	
-            	<button class="signup-btn" type="submit" >회원가입</button>
+			<!-- 이메일 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userMail" class="mb-1 mt-1 ms-2">이메일</label>
+    					<div class="input-container">
+    						<input 
+    							type="text" 
+    							class="form-control bg-dark mt-1" 
+    							id="email" 
+    							name="email" 
+                				placeholder="이메일주소를 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+                			<!-- 중복확인버튼 -->
+               				<button type="button" id="email_check" class="btn btn-primary">중복확인</button>
+               				<button type="button" id="send-code" class="btn btn-primary" style="display: none;">전송하기</button>
+               				</div>
+               	 			<!-- 에러메세지 -->
+               	 			<div class="invalid-feedback" id="output1" style="display: none;"></div>
+               	</div>
+			</div>
+           
+            <!-- 이메일 인증코드 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userMail" class="mb-2 mt-3 ms-2">인증코드 입력</label>
+    					<div class="input-container">
+    						<input 
+    							type="text" 
+    							class="form-control bg-dark mt-1" 
+    							id="code" 
+    							name="emailCode" 
+                				placeholder="인증코드를 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+                		<!-- 인증하기버튼 -->
+               			<button type="button" id="code-check" class="btn btn-primary">인증하기</button>
+               			
+               	 		<!-- 에러메세지 -->	
+                		<div id="mailValidate" class="ms-4" style="color: red; display: none;"></div>
+            			
+               	 	   </div>
+				</div>
+            </div>
+            
+  			<!-- 전화번호 -->
+            <div class="row justify-content-center align-items-center" >
+            	<div class="col-md-7">
+    				<label for="userPhone" class="mb-1 mt-1 ms-2">전화번호</label>
+    					<div class="input-container">
+    						<input 
+    							type="text" 
+    							class="form-control bg-dark mt-1" 
+    							id="phone" 
+    							name="user_phone" 
+                				placeholder="번호를 입력하세요"
+                				autocomplete="off"
+                				onblur="validateInput(this)"
+                    			required
+                			/>
+                		</div>
+               	 		<!-- 에러메세지 -->	
+                		<div class="invalid-feedback" id="phoneError"></div>
+				</div>
+            </div>
+            <!-- 약관동의 체크박스 -->
+            <div class="agree-item">
+  				<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+  				<label class="form-check-label" for="flexCheckChecked">
+    			(필수)개인정보 수집에 동의합니다.
+  				</label>
+			</div>
+			<div class="agree-item">
+  				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  				<label class="form-check-label" for="flexCheckDefault">
+    			(선택)마케팅 활용 동의와 광고성 정보의 수신에 동의합니다.
+  				</label>
+			</div>
+			
+			<button class="signup-btn" type="submit">
+    			회원가입
+			</button>
+           	
         	</form>
         	<!-- 폼 태그 끝 -->
+        	
+        	<!-- 회원가입 완료 모달창알림 -->
+			<div class="modal fade mt-5" id="insertSave" tabindex="-1"  aria-hidden="true">
+  				<div class="modal-dialog">
+    				<div class="modal-content bg-primary ps-2 pt-2">
+     	 				<div class="modal-header">
+        					<h1 class="modal-title fs-6" id="insertTitle">회원가입이 완료되었습니다!</h1>
+        					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      					</div>
+      					<div class="modal-body">
+        					WishD 회원이 되신걸 환영합니다!
+      					</div>
+      					<div class="modal-footer">
+        					<button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">닫기</button>
+        					<button type="button" class="btn btn-sm btn-secondary" id="goToLogin">로그인</button>
+      					</div>
+    				</div>
+  				</div>
+			</div>
     	</div>
 	</div>
     <!-- 별배경 -->
@@ -149,14 +245,24 @@
 <div class="chuvaMeteoro"></div>
 
 <script type="text/javascript">
-$(function() {
-    // 아이디 중복 체크
+//비어있는 입력란의 경우 빨간 테두리 준다.
+function validateInput(element) {
+ const isEmpty = element.value.trim() === "";
+ element.style.border = isEmpty ? "1px solid #ff0000ad" : "";
+}
+
+//아이디 중복 체크
+$(document).ready(function() {
     $('#id_check').click(function() {
         const userId = $('#user_id').val(); // 입력된 아이디 값
 
+        // 아이디가 비어있을 경우 빨간 테두리 추가
         if (!userId) {
-            $('#output').html('아이디를 입력하세요').css('color', 'red');
-            return;
+            $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+            $('#output').hide(); // 에러 메시지 숨김
+            return; // 아이디가 비어있으면 함수 종료
+        } else {
+            $('#user_id').css('border', ''); // 테두리 초기화
         }
 
         $.ajax({
@@ -165,81 +271,75 @@ $(function() {
             data: { id: userId },
             success: function(result) {
                 if (result === 'iddup') {
-                    $('#output').html('이미 존재하는 아이디입니다.').css('color', 'red');
+                    $('#output').html('이미 존재하는 아이디입니다.').css('color', 'red').show();
+                    $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
                 } else {
-                    if (userId.length < 5) {
-                        $('#output').html('아이디는 최소 5자 이상이어야 합니다.').css('color', 'red');
-                    } else {
-                        $('#output').html('사용 가능한 아이디입니다.').css('color', 'green');
-                    }
+                    $('#output').html('사용 가능한 아이디입니다.').css('color', 'green').show();
+                    $('#user_id').css('border', ''); // 테두리 초기화
                 }
+            },
+            error: function() {
+                $('#output').html('오류가 발생했습니다. 다시 시도해주세요.').css('color', 'red').show();
+                $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
             }
         });
     });
+});
 
-    // 비밀번호 확인
-    $('#password').blur(function() {
-        const password = $(this).val();
-        if (!password) {
-            $('#passwordError').text('비밀번호를 입력해주세요').show();
-        } else if (password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
-            $('#passwordError').text('비밀번호는 특수문자를 포함하여 8~12글자여야 합니다.').show();
-        } else {
-            $('#passwordError').hide();
-        }
-    });
+	//비밀번호 확인
+	$('#password').blur(function() {
+    	const password = $(this).val();
 
-    $('#password-confirm').blur(function() {
-        const password = $('#password').val();
-        const passwordConfirm = $(this).val();
-        if (password && passwordConfirm && password !== passwordConfirm) {
-            $('#passwordConfirmError').text('비밀번호가 일치하지 않습니다.').show();
-        } else {
-            $('#passwordConfirmError').hide();
-        }
-    });
-
- 	// 이름 필드 확인
-   	$('#name').blur(function() {
-		const name = $(this).val();
-		if (!name) {
-			$('#usernameError').text('이름 입력란이 비어있습니다.').css('display', 'block');
-		} else {
-			$('#usernameError').hide();
-		}
+    	if (!password) {
+        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+        	$('#passwordError').hide(); // 에러 메시지 숨김
+    	} else if (password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
+        	$('#passwordError').show(); // 에러 메시지 표시
+        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+    	} else {
+        	$('#passwordError').hide();
+        	$(this).css('border', ''); // 테두리 초기화
+    	}
 	});
 
-    // 이메일 중복 체크 + 유효성 검사
+	// 비밀번호 일치 확인
+	$('#password-confirm').blur(function() {
+    	const password = $('#password').val();
+    	const passwordConfirm = $(this).val();
+
+    	if (password && passwordConfirm && password !== passwordConfirm) {
+        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+    	} else {
+        	$(this).css('border', ''); // 테두리 초기화
+    	}
+	});
+
+
+    // 이메일 인증
 	$('#email_check').click(function() {
-        const userEmail = $('#email').val();
+	    const userEmail = $('#email').val();
+	    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!userEmail) {
-            $('#output1').html('이메일 주소를 입력하세요').css('color', 'red');
-            return;
-        }
+	    if (!emailRegex.test(userEmail)) {
+	        $('#output1').html('올바른 이메일 주소를 입력하세요').show();
+	        return;
+	    }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(userEmail)) {
-            $('#output1').html('올바른 이메일 주소를 입력하세요').css('color', 'red');
-            return;
-		}
-
-        $.ajax({
-            url: `${pageContext.request.contextPath}/emailCheck`,
-            type: 'GET',
-            data: { id: userEmail },
-            success: function(result) {
-                if (result === 'emailDup') {
-                    $('#output1').html('이미 존재하는 이메일입니다.').css('color', 'red');
-                    $('#send-code').hide();
-                } else {
-                    $('#output1').html('사용 가능한 이메일입니다.').css('color', 'green');
-                    $('#email_check').hide();
-                    $('#send-code').show();
-                }
-            }
-        });
-    });
+	    $.ajax({
+	        url: `${pageContext.request.contextPath}/emailCheck`,
+	        type: 'GET',
+	        data: { id: userEmail },
+	        success: function(result) {
+	            if (result === 'emailDup') {
+	                $('#output1').html('이미 존재하는 이메일입니다.').show();
+	            } else {
+	                $('#output1').html('사용 가능한 이메일입니다.').css('color', 'green').show();
+	                $('#send-code').show();
+	                $('#email_check').hide();
+	            }
+	        }
+	    });
+	});
 
 	//인증코드 발송 SMTP
 	//메일 중복확인 완료시 인증코드 전송
@@ -299,33 +399,46 @@ $(function() {
         }
     });
 
-    // 전화번호 유효성 검사
-    $('#phone').blur(function() {
-    	const phone = $(this).val();
-    	const phoneRegex = /^\d{3}\d{3,4}\d{4}$/; // 예시: 01012345678 형식
+   
+	// 전화번호 유효성 검사
+	$('#phone').on('input', function() {
+	    // 하이픈 제거
+	    const phone = $(this).val().replace(/-/g, '');
 
-    	if (!phone) {
-        	$('#phoneError').text('전화번호 입력란이 비어있습니다.').css('display', 'block');
-   		 } else if (!phoneRegex.test(phone)) {
-        	$('#phoneError').text('올바른 전화번호 형식이 아닙니다').css('display', 'block');
-    	 } else {
-        	$('#phoneError').hide();
-    	}
+	    // 하이픈이 제거된 값으로 다시 입력
+	    $(this).val(phone);
+
+	    const phoneRegex = /^\d{10,11}$/; // 예시: 01012345678 형식
+
+	    if (!phoneRegex.test(phone)) {
+	        $('#phoneError').text('올바른 전화번호 형식이 아닙니다').css('display', 'block');
+	        isPhoneValid = false;
+	    } else {
+	        $('#phoneError').hide();
+	        isPhoneValid = true;
+	    }
 	});
-    // 필수 체크박스 확인
-    $('form').submit(function(e) {
-        if (!$('#privacy-policy').is(':checked')) {
-            alert('개인정보 수집에 동의해야 합니다.');
-            e.preventDefault();
-        }
-		else if(!isCodeState){
-			alert('이메일 인증을 하지 않으셨습니다.');
-			e.preventDefault();
-		}
-		else
-			location.href='${pageContext.request.contextPath}/insertPro';
-    });
-});
+
+	// 폼 제출 시 유효성 검사 통과 여부 확인
+	$('form').submit(function(e) {
+	    e.preventDefault(); // 기본 제출 동작 방지
+	    
+	   
+	    // 비밀번호 확인 검사 (필요 시)
+	    if (password !== confirmPassword) {
+	        alert('비밀번호가 일치하지 않습니다.');
+	        return;
+	    }
+
+	    // 모든 유효성 검사가 통과되었을 때 회원가입 완료 모달 표시
+	    $('#insertSave').modal('show'); // 회원가입 완료 모달 띄우기
+	});
+
+	// 모달의 '로그인 화면으로 가기' 버튼 클릭 시 로그인 화면으로 이동
+	$('#goToLogin').click(function() {
+	    location.href = '${pageContext.request.contextPath}/login'; // 로그인 화면으로 이동
+	});
+
 
 </script>
 

@@ -54,14 +54,22 @@ body {
     border-radius: 5px;
     border: none;
     background-color: #333743;
-    color: white;
+    color: white !important;
     font-size: 14px;
     transition: border-color 0.3s ease;
 }
 
+/* 클릭 시 배경색 변하지 않게 설정 */
 .login-left input:focus {
-    outline: none;
-    border: 2px solid #2a2370;
+    background-color: transparent;
+
+}
+
+/* 포커스 시 레이블을 위로 이동 */
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+    transform: translateY(-50px); 
+    font-size: 10.5px; /* 폰트 크기 조정 */
 }
 
 .login-right {
@@ -70,6 +78,8 @@ body {
     align-items: center;
     padding: 20px;
 }
+
+
 
 /* 아이디 기억하기 텍스트와 체크박스를 정확히 정렬 */
 .remember-me {
