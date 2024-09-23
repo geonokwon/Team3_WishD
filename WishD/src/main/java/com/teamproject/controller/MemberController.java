@@ -58,7 +58,8 @@ public class MemberController {
 		MemberDTO memberDTO1 = memberService.userCheck(memberDTO);
 		
 		if(memberDTO1 != null) {
-			session.setAttribute("user_no", memberDTO1.getUser_no()); 
+			session.setAttribute("user_no", memberDTO1.getUser_no());
+			session.setAttribute("user_role", memberDTO1.getUser_Role());
 			return "redirect:/";
 		}
 		else {

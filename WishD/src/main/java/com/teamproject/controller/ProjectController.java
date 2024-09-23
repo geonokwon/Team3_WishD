@@ -62,6 +62,7 @@ public class ProjectController {
         projectPageDTO.setCount(projectService.getProjectCount(projectPageDTO));
         //페이지네이션 처리(utils paginationUtils 클래스)
         PaginationUtils.pagination(projectPageDTO, pageNum, pageSize, pageBlock);
+        System.out.println(projectPageDTO.toString());
 
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
         model.addAttribute("projectSkillList", projectService.getSkillList());
