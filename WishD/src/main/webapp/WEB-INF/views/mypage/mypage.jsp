@@ -224,7 +224,7 @@
 											class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
 											${myFreelancerDTO.getFreelancer_state()} </span>
 									</c:if>
-
+										
 									<a class="nav-link mb-3 fs-4"
 										href="${pageContext.request.contextPath}/freelancerRead/${myFreelancerDTO.getFreelancer_id()}">
 										${fn:substring(myFreelancerDTO.freelancer_introduction, 0, 40)}
@@ -274,6 +274,10 @@
 					</c:forEach>
 					<!-- 반복 end -->
 					<!-- Pagination -->
+					
+					<!-- 보낸요청에서 다른 버튼 뜨는 문제 -->
+					<c:if test="${myFreeRequestDTOList.size() > 0 || ! empty myFreelancerPageDTO}">
+					
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -286,7 +290,7 @@
 							<c:forEach begin="${myFreelancerPageDTO.startPage}"
 								end="${myFreelancerPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.search}&freelancerStatus=${param.freelancerStatus}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.freelancerSearch}&freelancerStatus=${param.freelancerStatus}">${page}</a>
 								</li>
 							</c:forEach>
 
@@ -300,6 +304,8 @@
 							</c:if>
 						</ul>
 					</nav>
+					</c:if>
+					
 					</c:if> <!-- 보낸글 아닐때 끝 -->
 					
 					<!-- 요청글 눌렀을때 -->
@@ -331,6 +337,7 @@
 
 									<a class="nav-link mb-3 fs-4"
 										href="${pageContext.request.contextPath}/freelancerRead/${myFreeRequestDTO.getFreelancer_id()}">
+										
 										${fn:substring(myFreeRequestDTO.freelancer_introduction, 0, 40)}
    										<c:if test="${fn:length(myFreeRequestDTO.freelancer_introduction) > 40}">...</c:if>
 										</a>
@@ -374,6 +381,7 @@
 					<!-- 반복 end -->
 					<!-- Pagination -->
 <%-- 					${myFreeRequestDTOList.size()} --%>
+					
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
 							<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -386,7 +394,7 @@
 							<c:forEach begin="${myFreeRequestPageDTO.startPage}"
 								end="${myFreeRequestPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${page}&freelancerSearch=${param.search}&requestFreelancer=${param.requestFreelancer}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freelancerRequestPageNum=${page}&freelancerSearch=${param.freelancerSearch}&requestFreelancer=${param.requestFreelancer}">${page}</a>
 								</li>
 							</c:forEach>
 
@@ -399,7 +407,10 @@
 							</c:if>
 						</ul>
 					</nav>
+					
 					</c:if>
+					
+					
 				</div>
 			</div>
 			
@@ -511,7 +522,8 @@
 										<!-- 타이틀 -->
 										<a class="nav-link mb-3 fs-4"
 											href="${pageContext.request.contextPath}/projectRead/${myprojectDTO.pboard_id }">
-											${fn:length(myprojectDTO.pboard_title) > 40 ? fn:substring(myprojectDTO.pboard_title, 0, 40) + '...' : myprojectDTO.pboard_title}
+											${fn:substring(myprojectDTO.pboard_title, 0, 40)}
+   											<c:if test="${fn:length(myprojectDTO.pboard_title) > 40}">...</c:if>
 										</a>
 
 										<!-- 필요 스킬 -->
@@ -554,6 +566,9 @@
 						</c:forEach>
 						<!-- 반복 end -->
 						<!-- Pagination -->
+						
+						<!-- 보낸요청에 다른버튼 뜨는 문제 -->
+						<c:if test="${myProjectRequestDTOList.size() > 0 || ! empty myProjectPageDTO}">
 						<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
 								<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -579,6 +594,7 @@
 								</c:if>
 							</ul>
 						</nav>
+					</c:if>
 					</c:if>
 					
 					
@@ -611,7 +627,11 @@
 
 										<!-- 타이틀 -->
 										<a class="nav-link mb-3 fs-4"
-											href="${pageContext.request.contextPath}/projectRead/${myRequestProjectDTO.pboard_id }">${myRequestProjectDTO.pboard_title}</a>
+											href="${pageContext.request.contextPath}/projectRead/${myRequestProjectDTO.pboard_id }">
+											${fn:substring(myRequestProjectDTO.pboard_title, 0, 40)}
+   											<c:if test="${fn:length(myRequestProjectDTO.pboard_title) > 40}">...</c:if>
+<%-- 											${myRequestProjectDTO.pboard_title} --%>
+										</a>
 
 										<!-- 필요 스킬 -->
 										<div class="d-flex mb-2">
@@ -688,7 +708,11 @@
 						<div class="row">
 							<div class="col">
 								<div class="custom-title text-change-box">${myQnaDTO.qcommunity_title }</div>
-								<div class="custom-content">${myQnaDTO.qcommunity_content }</div>
+								<div class="custom-content">
+<%-- 								${myQnaDTO.qcommunity_content } --%>
+											${fn:substring(myQnaDTO.qcommunity_content, 0, 40)}
+   											<c:if test="${fn:length(myQnaDTO.qcommunity_content) > 40}">...</c:if>
+								</div>
 							</div>
 							<div class="col">
 								<div class="custom-date">${myQnaDTO.qcommunity_date }</div>
