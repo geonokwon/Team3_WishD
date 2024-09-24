@@ -197,7 +197,7 @@
 		select * from user_info 
 		where user_yn = true
 		<if test='key != 0'>
-			 user_no = #{key}
+			 and user_no = #{key}
 		</if>
 		order by join_date DESC
 		limit #{startRow},#{pageSize}

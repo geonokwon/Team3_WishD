@@ -358,7 +358,6 @@ console.log(${sessionScope.user_no});
 console.log("sdsd");
 
 	if(${freelancerRequestDTO != null }){
-		requestForm.find('a').off('click');
 	    $("#sideCardBody_background").css("height", "1200px");
 	    $("#matching_Title").hide();
 	    $("#requestForm").show();
@@ -373,6 +372,8 @@ console.log("sdsd");
 	    requestForm.find('a').on('click', (e) => {
 	        e.preventDefault();
 	    })
+	    requestForm.find('a').off('click');
+	    
 	    requestForm.find('input, select, textarea').prop('disabled', true);
 	    // form.find('select').prop('disabled', true);
 	    requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);

@@ -382,7 +382,6 @@ function denied(){
 ></script>
 <script>
     if(${projectRequestDTO != null }){
-    	requestForm.find('a').off('click');
         $("#sideCardBody_background").css("height", "1000px");
         $("#matching_Title").hide();
         $("#requestForm").show();
@@ -397,6 +396,8 @@ function denied(){
         requestForm.find('a').on('click', (e) => {
             e.preventDefault();
         })
+        requestForm.find('a').off('click');
+        
         requestForm.find('input, select').prop('disabled', true);
         // form.find('select').prop('disabled', true);
         requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
