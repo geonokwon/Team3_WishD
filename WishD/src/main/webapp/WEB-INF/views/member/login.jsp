@@ -107,13 +107,10 @@
     				  </li>
 				  </ul>
 					
-                    <!-- 간편 로그인 버튼 -->
+                    <!-- 네이버 간편 로그인 버튼 -->
                     <div class="social-login">
-                        <a href="" class="social-btn">
-                            <img src="${pageContext.request.contextPath}/resources/member/images/kakao.png" alt="카카오 로그인" class="social-image">
-                        </a>
                         <a href="${pageContext.request.contextPath}/naver" class="social-btn">
-                            <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image">
+                          <img src="${pageContext.request.contextPath}/resources/member/images/naver.png" alt="네이버 로그인" class="social-image">
                         </a>
                     </div>
                 </form>
