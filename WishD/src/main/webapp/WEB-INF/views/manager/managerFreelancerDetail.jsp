@@ -358,6 +358,7 @@ console.log(${sessionScope.user_no});
 console.log("sdsd");
 
 	if(${freelancerRequestDTO != null }){
+		requestForm.find('a').off('click');
 	    $("#sideCardBody_background").css("height", "1200px");
 	    $("#matching_Title").hide();
 	    $("#requestForm").show();

@@ -40,9 +40,9 @@ public class MemberDAO {
 	}
 	
 	// 회원 불러오기 
-	public MemberDTO getMember(String id) {
+	public MemberDTO getMember(Long user_no) {
 		System.out.println("MemberDAO getMember()");
-		return sqlSession.selectOne(namespace + "getMember", id);
+		return sqlSession.selectOne(namespace + "getMember", user_no);
 	}
 	
 	// 아이디 중복체크
