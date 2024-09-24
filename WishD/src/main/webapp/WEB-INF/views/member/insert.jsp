@@ -396,24 +396,24 @@ $(document).ready(function() {
     });
 
     // 인증 코드 확인
-    $('#code-check').click(function() {
-        const inputCode = parseInt($('#code').val());
+   $('#code-check').click(() => {
+		let inputCode = parseInt($('#code').val());
 
-        if (!inputCode) {
-            $('#code').css('border', '1px solid #ff0000ad'); // 비어 있을 때 빨간 테두리
-            return; // 입력 코드가 비어 있으면 종료
-        } else {
-            $('#code').css('border', ''); // 비어 있지 않으면 테두리 초기화
-        }
-
-        if (inputCode === emailCode) {
-            $('#mailValidate').html('인증 완료').css('color', 'green');
-            isCodeState = true;
-        } else {
-            $('#mailValidate').html('인증코드가 틀립니다.').css('color', 'red');
-            isCodeState = false;
-        }
-    });
+		console.log(emailCode);
+		if (inputCode === emailCode ){
+			$('#mailValidate').html('인증완료').css('color', 'green');
+			$('#code-check').prop('disabled', true);
+			$('#code').prop('disabled', true);
+			$('#email').prop('readonly', true);
+			isCodeState = true;
+		}
+		else{
+			$('#mailValidate').html('인증코드가 틀립니다.').css('color', 'red');
+			$('#email').prop('readonly', false);
+			$('#code').val('');
+			isCodeState = false;
+		}
+	});
 
     // 인증 코드 입력란 블러 이벤트
     $('#code').blur(function() {
