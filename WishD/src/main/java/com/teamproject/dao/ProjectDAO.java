@@ -118,7 +118,7 @@ public class ProjectDAO {
     //request_freelancer 데이터 삭제
     public void deleteProjectRequest(Long pboard_id) {
         logger.info("-> getProject()");
-        sqlSession.update(nameSpace + "deleteProjectRequest", pboard_id);
+        sqlSession.delete(nameSpace + "deleteProjectRequest", pboard_id);
     }
     //project_board 의 상태값 변경 '모집중'
     public void setBoardState(Long pboardId) {

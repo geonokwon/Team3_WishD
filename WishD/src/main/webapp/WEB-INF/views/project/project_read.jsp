@@ -20,6 +20,8 @@
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
+<div>
+</div>
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
@@ -398,6 +400,7 @@
             $("#formFile").hide();
             $("#requestFile").show();
             $("#badge_container").show();
+
 
             //한줄 자기 소개
             $("#request_title").val("${projectRequestDTO.getF_request_title()}");

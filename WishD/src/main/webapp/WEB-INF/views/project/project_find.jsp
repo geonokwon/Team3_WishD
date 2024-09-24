@@ -16,9 +16,18 @@
     />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
+    <style>
+        body{
+            background-image: url('${pageContext.request.contextPath}/resources/images/background_star.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
+<%--<img src="${pageContext.request.contextPath}/resources/images/background_star.png">--%>
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
