@@ -75,7 +75,7 @@
                         <label for="notice_label" class="noticeLabelText">Notice </label>   
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" name="qcommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+                        <input type="text" name="qcommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......" required>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                         <label for="" class="noticeLabelText">&nbsp;</label>
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Email </label>
-                        <input type="text" name="user_email" class="custom-textbox no-border" placeholder="답변 받으실 이메일을 작성해주세요......">
+                        <input type="text" name="user_email" class="custom-textbox no-border" placeholder="답변 받으실 이메일을 작성해주세요......" required>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                     <div class="col">
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="qcommunity_content custom-textbox1 input-box no-border"  placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="custom-textbox1 input-box no-border"  name="qcommunity_content" placeholder="내용을 작성해주세요......" required></textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 

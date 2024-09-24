@@ -80,7 +80,7 @@
 						
                         <label for="notice_title" class="noticeTitleText">Title </label>
   
-                        <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+                        <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......" required>
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -89,7 +89,7 @@
                         <div class="write-line"></div> <!-- 구분선 -->
 
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="ncommunity_content custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="custom-textbox1 input-box no-border"  name="ncommunity_content" placeholder="내용을 작성해주세요......" required></textarea>
   
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
