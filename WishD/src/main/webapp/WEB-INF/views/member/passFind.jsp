@@ -49,12 +49,9 @@
         	<p style="color: red;"><c:out value="${errorMessage}" /></p>
     	  </c:if>
     </div>
-    
 
-<!-- 별배경 -->
-    <div class="noite"></div>
-   	<div class="constelacao"></div>
-   	<div class="chuvaMeteoro"></div>
+
+
     <script src="${pageContext.request.contextPath}/resources/member/js/passFind.js"></script>
 
  <!-- Footer -->

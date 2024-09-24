@@ -214,10 +214,14 @@
 
     <!-- user_no 로 user_name 불러오기 -->
     <select id="getUserName" resultType="String">
-        SELECT ui.user_name
-        FROM user u JOIN user_info ui
-        ON u.user_no = ui.user_no
-        WHERE u.user_no = #{user_no}
+        SELECT user_name
+        FROM user_info
+        WHERE user_no = #{user_no}
+<!--        SELECT ui.user_name-->
+<!--        FROM user_info u-->
+<!--        JOIN user_info ui ON u.user_no = ui.user_no-->
+<!--        JOIN simple_user su ON u.user_no = su.user_no-->
+<!--        WHERE u.user_no = #{user_no}-->
     </select>
 
     <!-- jobList 불러오기 -->

@@ -40,10 +40,7 @@
         <a href="${pageContext.request.contextPath}/login" class="submit-btn">로그인하기</a>
     </div>
 </div>
-<!-- 별배경 -->
-<div class="noite"></div>
-<div class="constelacao"></div>
-<div class="chuvaMeteoro"></div>
+
  <script src="${pageContext.request.contextPath}/resources/member/js/idFind.js"></script>
 </body>
 </html>

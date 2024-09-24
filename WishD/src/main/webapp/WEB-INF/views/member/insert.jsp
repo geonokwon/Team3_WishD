@@ -219,10 +219,6 @@
         	<!-- 폼 태그 끝 -->
     	</div>
 	</div>
-    <!-- 별배경 -->
-<div class="noite"></div>
-<div class="constelacao"></div>
-<div class="chuvaMeteoro"></div>
 
 <script type="text/javascript">
 $(document).ready(function() {
