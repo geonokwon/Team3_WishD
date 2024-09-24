@@ -133,7 +133,28 @@
 							</div>
 						</div>
 					</div>
-
+					
+					<!-- 필요년차 -->
+					<div class="col-4 ms-2 mb-4">
+                    <label for="range_month" class="mb-1 ms-2">프로젝트 필요 년차</label>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <input type="text"
+                                   class="form-control bg-dark"
+                                   id="history"
+                                   name="pboard_history"
+                                   placeholder="년수"
+                                   autocomplete="off"
+                                   required
+                                   value="${myProjectDTO.pboard_history}"
+                            /> 
+                        </div>
+                        <div class="col-auto ms-2">
+                            <label for class="mb-0">년차 이상</label>
+                        </div>
+                    </div>
+                </div>
+                
 					<!-- 프로젝트 세부 내용 -->
 					<div class="col-10 ms-2 mb-4">
 						<label for="content" class="form-label">프로젝트 세부 내용</label>
