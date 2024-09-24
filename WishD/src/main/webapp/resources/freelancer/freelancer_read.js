@@ -1,0 +1,1 @@
+//임시로 freelancer.js에서 사용

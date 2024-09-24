@@ -127,11 +127,11 @@
                         <div class="overlay-container"  style="height: 520px">
                             <c:if test="${!empty sessionScope.user_no}">
                                 <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
-                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                                <div  class="textArea1 card-text">${projectDTO.getPboard_content()}</div>
                             </c:if>
                             <c:if test="${empty sessionScope.user_no}">
                                 <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
-                                <pre class="card-text">${projectDTO.getPboard_content()}</pre>
+                                <div class="textArea1 card-text">${projectDTO.getPboard_content()}</div>
                                 <div class="overlay-message active">
                                     <div>
                                         <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>

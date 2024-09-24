@@ -123,6 +123,7 @@ body {
 .pagination .page-link:hover {
     color: #0056b3; /* 페이지네이션 링크 호버 색상 */
 }
+
 .custom-hr {
     border: none;
     /* 색상, 두께 설정 */
@@ -271,11 +272,7 @@ body {
   .text-change-box:hover {
     color: #797979; /* 호버 시 텍스트 색상 변화 */
   }
- 
-.container-fluid {
-	padding-right: 0px;
-	padding-left: 0px;
-}
+
 
 .first-section {
     position: relative;
@@ -316,7 +313,8 @@ body {
 
 /* 섹션 2 */
 .second-section {
-    height: 700px;
+    height: auto;
+    min-height: 450px;
     display: flex; /* 자식 요소들을 수평으로 배치 */
 }
 
@@ -394,7 +392,7 @@ body {
     width: 100%;
     margin-top: 0.3rem;
     display: block;
-    height: 450px;
+    height: 100%;
     font-size: 1.1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -404,10 +402,9 @@ body {
 
 .input-box {
     width: 100%;
-    height: auto;
-    height: 450px;
+    min-height: 450px;
     resize: none; /* 스크롤바 조정 못 하게 */
-    overflow: hidden;     /* 스크롤바 없애기 */
+    overflow: hidden;     스크롤바 없애기
     white-space: normal;  /* 텍스트 줄바꿈 허용 */
     overflow-wrap: break-word; /* 긴 단어 줄바꿈 */
 }
@@ -449,7 +446,7 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: 13rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 

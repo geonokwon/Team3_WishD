@@ -1,12 +1,11 @@
 package com.teamproject.service;
 
-import java.io.File;
+
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -15,7 +14,6 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 
 import com.teamproject.dao.FreelancerDAO;
 import com.teamproject.domain.FreelancerDTO;
@@ -45,8 +43,6 @@ public class FreelancerService {
 		
 		//현재 시간 변수에 저장
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//가입날짜 설정
-		freelancerDTO.setFreelancer_date(timestamp);
 		//최종수정날짜 설정
 		freelancerDTO.setFreelancer_update(timestamp);
 		
@@ -107,17 +103,22 @@ public class FreelancerService {
     @Transactional
     public void insertFreelancerRequest(FreelancerRequestDTO freelancerRequestDTO,
                                      FreelancerRequestFileDTO freelancerRequestFileDTO) throws Exception {
-        logger.info("-> getFreelancerRequest()");
+        logger.info("->Service insertFreelancerRequest()");
+		
+
+        
+        
         //프로젝트 리퀘스트 폼 저장
-        System.out.println(freelancerRequestDTO.toString());
+        System.out.println("비동기에서Service freelancerRequestDTO = " + freelancerRequestDTO);
+        System.out.println("비동기에서Service freelancerRequestFileDTO= " + freelancerRequestFileDTO);
         freelancerDAO.insertFreelancerRequest(freelancerRequestDTO);
 
-        //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장
-        Map<String, Object> freelancerRequestSkillSet = new HashMap<>();
-        freelancerRequestSkillSet.put("request_num", freelancerRequestDTO.getRequest_num());
-        freelancerRequestSkillSet.put("skill_id", getSkillList(freelancerRequestDTO.getSkillList()));
-        System.out.println(freelancerRequestSkillSet);
-        freelancerDAO.insetFreelancerRequestSkill(freelancerRequestSkillSet);
+        //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장 - 스킬테이블 사용안해서 주석처리!! 나중에 삭제
+//        Map<String, Object> freelancerRequestSkillSet = new HashMap<>();
+//        freelancerRequestSkillSet.put("request_num", freelancerRequestDTO.getRequest_num());
+//        freelancerRequestSkillSet.put("skill_id", getSkillList(freelancerRequestDTO.getSkillList()));
+//        System.out.println(freelancerRequestSkillSet);
+//        freelancerDAO.insetFreelancerRequestSkill(freelancerRequestSkillSet);
 
         //처리할때 freelancer_board 의 state -> 를 진행중으로 변경
         System.out.println(freelancerRequestDTO.toString());
@@ -135,7 +136,8 @@ public class FreelancerService {
     //진행중인 board 가 있다면 request form의 값을 가져오기
     public FreelancerRequestDTO getRequestClient(Long freelancerId) {
         FreelancerRequestDTO freelancerRequestDTO = freelancerDAO.getRequestClient(freelancerId);
-        freelancerRequestDTO.setSkills(freelancerDAO.getRequestSkill(freelancerRequestDTO.getFreelancer_id()));
+        //request client는 스킬을 요구하지 않으므로 주석처리
+//        freelancerRequestDTO.setSkills(freelancerDAO.getRequestSkill(freelancerRequestDTO.getFreelancer_id()));
         return freelancerRequestDTO;
     }
 	

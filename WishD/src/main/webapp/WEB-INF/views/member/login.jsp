@@ -70,6 +70,7 @@
 
 					<!-- 로그인 버튼 -->
                     <button type="submit" class="login-btn">로그인</button>
+                    
                     <!-- 서버에서 전송된 오류 메시지 표시 -->
 					<div id="error-message" style="color: red; text-align: center;">
    					 	<%

@@ -115,7 +115,7 @@ function onlyNumber (event){
 const matching_button = document.getElementById("matching_button");
 if (matching_button){
     matching_button.addEventListener("click", () => {
-        document.querySelector("#sideCardBody_background").style.height = "1000px";
+        document.querySelector("#sideCardBody_background").style.height = "1200px";
         document.querySelector("#matching_Title").style.display = "none";
         document.querySelector("#requestForm").style.display = "block";
         document.querySelector("#matching_button").style.display = "none";

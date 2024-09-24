@@ -17,37 +17,6 @@ public class FreelancerRequestFileDTO implements FileCopyIF{
 
 	 
 
-	public Long getRequest_num() {
-		return request_num;
-	}
-
-	public void setRequest_num(Long request_num) {
-		this.request_num = request_num;
-	}
-
-	public Long getFreelancer_id() {
-		return freelancer_id;
-	}
-
-	public void setFreelancer_id(Long freelancer_id) {
-		this.freelancer_id = freelancer_id;
-	}
-
-	public String getF_file_name() {
-		return f_file_name;
-	}
-
-	public void setF_file_name(String f_file_name) {
-		this.f_file_name = f_file_name;
-	}
-
-	public String getF_file_path() {
-		return f_file_path;
-	}
-
-	public void setF_file_path(String f_file_path) {
-		this.f_file_path = f_file_path;
-	}
 
 		@Override
 	    public String getFileOriginName() {

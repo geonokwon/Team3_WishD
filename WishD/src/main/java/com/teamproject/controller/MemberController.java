@@ -256,7 +256,7 @@ public class MemberController {
 
 		memberService.setSimpleUesr(simpleUserDTO);
 		session.setAttribute("user_no", simpleUserDTO.getUser_no());
-
+		
 		// 없으면 회원가입후(DB에 저장후) 메인화면
 		return "redirect:/";
 	}
