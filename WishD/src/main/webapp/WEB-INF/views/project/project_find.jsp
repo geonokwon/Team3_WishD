@@ -18,10 +18,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
     <style>
         body{
-            background-image: url('${pageContext.request.contextPath}/resources/images/background_star.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+
         }
     </style>
 
@@ -201,11 +198,11 @@
     </nav>
 
     <!-- backGround-star -->
-    <div class="noite"></div>
+<%--    <div class="noite"></div>--%>
 
-    <div class="constelacao"></div>
+<%--    <div class="constelacao"></div>--%>
 
-    <div class="chuvaMeteoro"></div>
+<%--    <div class="chuvaMeteoro"></div>--%>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
