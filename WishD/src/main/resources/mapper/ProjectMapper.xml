@@ -11,13 +11,13 @@
         INSERT INTO project_board (
         user_no, pboard_title, pboard_content,
         pboard_money, pboard_startDate,
-        pboard_rangeMonth, job_id,
+        pboard_rangeMonth, job_id, pboard_history,
         pboard_manager_phone, pboard_company_name )
         VALUES (
             #{user_no},
             #{pboard_title}, #{pboard_content},
             #{pboard_money}, #{pboard_startDate},
-            #{pboard_rangeMonth}, #{job_id},
+            #{pboard_rangeMonth}, #{job_id}, #{pboard_history},
             #{pboard_manager_phone}, #{pboard_company_name}
         );
     </insert>

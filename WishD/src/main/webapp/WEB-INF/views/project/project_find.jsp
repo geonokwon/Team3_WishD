@@ -162,6 +162,9 @@
                         <!-- 예상 기간 -->
                         <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
                     </div>
+
+                    <!-- 필요 년차 -->
+                    <p class="col-3 card-text">필요 년차: ${projectDTO.getPboard_history()} 년차 이상</p>
                 </div>
             </div>
         </div>
