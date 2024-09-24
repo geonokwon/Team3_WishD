@@ -66,7 +66,7 @@
             	<a href="http://c1d2405t3.itwillbs.com/WishD/login" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
             </c:if>
 			
-			<!-- 관리자면 write 버튼 뜨게. -->
+			<!-- 관리자면 write 버튼 뜨게 -->
 			<c:if test="${(user_no == 999)}">
             <a href="notice_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>공지 작성</a>
         	</c:if>
@@ -121,35 +121,39 @@
     
 </div>
 
-</div> <!-- 컨테이너 -->
-<!-- 	페이지네이션 -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center" style="">
-            <!-- 10칸씩 뒤로 이동 버튼 -->
-            <c:if test="${communityPageDTO.startPage > communityPageDTO.pageBlock}">
-                <li class="page-item">
+</div>
+
+<!-- 페이지네이션 -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <!-- 10칸씩 뒤로 이동 버튼 -->
+        <c:if test="${communityPageDTO.startPage > 1}">
+            <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.startPage - 10}"></a>
+                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.startPage - 10}">&lt;&lt;</a>
             </li>
-            </c:if>
+        </c:if>
 
-
-            <c:forEach begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}" var="page" step="1">
-                <li class="page-item">
-                    <a class="page-link"
-                       href="${pageContext.request.contextPath}/community?pageNum=${page}">${page}</a>
-                </li>
-            </c:forEach>
-
-            <!-- 10칸씩 앞으로 이동 -->
-            <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
-                <li class="page-item">
+        <c:forEach var="page" begin="${communityPageDTO.startPage}" end="${communityPageDTO.endPage}">
+            <li class="page-item ${communityPageDTO.currentPage == page ? 'active' : ''}">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.endPage + 10}">&gt;</a>
+                   href="${pageContext.request.contextPath}/community?pageNum=${page}">${page}</a>
             </li>
-            </c:if>
-        </ul>
-    </nav>
+        </c:forEach>
+
+        <!-- 10칸씩 앞으로 이동 버튼 -->
+        <c:if test="${communityPageDTO.endPage < communityPageDTO.pageCount}">
+            <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/community?pageNum=${communityPageDTO.endPage + 10}">&gt;&gt;</a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
+
+
+
+
   <div class = "last-line"></div> <!-- 하단선 -->
 
 <!-- Footer -->
