@@ -120,6 +120,7 @@ public class ProjectController {
                     //여기서 페이지 로 올때 확인하고 있으니까 ? 진행중일때 불러와서 modal에 담아서 front 단으로 넘기자
                     System.out.println(projectRequestDTO.toString());
                     model.addAttribute("projectRequestDTO", projectRequestDTO);
+                    System.out.println(projectRequestFileDTO.toString());
                     model.addAttribute("projectRequestFileDTO", projectRequestFileDTO);
                 }
                 else {
