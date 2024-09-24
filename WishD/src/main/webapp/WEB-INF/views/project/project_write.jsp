@@ -227,11 +227,6 @@
     <!-- 폼 태그 끝 -->
 
     <!-- backGround-star -->
-    <div class="noite"></div>
-
-    <div class="constelacao"></div>
-
-    <div class="chuvaMeteoro"></div>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>

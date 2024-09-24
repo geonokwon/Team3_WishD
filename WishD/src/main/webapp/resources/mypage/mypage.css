@@ -1,7 +1,3 @@
-.navbar {
-	background-color: #0e1117; /* 네비게이션 바 배경색 */
-}
-
 /* 전체 컨테이너 스타일 */
 .mycontainer {
 	display: flex;
