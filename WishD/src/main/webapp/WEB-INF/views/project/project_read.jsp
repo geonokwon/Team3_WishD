@@ -20,6 +20,8 @@
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
+<div>
+</div>
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
@@ -127,11 +129,15 @@
                         <div class="overlay-container"  style="height: 520px">
                             <c:if test="${!empty sessionScope.user_no}">
                                 <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
-                                <div  class="textArea1 card-text">${projectDTO.getPboard_content()}</div>
+                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">
+                                    ${projectDTO.getPboard_content()}
+                                </pre>
                             </c:if>
                             <c:if test="${empty sessionScope.user_no}">
                                 <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
-                                <div class="textArea1 card-text">${projectDTO.getPboard_content()}</div>
+                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">
+                                    ${projectDTO.getPboard_content()}
+                                </pre>
                                 <div class="overlay-message active">
                                     <div>
                                         <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
@@ -394,6 +400,7 @@
             $("#formFile").hide();
             $("#requestFile").show();
             $("#badge_container").show();
+
 
             //한줄 자기 소개
             $("#request_title").val("${projectRequestDTO.getF_request_title()}");

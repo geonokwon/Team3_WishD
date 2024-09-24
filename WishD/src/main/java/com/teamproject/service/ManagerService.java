@@ -204,6 +204,19 @@ public class ManagerService {
 		return managerDAO.getUserQnaCount(pageDTO);
 	}
 
+//	회원을 차단함
+	public void blackUser(Long user_no) {
+		
+		managerDAO.blackUser(user_no);
+	}
+	
+//	회원 차단을 해제함
+	public void whiteUser(Long user_no) {
+		
+		managerDAO.whiteUser(user_no);
+	}
+
+
 	
 	
 }

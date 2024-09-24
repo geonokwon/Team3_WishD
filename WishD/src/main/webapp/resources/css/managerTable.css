@@ -100,3 +100,15 @@ th, td{
      height: 40px;
      margin:10px;
  }
+ 
+/* 검색창 디자인 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-group{
+	width:15%;
+	float: right;
+}

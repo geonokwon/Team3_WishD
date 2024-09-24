@@ -51,7 +51,12 @@
 			<a href="${pageContext.request.contextPath}/manager/managerUserProList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 프로젝트 보기</a>
 			<a href="${pageContext.request.contextPath}/manager/managerUserFreeList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 프리랜서 보기</a>
 			<a href="${pageContext.request.contextPath}/manager/managerUserQnaList/${userInfo.user_no }" class="btn btn-primary2 text-light text-decoration-none">작성한 질문 글 보기</a>
-			<a href="${pageContext.request.contextPath}/" class="btn btn-primary3 text-light text-decoration-none">블랙리스트에 추가</a>
+			<c:if test="${userInfo.user_yn == false }">
+				<a href="#" class="btn btn-primary3 text-light text-decoration-none" onclick="blackCheck()">블랙리스트 추가</a>
+			</c:if>
+			<c:if test="${userInfo.user_yn == true }">
+				<a href="#" class="btn btn-primary3 text-light text-decoration-none" onclick="whiteCheck()">블랙리스트 해제</a>
+			</c:if>
 		</div>
 	</div>
 </div>
@@ -59,5 +64,22 @@
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
+<script>
+function blackCheck(){
+	if(confirm("정말 해당 유저를 블랙리스트에 추가하시겠습니까?")==true){
+		location.href = "${pageContext.request.contextPath}/manager/blackUser/${userInfo.user_no }"
+	} else {
+		return false;
+	}
+}
+
+function whiteCheck(){
+	if(confirm("정말 해당 유저를 블랙리스트에서 해제하시겠습니까?")==true){
+		location.href = "${pageContext.request.contextPath}/manager/whiteUser/${userInfo.user_no }"
+	} else {
+		return false;
+	}
+}
+</script>
 </body>
 </html>

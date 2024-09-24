@@ -170,4 +170,18 @@
 		select count(*) from community_QnA
 		where user_no = #{key}
 	</select>
+	
+<!-- 	회원을 차단함 -->
+	<update id="blackUser">
+		update user_info
+		set user_yn = 1
+		where user_no = #{user_no}
+	</update>
+	
+<!-- 	회원 차단을 해제함 -->
+	<update id="whiteUser">
+		update user_info
+		set user_yn = 0
+		where user_no = #{user_no}
+	</update>
 </mapper>

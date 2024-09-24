@@ -84,7 +84,7 @@
                	 	   	</div>
                	 	   	<!-- 에러메세지 -->
         				<div class="invalid-feedback" id="passwordError" style="display: none;">
-            				비밀번호는 특수문자를 포함하여 8~12자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.
+            				비밀번호는 특수문자를 포함하여 8~12자의 영문 대/소문자, 숫자를 사용해 주세요.
             				
        	 				</div>
 				  </div>
@@ -105,9 +105,9 @@
                 				onblur="validateInput(this)"
                     			required
                 			/>
-               	 		<!-- 에러메세지 -->	
-                		<span id="password-confirm" style="color: red; display: none;"></span>
                	 	   </div>
+               	 	   <!-- 에러메세지 -->	
+                	   <span id="password-confirm" style="color: red; display: none;"></span>
 				</div>
             </div>
 			
@@ -284,16 +284,18 @@ $(document).ready(function() {
 	});
 
 	// 비밀번호 일치 확인
-	$('#password-confirm').blur(function() {
+	$('#password-1').blur(function() {
     	const password = $('#password').val();
     	const passwordConfirm = $(this).val();
 
-    	if (password && passwordConfirm && password !== passwordConfirm) {
-        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
-    	} else {
-        	$(this).css('border', ''); // 테두리 초기화
-    	}
-	});
+    	 if (password && passwordConfirm && password !== passwordConfirm) {
+    	        $(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+    	        $('#password-confirm').text('비밀번호가 일치하지 않습니다.').show(); // 오류 메시지 표시
+    	    } else {
+    	        $(this).css('border', ''); // 테두리 초기화
+    	        $('#password-confirm').hide(); // 오류 메시지 숨김
+    	    }
+    	});
 
 
     // 이메일 인증

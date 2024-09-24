@@ -35,7 +35,7 @@
 	<jsp:include page="../include/managerAside.jsp"/>
 	<div class="content" style="width:75%; margin-left:100px;">
 <!-- 	페이지 제목 -->
-	<div class="content-head">이용자 목록</div>
+	<div class="content-head">차단된 유저 목록</div>
 <!-- 	페이지 내용 -->
 	<div class="list">
 <!-- 		테이블 -->
@@ -46,9 +46,7 @@
 					<th scope="col">이름</th>
 					<th scope="col">이메일</th>
 					<th scope="col">가입일</th>
-					<th scope="col">로그인 유형</th>
-					<th scope="col">계정 유형</th>
-					<th scope="col">차단 여부</th>
+					<th scope="col"> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,9 +56,7 @@
 					<td><a href="${pageContext.request.contextPath}/manager/userInfo/${memberDTO.getUser_no()}">${memberDTO.user_name }</a></td>
 					<td>${memberDTO.email }</td>
 					<td>${memberDTO.join_date }</td>
-					<td>${memberDTO.user_type }</td>
-					<td>${memberDTO.getUser_Role()}</td>
-					<td>${memberDTO.user_yn }</td>
+					<td> </td>
 				</tr>
 			</c:forEach>
 			</tbody>

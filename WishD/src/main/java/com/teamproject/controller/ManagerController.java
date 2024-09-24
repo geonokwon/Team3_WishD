@@ -221,8 +221,20 @@ public class ManagerController {
 	
 //	요청 프리랜서 승인하기
 	@PostMapping("freelancerApprove/{pboard_id}")
-    public String freelancerApprove(@PathVariable("pboard_id")Long pboard_id){
+    public String freelancerApprove(@PathVariable("pboard_id")Long pboard_id, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
 		managerService.freelancerApprove(pboard_id);
+        
+        return "redirect:/manager/managerApFreelancer";
+    }
+	
+//	요청 프리랜서 승인 거부하기
+	@GetMapping("/reqDeny/{pboard_id}")
+    public String reqDeny(@PathVariable("pboard_id")Long pboard_id, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+        projectService.deleteProjectRequest(pboard_id);
         
         return "redirect:/manager/managerApFreelancer";
     }
@@ -337,15 +349,15 @@ public class ManagerController {
 		String pageNum = request.getParameter("pageNum");
 		String search = request.getParameter("search");
 		
+		System.out.println(search);
+		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
 		
-		if(search == null) {
+		if(search == null||search == "") {
 			search = "0";
 		}
-		
-		System.out.println(search);
 		
 		int currentPage = Integer.parseInt(pageNum);
 		int pageSize = 20;
@@ -357,7 +369,9 @@ public class ManagerController {
 		pageDTO.setPageSize(pageSize);
 		
 		long key = Long.parseLong(search);
-		pageDTO.setKey(key);
+		if(key!=0) {
+			pageDTO.setKey(key);
+		}
 		
 		List<MemberDTO> userList = managerService.getUserList(pageDTO);
 		
@@ -573,6 +587,26 @@ public class ManagerController {
 		
 		return "/manager/managerUserQnaList";
 	}
+	
+//	회원을 차단함
+	@GetMapping("blackUser/{user_no}")
+    public String blackUser(@PathVariable("user_no")Long user_no, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.blackUser(user_no);
+        
+        return "redirect:/manager/userInfo/{user_no}";
+    }
+	
+//	회원 차단을 해제함
+	@GetMapping("whiteUser/{user_no}")
+    public String whiteUser(@PathVariable("user_no")Long user_no, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.whiteUser(user_no);
+        
+        return "redirect:/manager/userInfo/{user_no}";
+    }
 	
 	
 	
