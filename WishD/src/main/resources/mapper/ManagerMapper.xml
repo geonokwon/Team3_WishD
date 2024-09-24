@@ -69,6 +69,13 @@
 		where pboard_id = #{pboard_id}
 	</update>
 	
+<!-- 	요청 프로젝트 승인 -->
+	<update id="projectApprove">
+		update request_client
+		set cl_request_isAgree = 1
+		where freelancer_id = #{freelancer_id}
+	</update>
+	
 	<!-- 	미승인된 요청 프로젝트를 전달함 -->
 	<select id="getRqcList" resultType="com.teamproject.domain.FreelancerRequestDTO">
 		select * from request_client 

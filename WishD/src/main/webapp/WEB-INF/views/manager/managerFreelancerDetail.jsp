@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_read</title>
+    <title>관리자 페이지</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 </head>
-<!-- project_read.jsp를 복사함 -->
+<!-- freelancer_read.jsp를 복사함 -->
 <body class="d-flex flex-column min-vh-100 justify-content">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
@@ -41,31 +41,31 @@
     <!-- main -->
     <div class="container mt-5">
         <div class="container row align-items-start">
-            <!-- project Read card -->
+            <!-- freelancer Read card -->
             <div class="card col-xl-7 bg-primary rounded-lg me-2 p-3 h-100">
-                <div class="card-body project-details" style="height: 1000px">
+                <div class="card-body" style="height: 1200px;">
                     <!-- 타이틀 -->
-                    <p class="card-title fs-3" style="height: 90px">${freelancerDTO.getUser_name() }</p>
+                    <p class="card-title fs-3" style="height: 90px">${freelancerDTO.getUser_name()}</p>
 
                     <!-- 현재 상태 -->
 
-                    <!-- 모집중 일때 -->
-                    <c:if test="${freelancerDTO.getFreelancer_state() == '구직중'}">
+                    <!-- 구직중 일때 -->
+                    <c:if test="${freelancerDTO.getFreelancer_state() eq '구직중'}">
                         <p class="badge rounded-pill fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
                     <!-- 진행중 일때 -->
-                    <c:if test="${freelancerDTO.getFreelancer_state() == '진행중'}">
+                    <c:if test="${freelancerDTO.getFreelancer_state() eq '진행중'}">
                         <p class="badge rounded-pill bg-secondary fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
                     <!-- 완료 일때 -->
-                    <c:if test="${freelancerDTO.getFreelancer_state() == '완료'}">
+                    <c:if test="${freelancerDTO.getFreelancer_state() eq '완료'}">
                         <p class="badge rounded-pill bg-secondary fs-7">${freelancerDTO.getFreelancer_state()}</p>
                     </c:if>
 
                     <!-- 예상 금액 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/money.svg" style="width: 20px; height: 20px" />
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/money.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">희망 월급</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
@@ -73,35 +73,22 @@
                         </div>
                     </div>
 
-                    <!-- 시작 예정일 -->
+                   <!-- 업무 시작 가능일 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/calendar.svg" style="width: 20px; height: 20px" />
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/calendar.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">시작 가능일</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">
-                                <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
-                                <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
-                            </p>
+                            <fmt:parseDate value="${freelancerDTO.getFreelancer_startdate()}" var="parsedDate" pattern="yyyy-MM-dd" />
+                            <fmt:formatDate value="${parsedDate}" pattern="yyyy년 MM월 dd일" />
                         </div>
                     </div>
 
-<!--                     예상 기간 -->
-<!--                     <div class="row mb-3"> -->
-<!--                         <div class="col-6 d-flex align-items-center" style="width: 140px"> -->
-<%--                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/date-range.svg" style="width: 20px; height: 20px" /> --%>
-<!--                             <p class="mb-0">예상 기간</p> -->
-<!--                         </div> -->
-<!--                         <div class="col-6 d-flex align-items-center text-end-fixed"> -->
-<%--                             <p class="mb-0"><span class="month_range">${projectDTO.getPboard_rangeMonth()}</span> 개월</p> --%>
-<!--                         </div> -->
-<!--                     </div> -->
-
-                    <!-- 희망 직군 -->
+                    <!-- 직군 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/job-group.svg" style="width: 20px; height: 20px" />
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/job-group.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">직군</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
@@ -109,25 +96,14 @@
                         </div>
                     </div>
 
-                    <!-- 보유 경력 -->
+                    <!-- 필요경력 -->
                     <div class="row mb-3">
                         <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/job-history.svg" style="width: 20px; height: 20px" />
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/job-history.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">경력</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><span class="money_min"><fmt:formatNumber value="${freelancerDTO.getDev_exp() }"/></span> 년차</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 포트폴리오 -->
-                    <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/img/btn_nextpage.png" style="width: 20px; height: 20px" />
-                            <p class="mb-0">포트폴리오</p>
-                        </div>
-                        <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0"><a href="${freelancerDTO.getFreelancer_link() }">${freelancerDTO.getFreelancer_link() }</a></p>
+                            <p class="mb-0"> ${freelancerDTO.getDev_exp()}년</p>
                         </div>
                     </div>
 
@@ -145,15 +121,11 @@
                     <!-- 프로젝트 세부 내용 -->
                     <div class="mb-3">
                         <div class="d-flex mb-2">
-                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
-                            <p class="card-title fs-5">프리랜서 소개</p>
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/content.svg" style="max-width: 30px; max-height: 30px" />
+                            <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
-                        <div class="overlay-container"  style="height: 520px">
-                            <c:if test="${!empty sessionScope.user_no}">
-                                <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
-                                <pre class="card-text">${freelancerDTO.getFreelancer_introduction()}</pre>
-                            </c:if>
-                        </div>
+                        <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
+                        <pre class="card-text">${freelancerDTO.getFreelancer_introduction()}</pre>
                     </div>
 
                     <!-- 끝단 -->
@@ -175,107 +147,65 @@
                         </div>
 
                         <!-- 폼 시작 -->
-                        <form action="${pageContext.request.contextPath}/manager/projectApprove/${freelancerDTO.getFreelancer_id()}" method="post" id="projectReadForm">
+                        <form action="${pageContext.request.contextPath}/freelancerReadReq/" method="post" id="freelancerReadForm">
                             <!-- 한줄 자기소개 -->
                             <div class="mb-4">
-                                <label for="request_title" class="mb-1">프로젝트 제목</label>
+                                <label for="cl_subject" class="mb-1">프로젝트 제목</label>
                                 <input type="text"
                                        class="form-control bg-dark"
-                                       id="request_title"
-                                       name="f_request_title"
-                                       placeholder="한줄로 자신을 소개해 주세요."
+                                       id="cl_subject"
+                                       name="cl_subject"
+                                       placeholder="프로젝트 제목"
                                        autocomplete="off"
                                        required />
                             </div>
 
-							<!-- 프로젝트 시작 예정일 -->
+
+
+<!--                             프로젝트 시작 가능일 -->
                             <div class="mb-4">
                                 <label for="request_startDate" class="mb-2">프로젝트 시작 예정일</label>
-                                <input type="date" class="form-control bg-dark" id="request_startDate" name="f_request_startDate" required/>
+                                <input type="date" class="form-control bg-dark" id="request_startDate" name="cl_startDate" required/>
                             </div>
-							
-							<!-- 예상 기간-->
+
+<!--                             프로젝트 예상 기간(숫자만 입력하기) -->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="cl_date" class="mb-1">예상 기간</label>
-                                <div class="col-5">
+                                <label for="cl_rangeMonth" class="mb-1">예상 기간</label>
+                                <div class="col-4">
                                     <input type="text"
                                            class="form-control bg-dark"
-                                           id="cl_date"
-                                           name="f_request_cl_date"
+                                           id="cl_rangeMonth"
+										   name="cl_rangeMonth"
                                            placeholder="개월 수"
                                            autocomplete="off"
                                            required />
+<!--                                       name="f_request_history" -->
                                 </div>
-                                <div class="col-2"> 개월</div>
+                                <div class="col-4">개월</div>
                             </div>
-<!--                             직무 선택(selected) -->
-<!--                             <div class="mb-4"> -->
-<!--                                 <label for="request_jobGroup" class="mb-1">직무(선택)</label> -->
-<!--                                 <select class="form-select bg-dark" id="request_jobGroup" name="job_id" required> -->
-<!--                                     <option value="" disabled selected>직무를 선택하세요</option> -->
-<!--                                     <option value="1" >앱 개발자</option> -->
-<!--                                     <option value="2">웹 개발자</option> -->
-<!--                                     <option value="3">시스템 개발자</option> -->
-<!--                                 </select> -->
-<!--                             </div> -->
 
-<!--                             경력(년차) 입력(숫자만 입력하기) -->
-<!--                             <div class="row d-flex align-items-center mb-4"> -->
-<!--                                 <label for="request_job_history" class="mb-1">경력</label> -->
-<!--                                 <div class="col-4"> -->
-<!--                                     <input type="text" -->
-<!--                                            class="form-control bg-dark" -->
-<!--                                            id="request_job_history" -->
-<!--                                            name="f_request_history" -->
-<!--                                            placeholder="숫자" -->
-<!--                                            autocomplete="off" -->
-<!--                                            required /> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-4">년차</div> -->
-<!--                             </div> -->
+				    		<div class="mb-4">
+                                <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
+									 <textarea class="form-control bg-dark" 
+									 	 id="cl_content"
+										 name="cl_content" 
+										 style="height:200px; width:100%; resize:none;" 
+										 rows="5" 
+										 cols="5" 
+										 maxlength="255"></textarea>
+				    		</div>
 
-<!--                             보유 스킬 -->
-<!--                             <div class="mb-4"> -->
-<!--                                 <label for="skill" class="mb-1">보유스킬</label> -->
-<!--                                 <select class="form-select bg-dark mb-2" id="skill"> -->
-<!--                                     <option value="" selected>스킬선택</option> -->
-<%--                                     <c:forEach items="${projectSkillList}" var="skill"> --%>
-<%--                                         <option value="${skill.getSkill_id()}">${skill.getSkill_name()}</option> --%>
-<%--                                     </c:forEach> --%>
-<!--                                 </select> -->
 
-<!--                                 클릭시 베지 추가 -->
-<!--                                 <div id="badge_container"> -->
-<%--                                     <c:if test="${! empty projectRequestDTO}"> --%>
-<%--                                         <c:forEach items="${projectRequestDTO.getSkills()}" var="skillList"> --%>
-<%--                                             <div class="badge rounded-pill mb-1 me-2" id="skillSelectBadge">${skillList.getSkill_name()}</div> --%>
-<%--                                         </c:forEach> --%>
-<%--                                     </c:if> --%>
-<!--                                 </div> -->
-<!--                                 <input type="hidden" name="skillList" id="skillList" required/> -->
-<!--                             </div> -->
 
-<!--                             프리랜서 경험 -->
-<!--                             <div class="mb-4"> -->
-<!--                                 <label class="request_experience d-block mb-1">프리랜서 경험</label> -->
-<!--                                 <div class="form-check form-check-inline mx-3"> -->
-<!--                                     <input type="radio" class="form-check-input" name="f_request_exp" id="experience_true" value="true" required /> -->
-<!--                                     <label for="experience_true" class="form-check-label">있다</label> -->
-<!--                                 </div> -->
-<!--                                 <div class="form-check form-check-inline ms-3"> -->
-<!--                                     <input type="radio" class="form-check-input" name="f_request_exp" id="experience_false" value="false" required /> -->
-<!--                                     <label for="experience_false" class="form-check-label">없다</label> -->
-<!--                                 </div> -->
-<!--                             </div> -->
 
-                            <!-- 예상 금액-->
+<!--                             프로젝트 예상금액 -->
                             <div class="row d-flex align-items-center mb-4">
-                                <label for="money" class="mb-1">프로젝트 예상 금액</label>
+                                <label for="money" class="mb-1">프로젝트 예상금액</label>
                                 <div class="col-5">
                                     <input type="text"
                                            class="form-control bg-dark"
                                            id="money"
-                                           name="f_request_money"
+                                           name="cl_money"
                                            placeholder="숫자입력"
                                            autocomplete="off"
                                            required />
@@ -283,24 +213,48 @@
                                 <div class="col-2"> 만원</div>
                             </div>
 
-                            
 
-                            <!-- 이력서 / 경력증명서 / 포토폴리오-->
+
+<!--                             증명서 -->
                             <div class="mb-4">
-                                <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
+                                <label for="formFile" class="form-label">사업자 등록증</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
                                 <input class="form-control bg-dark" type="file" id="formFile" name="file"
-<%--                                       accept=".pdf" --%>
+<%-- 							accept=".pdf" --%>
                                        required/>
-                                <!-- 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
+<!--                                 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
                                 <div class="form-control bg-dark" type="text" id="requestFile" style="display: none">
-                                    <a href="${pageContext.request.contextPath}/resources/upload/${projectRequestFileDTO.getP_file_name()}"
-                                       download="${projectRequestFileDTO.getFileOriginName()}">${projectRequestFileDTO.getFileOriginName()}</a>
+                                    <a href="${pageContext.request.contextPath}/resources/upload/${freelancerRequestFileDTO.getP_file_name()}"
+                                       download="${freelancerRequestFileDTO.getFileOriginName()}">${freelancerRequestFileDTO.getFileOriginName()}</a>
                                 </div>
 
                             </div>
 
-                            <!-- 약관 동의 -->
+							<!-- 담당자 이름 -->
+                            <div class="mb-4">
+                                <label for="request_name" class="mb-1">담당자 이름</label>
+                                <input type="text"
+                                       class="form-control bg-dark"
+                                       id="request_name"
+                                       name="cl_name"
+                                       placeholder="이름을 입력해 주세요"
+                                       autocomplete="off"
+                                       required />
+                            </div>
+
+                            <!-- 담당자 이메일 -->
+                            <div class="mb-4">
+                                <label for="request_email" class="mb-1">담당자 이메일</label>
+                                <input type="email"
+                                       class="form-control bg-dark"
+                                       id="request_email"
+                                       name="cl_email"
+                                       placeholder="이메일을 입력해 주세요"
+                                       autocomplete="off"
+                                       required />
+                            </div>
+
+                            약관 동의
                             <div class="mb-4 pt-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="true" id="agree_1" required />
@@ -315,6 +269,9 @@
                             <div class="card" id="btn-container">
                                 <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
                             </div>
+                            <div class="card" id="btn-container">
+                            	<button type="button" class="btn btn-secondary" id="deny_button" onclick="denied()">승인거절</button>
+                            </div>
                         </form>
                         <!-- 폼 end -->
                     </div>
@@ -324,7 +281,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="agreeTitle">승인되었습니다.</h1>
+                                    <h1 class="modal-title fs-6" id="agreeTitle">승인요청 완료 하였습니다.</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -338,7 +295,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content bg-primary ps-2 pt-2">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-6" id="disagreeTitle">승인 도중에 오류가 발생했습니다.</h1>
+                                    <h1 class="modal-title fs-6" id="disagreeTitle">승인 요청 오류 (관리자 문의 바랍니다).</h1>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" >돌아가기</button>
@@ -347,9 +304,31 @@
                         </div>
                     </div>
 
+                    <!-- 로그인시 -->
+                    <c:if test="${! empty sessionScope.user_no}">
+                        <c:if test="${sessionScope.user_no != freelancerDTO.getUser_no()}">
+                            <div class="card" id="matching_button">
+                                <button type="button" class="btn btn-primary">매칭하기</button>
+                            </div>
+                        </c:if>
+                        
+                        
+                        <c:if test="${sessionScope.user_no == freelancerDTO.getUser_no()}">
+                            <div class="card" id="matching_button_waiting">
+                                <button type="button" class="btn btn-primary" disabled>매칭 대기중</button>
+                            </div>
+                        </c:if>
+                    </c:if>
+
+                    <!-- 비로그인시 -->
+                    <c:if test="${empty sessionScope.user_no}">
+                        <div class="card">
+                            <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
+                        </div>
+                    </c:if>
+
                 </div>
             </div>
-
             <!-- side rquest-form end-->
         </div>
     </div>
@@ -358,6 +337,8 @@
 
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script
@@ -365,122 +346,115 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
+
 <script>
-    if(${projectRequestDTO != null }){
-        $("#sideCardBody_background").css("height", "1000px");
-        $("#matching_Title").hide();
-        $("#requestForm").show();
-        $("#matching_button").hide();
-        $("#agree_button").show();
-        $("#badge_container").hide();
-        $("#matching_button_waiting").hide();
-
-
-        //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
-        let requestForm = $("#projectReadForm");
-        requestForm.find('a').on('click', (e) => {
-            e.preventDefault();
-        })
-        requestForm.find('input, select').prop('disabled', true);
-        // form.find('select').prop('disabled', true);
-        requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
-        //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
-        $('#badge_container .badge').addClass('disabled');
-
-//         let agree_button = $('#agree_button');
-//         agree_button.prop('disabled', true);
-//         agree_button.text("승인 대기중");
-        //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
-
-        //projectRequestDTO
-        let sessionUserNo = parseInt("${sessionScope.user_no}");
-        console.log("sessionUserNo : " + sessionUserNo);
-        let projectUserNo = parseInt("${freelancerDTO.getUser_no()}")
-        console.log("projectUserNo : " + projectUserNo);
-        let requestUserNo = parseInt("${freelancerRequestDTO.getUser_no()}");
-        console.log("requestUserNo : " +requestUserNo);
-        let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
-
-        
-            $("#formFile").hide();
-            $("#requestFile").show();
-            $("#badge_container").show();
-
-            //한줄 자기 소개
-            $("#request_title").val("${freelancerRequestDTO.getCl_subject()}");
-
-            //직군
-//             $("#request_jobGroup").val(${freelancerRequestDTO.getJob_id()});
-
-            //경력
-//             $("#request_job_history").val(${projectRequestDTO.getF_request_history()});
-
-            //프리랜서 경험 ( true , false ) 값을 반환하고 radio 박스이므로 checked 처리함
-//             let experience = "${projectRequestDTO.getF_request_exp()}";
-//             if (experience === "true") {
-//                 $("#experience_true").prop("checked", true);
-//             } else {
-//                 $("#experience_false").prop("checked", true);
-//             }
-// 			예상 기간
-			$("#money").val(${freelancerRequestDTO.getCl_date()});
-			
-            //희망금액
-            $("#money").val(${freelancerRequestDTO.getCl_money()});
-
-            //시작 예정일 
-            let date = "${freelancerRequestDTO.getCl_startdate()}".split(" ")[0];
-            $("#request_startDate").val(date);
-
-            //각종동의
-            $("#agree_1").prop("checked", true);
-            $("#agree_2").prop("checked", true);
-
-
-            if(sessionUserNo === projectUserNo && isAgree === "true"){
-                //버튼 비활성화
-                agree_button.hide();
-                //다운로드 a태그 활성화
-                requestForm.find('a').off('click');
-                // 버튼을 동적으로 추가할 HTML 문자열
-                let matchButtonHtml = '<button type="button" class="btn btn-primary mb-2" id="match_button">매칭</button>';
-                let cancelButtonHtml = '<button type="button" class="btn btn-secondary" id="cancel_button">취소</button>';
-
-                // 버튼을 추가할 div 선택
-                let buttonContainer = $('#btn-container');
-
-                // 버튼들을 추가
-                buttonContainer.append(matchButtonHtml);
-                buttonContainer.append(cancelButtonHtml);
-
-                // 버튼 클릭 이벤트 처리
-                $('#match_button').click(function() {
-                    console.log('매칭 버튼 클릭됨');
-                    location.href="${pageContext.request.contextPath}/chatting/${projectDTO.getPboard_id()}"
-                });
-
-                $('#cancel_button').click(function() {
-                    console.log('취소 버튼 클릭됨');
-                    location.href="${pageContext.request.contextPath}/projectReqFalse/${projectDTO.getPboard_id()}"
-                });
-            }
-    }
+function denied(){
+	alert("승인을 거절했습니다.");
+	location.href = "${pageContext.request.contextPath}/manager/projectDeny/${freelancerDTO.getFreelancer_id()}";
+}
 </script>
-<script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
+<script>
+console.log(${sessionScope.user_no});
+console.log("sdsd");
+
+	if(${freelancerRequestDTO != null }){
+	    $("#sideCardBody_background").css("height", "1200px");
+	    $("#matching_Title").hide();
+	    $("#requestForm").show();
+	    $("#matching_button").hide();
+	    $("#agree_button").show();
+	    $("#badge_container").hide();
+	    $("#matching_button_waiting").hide();
+	    
+	
+	    //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
+	    let requestForm = $("#freelancerReadForm");
+	    requestForm.find('a').on('click', (e) => {
+	        e.preventDefault();
+	    })
+	    requestForm.find('input, select, textarea').prop('disabled', true);
+	    // form.find('select').prop('disabled', true);
+	    requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
+	    //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
+	    $('#badge_container .badge').addClass('disabled');
+	
+// 	    let agree_button = $('#agree_button');
+// 	    agree_button.prop('disabled', true);
+// 	    agree_button.text("승인 대기중");
+	    //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
+		
+	    //freelancerRequestDTO
+	    let sessionUserNo = parseInt("${sessionScope.user_no}");
+	    console.log("sessionUserNo : " + sessionUserNo);
+	    let freelancerUserNo = parseInt("${freelancerDTO.getUser_no()}")
+	    console.log("freelancerUserNo : " + freelancerUserNo);
+	    let requestUserNo = parseInt("${freelancerRequestDTO.getUser_no()}");
+	    console.log("requestUserNo : " +requestUserNo);
+	    let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
+
+	        $("#formFile").hide();
+	        $("#requestFile").show();
+	        $("#badge_container").show();
+	
+	        //프로젝트 제목
+	        $("#cl_subject").val("${freelancerRequestDTO.getCl_subject()}");
+	        
+	        //상세 소개
+	        $("#cl_content").val("${freelancerRequestDTO.getCl_content()}");
+
+	
+	        //프로젝트 예상기간
+	        $("#cl_rangeMonth").val("${freelancerRequestDTO.getCl_rangeMonth()}");
+	
+
+	
+	        //희망금액
+	        $("#money").val("${freelancerRequestDTO.getCl_money()}");
+	        console.log("freelancerRequsetDTO.getCl_money(): '" + ${freelancerRequsetDTO.getCl_money()} + "'");
+	        //진행가능 날짜 형식 맞춤
+	        let date = "${freelancerRequestDTO.getCl_startDate()}".split(" ")[0];
+	        $("#request_startDate").val(date);
+			
+	        //담당자 이름
+	        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
+	        
+	        //담당자 이메일
+	        $("#request_email").val("${freelancerRequestDTO.getCl_email()}");
+	        
+	        //각종동의
+	        $("#agree_1").prop("checked", true);
+	        $("#agree_2").prop("checked", true);
+	}
+
+</script>
+<script src="${pageContext.request.contextPath}/resources/freelancer/freelancer.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_find.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_reg.js"></script> --%>
 <script>
     $(document).ready(function() {
-        $('#projectReadForm').on('submit', function(event) {
+        $('#freelancerReadForm').on('submit', function(event) {
             $('#agree_button').prop('disabled', true);
+            $('#deny_button').prop('disabled', true);
             event.preventDefault(); // 폼의 기본 제출 동작을 방지
             const form = $(this);
-
             //formData 형식으로 반환
             const formData = new FormData(this);
             console.log(formData);
 
+        // FormData 내용 확인
+			for (let pair of formData.entries()) {
+			    if (pair[1] instanceof File) {
+			        console.log(pair[0], pair[1].name);  // 파일 이름 출력
+			        console.log(pair[0], pair[1].size);  // 파일 크기 출력
+			        console.log(pair[0], pair[1].type);  // 파일 타입 출력
+			    } else {
+			        console.log(pair[0] + ', ' + pair[1]); // 다른 필드는 일반적으로 출력
+			    }
+			}
+        
             //비동기 ajax 처리
             $.ajax({
-                url: '${pageContext.request.contextPath}/manager/projectApprove/${freelancerDTO.getFreelancer_id()}',
+            	url: '${pageContext.request.contextPath}/manager/projectApprove/${freelancerDTO.getFreelancer_id()}',
                 type: 'POST', //post 방식
                 data: formData,
                 contentType: false, // jQuery가 자동으로 설정한 컨텐츠 타입을 사용하지 않음
@@ -499,7 +473,7 @@
                         //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
                         $('#badge_container .badge').addClass('disabled');
 
-                        //버튼 비활성화
+//                         //버튼 비활성화
 //                         let agree_button = $('#agree_button');
 //                         agree_button.prop('disabled', true);
 //                         agree_button.text("승인 대기중");
@@ -514,10 +488,11 @@
                     $('#agree_button').prop('disabled', false);
                 }
             });
+            
+            
         });
     });
 </script>
 
 </body>
 </html>
-

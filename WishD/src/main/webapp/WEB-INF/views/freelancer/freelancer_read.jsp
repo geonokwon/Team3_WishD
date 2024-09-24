@@ -122,11 +122,15 @@
             <!-- side request-form card -->
             <div class="card col-xl-4 bg-primary rounded-lg me-2 p-3">
                 <div class="card-body" id="sideCardBody_background">
-                    <div id="matching_Title">
-                        <p class="card-title fs-5">해당 프리랜서가 마음에 드시나요?</p>
-                        <p class="card-subtitle ms-1 mb-3">지금바로 매칭해보세요.</p>
-                    </div>
-
+                
+					<!--  프리랜서 글쓴이 본인이 아닌경우 매칭 권유 문구 출력 -->
+                    <c:if test="${sessionScope.user_no != freelancerDTO.getUser_no()}">
+	                    <div id="matching_Title">
+	                        <p class="card-title fs-5">해당 프리랜서가 마음에 드시나요?</p>
+	                        <p class="card-subtitle ms-1 mb-3">지금바로 매칭해보세요.</p>
+	                    </div>
+                    </c:if>
+                    
                     <!-- 매칭하기 클릭시 -->
                     <div class="requestForm container mx-2" id="requestForm" style="display: none">
                         <div>
@@ -391,16 +395,16 @@ console.log("sdsd");
 	        $("#request_startDate").val(date);
 			
 	        //담당자 이름
-	        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
+	        $("#request_name").val("매칭 후 담당자 이름이 공개됩니다");
 	        
 	        //담당자 이메일
-	        $("#request_email").val("${freelancerRequestDTO.getCl_email()}");
+	        $("#request_email").val("매칭 후 담당자 이메일이 공개됩니다");
 	        
 	        //각종동의
 	        $("#agree_1").prop("checked", true);
 	        $("#agree_2").prop("checked", true);
 	
-			
+			//관리자 승인되고 프리랜서 본인이 볼경우
 	        if(sessionUserNo === freelancerUserNo && isAgree === "true"){
 	            //버튼 비활성화
 	            agree_button.hide();
@@ -420,7 +424,7 @@ console.log("sdsd");
 	            // 버튼 클릭 이벤트 처리
 	            $('#match_button').click(function() {
 	                console.log('매칭 버튼 클릭됨');
-// 	                채팅기능 미구현?
+// 	                담당자
 // 	                location.href="${pageContext.request.contextPath}/chatting/${freelancerDTO.getFreelancer_id()}"
 	            });
 	

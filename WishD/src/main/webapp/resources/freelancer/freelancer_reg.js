@@ -56,8 +56,9 @@ document.getElementById("date").setAttribute("min", today);
 // 희망 월급 유효성 검사
 function validateSalary() {
     const salary = document.forms["fr"]["freelancer_salary"].value;
-    if (salary == "" || salary < 10) {
-        document.getElementById("salary_error").innerHTML = "희망 월급을 10 이상 입력해주세요.";
+    const salaryNum = Number(salary);
+    if (salary == "" || isNaN(salaryNum) || !Number.isInteger(salaryNum) || salaryNum < 10) {
+        document.getElementById("salary_error").innerHTML = "희망 월급을 10 이상 자연수만 입력해주세요.";
     } else {
         document.getElementById("salary_error").innerHTML = "";
     }
@@ -98,8 +99,10 @@ function validateJob() {
 // 개발자 경력 유효성 검사
 function validateDevExp() {
     const devExp = document.forms["fr"]["dev_exp"].value;
-    if (devExp == "" || devExp < 0) {
-        document.getElementById("devexp_error").innerHTML = "개발자 경력을 올바르게 입력해주세요.";
+    const devExpNum = Number(devExp); // 문자열을 숫자로 변환
+
+    if (devExp == "" || isNaN(devExpNum) || !Number.isInteger(devExpNum) || devExpNum < 0) {
+        document.getElementById("devexp_error").innerHTML = "개발자 경력을 0 이상의 정수로 입력해주세요.";
     } else {
         document.getElementById("devexp_error").innerHTML = "";
     }
