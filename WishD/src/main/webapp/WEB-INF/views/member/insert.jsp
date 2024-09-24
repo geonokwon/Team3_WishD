@@ -99,15 +99,15 @@
     							type="password" 
     							class="form-control bg-dark mt-1" 
     							id="password-1"
-    							name="user_pass2" 
+    							name="user_pass2"  
                 				placeholder="비밀번호를 다시 입력하세요"
                 				autocomplete="off"
-                				onblur="validateInput(this)"
-                    			required
-                			/>
-               	 	   </div>
-               	 	   <!-- 에러메세지 -->	
-                	   <span id="password-confirm" style="color: red; display: none;"></span>
+                				onblur="validateInput(this)" 
+                    			required  
+                			/> 
+               	 	   </div> 
+               	 	   <!-- 에러메세지 -->
+        				<div class="invalid-feedback" id="password-confirm" style="display: none;"></div>
 				</div>
             </div>
 			
