@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>freelancer_read</title>
+    <title>WishD | 프리랜서 보기</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -51,7 +51,7 @@
 
                     <!-- 예상 금액 -->
                     <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/money.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">희망 월급</p>
                         </div>
@@ -62,7 +62,7 @@
 
                    <!-- 업무 시작 가능일 -->
                     <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/calendar.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">시작 가능일</p>
                         </div>
@@ -74,7 +74,7 @@
 
                     <!-- 직군 -->
                     <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/job-group.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">직군</p>
                         </div>
@@ -85,7 +85,7 @@
 
                     <!-- 필요경력 -->
                     <div class="row mb-3">
-                        <div class="col-6 d-flex align-items-center" style="width: 140px">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/job-history.svg" style="width: 20px; height: 20px" />
                             <p class="mb-0">경력</p>
                         </div>
@@ -93,7 +93,34 @@
                             <p class="mb-0"> ${freelancerDTO.getDev_exp()}년</p>
                         </div>
                     </div>
-
+                    
+                    <!-- 프리랜서 경험 -->
+                    <div class="row mb-3">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/experience.png" style="width: 20px; height: 20px" />
+                            <p class="mb-0">프리랜서 경험</p>
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-end-fixed">
+ 							<c:if test="${freelancerDTO.isFreelancer_exp()}">
+									있음
+                            </c:if>
+                            <c:if test="${!freelancerDTO.isFreelancer_exp()}">
+									없음
+                            </c:if>
+                        </div>
+                    </div>
+                    
+                    <!-- 링크 -->
+                    <div class="row mb-3">
+                        <div class="col-6 d-flex align-items-center" style="width: 160px">
+                            <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/link.png" style="width: 20px; height: 20px" />
+                            <p class="mb-0">링크</p>
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-end-fixed">
+                            <p class="mb-0"><a href="${freelancerDTO.getFreelancer_link()}" class="link-primary" style="text-decoration-line:none;">${freelancerDTO.getFreelancer_link()}</a></p>
+                        </div>
+                    </div>
+                    
                     <!-- 필요스킬 -->
                     <!-- 포문으로 skill 전부 다가져오기 -->
                     <div class="mb-3">
@@ -105,14 +132,31 @@
                     <!-- 경계선 -->
                     <hr class="custom-hr" />
 
-                    <!-- 프로젝트 세부 내용 -->
+                    <!-- 프리랜서 세부 내용 -->
                     <div class="mb-3">
                         <div class="d-flex mb-2">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/freelancer/svg/content.svg" style="max-width: 30px; max-height: 30px" />
-                            <p class="card-title fs-5">프로젝트 세부 내용</p>
+                            <p class="card-title fs-5">프리랜서 상세 소개</p>
                         </div>
-                        <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
-                        <pre class="card-text">${freelancerDTO.getFreelancer_introduction()}</pre>
+                        <div class="overlay-container"  style="height: 520px">
+                            <c:if test="${!empty sessionScope.user_no}">
+                                <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
+                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">
+                                    ${freelancerDTO.getFreelancer_introduction()}
+                                </pre>
+                            </c:if>
+                            <c:if test="${empty sessionScope.user_no}">
+                                <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
+                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">
+                                    ${freelancerDTO.getFreelancer_introduction()}
+                                </pre>
+                                <div class="overlay-message active">
+                                    <div>
+                                        <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
 
                     <!-- 끝단 -->
@@ -183,7 +227,7 @@
 										 style="height:200px; width:100%; resize:none;" 
 										 rows="5" 
 										 cols="5" 
-										 maxlength="255"></textarea>
+										 maxlength="50000"></textarea>
 				    		</div>
 
 
@@ -201,7 +245,7 @@
                                            autocomplete="off"
                                            required />
                                 </div>
-                                <div class="col-2"> 만원</div>
+                                <div class="col-3"> 만원</div>
                             </div>
 
 
@@ -209,9 +253,9 @@
 <!--                             증명서 -->
                             <div class="mb-4">
                                 <label for="formFile" class="form-label">사업자 등록증</label>
-                                <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
+                                <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf파일 로 올려주세요</p>
                                 <input class="form-control bg-dark" type="file" id="formFile" name="file"
-<%-- 							accept=".pdf" --%>
+							accept=".pdf"
                                        required/>
 <!--                                 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
                                 <div class="form-control bg-dark" type="text" id="requestFile" style="display: none">
@@ -302,8 +346,8 @@
                         
                         
                         <c:if test="${sessionScope.user_no == freelancerDTO.getUser_no()}">
-                            <div class="card" id="matching_button_waiting">
-                                <button type="button" class="btn btn-primary" disabled>매칭 대기중</button>
+                            <div class="card" id="update_button">
+                                <button type="button" class="btn btn-primary" >글 수정하기</button>
                             </div>
                         </c:if>
                     </c:if>
@@ -332,8 +376,19 @@
         crossorigin="anonymous"
 ></script>
 <script>
-console.log(${sessionScope.user_no});
-console.log("sdsd");
+const userNo1 = "${sessionScope.user_no}";
+const freelancerUserNo1 = "${freelancerDTO.getUser_no()}";
+const freelancerId = "${freelancerDTO.getFreelancer_id()}";
+let completeFreelancer = "${freelancerDTO.getFreelancer_state()}";
+let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
+console.log("ㄴㅇㄹㄴㅇㄹㅇㄴㄹ");
+console.log(isAgree);
+	if (userNo1 === freelancerUserNo1) {
+	    $('#update_button').click(function() {
+	        console.log('글 수정 버튼 클릭됨');
+	        location.href = "${pageContext.request.contextPath}/mypage/myfreelancerupdate?freelancerPageNum=" + freelancerId;
+	    });
+	}
 
 	if(${freelancerRequestDTO != null }){
 	    $("#sideCardBody_background").css("height", "1200px");
@@ -341,8 +396,7 @@ console.log("sdsd");
 	    $("#requestForm").show();
 	    $("#matching_button").hide();
 	    $("#agree_button").show();
-	    $("#badge_container").hide();
-	    $("#matching_button_waiting").hide();
+	    $("#update_button").hide();
 	    
 	
 	    //프로젝트 등록한 사람은 전부 disabled 처리 하고 버튼 승인 대기중 변경
@@ -353,12 +407,22 @@ console.log("sdsd");
 	    requestForm.find('input, select, textarea').prop('disabled', true);
 	    // form.find('select').prop('disabled', true);
 	    requestForm.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
-	    //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
-	    $('#badge_container .badge').addClass('disabled');
+
 	
 	    let agree_button = $('#agree_button');
 	    agree_button.prop('disabled', true);
-	    agree_button.text("승인 대기중");
+	    
+	    // 관리자 승인 전, 승인 후, 매칭 완료로 구분하여 agree_button이 동적으로 변함
+	    if(isAgree === "false"){
+	    	agree_button.text("관리자 승인 대기중");
+	    }else {
+		    if(completeFreelancer === "진행중"){
+	    		agree_button.text("프리랜서 승인 대기중");
+	    	}else{// 프리랜서 매칭 완료된 경우
+	    		agree_button.hide();
+	    	}
+	    }
+
 	    //승인 요청 완료 후 프로젝트 등록한 사람은 request_freelancer 에 등록한 사람의 승인 완료시
 		
 	    //freelancerRequestDTO
@@ -368,18 +432,18 @@ console.log("sdsd");
 	    console.log("freelancerUserNo : " + freelancerUserNo);
 	    let requestUserNo = parseInt("${freelancerRequestDTO.getUser_no()}");
 	    console.log("requestUserNo : " +requestUserNo);
-	    let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
-	
+
+	   
+
 	    if (sessionUserNo === requestUserNo || ((sessionUserNo === freelancerUserNo) && isAgree === "true")){
 	        $("#formFile").hide();
 	        $("#requestFile").show();
-	        $("#badge_container").show();
 	
 	        //프로젝트 제목
 	        $("#cl_subject").val("${freelancerRequestDTO.getCl_subject()}");
 	        
 	        //상세 소개
-	        $("#cl_content").val("${freelancerRequestDTO.getCl_content()}");
+			$("#cl_content").val("<c:out value='${freelancerRequestDTO.getCl_content()}' />");
 
 	
 	        //프로젝트 예상기간
@@ -389,23 +453,27 @@ console.log("sdsd");
 	
 	        //희망금액
 	        $("#money").val("${freelancerRequestDTO.getCl_money()}");
-	        console.log("freelancerRequsetDTO.getCl_money(): '" + ${freelancerRequsetDTO.getCl_money()} + "'");
+	        console.log("freelancerRequestDTO.getCl_money(): '" + ${freelancerRequestDTO.getCl_money()} + "'");
 	        //진행가능 날짜 형식 맞춤
 	        let date = "${freelancerRequestDTO.getCl_startDate()}".split(" ")[0];
 	        $("#request_startDate").val(date);
 			
-	        //담당자 이름
-	        $("#request_name").val("매칭 후 담당자 이름이 공개됩니다");
-	        
-	        //담당자 이메일
-	        $("#request_email").val("매칭 후 담당자 이메일이 공개됩니다");
-	        
+	        if(completeFreelancer === "완료"){
+		        //담당자 이름
+		        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
+		        
+		        //담당자 이메일
+		        $("#request_email").val("${freelancerRequestDTO.getCl_name()}");
+	        }else{
+		        $("#request_name").val("매칭 후 담당자 이름이 공개됩니다"); 
+		        $("#request_email").val("매칭 후 담당자 이메일이 공개됩니다");
+		    }
 	        //각종동의
 	        $("#agree_1").prop("checked", true);
 	        $("#agree_2").prop("checked", true);
 	
 			//관리자 승인되고 프리랜서 본인이 볼경우
-	        if(sessionUserNo === freelancerUserNo && isAgree === "true"){
+	        if(sessionUserNo === freelancerUserNo && isAgree === "true" && completeFreelancer === "진행중"){
 	            //버튼 비활성화
 	            agree_button.hide();
 	            //다운로드 a태그 활성화
@@ -424,22 +492,23 @@ console.log("sdsd");
 	            // 버튼 클릭 이벤트 처리
 	            $('#match_button').click(function() {
 	                console.log('매칭 버튼 클릭됨');
-// 	                담당자
-// 	                location.href="${pageContext.request.contextPath}/chatting/${freelancerDTO.getFreelancer_id()}"
+				// 담당자
+	                location.href="${pageContext.request.contextPath}/freelancerMatching/${freelancerDTO.getFreelancer_id()}"
+	                alert("매칭되었습니다.");
 	            });
 	
 	            $('#cancel_button').click(function() {
 	                console.log('취소 버튼 클릭됨');
 	                location.href="${pageContext.request.contextPath}/freelancerReqFalse/${freelancerDTO.getFreelancer_id()}"
+	                alert("매칭 취소하였습니다.");
 	            });
 	        }
 	    }
 	}
 
 </script>
-<script src="${pageContext.request.contextPath}/resources/freelancer/freelancer.js"></script>
-<%-- <script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_find.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_reg.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/freelancer/freelancer_read.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#freelancerReadForm').on('submit', function(event) {
@@ -479,13 +548,12 @@ console.log("sdsd");
                         form.find('input, select').prop('disabled', true);
                         // form.find('select').prop('disabled', true);
                         form.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
-                        //배지에 class 에 "disabled" 추가해서 클릭이벤트시 막게 한다
-                        $('#badge_container .badge').addClass('disabled');
+
 
                         //버튼 비활성화
                         let agree_button = $('#agree_button');
                         agree_button.prop('disabled', true);
-                        agree_button.text("승인 대기중");
+                        agree_button.text("관리자 승인 대기중");
                     }
                 },
                 error: function(xhr, status, error) {
@@ -502,6 +570,5 @@ console.log("sdsd");
         });
     });
 </script>
-
 </body>
 </html>

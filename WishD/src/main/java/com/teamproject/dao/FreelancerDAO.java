@@ -30,18 +30,19 @@ public class FreelancerDAO {
 	//프리랜서 등록
 	public void registFreelancer(FreelancerDTO freelancerDTO) {
 		System.out.println("FreelancerDAO regist");
-		
-		//프리랜서 등록테이블에서 freelancer_id의 max값 구하기
-		Long maxNum = sqlSession.selectOne(nameSpace + "getFreelancerMaxNum");
 
-		freelancerDTO.setFreelancer_id(maxNum + 1);
 		
 		//프리랜서 등록
 		sqlSession.insert(nameSpace + "resistFreelancer", freelancerDTO);
+
+	}
+	//프리랜서 스킬등록
+	public void registFreelancerSkill(FreelancerDTO freelancerDTO) {
+		System.out.println("FreelancerDAO registSkill");
+		
 		//프리랜서 스킬등록
 		sqlSession.insert(nameSpace + "resistFreelancerSkill", freelancerDTO);
 	}
-	
     //전체 job 반환
     public List<FreelancerDTO> getJobList() {
         logger.info("-> getJobList()");
@@ -108,7 +109,7 @@ public class FreelancerDAO {
     public void insertFreelancerRequest(FreelancerRequestDTO freelancerRequestDTO) {
         logger.info("->DAO insertFreelancerRequest()");
         System.out.println("비동기에서DAO freelancerRequestDTO = " + freelancerRequestDTO);
-
+        //리퀘스트 등록하면서 request_num값을 freelancerRequestDTO에 저장
         sqlSession.insert(nameSpace + "insertFreelancerRequest", freelancerRequestDTO);
     }
 
@@ -149,6 +150,12 @@ public class FreelancerDAO {
         sqlSession.update(nameSpace + "setFreelancerIsMatching", freelancerId);
     }
 
+	public void setCompleteState(Long freelancer_id) {
+		logger.info("-> setCompleteState()");
+		sqlSession.update(nameSpace + "setCompleteState", freelancer_id);
+	}
+    
+    
     //request_client 데이터 삭제
     public void deleteFreelancerRequest(Long freelancer_id) {
         logger.info("-> deleteFreelancer()");
@@ -166,6 +173,8 @@ public class FreelancerDAO {
         logger.info("-> getUserName()");
         return sqlSession.selectOne(nameSpace + "getUserName", user_no);
     }
+
+
 
 
 
