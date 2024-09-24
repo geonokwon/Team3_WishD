@@ -8,8 +8,8 @@
 
 	<!-- 통합회원정보 -->
 	<insert id="insertUserInfo"  useGeneratedKeys="true" keyProperty="user_no" keyColumn="user_no"> 
-		INSERT INTO user_info(user_name, email, user_yn, user_type)
-		VALUES(#{user_name},#{email}, #{user_yn}, #{user_type})
+		INSERT INTO user_info(user_name, email, user_yn)
+		VALUES(#{user_name},#{email}, #{user_yn})
 	</insert>
 
 	<!-- 일반회원 정보  -->

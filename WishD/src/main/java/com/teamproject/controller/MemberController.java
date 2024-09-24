@@ -52,7 +52,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/loginPro")
-	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+	public String loginPro(MemberDTO memberDTO, HttpSession session, HttpServletRequest request) {
 		System.out.println("MemberController loginPro");
 	
 		MemberDTO memberDTO1 = memberService.userCheck(memberDTO);
@@ -60,6 +60,14 @@ public class MemberController {
 		if(memberDTO1 != null) {
 			session.setAttribute("user_no", memberDTO1.getUser_no());
 			session.setAttribute("user_role", memberDTO1.getUser_Role());
+			
+			if(memberDTO1.isUser_yn()) {
+				request.setAttribute("msg", "차단된 계정입니다.");
+				session.invalidate();
+				
+				return "/manager/denyAlert";
+			}
+			
 			return "redirect:/";
 		}
 		else {
@@ -204,7 +212,7 @@ public class MemberController {
 	@GetMapping("/naver-login")
 	public String getNaverLogin (SimpleUserDTO simpleUserDTO,
 			Model model, HttpSession session,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, HttpServletRequest request) throws IOException {
 
 		System.out.println("code = " + simpleUserDTO.getCode());
 		System.out.println("state = " + simpleUserDTO.getState());
@@ -230,6 +238,15 @@ public class MemberController {
 		if (simpleUserDTO1 != null) {
 			// 토큰 체크 => 있으면 user_no 로그인 처리 -> 메인으로 이동
 			session.setAttribute("user_no", simpleUserDTO1.getUser_no());
+			session.setAttribute("user_role", memberService.getMember(simpleUserDTO.getUser_no()).getUser_Role());
+			
+			if(memberService.getMember(simpleUserDTO.getUser_no()).isUser_yn()) {
+				request.setAttribute("msg", "차단된 계정입니다.");
+				session.invalidate();
+				
+				return "/manager/denyAlert";
+			}
+			
 			return "redirect:/";
 		}
 
@@ -257,6 +274,13 @@ public class MemberController {
 		memberService.setSimpleUesr(simpleUserDTO);
 		session.setAttribute("user_no", simpleUserDTO.getUser_no());
 		session.setAttribute("user_role", memberService.getMember(simpleUserDTO.getUser_no()).getUser_Role());
+		
+		if(memberService.getMember(simpleUserDTO.getUser_no()).isUser_yn()) {
+			request.setAttribute("msg", "차단된 계정입니다.");
+			session.invalidate();
+			
+			return "/manager/denyAlert";
+		}
 		
 		// 없으면 회원가입후(DB에 저장후) 메인화면
 		return "redirect:/";
