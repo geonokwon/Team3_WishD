@@ -171,11 +171,9 @@
                 			/>
                 		<!-- 인증하기버튼 -->
                			<button type="button" id="code-check" class="btn btn-primary">인증하기</button>
-               			
-               	 		<!-- 에러메세지 -->	
-                		<div id="mailValidate" class="ms-4" style="color: red; display: none;"></div>
-            			
                	 	   </div>
+					<!-- 에러메세지 -->
+					<div id="mailValidate" class="invalid-feedback" style="color: red; display: none;"></div>
 				</div>
             </div>
             
@@ -297,7 +295,6 @@ $(document).ready(function() {
     	    }
     	});
 
-
     // 이메일 인증
 	$('#email_check').click(function() {
 	    const userEmail = $('#email').val();
@@ -358,7 +355,9 @@ $(document).ready(function() {
 
 		console.log(emailCode);
 		if (inputCode === emailCode ){
-			$('#mailValidate').html('인증완료').css('color', 'green');
+			let mailValidate =  $('#mailValidate');
+			mailValidate.show();
+			mailValidate.html('인증완료').css('color', 'green');
 			$('#code-check').prop('disabled', true);
 			$('#code').prop('disabled', true);
 			$('#email').prop('readonly', true);
