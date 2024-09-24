@@ -171,11 +171,9 @@
                 			/>
                 		<!-- 인증하기버튼 -->
                			<button type="button" id="code-check" class="btn btn-primary">인증하기</button>
-               			
-               	 		<!-- 에러메세지 -->	
-                		<div id="mailValidate" class="ms-4" style="color: red; display: none;"></div>
-            			
                	 	   </div>
+					<!-- 에러메세지 -->
+					<div id="mailValidate" class="invalid-feedback" style="color: red; display: none;"></div>
 				</div>
             </div>
             
@@ -275,8 +273,7 @@ $(document).ready(function() {
     // 비밀번호 확인
     $('#password').blur(function() {
         const password = $(this).val();
-
-        if (!password || password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
+      if (!password || password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
             $('#passwordError').show();
             $(this).css('border', '1px solid #ff0000ad');
         } else {
@@ -284,6 +281,8 @@ $(document).ready(function() {
             $(this).css('border', '');
         }
     });
+
+        
 
  // 비밀번호 일치 확인
     $('#password-1').blur(function() {
@@ -331,7 +330,6 @@ $(document).ready(function() {
         } else {
             $('#email').css('border', ''); // 테두리 초기화
         }
-
         if (!emailRegex.test(userEmail)) {
             $('#output1').html('올바른 이메일 주소를 입력하세요').show();
             $('#email').css('border', '1px solid #ff0000ad'); // 유효하지 않은 이메일에 빨간 테두리
@@ -401,7 +399,9 @@ $(document).ready(function() {
 
 		console.log(emailCode);
 		if (inputCode === emailCode ){
-			$('#mailValidate').html('인증완료').css('color', 'green');
+			let mailValidate =  $('#mailValidate');
+			mailValidate.show();
+			mailValidate.html('인증완료').css('color', 'green');
 			$('#code-check').prop('disabled', true);
 			$('#code').prop('disabled', true);
 			$('#email').prop('readonly', true);
