@@ -99,15 +99,15 @@
     							type="password" 
     							class="form-control bg-dark mt-1" 
     							id="password-1"
-    							name="user_pass2" 
+    							name="user_pass2"  
                 				placeholder="비밀번호를 다시 입력하세요"
                 				autocomplete="off"
-                				onblur="validateInput(this)"
-                    			required
-                			/>
-               	 	   </div>
-               	 	   <!-- 에러메세지 -->	
-                	   <span id="password-confirm" style="color: red; display: none;"></span>
+                				onblur="validateInput(this)" 
+                    			required  
+                			/> 
+               	 	   </div> 
+               	 	   <!-- 에러메세지 -->
+        				<div class="invalid-feedback" id="password-confirm" style="display: none;"></div>
 				</div>
             </div>
 			
@@ -200,16 +200,17 @@
 				</div>
             </div>
             <!-- 약관동의 체크박스 -->
+            
             <div class="agree-item">
-  				<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-  				<label class="form-check-label" for="flexCheckChecked">
-    			(필수)개인정보 수집에 동의합니다.
+            	<label class="form-check-label" for="flexCheckChecked">
+  					<input class="form-check-input" type="checkbox" id="flexCheckChecked">
+    				(필수)개인정보 수집에 동의합니다.
   				</label>
 			</div>
 			<div class="agree-item">
-  				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  				<label class="form-check-label" for="flexCheckDefault">
-    			(선택)마케팅 활용 동의와 광고성 정보의 수신에 동의합니다.
+				<label class="form-check-label" for="flexCheckDefault">
+  					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    				(선택)마케팅 활용 동의와 광고성 정보의 수신에 동의합니다.
   				</label>
 			</div>
 			
@@ -226,24 +227,29 @@
 <div class="chuvaMeteoro"></div>
 
 <script type="text/javascript">
-//비어있는 입력란의 경우 빨간 테두리 준다.
-function validateInput(element) {
- const isEmpty = element.value.trim() === "";
- element.style.border = isEmpty ? "1px solid #ff0000ad" : "";
-}
-
-//아이디 중복 체크
 $(document).ready(function() {
-    $('#id_check').click(function() {
-        const userId = $('#user_id').val(); // 입력된 아이디 값
 
-        // 아이디가 비어있을 경우 빨간 테두리 추가
+    let emailCode; // 이메일 인증 코드
+    let isCodeState = false; // 이메일 인증 여부
+    
+    // 아이디에 포커스
+    $("#user_id").focus();
+
+    // 비어있는 입력란의 경우 빨간 테두리 추가
+    function validateInput(element) {
+        const isEmpty = element.value.trim() === "";
+        element.style.border = isEmpty ? "1px solid #ff0000ad" : "";
+        return !isEmpty;
+    }
+
+    // 아이디 중복 체크
+    $('#id_check').click(function() {
+        const userId = $('#user_id').val().trim();
+
         if (!userId) {
-            $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
-            $('#output').hide(); // 에러 메시지 숨김
-            return; // 아이디가 비어있으면 함수 종료
-        } else {
-            $('#user_id').css('border', ''); // 테두리 초기화
+            $('#user_id').css('border', '1px solid #ff0000ad');
+            $('#output').hide();
+            return;
         }
 
         $.ajax({
@@ -253,107 +259,144 @@ $(document).ready(function() {
             success: function(result) {
                 if (result === 'iddup') {
                     $('#output').html('이미 존재하는 아이디입니다.').css('color', 'red').show();
-                    $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+                    $('#user_id').css('border', '1px solid #ff0000ad');
                 } else {
                     $('#output').html('사용 가능한 아이디입니다.').css('color', 'green').show();
-                    $('#user_id').css('border', ''); // 테두리 초기화
+                    $('#user_id').css('border', '');
                 }
             },
             error: function() {
                 $('#output').html('오류가 발생했습니다. 다시 시도해주세요.').css('color', 'red').show();
-                $('#user_id').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+                $('#user_id').css('border', '1px solid #ff0000ad');
             }
         });
     });
-});
 
-	//비밀번호 확인
-	$('#password').blur(function() {
-    	const password = $(this).val();
+    // 비밀번호 확인
+    $('#password').blur(function() {
+        const password = $(this).val();
 
-    	if (!password) {
-        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
-        	$('#passwordError').hide(); // 에러 메시지 숨김
-    	} else if (password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
-        	$('#passwordError').show(); // 에러 메시지 표시
-        	$(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
-    	} else {
-        	$('#passwordError').hide();
-        	$(this).css('border', ''); // 테두리 초기화
-    	}
-	});
+        if (!password || password.length < 8 || password.length > 12 || !/[!@#$%^&*]/.test(password)) {
+            $('#passwordError').show();
+            $(this).css('border', '1px solid #ff0000ad');
+        } else {
+            $('#passwordError').hide();
+            $(this).css('border', '');
+        }
+    });
 
-	// 비밀번호 일치 확인
-	$('#password-1').blur(function() {
-    	const password = $('#password').val();
-    	const passwordConfirm = $(this).val();
+ // 비밀번호 일치 확인
+    $('#password-1').blur(function() {
+        const password = $('#password').val();
+        const passwordConfirm = $(this).val();
 
-    	 if (password && passwordConfirm && password !== passwordConfirm) {
-    	        $(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
-    	        $('#password-confirm').text('비밀번호가 일치하지 않습니다.').show(); // 오류 메시지 표시
-    	    } else {
-    	        $(this).css('border', ''); // 테두리 초기화
-    	        $('#password-confirm').hide(); // 오류 메시지 숨김
-    	    }
-    	});
+        if (!passwordConfirm) {
+            // 비밀번호 확인란이 비어 있을 때
+            $(this).css('border', '1px solid #ff0000ad');
+            $('#password-confirm').text('비밀번호 확인란이 비어 있습니다.').show();
+        } else if (password && passwordConfirm && password !== passwordConfirm) {
+            // 비밀번호가 일치하지 않을 때
+            $(this).css('border', '1px solid #ff0000ad');
+            $('#password-confirm').text('비밀번호가 일치하지 않습니다.').show();
+        } else {
+            // 비밀번호가 일치하고 비어 있지 않을 때
+            $(this).css('border', '');
+            $('#password-confirm').hide();
+        }
+    });
 
+	
+ // 이름 입력 확인
+    $('#name').blur(function() {
+        const name = $(this).val().trim(); // 입력된 이름 값
 
-    // 이메일 인증
-	$('#email_check').click(function() {
-	    const userEmail = $('#email').val();
-	    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!name) {
+            // 이름 입력란이 비어 있을 때
+            $(this).css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+        } else {
+            // 이름 입력란이 비어 있지 않을 때
+            $(this).css('border', ''); // 테두리 초기화
+        }
+    });
 
-	    if (!emailRegex.test(userEmail)) {
-	        $('#output1').html('올바른 이메일 주소를 입력하세요').show();
-	        return;
-	    }
+ 
+ // 이메일 중복 체크 및 인증 코드 발송 버튼 활성화
+    $('#email_check').click(function() {
+        const userEmail = $('#email').val();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-	    $.ajax({
-	        url: `${pageContext.request.contextPath}/emailCheck`,
-	        type: 'GET',
-	        data: { id: userEmail },
-	        success: function(result) {
-	            if (result === 'emailDup') {
-	                $('#output1').html('이미 존재하는 이메일입니다.').show();
-	            } else {
-	                $('#output1').html('사용 가능한 이메일입니다.').css('color', 'green').show();
-	                $('#send-code').show();
-	                $('#email_check').hide();
-	            }
-	        }
-	    });
-	});
+        if (!userEmail) {
+            $('#email').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+            return; // 이메일이 비어있으면 종료
+        } else {
+            $('#email').css('border', ''); // 테두리 초기화
+        }
 
-	//인증코드 발송 SMTP
-	//메일 중복확인 완료시 인증코드 전송
-	let emailCode;
-	$('#send-code').click(() => {
-		let email = $('#email');
-		$('#send-code').prop('disabled', true);
-		$.ajax({
-			url: '${pageContext.request.contextPath}/emailSendCode',  //이메일 전송
-			type: 'POST',
-			data: {
-				'userEmail': email.val()
-			},
-			success: (response) => {
-				if(response !== 'failed'){
-					email.prop('readonly', true);
-					$('#output1').html('이메일 전송 완료.').css('color', 'green');
-					$('#send-code').prop('disabled', true);
-					emailCode = parseInt(response);
-				} else {
-					$('#output1').html('이메일 전송 오류 이메일을 확인하세요!.').css('color', 'red');
-				}
-			},
-			error: function() {
-				$('#output1').html('서버 오류 발생').css('color', 'red');
-			}
-		});
-	})
+        if (!emailRegex.test(userEmail)) {
+            $('#output1').html('올바른 이메일 주소를 입력하세요').show();
+            $('#email').css('border', '1px solid #ff0000ad'); // 유효하지 않은 이메일에 빨간 테두리
+            return;
+        } else {
+            $('#email').css('border', ''); // 테두리 초기화
+        }
 
-	let isCodeState;
-	$('#code-check').click(() => {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/emailCheck`,
+            type: 'GET',
+            data: { id: userEmail },
+            success: function(result) {
+                if (result === 'emailDup') {
+                    $('#output1').html('이미 존재하는 이메일입니다.').show();
+                    $('#email').css('border', '1px solid #ff0000ad'); // 중복된 이메일에 빨간 테두리
+                } else {
+                    $('#output1').html('사용 가능한 이메일입니다.').css('color', 'green').show();
+                    $('#send-code').show();
+                    $('#email_check').hide();
+                }
+            }
+        });
+    });
+
+    // 이메일 입력란 블러 이벤트
+    $('#email').blur(function() {
+        if (!$(this).val()) {
+            $(this).css('border', '1px solid #ff0000ad'); // 비어 있을 때 빨간 테두리
+        } else {
+            $(this).css('border', ''); // 비어 있지 않으면 테두리 초기화
+        }
+    });
+
+    // 인증 코드 전송
+    $('#send-code').click(function() {
+        const email = $('#email').val();
+
+        if (!email) {
+            $('#email').css('border', '1px solid #ff0000ad'); // 빨간 테두리 추가
+            return; // 이메일이 비어있으면 종료
+        } else {
+            $('#email').css('border', ''); // 테두리 초기화
+        }
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/emailSendCode',
+            type: 'POST',
+            data: { 'userEmail': email },
+            success: function(response) {
+                if (response !== 'failed') {
+                    $('#output1').html('이메일 전송 완료.').css('color', 'green');
+                    emailCode = parseInt(response);
+                } else {
+                    $('#output1').html('이메일 전송 오류. 이메일을 확인하세요.').css('color', 'red');
+                }
+            },
+            error: function() {
+                $('#output1').html('서버 오류 발생').css('color', 'red');
+            }
+        });
+    });
+
+    // 인증 코드 확인
+   $('#code-check').click(() => {
 		let inputCode = parseInt($('#code').val());
 
 		console.log(emailCode);
@@ -370,77 +413,81 @@ $(document).ready(function() {
 			$('#code').val('');
 			isCodeState = false;
 		}
-	})
+	});
 
-    //인증코드 필드 확인
+    // 인증 코드 입력란 블러 이벤트
     $('#code').blur(function() {
-        const code = $(this).val();
-        if (!code) {
-            $('#mailValidate').next('span').text('인증코드를 입력하세요').css('color', 'red').show();
+        if (!$(this).val()) {
+            $(this).css('border', '1px solid #ff0000ad'); // 비어 있을 때 빨간 테두리
         } else {
-            $('#mailValidate').next('span').hide();
+            $(this).css('border', ''); // 비어 있지 않으면 테두리 초기화
         }
     });
- 
-   
-	// 전화번호 유효성 검사
-	$('#phone').on('input', function() {
-	    // 하이픈 제거
-	    const phone = $(this).val().replace(/-/g, '');
 
-	    // 하이픈이 제거된 값으로 다시 입력
-	    $(this).val(phone);
+    // 전화번호 유효성 검사
+    $('#phone').on('input', function() {
+        const phone = $(this).val().replace(/-/g, '');
+        $(this).val(phone);
 
-	    const phoneRegex = /^\d{10,11}$/; // 예시: 01012345678 형식
+        const phoneRegex = /^\d{10,11}$/;
 
-	    if (!phoneRegex.test(phone)) {
-	        $('#phoneError').text('올바른 전화번호 형식이 아닙니다').css('display', 'block');
-	        isPhoneValid = false;
-	    } else {
-	        $('#phoneError').hide();
-	        isPhoneValid = true;
-	    }
-	});
+        if (!phone) {
+            $(this).css('border', '1px solid #ff0000ad'); // 비어 있을 때 빨간 테두리
+        } else {
+            $(this).css('border', ''); // 비어 있지 않으면 테두리 초기화
+            if (!phoneRegex.test(phone)) {
+                $('#phoneError').text('올바른 전화번호 형식이 아닙니다').show();
+            } else {
+                $('#phoneError').hide();
+            }
+        }
+    });
 
-	
-	// 폼 제출 시 유효성 검사 통과 여부 확인
-	$('form').submit(function(e) {
-	    e.preventDefault(); // 기본 제출 동작 방지
-	    
-	    let isValid = true; // 유효성 검사 결과 저장
-	 	
-	    $('input.requred').each(function(){
-	    	
-	    	if($(this).val().trim() === ''){
-	    		isValid = false;
-	    	}
-	    	
-	    });
-	    
-	    // 유효성 검사 통과 여부 확인
-	    if(!isValid){
-	    	
-	    	// 경고메세지 보여줌
-	    	$('.required-massage').removeClass('hide');
-	    }
-	    else {
-	    	// 성공메세지
-	    	alert('회원가입이 성공적으로 완료되었습니다!!');
-	    	
-	    	// 폼 제출
-	    	this.submit();
-	    }
-	  
-
-		// 이메일 인증 완료했는지 확인 검사
-		if (!isCodeState){
-			alert('이메일인증 하지 않았습니다.');
-			return;
-		}
-	    
-	});
+    // 전화번호 입력란 블러 이벤트
+    $('#phone').blur(function() {
+        if (!$(this).val()) {
+            $(this).css('border', '1px solid #ff0000ad'); // 비어 있을 때 빨간 테두리
+        } else {
+            $(this).css('border', ''); // 비어 있지 않으면 테두리 초기화
+        }
+    });
 
 
+    // 폼 제출 시 유효성 검사
+    $('#signup-form').submit(function(e) {
+        e.preventDefault();
+
+        let isValid = true;
+        
+        // 필수 입력 필드 검증
+        $('input[required]').each(function() {
+            if (!validateInput(this)) {
+                isValid = false;
+            }
+        });
+
+        // 체크박스 필수 항목 검증
+        if (!$('#flexCheckChecked').is(':checked')) {
+            alert('이용 약관에 동의해야 합니다.');
+            isValid = false;
+        }
+
+        // 이메일 인증 여부 확인
+        if (!isCodeState) {
+            alert('이메일 인증을 완료해주세요.');
+            isValid = false;
+        }
+
+        // 최종적으로 모든 유효성 검사를 통과했을 때만 폼 제출
+        if (isValid) {
+            alert('회원가입이 성공적으로 완료되었습니다!');
+            this.submit();
+        } else {
+            alert('모든 필드를 올바르게 입력해주세요.');
+        }
+    });
+
+});
 </script>
 
 </body>
