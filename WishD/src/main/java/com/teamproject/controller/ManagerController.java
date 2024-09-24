@@ -608,6 +608,70 @@ public class ManagerController {
         return "redirect:/manager/userInfo/{user_no}";
     }
 	
+//	차단된 유저 목록
+	@GetMapping("/managerBlackList")
+	public String blackList(HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerBlackList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		String search = request.getParameter("search");
+		
+		System.out.println(search);
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		if(search == null||search == "") {
+			search = "0";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 20;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		
+		long key = Long.parseLong(search);
+		if(key!=0) {
+			pageDTO.setKey(key);
+		}
+		
+		List<MemberDTO> blackList = managerService.getBlackList(pageDTO);
+		
+		int count = managerService.getBlackCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("blackList", blackList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		return "/manager/managerUserBList";
+	}
+	
 	
 	
 	
