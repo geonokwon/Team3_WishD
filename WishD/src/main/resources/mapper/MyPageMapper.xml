@@ -187,7 +187,8 @@
 		job_id = #{job_id},
 		pboard_update = now(),
 		pboard_manager_phone = #{pboard_manager_phone},
-		pboard_company_name = #{pboard_company_name}
+		pboard_company_name = #{pboard_company_name},
+		pboard_history = #{pboard_history}
 		where pboard_id = #{pboard_id};
 	</update>
 	<delete id="updateMyProjectSkillDelete"> <!-- 스킬테이블에서 삭제 -->
