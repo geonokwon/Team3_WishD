@@ -85,6 +85,12 @@ public class ManagerService {
 		managerDAO.freelancerApprove(pboard_id);
 	}
 	
+//	요청 프로젝트 승인
+	public void projectApprove(Long freelancer_id) {
+		
+		managerDAO.projectApprove(freelancer_id);
+	}
+	
 //	공지사항 리스트
 	public List<CommunityDTO> getNcoList(PageDTO pageDTO) {
 		

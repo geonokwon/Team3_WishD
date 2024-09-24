@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_read</title>
+    <title>관리자 페이지</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -157,7 +157,7 @@
                     <div class="mb-3">
                         <div class="d-flex mb-2">
                             <img class="img-fluid me-2" src="${pageContext.request.contextPath}/resources/project/svg/content.svg" style="max-width: 30px; max-height: 30px" />
-                            <p class="card-title fs-5">프로젝트 세부 내용</p>
+                            <p class="card-title fs-5">상세 소개</p>
                         </div>
                         <div class="overlay-container"  style="height: 520px">
                             <c:if test="${!empty sessionScope.user_no}">
@@ -372,7 +372,7 @@
 <script>
 function denied(){
 	alert("승인을 거절했습니다.");
-	location.href = "${pageContext.request.contextPath}/manager/reqDeny/${projectDTO.getPboard_id()}";
+	location.href = "${pageContext.request.contextPath}/manager/freelancerDeny/${projectDTO.getPboard_id()}";
 }
 </script>
 <script
