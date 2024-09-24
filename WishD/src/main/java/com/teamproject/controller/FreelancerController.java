@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.teamproject.domain.FreelancerDTO;
 import com.teamproject.domain.FreelancerPageDTO;
 import com.teamproject.domain.FreelancerRequestDTO;
 import com.teamproject.domain.FreelancerRequestFileDTO;
-import com.teamproject.domain.ProjectRequestDTO;
-import com.teamproject.domain.ProjectRequestFileDTO;
+
 import com.teamproject.service.FreelancerService;
 import com.teamproject.utils.PaginationUtils;
 
@@ -142,13 +141,9 @@ public class FreelancerController {
         
         System.out.println("프리랜서 읽기 freelancerDTO" + freelancerDTO);
         if (user_no != null) {
-            if (freelancerDTO.getFreelancer_state().equals("완료")){
-            	System.out.println("완료");
-                return "redirect:/chatting/" + freelancer_id;
-            }
             //선택된 freelancer_id 가 진행중 인지 구직중 인지 조회
             System.out.println("user_no != null");
-            if (freelancerDTO.getFreelancer_state().equals("진행중")) {
+            if (freelancerDTO.getFreelancer_state().equals("진행중") || freelancerDTO.getFreelancer_state().equals("완료")) {
                 //진행중 이라면 ?
                 //request_client 테이블에 작성을 했으니
                 //매칭하기 버튼 안뜨고 바로 폼테그 보여주면서 input 안에 값들을 전부 채워넣기 modal 이용해서 DTO 넘겨주기
@@ -193,7 +188,19 @@ public class FreelancerController {
         return "true";
     }
     
-    //프로젝트 request 관리자 승인후 form 데이터 보고 취소시
+    //프리랜서 request 관리자 승인후 프리랜서가 매칭버튼 클릭시
+    @GetMapping("/freelancerMatching/{freelancer_id}")
+    public String freelancerMatching(@PathVariable("freelancer_id")Long freelancer_id) {
+    								
+    	//매칭되면?
+    	//1. 프리랜서 IsMatching을 false -> true 수정
+    	//2. 프리랜서 state를 진행중 -> 완료 수정
+    	freelancerService.setFreelancerIsMatching(freelancer_id);
+    	
+    	return "redirect:/freelancerRead/" + freelancer_id;
+    }
+    
+    //프리랜서 request 관리자 승인후 form 데이터 보고 취소시
     @GetMapping("/freelancerReqFalse/{freelancer_id}")
     public String freelancerReqFalse(@PathVariable("freelancer_id")Long freelancer_id){
         

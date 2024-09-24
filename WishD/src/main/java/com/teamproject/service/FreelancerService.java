@@ -1,8 +1,6 @@
 package com.teamproject.service;
 
 
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Arrays;
 
 import java.util.List;
@@ -39,16 +37,15 @@ public class FreelancerService {
 	private FreelancerDAO freelancerDAO;
 	
 	//프리랜서 등록
+    @Transactional
 	public void registFreelancer(FreelancerDTO freelancerDTO) {
 		System.out.println("FreelancerService RegPro");
+	
 		
-		//현재 시간 변수에 저장
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//최종수정날짜 설정
-		freelancerDTO.setFreelancer_update(timestamp);
-		
-		System.out.println("servece에서 freelancerDTO" + freelancerDTO);
+		System.out.println("service에서 freelancerDTO" + freelancerDTO);
 		freelancerDAO.registFreelancer(freelancerDTO);
+		System.out.println("service에서 freelancerDTO22" + freelancerDTO);
+		freelancerDAO.registFreelancerSkill(freelancerDTO);
 		
 	}
     //전체 job 리스트 가져오기
@@ -83,6 +80,7 @@ public class FreelancerService {
         logger.info("-> getFreelancerCount()");
         return freelancerDAO.getFreelancerCount(freelancerPageDTO);
     }
+    
     //전체 스킬 리스트 가져오기
     public List<FreelancerSkillDTO> getSkillList() {
         logger.info("-> getSkillList()");
@@ -106,37 +104,27 @@ public class FreelancerService {
                                      FreelancerRequestFileDTO freelancerRequestFileDTO) throws Exception {
         logger.info("->Service insertFreelancerRequest()");
 		
-        //프로젝트 리퀘스트 file 부분 request_file table 저장
-        //파일 Copy 처리 utils class -> Resources/upload/fileCopy
-        PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
-        personalFileCopyUtils.fileCopy(freelancerRequestFileDTO, freelancerRequestDTO.getFreelancer_id(), freelancerRequestDTO.getRequest_num());
-        
-        freelancerDAO.insetFreelancerRequestFile(freelancerRequestFileDTO);
-        
-        
-        //프로젝트 리퀘스트 폼 저장
+
+    
         System.out.println("비동기에서Service freelancerRequestDTO = " + freelancerRequestDTO);
         System.out.println("비동기에서Service freelancerRequestFileDTO= " + freelancerRequestFileDTO);
         
         //프리랜서 리퀘스트 저장하는 DAO 실행
         freelancerDAO.insertFreelancerRequest(freelancerRequestDTO);
 
-        //프로젝트 리퀘스트 스킬리스트 부분 request_skill table 저장 - 스킬테이블 사용안해서 주석처리!! 나중에 삭제
-//        Map<String, Object> freelancerRequestSkillSet = new HashMap<>();
-//        freelancerRequestSkillSet.put("request_num", freelancerRequestDTO.getRequest_num());
-//        freelancerRequestSkillSet.put("skill_id", getSkillList(freelancerRequestDTO.getSkillList()));
-//        System.out.println(freelancerRequestSkillSet);
-//        freelancerDAO.insetFreelancerRequestSkill(freelancerRequestSkillSet);
-
+        //프로젝트 리퀘스트 file 부분 request_file table 저장
+        //파일 Copy 처리 utils class -> Resources/upload/fileCopy
+        PersonalFileCopyUtils personalFileCopyUtils = new PersonalFileCopyUtils(uploadPath);
+        personalFileCopyUtils.fileCopy(freelancerRequestFileDTO, freelancerRequestDTO.getFreelancer_id(), freelancerRequestDTO.getRequest_num());
+        
+        freelancerDAO.insetFreelancerRequestFile(freelancerRequestFileDTO);
         //처리할때 freelancer_board 의 state -> 를 진행중으로 변경
         System.out.println(freelancerRequestDTO.toString());
         freelancerDAO.updateFreelancerState(freelancerRequestDTO.getFreelancer_id());
 
 
-
     }
 
-	
 
     //진행중인 board 가 있다면 request form의 값을 가져오기
     public FreelancerRequestDTO getRequestClient(Long freelancerId) {
@@ -154,19 +142,22 @@ public class FreelancerService {
 
     //매칭성공시 freelancer_board 테이블 isMatching = true 변경
     public void setFreelancerIsMatching(Long freelancer_id) {
-        logger.info("-> getFreelancerIsMatching()");
+        logger.info("-> setFreelancerIsMatching()");
         freelancerDAO.setFreelancerIsMatching(freelancer_id);
+        freelancerDAO.setCompleteState(freelancer_id);
     }
 
-    //승인와료후 프로젝트 등록자가 requestForm만 보고 취소시
+
+    
+    //승인완료후 프로젝트 등록자가 requestForm만 보고 취소시
     @Transactional
     public void deleteFreelancerRequest(Long freelancer_id) {
         logger.info("-> getFreelancerRequest()");
         freelancerDAO.setBoardState(freelancer_id);
         
-//        요청폼 삭제
+        //요청폼 삭제
         freelancerDAO.deleteFreelancerRequest(freelancer_id);
-//        freelancerDAO.deleteFreelancerRequestFile(freelancer_id);
+
     }
 
     //user_no 로 user_name 가져오기
@@ -184,6 +175,7 @@ public class FreelancerService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
 	
 	
 
