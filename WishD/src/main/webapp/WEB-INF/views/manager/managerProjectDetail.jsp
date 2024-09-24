@@ -116,7 +116,7 @@
                             <p class="mb-0">경력</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">2 년차</p>
+                            <p class="mb-0">${projectDTO.getPboard_history()} 년차</p>
                         </div>
                     </div>
                     
@@ -382,6 +382,7 @@ function denied(){
 ></script>
 <script>
     if(${projectRequestDTO != null }){
+    	requestForm.find('a').off('click');
         $("#sideCardBody_background").css("height", "1000px");
         $("#matching_Title").hide();
         $("#requestForm").show();

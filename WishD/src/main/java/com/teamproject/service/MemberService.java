@@ -37,10 +37,10 @@ public class MemberService {
 	}
 
 	// 회원 불러오기 
-	public MemberDTO getMember(String user_id) {
+	public MemberDTO getMember(Long user_no) {
 		System.out.println("MemberService getMember()");
 		
-		return memberDAO.getMember(user_id);
+		return memberDAO.getMember(user_no);
 	}
 
 	// 아이디 중복체크

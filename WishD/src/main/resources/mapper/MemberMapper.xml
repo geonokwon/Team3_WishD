@@ -28,6 +28,13 @@
 		AND u.user_pass = #{user_pass}
 	</select>
 	
+	<!-- 회원 정보 가져오기 -->
+	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
+		SELECT *
+		FROM user_info
+		where user_no = #{user_no}
+	</select>
+	
 	<!--아이디 찾기 -->
 	<select id="idFind" resultType="com.teamproject.domain.MemberDTO">
 		SELECT * 
