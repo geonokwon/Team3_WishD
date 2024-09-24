@@ -216,6 +216,25 @@ public class ManagerService {
 		managerDAO.whiteUser(user_no);
 	}
 
+//	차단된 유저 목록
+	public List<MemberDTO> getBlackList(PageDTO pageDTO) {
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+		
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
+		return managerDAO.getBlackList(pageDTO);
+	}
+
+//	차단된 유저 수
+	public int getBlackCount(PageDTO pageDTO) {
+		
+		return managerDAO.getBlackCount(pageDTO);
+	}
+
 
 	
 	

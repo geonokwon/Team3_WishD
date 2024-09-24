@@ -184,4 +184,21 @@
 		set user_yn = 0
 		where user_no = #{user_no}
 	</update>
+	
+	<!--	차단된 회원을 전달함 -->
+	<select id="getBlackList" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info 
+		where user_yn = true
+		<if test='key != 0'>
+			 user_no = #{key}
+		</if>
+		order by join_date DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	차단된 회원 수를 전달함 -->
+	<select id="getBlackCount" resultType="java.lang.Integer">
+		select count(*) from user_info
+		where user_yn = true
+	</select>
 </mapper>
