@@ -154,6 +154,7 @@ public class FreelancerDAO {
         logger.info("-> deleteFreelancer()");
         sqlSession.update(nameSpace + "deleteFreelancerRequest", freelancer_id);
     }
+    
     //Freelancer_board 의 상태값 변경 '모집중'
     public void setBoardState(Long freelancerId) {
         logger.info("-> setBoardState()");
@@ -165,6 +166,8 @@ public class FreelancerDAO {
         logger.info("-> getUserName()");
         return sqlSession.selectOne(nameSpace + "getUserName", user_no);
     }
+
+
 
 
 }

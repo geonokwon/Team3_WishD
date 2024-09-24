@@ -230,6 +230,7 @@
         WHERE freelancer_id = #{freelancer_id};
     </select>
 
+
     <!-- 매칭 성공시 isMatching 변경 -->
     <update id="setFreelancerIsMatching">
         UPDATE freelancer
@@ -239,11 +240,13 @@
     
     <!--request 단계에서 매칭 실패시 데이터 삭제 -->
     <delete id="deleteFreelancerRequest">
-        DELETE FROM request_freelancer
+        DELETE FROM request_client
         WHERE freelancer_id = #{freelancer_id}
     </delete>
+    
+	
     <!-- 매칭 취소시 -->
-    <!-- freelancer 의 state 값 변경 및 isMatching 값 변경 -->
+    <!-- freelancer 의 state 값 변경 -->
     <update id="setBoardState">
         UPDATE freelancer
         SET freelancer_state = '구직중'
