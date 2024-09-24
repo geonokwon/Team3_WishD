@@ -232,23 +232,8 @@ public class MemberController {
 		JsonNode jsonNode = objectMapper.readTree(json);
 		String access_token = jsonNode.get("access_token").textValue();
 
-
 		// if 엑세스 토큰 한번 뒤지고 똑같은 값있으면 그값으로 로그인처리해주고 아니면 그냥 로그인 화면으로 가고
-		SimpleUserDTO simpleUserDTO1 = memberService.checkToken(access_token);
-		if (simpleUserDTO1 != null) {
-			// 토큰 체크 => 있으면 user_no 로그인 처리 -> 메인으로 이동
-			session.setAttribute("user_no", simpleUserDTO1.getUser_no());
-			session.setAttribute("user_role", memberService.getMember(simpleUserDTO.getUser_no()).getUser_Role());
-			
-			if(memberService.getMember(simpleUserDTO.getUser_no()).isUser_yn()) {
-				request.setAttribute("msg", "차단된 계정입니다.");
-				session.invalidate();
-				
-				return "/manager/denyAlert";
-			}
-			
-			return "redirect:/";
-		}
+	
 
 		System.out.println("토큰 : " + access_token);
 
@@ -271,6 +256,22 @@ public class MemberController {
 		simpleUserDTO.setUser_name(for_model_responseNode.get("name").textValue());
 		simpleUserDTO.setUser_type("simple");
 
+		SimpleUserDTO simpleUserDTO1 = memberService.checkToken(simpleUserDTO.getEmail());
+		if (simpleUserDTO1 != null) {
+			// 토큰 체크 => 있으면 user_no 로그인 처리 -> 메인으로 이동
+			session.setAttribute("user_no", simpleUserDTO1.getUser_no());
+			session.setAttribute("user_role", memberService.getMember(simpleUserDTO1.getUser_no()).getUser_Role());
+			
+			if(memberService.getMember(simpleUserDTO1.getUser_no()).isUser_yn()) {
+				request.setAttribute("msg", "차단된 계정입니다.");
+				session.invalidate();
+				
+				return "/manager/denyAlert";
+			}
+			
+			return "redirect:/";
+		}
+		
 		memberService.setSimpleUesr(simpleUserDTO);
 		session.setAttribute("user_no", simpleUserDTO.getUser_no());
 		session.setAttribute("user_role", memberService.getMember(simpleUserDTO.getUser_no()).getUser_Role());
