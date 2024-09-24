@@ -79,7 +79,6 @@ public class MemberService {
 		//간편로그인 회원가입 공통 정보 저장
 		memberDAO.setSimpleUserInfo(simpleUserDTO);
 		System.out.println(simpleUserDTO.getUser_no());
-
 		memberDAO.setSimpleUesr(simpleUserDTO);
 	}
 

@@ -194,7 +194,7 @@ public class MemberController {
 				.fromUriString(basicURL)
 				.queryParam("response_type", "code")
 				.queryParam("client_id", clientID_naver)
-				.queryParam("redirect_uri", "http://localhost:8080/testProject/naver-login")
+				.queryParam("redirect_uri", "http://c1d2405t3.itwillbs.com/WishD/naver-login")
 				.queryParam("state", "11111")
 				.build().toString();
 		response.sendRedirect(uri);
