@@ -167,7 +167,7 @@
             <c:if test="${projectPageDTOList.startPage > projectPageDTOList.pageBlock}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.startPage - 10}&state=${state}"></a>
+                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.startPage - 10}&state=${state}"><</a>
             </li>
             </c:if>
 
@@ -182,7 +182,7 @@
             <c:if test="${projectPageDTOList.endPage < projectPageDTOList.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.endPage + 10}&state=${state}"></a>
+                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.endPage + 10}&state=${state}">&gt;</a>
             </li>
             </c:if>
         </ul>

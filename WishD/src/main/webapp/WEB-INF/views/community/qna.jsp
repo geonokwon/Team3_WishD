@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -59,7 +60,8 @@
             
 			<!-- 관리자는 질문 작성란이 안 뜸 -->
             <c:if test="${user_no != 999}">
-            	<a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문 작성</a>
+            	<a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>질문 작성</a><br>
+            	<a href="http://c1d2405t3.itwillbs.com/WishD/mypage" class="myQna text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
         	</c:if>
         </div>
 
@@ -79,7 +81,16 @@
 
 							<!-- 본인이 작성한 질문이거나 관리자면 미리보기 보여 주기 -->
 	                    	<c:if test="${(user_no == communityQnaDTO.user_no) || user_no == 999}">
-							    <div class="custom-content">${communityQnaDTO.qcommunity_content}</div>
+							     <div class="custom-content">
+							    <c:choose>
+							        <c:when test="${fn:length(communityQnaDTO.qcommunity_content) > 40}">
+							            ${fn:substring(communityQnaDTO.qcommunity_content, 0, 40)}...
+							        </c:when>
+							        <c:otherwise>
+							            ${communityDTO.ncommunity_content}
+							        </c:otherwise>
+							    </c:choose>
+							</div>
 							</c:if>
 							<c:if test="${(user_no != communityQnaDTO.user_no) && user_no != 999}">
 							    <div class="custom-content">비밀글입니다</div>
@@ -97,8 +108,7 @@
 		  </form>
         </div> <!-- 질문 목록 -->
 
-	    <div class="col-2 second-section-1 menutext-right">
-	        <a href="http://localhost:8080/testProject/mypage" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">4_</span>My Q&A</a><br>
+	    <div class="col-2 second-section-1">
 	    </div>
 
 	</div>

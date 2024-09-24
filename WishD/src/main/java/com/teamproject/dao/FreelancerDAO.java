@@ -106,23 +106,22 @@ public class FreelancerDAO {
 	
 	 //프리랜서 리퀘스트 폼 등록하기
     public void insertFreelancerRequest(FreelancerRequestDTO freelancerRequestDTO) {
-        logger.info("-> getFreelancerRequest()");
+        logger.info("->DAO insertFreelancerRequest()");
+        System.out.println("비동기에서DAO freelancerRequestDTO = " + freelancerRequestDTO);
+
         sqlSession.insert(nameSpace + "insertFreelancerRequest", freelancerRequestDTO);
     }
-    //프리랜서 리퀘스트 폼 skill 등록하기
-    public void insetFreelancerRequestSkill(Map<String, Object> freelancerRequestSkillSet) {
-        logger.info("-> getFreelancerRequestSkill()");
-        sqlSession.insert(nameSpace + "insetFreelancerRequestSkill", freelancerRequestSkillSet);
-    }
+
     //프리랜서 리퀘스트 폼 등록시 freelancer_state 값 '진행중' 으로 변경
     public void updateFreelancerState(Long freelancerId) {
-        logger.info("-> getFreelancer()");
+        logger.info("-> updateFreelancerState()");
         sqlSession.update(nameSpace + "updateFreelancerState", freelancerId);
     }
 
     //프리랜서 리퀘스트 폼 등록시 file 테이블 등록
     public void insetFreelancerRequestFile(FreelancerRequestFileDTO freelancerRequestFileDTO) {
         logger.info("-> insetFreelancerRequestFile()");
+        System.out.println("비동기에서DAO freelancerRequestFileDTO = " + freelancerRequestFileDTO);
         sqlSession.insert(nameSpace + "insetFreelancerRequestFile", freelancerRequestFileDTO);
     }
 
@@ -132,11 +131,11 @@ public class FreelancerDAO {
         return sqlSession.selectOne(nameSpace + "getRequestClient", freelancer_id);
     }
 
-    //request_client 데이터 가져올때 request_skill 테이블에 skill 불러오기
-    public List<FreelancerSkillDTO> getRequestSkill(Long freelancerId) {
-        logger.info("-> getRequestSkill()");
-        return sqlSession.selectList(nameSpace + "getRequestSkill", freelancerId);
-    }
+    //request_client 데이터 가져올때 request_skill 테이블에 skill 불러오기 - 스킬 요구 안함!!
+//    public List<FreelancerSkillDTO> getRequestSkill(Long freelancerId) {
+//        logger.info("-> getRequestSkill()");
+//        return sqlSession.selectList(nameSpace + "getRequestSkill", freelancerId);
+//    }
 
     //request_from 승인요청 시 보여줄 file 정보도 함께 가져간다
     public FreelancerRequestFileDTO getFreelancerRequestFile(Long freelancer_id) {

@@ -40,7 +40,7 @@ public class MyPageController {
 		// 세션에 저장된 값으로 체크
 		MemberDTO myProfile = new MemberDTO();
 		Long sessionCheck = (Long) session.getAttribute("user_no");
-		if (sessionCheck == null) {
+		if (sessionCheck == null || myProfile.isUser_yn()) {
 			return "redirect:/login";
 		}
 		// 세션에 저장된 값으로 회원정보 가져오기 내부에서 간편, 일반 구분

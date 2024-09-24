@@ -1,6 +1,6 @@
 @font-face {
     font-family: "jua";
-    src: url("http://localhost:8080/testProject/resources/fonts/Jua-Regular.ttf") format('truetype');
+    src: url("http://c1d2405t3.itwillbs.com/WishD/resources/fonts/Jua-Regular.ttf") format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -35,4 +35,31 @@ body {
 }
 .footer a:hover {
     color: #e0e0e0; /* 푸터 링크 호버 색상 */
+}
+
+.pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.205rem;
+    --bs-pagination-font-size: 1rem;
+    --bs-pagination-color: none;
+    --bs-pagination-bg: none;
+    --bs-pagination-border-radius: 50%;
+    --bs-pagination-hover-color: #6F40C8;
+    --bs-pagination-focus-color: #ffffff;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #ffffff;
+    --bs-pagination-active-border-color: #ffffff;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+}
+.pagination .page-link {
+    color: #ffffff !important;
+}
+.pagination {
+    --bs-pagination-hover-bg: #6F40C8;
+    --bs-pagination-hover-color: #6F40C8;
+    --bs-pagination-hover-border-color: #6F40C8;
+    --bs-pagination-focus-bg: #6F40C8;
 }

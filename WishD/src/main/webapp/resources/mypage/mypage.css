@@ -13,6 +13,13 @@
 	box-sizing: border-box;
 }
 
+.card:hover {
+    transform: translate(-4px, -4px);
+}
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 /* 폼 컨테이너의 래퍼 스타일 */
 .form-container-wrapper {
 	margin-top: 50px;

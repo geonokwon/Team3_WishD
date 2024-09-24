@@ -58,10 +58,12 @@ public class MemberController {
 		MemberDTO memberDTO1 = memberService.userCheck(memberDTO);
 		
 		if(memberDTO1 != null) {
-			session.setAttribute("user_no", memberDTO1.getUser_no()); 
+			session.setAttribute("user_no", memberDTO1.getUser_no());
+			session.setAttribute("user_role", memberDTO1.getUser_Role());
 			return "redirect:/";
 		}
 		else {
+			session.setAttribute("errorMessage", "아이디와 비밀번호를 다시 확인하세요.");
 			return "redirect:/login";
 		}	
 	}
@@ -254,7 +256,7 @@ public class MemberController {
 
 		memberService.setSimpleUesr(simpleUserDTO);
 		session.setAttribute("user_no", simpleUserDTO.getUser_no());
-
+		
 		// 없으면 회원가입후(DB에 저장후) 메인화면
 		return "redirect:/";
 	}

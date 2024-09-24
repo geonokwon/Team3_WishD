@@ -62,6 +62,7 @@ public class ProjectController {
         projectPageDTO.setCount(projectService.getProjectCount(projectPageDTO));
         //페이지네이션 처리(utils paginationUtils 클래스)
         PaginationUtils.pagination(projectPageDTO, pageNum, pageSize, pageBlock);
+        System.out.println(projectPageDTO.toString());
 
         //page 스킬필터 조회시 필요한 전체 스킬 데이터
         model.addAttribute("projectSkillList", projectService.getSkillList());
@@ -136,8 +137,7 @@ public class ProjectController {
     public String projectReadRequest(@PathVariable("pboard_id")Long pboard_id,
                                      HttpSession session,
                                      ProjectRequestFileDTO projectRequestFileDTO,
-                                     ProjectRequestDTO projectRequestDTO,
-                                     Model model) throws Exception {
+                                     ProjectRequestDTO projectRequestDTO) throws Exception {
         logger.info("-> projectReadRequest()");
         projectRequestDTO.setPboard_id(pboard_id);
         projectRequestDTO.setUser_no((Long) session.getAttribute("user_no"));
@@ -154,6 +154,7 @@ public class ProjectController {
         return "redirect:/projectRead/" + pboard_id;
     }
 
+    //프로젝트 등록페이지
     @GetMapping("/projectWrite")
     public String projectWrite(HttpSession session,Model model){
         logger.info("-> projectWrite()");
