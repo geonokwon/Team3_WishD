@@ -568,6 +568,7 @@
 						<!-- Pagination -->
 						
 						<!-- 보낸요청에 다른버튼 뜨는 문제 -->
+						<c:if test="${myProjectRequestDTOList.size() > 0 || ! empty myProjectPageDTO}">
 						<nav aria-label="Page navigation">
 							<ul class="pagination justify-content-center">
 								<!-- 5칸씩 뒤로 이동 버튼 -->
@@ -593,6 +594,7 @@
 								</c:if>
 							</ul>
 						</nav>
+					</c:if>
 					</c:if>
 					
 					
