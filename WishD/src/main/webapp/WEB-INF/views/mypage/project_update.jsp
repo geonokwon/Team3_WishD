@@ -147,7 +147,7 @@
                                    autocomplete="off"
                                    required
                                    value="${myProjectDTO.pboard_history}"
-                            />
+                            /> 
                         </div>
                         <div class="col-auto ms-2">
                             <label for class="mb-0">년차 이상</label>
