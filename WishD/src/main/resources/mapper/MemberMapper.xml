@@ -97,8 +97,8 @@
 	<!-- 간편로그인 중복가입 오류 방지 -->
 	<select id="CheckToken" resultType="com.teamproject.domain.SimpleUserDTO">
 		SELECT *
-		FROM simple_user
-		WHERE access_token = #{access_token}
+		FROM user_info
+		WHERE email = #{email}
 	</select>
 
 </mapper>

@@ -83,9 +83,9 @@ public class MemberService {
 	}
 
 	//간편로그인시 이메일로 DB에서 사용자 조회 => 있으면 로그인 처리
-	public SimpleUserDTO checkToken(String access_token) {
+	public SimpleUserDTO checkToken(String email) {
 		System.out.println("MemberService CheckToken()");
-		return memberDAO.checkToken(access_token);
+		return memberDAO.checkToken(email);
 	}
 
 	

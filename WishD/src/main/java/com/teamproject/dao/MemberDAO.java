@@ -94,9 +94,9 @@ public class MemberDAO {
 
 	}
 
-	public SimpleUserDTO checkToken(String access_token) {
+	public SimpleUserDTO checkToken(String email) {
 		System.out.println("MemberDAO CheckToken");
-		return sqlSession.selectOne(namespace + "CheckToken", access_token);
+		return sqlSession.selectOne(namespace + "CheckToken", email);
 		
 	}
 
