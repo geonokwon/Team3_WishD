@@ -149,6 +149,18 @@ public class ManagerDAO {
 		return sqlSession.selectOne(namespace+"getUserQnaCount", pageDTO);
 	}
 
+//	회원을 차단함
+	public void blackUser(Long user_no) {
+		
+		sqlSession.update(namespace+"blackUser", user_no);
+	}
+	
+//	회원 차단을 해제함
+	public void whiteUser(Long user_no) {
+		
+		sqlSession.update(namespace+"whiteUser", user_no);
+	}
+
 	
 	
 }

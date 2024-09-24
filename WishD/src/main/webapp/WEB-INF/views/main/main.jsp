@@ -46,14 +46,17 @@
 </div>
 <div class="wrap">
 	<div class="intro">
+		<div class="intro-image"><img src="${pageContext.request.contextPath }/resources/img/money.svg"/></div>
 		<div class="intro-head">100% FREE</div>
 		<p class="intro-text">검색과 프리랜서 찾기, 프로젝트 찾기는 돈이 들지 않아요!</p>
 	</div>
 	<div class="intro">
+		<div class="intro-image"><img src="${pageContext.request.contextPath }/resources/img/person.svg"/></div>
 		<div class="intro-head">100% 인증</div>
-		<p class="intro-text">게시글을 작성할 시 100% 운영자 인증 완료 후 게시해요!</p>
+		<p class="intro-text">매칭할 때 100% 운영자 인증 완료 후 매칭해요!</p>
 	</div>
 	<div class="intro">
+		<div class="intro-image"><img src="${pageContext.request.contextPath }/resources/img/puzzle.svg"/></div>
 		<div class="intro-head">검증된 프리랜서</div>
 		<p class="intro-text">경력 10년 이상의 매칭 매니저가 평가 데이터 및 정성/정량 평가서를 기반으로 프리랜서를 정교하게 검증합니다!</p>
 	</div>
