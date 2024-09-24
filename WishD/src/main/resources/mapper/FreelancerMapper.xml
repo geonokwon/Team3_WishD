@@ -43,14 +43,14 @@
 	</select>
 	
 	<!-- 	프리랜서 등록 -->
-	<insert id="resistFreelancer">
-		insert into freelancer(freelancer_id, user_no, freelancer_salary, freelancer_startdate,
+	<insert id="resistFreelancer" useGeneratedKeys="true" keyProperty="freelancer_id" keyColumn="freelancer_id">
+		insert into freelancer(user_no, freelancer_salary, freelancer_startdate,
 								 freelancer_exp, dev_exp, freelancer_introduction, freelancer_link, freelancer_state,
-								 freelancer_update, job_id)
-		values(	#{freelancer_id},#{user_no},#{freelancer_salary},
+								  job_id)
+		values(	#{user_no},#{freelancer_salary},
 				#{freelancer_startdate},#{freelancer_exp},#{dev_exp},
 				#{freelancer_introduction},#{freelancer_link},"구직중",
-				#{freelancer_update},#{job_id});
+				#{job_id});
 	</insert>
 	
 	<!-- 	프리랜서 스킬들 등록 -->
@@ -238,6 +238,12 @@
         WHERE freelancer_id = #{freelancer_id}
     </update>
     
+	<!-- 매칭 성공시 freelancer_state = "완료"로 변경 -->
+    <update id="setCompleteState">
+        UPDATE freelancer
+        SET freelancer_State = "완료"
+        WHERE freelancer_id = #{freelancer_id}
+    </update>
     <!--request 단계에서 매칭 실패시 데이터 삭제 -->
     <delete id="deleteFreelancerRequest">
         DELETE FROM request_client

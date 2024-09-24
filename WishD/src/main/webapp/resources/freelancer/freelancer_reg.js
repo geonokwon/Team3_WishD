@@ -118,6 +118,16 @@ function validateSkill() {
     }
 }
 
+//상세 소개 유효성 검사
+function validateIntroduction() {
+    const introduction = document.forms["fr"]["freelancer_introduction"].value;
+
+    if (introduction == "") {
+        document.getElementById("introduction_error").innerHTML = "상세 소개를 입력해주세요.";
+    } else {
+        document.getElementById("introduction_error").innerHTML = "";
+    }
+}
 //양식을 controller로 제출
 function submitForm() {
     let isValid = true;
@@ -170,7 +180,15 @@ function submitForm() {
         if (!firstInvalidField) firstInvalidField = document.getElementById("skill");
         isValid = false;
     }
-
+    
+    //상세 소개 확인
+    const introduction = document.forms["fr"]["freelancer_introduction"].value;
+    if (introduction == "") {
+        document.getElementById("introduction_error").innerHTML = "상세 소개를 입력해주세요.";
+        if (!firstInvalidField) firstInvalidField = document.forms["fr"]["freelancer_introduction"];
+        isValid = false;
+    }
+    
     // 유효하지 않다면 첫 번째로 비어있는 필드로 포커스 이동
     if (!isValid) {
         if (firstInvalidField) firstInvalidField.focus();
