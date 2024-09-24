@@ -290,7 +290,7 @@
 							<c:forEach begin="${myFreelancerPageDTO.startPage}"
 								end="${myFreelancerPageDTO.endPage}" var="page">
 								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.search}&freelancerStatus=${param.freelancerStatus}">${page}</a>
+									href="${pageContext.request.contextPath}/mypage?freeLencerPageNum=${page}&freelancerSearch=${param.freelancerSearch}&freelancerStatus=${param.freelancerStatus}">${page}</a>
 								</li>
 							</c:forEach>
 
@@ -522,7 +522,8 @@
 										<!-- 타이틀 -->
 										<a class="nav-link mb-3 fs-4"
 											href="${pageContext.request.contextPath}/projectRead/${myprojectDTO.pboard_id }">
-											${fn:length(myprojectDTO.pboard_title) > 40 ? fn:substring(myprojectDTO.pboard_title, 0, 40) + '...' : myprojectDTO.pboard_title}
+											${fn:substring(myprojectDTO.pboard_title, 0, 40)}
+   											<c:if test="${fn:length(myprojectDTO.pboard_title) > 40}">...</c:if>
 										</a>
 
 										<!-- 필요 스킬 -->
@@ -624,7 +625,11 @@
 
 										<!-- 타이틀 -->
 										<a class="nav-link mb-3 fs-4"
-											href="${pageContext.request.contextPath}/projectRead/${myRequestProjectDTO.pboard_id }">${myRequestProjectDTO.pboard_title}</a>
+											href="${pageContext.request.contextPath}/projectRead/${myRequestProjectDTO.pboard_id }">
+											${fn:substring(myRequestProjectDTO.pboard_title, 0, 40)}
+   											<c:if test="${fn:length(myRequestProjectDTO.pboard_title) > 40}">...</c:if>
+<%-- 											${myRequestProjectDTO.pboard_title} --%>
+										</a>
 
 										<!-- 필요 스킬 -->
 										<div class="d-flex mb-2">
@@ -701,7 +706,11 @@
 						<div class="row">
 							<div class="col">
 								<div class="custom-title text-change-box">${myQnaDTO.qcommunity_title }</div>
-								<div class="custom-content">${myQnaDTO.qcommunity_content }</div>
+								<div class="custom-content">
+<%-- 								${myQnaDTO.qcommunity_content } --%>
+											${fn:substring(myQnaDTO.qcommunity_content, 0, 40)}
+   											<c:if test="${fn:length(myQnaDTO.qcommunity_content) > 40}">...</c:if>
+								</div>
 							</div>
 							<div class="col">
 								<div class="custom-date">${myQnaDTO.qcommunity_date }</div>
