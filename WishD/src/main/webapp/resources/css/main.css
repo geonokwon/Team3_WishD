@@ -65,8 +65,9 @@
 }
 
 .intro img{
-	margin:auto;
-	display:block;
+	margin-left:92px;
+	margin-right:92px;
+	display:block; 
 }
 
 .intro-image{
