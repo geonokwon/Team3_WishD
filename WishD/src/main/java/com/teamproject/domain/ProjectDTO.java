@@ -16,6 +16,7 @@ public class ProjectDTO {
     private int job_id;
     private String job_name;
     private String pboard_state;
+    private int pboard_history;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
     private Boolean pboard_isMatching;
@@ -28,7 +29,6 @@ public class ProjectDTO {
 
     //pboard_id 값에 따른 skill 등록한것 가져오기
     private List<ProjectSkillDTO> skills;
-
 
 
     public String getSkillList() {
@@ -111,6 +111,14 @@ public class ProjectDTO {
         this.pboard_state = pboard_state;
     }
 
+    public int getPboard_history() {
+        return pboard_history;
+    }
+
+    public void setPboard_history(int pboard_history) {
+        this.pboard_history = pboard_history;
+    }
+
     public Timestamp getPboard_date() {
         return pboard_date;
     }
@@ -179,6 +187,7 @@ public class ProjectDTO {
                 ", job_id=" + job_id +
                 ", job_name='" + job_name + '\'' +
                 ", pboard_state='" + pboard_state + '\'' +
+                ", pboard_history=" + pboard_history +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +
                 ", pboard_isMatching=" + pboard_isMatching +

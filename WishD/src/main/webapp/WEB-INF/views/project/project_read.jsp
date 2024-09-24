@@ -105,7 +105,7 @@
                             <p class="mb-0">경력</p>
                         </div>
                         <div class="col-6 d-flex align-items-center text-end-fixed">
-                            <p class="mb-0">2 년차</p>
+                            <p class="mb-0">${projectDTO.getPboard_history()} 년차</p>
                         </div>
                     </div>
 
