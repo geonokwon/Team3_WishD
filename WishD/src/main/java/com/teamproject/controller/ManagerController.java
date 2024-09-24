@@ -230,13 +230,33 @@ public class ManagerController {
     }
 	
 //	요청 프리랜서 승인 거부하기
-	@GetMapping("/reqDeny/{pboard_id}")
-    public String reqDeny(@PathVariable("pboard_id")Long pboard_id, HttpSession session){
+	@GetMapping("/freelancerDeny/{pboard_id}")
+    public String freelancerDeny(@PathVariable("pboard_id")Long pboard_id, HttpSession session){
 		if(managerCert(session)) return "redirect:/";
 		
         projectService.deleteProjectRequest(pboard_id);
         
         return "redirect:/manager/managerApFreelancer";
+    }
+	
+//	요청 프로젝트 승인하기
+	@PostMapping("projectApprove/{freelancer_id}")
+    public String projectApprove(@PathVariable("freelancer_id")Long freelancer_id, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.projectApprove(freelancer_id);
+        
+        return "redirect:/manager/managerApProject";
+    }
+	
+//	요청 프로젝트 거부하기
+	@GetMapping("/projectDeny/{freelancer_id}")
+    public String projectDeny(@PathVariable("freelancer_id")Long freelancer_id, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+        freelancerService.deleteFreelancerRequest(freelancer_id);
+        
+        return "redirect:/manager/managerApProject";
     }
 	
 //	공지사항 목록

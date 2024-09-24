@@ -70,6 +70,12 @@ public class ManagerDAO {
 		
 		sqlSession.update(namespace+"freelancerApprove", pboard_id);
 	}
+	
+//	요청 프로젝트 승인
+	public void projectApprove(Long freelancer_id) {
+		
+		sqlSession.update(namespace+"projectApprove", freelancer_id);
+	}
 
 //	공지사항 목록
 	public List<CommunityDTO> getNcoList(PageDTO pageDTO) {
