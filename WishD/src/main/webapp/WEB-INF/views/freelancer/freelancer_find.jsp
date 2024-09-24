@@ -216,16 +216,7 @@
             </c:if>
         </ul>
     </nav>
-	
-	
-	
-	
 	</div> <!-- main container -->
-
-
-
-
-
 
 	<!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
