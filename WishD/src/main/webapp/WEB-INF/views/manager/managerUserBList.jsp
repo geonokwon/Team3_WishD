@@ -46,17 +46,17 @@
 					<th scope="col">이름</th>
 					<th scope="col">이메일</th>
 					<th scope="col">가입일</th>
-					<th scope="col"> </th>
+					<th scope="col">블랙리스트 해제</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="memberDTO" items="${userList }">
+			<c:forEach var="memberDTO" items="${blackList }">
 				<tr>
 					<td>${memberDTO.user_no }</td>
 					<td><a href="${pageContext.request.contextPath}/manager/userInfo/${memberDTO.getUser_no()}">${memberDTO.user_name }</a></td>
 					<td>${memberDTO.email }</td>
 					<td>${memberDTO.join_date }</td>
-					<td> </td>
+					<td><a href="#" class="btn btn-primary4 text-light text-decoration-none" onclick="whiteCheck(${memberDTO.user_no })">석방</a></td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -101,5 +101,14 @@
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
 
+<script>
+function whiteCheck(a){
+	if(confirm("정말 해당 유저를 블랙리스트에서 해제하시겠습니까?")==true){
+		location.href = "${pageContext.request.contextPath}/manager/whiteUser/"+a;
+	} else {
+		return false;
+	}
+}
+</script>
 </body>
 </html>

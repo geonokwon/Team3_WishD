@@ -320,7 +320,7 @@
                                 <button type="submit" class="btn btn-primary" id="agree_button" >승인하기</button>
                             </div>
                             <div class="card" id="btn-container">
-                            	<button type="button" class="btn btn-secondary" onclick="denied()">승인거절</button>
+                            	<button type="button" class="btn btn-secondary" id="deny_button" onclick="denied()">승인거절</button>
                             </div>
                         </form>
                         <!-- 폼 end -->
@@ -372,7 +372,7 @@
 <script>
 function denied(){
 	alert("승인을 거절했습니다.");
-	location.href = "${pageContext.request.contextPath}/reqDeny/${projectDTO.getPboard_id()}";
+	location.href = "${pageContext.request.contextPath}/manager/reqDeny/${projectDTO.getPboard_id()}";
 }
 </script>
 <script
@@ -455,6 +455,7 @@ function denied(){
     $(document).ready(function() {
         $('#projectReadForm').on('submit', function(event) {
             $('#agree_button').prop('disabled', true);
+            $('#deny_button').prop('disabled', true);
             event.preventDefault(); // 폼의 기본 제출 동작을 방지
             const form = $(this);
 

@@ -161,6 +161,18 @@ public class ManagerDAO {
 		sqlSession.update(namespace+"whiteUser", user_no);
 	}
 
+//	차단된 유저 목록
+	public List<MemberDTO> getBlackList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getBlackList", pageDTO);
+	}
+
+//	차단된 유저 수
+	public int getBlackCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getBlackCount", pageDTO);
+	}
+
 	
 	
 }
