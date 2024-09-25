@@ -141,8 +141,7 @@
                         <div class="overlay-container"  style="height: 520px">
                             <c:if test="${!empty sessionScope.user_no}">
                                 <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
-                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">
-                                    ${freelancerDTO.getFreelancer_introduction()}
+                                <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">${freelancerDTO.getFreelancer_introduction()}
                                 </pre>
                             </c:if>
                             <c:if test="${empty sessionScope.user_no}">
@@ -151,9 +150,7 @@
                                     ${freelancerDTO.getFreelancer_introduction()}
                                 </pre>
                                 <div class="overlay-message active">
-                                    <div>
-                                        <button class="btn btn-primary my-2 mx-4" onclick="location.href='${pageContext.request.contextPath}/login'">로그인 / 회원가입</button>
-                                    </div>
+
                                 </div>
                             </c:if>
                         </div>
@@ -214,11 +211,25 @@
                                            placeholder="개월 수"
                                            autocomplete="off"
                                            required />
-<!--                                       name="f_request_history" -->
                                 </div>
+
                                 <div class="col-4">개월</div>
                             </div>
+                            
+<!-- 							프로젝트 상세 소개 -->
 
+
+
+<!-- 							<div class="mb-4"> -->
+<!-- 							    <label for="cl_content" class="mb-1">프로젝트 상세 소개</label> -->
+<!-- 							    <pre class="form-control bg-dark"  -->
+<!-- 							         id="cl_content"  -->
+<!-- 							         name="cl_content"  -->
+<!-- 							         style="overflow-y: auto; width:100%; height:200px; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;" -->
+<%-- 							         ><c:if test="${not empty freelancerRequestDTO.getCl_content()}"><c:out value="${freelancerRequestDTO.getCl_content()}" /></c:if> </pre> --%>
+<!-- 							</div> -->
+
+<!-- 								만약 요청 전이면 밑에 있는 폼을 보냄 -->
 				    		<div class="mb-4">
                                 <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
 									 <textarea class="form-control bg-dark" 
@@ -227,7 +238,7 @@
 										 style="height:200px; width:100%; resize:none;" 
 										 rows="5" 
 										 cols="5" 
-										 maxlength="50000"></textarea>
+										 maxlength="5000"></textarea>
 				    		</div>
 
 
@@ -381,7 +392,6 @@ const freelancerUserNo1 = "${freelancerDTO.getUser_no()}";
 const freelancerId = "${freelancerDTO.getFreelancer_id()}";
 let completeFreelancer = "${freelancerDTO.getFreelancer_state()}";
 let isAgree = "${freelancerRequestDTO.getCl_request_isAgree()}";
-console.log("ㄴㅇㄹㄴㅇㄹㅇㄴㄹ");
 console.log(isAgree);
 	if (userNo1 === freelancerUserNo1) {
 	    $('#update_button').click(function() {
@@ -442,9 +452,9 @@ console.log(isAgree);
 	        //프로젝트 제목
 	        $("#cl_subject").val("${freelancerRequestDTO.getCl_subject()}");
 	        
+
 	        //상세 소개
 			$("#cl_content").val("<c:out value='${freelancerRequestDTO.getCl_content()}' />");
-
 	
 	        //프로젝트 예상기간
 	        $("#cl_rangeMonth").val("${freelancerRequestDTO.getCl_rangeMonth()}");
@@ -458,15 +468,29 @@ console.log(isAgree);
 	        let date = "${freelancerRequestDTO.getCl_startDate()}".split(" ")[0];
 	        $("#request_startDate").val(date);
 			
+	        
+	        
+	        
+	        
 	        if(completeFreelancer === "완료"){
+	        	//매칭완료된 이후 프리랜서 글작성자, 요청 작성자 모두 프로젝트 담당자 확인 가능
 		        //담당자 이름
 		        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
 		        
 		        //담당자 이메일
-		        $("#request_email").val("${freelancerRequestDTO.getCl_name()}");
+		        $("#request_email").val("${freelancerRequestDTO.getCl_email()}");
 	        }else{
-		        $("#request_name").val("매칭 후 담당자 이름이 공개됩니다"); 
-		        $("#request_email").val("매칭 후 담당자 이메일이 공개됩니다");
+	        	if(sessionUserNo === freelancerUserNo){
+			        $("#request_name").val("매칭 후 담당자 이름이 공개됩니다"); 
+			        $("#request_email").val("매칭 후 담당자 이메일이 공개됩니다");
+		        }else{
+					//요청 작성자는 매칭 완료전에도 담당자 이름과 이메일을 확인 가능
+			        //담당자 이름
+			        $("#request_name").val("${freelancerRequestDTO.getCl_name()}");
+			        
+			        //담당자 이메일
+			        $("#request_email").val("${freelancerRequestDTO.getCl_email()}");
+		        }
 		    }
 	        //각종동의
 	        $("#agree_1").prop("checked", true);

@@ -149,7 +149,7 @@
 		    		
 					<!-- 3-1) 상세 소개 -->
 		    		<div class="col-md-12 my-1 px-5 p-1">
-							<h6>상세 소개</h6>
+							<h6>상세 소개<span style="color:red;"> *</span></h6>
 							 <textarea class="form-control bg-dark" 
 								 name="freelancer_introduction" 
 								 style="color:white; height:200px; width:100%; resize:none;" 
