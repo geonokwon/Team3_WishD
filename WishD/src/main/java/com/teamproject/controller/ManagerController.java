@@ -692,15 +692,162 @@ public class ManagerController {
 		return "/manager/managerUserBList";
 	}
 	
-	
-	
-	
-//	테스트용 코드
-	@GetMapping("/managerTest1")
-	public String managerTest1(HttpSession session) {
+//	기술 관리 페이지
+	@GetMapping("/managerSkillList")
+	public String skillList(HttpServletRequest request, Model model, HttpSession session) {
 		if(managerCert(session)) return "redirect:/";
 		
-		return "/manager/managerBoardTemp";
+		System.out.println("managerSkillList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		String search = request.getParameter("search");
+		
+		System.out.println(search);
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+
+		if(!(search == null||search == "")) {
+			pageDTO.setSearch(search);
+		}
+		
+		List<SkillDTO> skillList = managerService.getSkillList(pageDTO);
+		
+		int count = managerService.getSkillCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("skillList", skillList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		return "/manager/managerSkillList";
 	}
+	
+//	기술을 삽입함
+	@PostMapping("managerInsertSkill")
+    public String insertSkill(HttpServletRequest request, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.insertSkill(request.getParameter("newItem"));
+        
+        return "redirect:/manager/managerSkillList";
+    }
+	
+//	직무 관리 페이지
+	@GetMapping("/managerJobList")
+	public String jobList(HttpServletRequest request, Model model, HttpSession session) {
+		if(managerCert(session)) return "redirect:/";
+		
+		System.out.println("managerJobList()");
+		
+		String pageNum = request.getParameter("pageNum");
+		String search = request.getParameter("search");
+		
+		System.out.println(search);
+		
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+
+		if(!(search == null||search == "")) {
+			pageDTO.setSearch(search);
+		}
+		
+		List<JobDTO> jobList = managerService.getJobList(pageDTO);
+		
+		int count = managerService.getJobCount(pageDTO);
+		
+		int pageBlock = 10;
+		
+		int startPage = (currentPage-1) / pageBlock * pageBlock + 1;
+		
+		int endPage = startPage + pageBlock - 1;
+		
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+		
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println(pageDTO.toString());
+		
+		model.addAttribute("jobList", jobList);
+		model.addAttribute("pageDTO", pageDTO);
+		
+		return "/manager/managerJobList";
+	}
+	
+//	직무를 삽입함
+	@PostMapping("managerInsertJob")
+    public String insertJob(HttpServletRequest request, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.insertJob(request.getParameter("newItem"));
+        
+        return "redirect:/manager/managerJobList";
+    }
+	
+//	계정에 관리자 권한 부여
+	@GetMapping("/adminOn/{user_no}")
+    public String adminOn(@PathVariable("user_no")Long user_no, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.adminOn(user_no);
+        
+        return "redirect:/manager/userInfo/{user_no}";
+    }
+	
+//	계정에 관리자 권한 해제
+	@GetMapping("/adminOff/{user_no}")
+    public String adminOff(@PathVariable("user_no")Long user_no, HttpSession session){
+		if(managerCert(session)) return "redirect:/";
+		
+		managerService.adminOff(user_no);
+        
+        return "redirect:/manager/userInfo/{user_no}";
+    }
 	
 }
