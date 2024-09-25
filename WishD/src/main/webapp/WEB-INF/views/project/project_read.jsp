@@ -130,8 +130,6 @@
                             <c:if test="${!empty sessionScope.user_no}">
                                 <!-- 로그인된 경우 프로젝트 세부 내용 표시 -->
                                 <pre  class="textArea1 card-text" style="overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">${projectDTO.getPboard_content()}</pre>
-
-
                             </c:if>
                             <c:if test="${empty sessionScope.user_no}">
                                 <!-- 로그인되지 않은 경우 오버레이와 로그인 버튼 표시 -->
@@ -265,7 +263,7 @@
                                 <label for="formFile" class="form-label">이력서 / 경력증명서 / 포토폴리오</label>
                                 <p style="font-size: 12px; color: #aaaaaa">* 하나의 pdf 파일로 올려주세요</p>
                                 <input class="form-control bg-dark" type="file" id="formFile" name="file"
-<%--                                       accept=".pdf" --%>
+                                       accept=".pdf"
                                        required/>
                                 <!-- 파일업로드 후 승인요청 시 파일 다운로드 할수있게 보여줌 -->
                                 <div class="form-control bg-dark" type="text" id="requestFile" style="display: none">

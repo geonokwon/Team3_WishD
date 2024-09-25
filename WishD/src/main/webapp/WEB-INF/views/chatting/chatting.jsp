@@ -125,7 +125,9 @@
                             <p class="card-title fs-5">프로젝트 세부 내용</p>
                         </div>
                         <!-- 공백과 줄바꿈을 그대로 반영하는 pre 태그 사용 -->
-                        <pre class="card-text" style="height: 480px;">${projectDTO.getPboard_content()}</pre>
+                        <div style="height: 484px">
+                            <pre class="card-text" style=" overflow-y: auto; max-height: 100%; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;">${projectDTO.getPboard_content()}</pre>
+                        </div>
                     </div>
 
                     <!-- 채팅시 프로젝트 완료 및 매칭취소 버튼 -->

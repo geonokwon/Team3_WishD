@@ -31,9 +31,9 @@
 <!-- main content -->
 
 <!-- 컨테이너 -->
-<div class="container-fluid">
+<div class="container">
     <!-- 섹션1 -->
-    <div class="first-section d-flex">
+    <div class="container-fluid first-section d-flex">
 
         <div class="col-2 first-section-1 menutext-left">
         </div>
@@ -54,7 +54,7 @@
     <!-- 섹션 2 -->
     <div class="second-section d-flex" style="height: 900px;">
 
-        <div class="col-2 second-section-1 menutext-left">
+        <div class="col-1 second-section-1 menutext-left">
             <a href="community" class="comnotice text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
             <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
             
@@ -66,7 +66,7 @@
         </div>
 
         <!-- 질문 목록 -->
-        <div class="col-8 second-section-2">
+        <div class="col-10 second-section-2">
           <form method="post" action="/qna">
 			<c:forEach items="${communityQnaList}" var="communityQnaDTO">
 	            <div class="row">
@@ -87,7 +87,7 @@
 							            ${fn:substring(communityQnaDTO.qcommunity_content, 0, 40)}...
 							        </c:when>
 							        <c:otherwise>
-							            ${communityDTO.ncommunity_content}
+							            ${communityQnaDTO.qcommunity_content}
 							        </c:otherwise>
 							    </c:choose>
 							</div>
@@ -108,7 +108,7 @@
 		  </form>
         </div> <!-- 질문 목록 -->
 
-	    <div class="col-2 second-section-1">
+	    <div class="col-1">
 	    </div>
 
 	</div>

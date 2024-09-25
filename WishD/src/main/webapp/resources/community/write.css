@@ -313,16 +313,18 @@ body {
 
 /* 섹션 2 */
 .second-section {
+
     height: auto;
-    min-height: 450px;
+    /*min-height: 450px;*/
     display: flex; /* 자식 요소들을 수평으로 배치 */
 }
 
 .second-section-1 {
-    justify-content: end;
+    justify-content: center;
 }
 
 .second-section-2 {
+    width: 1500px;
     padding: 20px; /* 내용과 구역 경계 간의 간격 조정 */
     background-color: #14182600; /* 카드 배경색 */
     color: #e0e0e0; /* 배경색 예시 */
@@ -404,7 +406,7 @@ body {
     width: 100%;
     min-height: 450px;
     resize: none; /* 스크롤바 조정 못 하게 */
-    overflow: hidden;     스크롤바 없애기
+    overflow: hidden; /* 스크롤바 없애기 */
     white-space: normal;  /* 텍스트 줄바꿈 허용 */
     overflow-wrap: break-word; /* 긴 단어 줄바꿈 */
 }
@@ -429,16 +431,12 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: none;
-    margin-bottom: none; 
 }
 
 .write-line1 {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 98%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: none;
-    margin-bottom: none; 
 }
 
 
