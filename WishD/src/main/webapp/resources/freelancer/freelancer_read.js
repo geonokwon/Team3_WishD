@@ -7,19 +7,6 @@ if (disagree_btn){
 }
 //버튼 이동 관련 end
 
-//모아보기 토글
-function toggleState() {
-    // 현재 체크 상태에 따라 state 값을 변경
-    let isChecked = document.getElementById('projectBoardState').checked;
-    let newState = isChecked ? 0 : 1;
-    // 페이지 이동, state 값에 따라 URL 변경
-    console.log("isChecked : " + isChecked);
-    console.log("newState : " + newState);
-
-    location.href = `${basePath}/projectFind?state=` + newState;
-}
-
-//모아보기 토글 end
 
 
 //input text 타입을 -> 숫자만 입력받을수 있는 함수
