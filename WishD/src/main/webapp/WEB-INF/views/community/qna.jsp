@@ -31,25 +31,24 @@
 <!-- main content -->
 
 <!-- 컨테이너 -->
+<div class="container-fluid first-section d-flex">
+    <div class="col-2 first-section-1 menutext-left">
+    </div>
+    <div class="col-8 first-section-2">
+        <p class="headtext">
+            Working on a computer is cool.
+            <br>It doesn't fight with you, it remembers everything,
+            <br><span class="color" style="margin-right: 24.5rem;">it doesn't steal my beer.</span>
+        </p>
+    </div>
+    <div class="col-2 first-section-3 menutext-right">
+        <p class="user-number"><span class="color" style="color: rgb(119, 121, 169);">developers</span><br>connected now</p>
+    </div>
+</div>
+</div>
 <div class="container">
     <!-- 섹션1 -->
-    <div class="container-fluid first-section d-flex">
 
-        <div class="col-2 first-section-1 menutext-left">
-        </div>
-
-        <div class="col-8 first-section-2">
-            <p class="headtext">
-                Working on a computer is cool.
-                <br>It doesn't fight with you, it remembers everything,
-                <br><span class="color" style="margin-right: 24.5rem;">it doesn't steal my beer.</span>
-            </p>
-        </div>
-
-        <div class="col-2 first-section-3 menutext-right">
-            <p class="user-number"><span class="color" style="color: rgb(119, 121, 169);">developers</span><br>connected now</p>
-        </div>
-    </div>
 
     <!-- 섹션 2 -->
     <div class="second-section d-flex" style="height: 900px;">
