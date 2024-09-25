@@ -117,18 +117,18 @@ body {
 .footer a:hover {
     color: #e0e0e0; /* 푸터 링크 호버 색상 */
 }
-.pagination .page-link {
-    color: #007bff; /* 페이지네이션 링크 색상 */
-}
-.pagination .page-link:hover {
-    color: #0056b3; /* 페이지네이션 링크 호버 색상 */
-}
+
 .custom-hr {
     border: none;
     /* 색상, 두께 설정 */
     border-top: 3px solid #445283;
 }
-
+.active>.page-link, .page-link.active {
+    z-index: 3;
+     color: var(--bs-pagination-active-color);
+    /* background-color: var(--bs-pagination-active-bg); */
+    border-color: var(--bs-pagination-active-border-color);
+}
 
 .headtext {
     font-size: 34px; /* 폰트 크기 설정 */
