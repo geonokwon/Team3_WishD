@@ -324,7 +324,7 @@ body {
 }
 
 .second-section-2 {
-    width: 1500px;
+    /*width: 1500px;*/
     padding: 20px; /* 내용과 구역 경계 간의 간격 조정 */
     background-color: #14182600; /* 카드 배경색 */
     color: #e0e0e0; /* 배경색 예시 */
