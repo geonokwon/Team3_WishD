@@ -216,33 +216,36 @@
                                 <div class="col-4">개월</div>
                             </div>
                             
-<!-- 							프로젝트 상세 소개 -->
 
 
 
-<!-- 							<div class="mb-4"> -->
-<!-- 							    <label for="cl_content" class="mb-1">프로젝트 상세 소개</label> -->
-<!-- 							    <pre class="form-control bg-dark"  -->
-<!-- 							         id="cl_content"  -->
-<!-- 							         name="cl_content"  -->
-<!-- 							         style="overflow-y: auto; width:100%; height:200px; word-wrap: break-word; white-space: pre-wrap; word-break:break-all;" -->
-<%-- 							         ><c:if test="${not empty freelancerRequestDTO.getCl_content()}"><c:out value="${freelancerRequestDTO.getCl_content()}" /></c:if> </pre> --%>
-<!-- 							</div> -->
+							<!-- 요청 전 프로젝트 상세 소개 -->
+							<c:if test = "${empty freelancerRequestDTO.getCl_content() }">
+					    		<div class="mb-4">
+	                                <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
+										 <textarea class="form-control bg-dark" 
+										 	 id="cl_content"
+											 name="cl_content" 
+											 style="height:200px; width:100%; resize:none;" 
+											 rows="5" 
+											 cols="5" 
+											 maxlength="5000"
+											 required></textarea>
+					    		</div>			
+							</c:if>
 
-<!-- 								만약 요청 전이면 밑에 있는 폼을 보냄 -->
-				    		<div class="mb-4">
-                                <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
-									 <textarea class="form-control bg-dark" 
-									 	 id="cl_content"
-										 name="cl_content" 
-										 style="height:200px; width:100%; resize:none;" 
-										 rows="5" 
-										 cols="5" 
-										 maxlength="5000"></textarea>
-				    		</div>
+							<!-- 요청 후 프로젝트 상세 소개 -->
 
-
-
+								<c:if test = "${freelancerDTO.getFreelancer_state() ne '구직중'}">
+								    <c:if test = "${sessionScope.user_no == freelancerRequestDTO.getUser_no() || freelancerRequestDTO.getCl_request_isAgree()}">
+								        <div class="mb-4">
+								            <label for="cl_content" class="mb-1">프로젝트 상세 소개</label>
+								            <pre class="form-control bg-dark" 
+								                 id="cl_content" 
+								                 style="overflow-y: auto; width:100%; height:200px; word-wrap: break-word; white-space: pre-wrap; word-break: break-all;"><c:out value="${freelancerRequestDTO.getCl_content()}" escapeXml="false"/></pre>
+								        </div>
+								    </c:if>
+								</c:if>
 
 <!--                             프로젝트 예상금액 -->
                             <div class="row d-flex align-items-center mb-4">
@@ -454,7 +457,7 @@ console.log(isAgree);
 	        
 
 	        //상세 소개
-			$("#cl_content").val("<c:out value='${freelancerRequestDTO.getCl_content()}' />");
+// 			$("#cl_content").val("<c:out value='${freelancerRequestDTO.getCl_content()}' />");
 	
 	        //프로젝트 예상기간
 	        $("#cl_rangeMonth").val("${freelancerRequestDTO.getCl_rangeMonth()}");
@@ -569,7 +572,7 @@ console.log(isAgree);
                         });
                         trueModal.show();
                         //현재 성공적으로 제출되었을때 승인 대기중이므로 disabled 처리
-                        form.find('input, select').prop('disabled', true);
+                        form.find('input, select, textarea').prop('disabled', true);
                         // form.find('select').prop('disabled', true);
                         form.find('input[type="checkbox"], input[type=radio], input[type=file]').prop('disabled', true);
 
