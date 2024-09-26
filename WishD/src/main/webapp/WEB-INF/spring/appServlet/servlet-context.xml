@@ -31,13 +31,17 @@
 	<!-- /Users/gwongeon-o/Desktop/TeamProject/TeamProjectFile/WishD/src/main/webapp/resources/upload-->
 	<!-- window 는 \\ 으로 경로 지정 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="//Users/gwongeon-o/Desktop/TeamProject/TeamProjectFile/WishD/src/main/webapp/resources/upload" />
+<!--		<beans:constructor-arg value="//Users/gwongeon-o/Desktop/TeamProject/TeamProjectFile/WishD/src/main/webapp/resources/upload" />-->
+		<beans:constructor-arg value="/usr/local/tomcat/webapps/WishD/resources/upload" />
 	</beans:bean>
+
 
 	<context:component-scan base-package="com.teamproject.wishd" />
 	<context:component-scan base-package="com.teamproject.controller" />
 	<context:component-scan base-package="com.teamproject.service" />
 	<context:component-scan base-package="com.teamproject.dao" />
+	<context:component-scan base-package="com.teamproject.config" />
+	<context:component-scan base-package="com.teamproject.utils" />
 	
 	
 </beans:beans>

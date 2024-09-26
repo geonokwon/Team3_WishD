@@ -133,3 +133,7 @@ body {
     --bs-table-color: #fff;
     --bs-table-bg:  var(--bs-primary);
 }
+pre.textArea1 {
+    overflow-y: auto;
+    max-height: 100%;
+}

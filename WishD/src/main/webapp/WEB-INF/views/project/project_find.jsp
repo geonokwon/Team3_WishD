@@ -7,18 +7,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_find</title>
+    <title>WishD | 프로젝트 찾기</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
     />
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/project/project.css">
+    <style>
+        body{
+
+        }
+    </style>
 
 </head>
 <body class="d-flex flex-column min-vh-100 justify-content">
+<%--<img src="${pageContext.request.contextPath}/resources/images/background_star.png">--%>
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
@@ -47,7 +53,7 @@
                     >스킬 선택</button>
                     <ul class="dropdown-menu" aria-labelledby="skillMenuButton">
                         <c:forEach items="${projectSkillList}" var="skill">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/projectFind?skill=${skill.getSkill_id()}">${skill.getSkill_name()}</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/projectFind?skill=${skill.getSkill_id()}&state=${state}">${skill.getSkill_name()}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -58,6 +64,7 @@
                 <form action="${pageContext.request.contextPath}/projectFind" method="get">
                     <div class="input-group">
                         <input type="text"  id="search" class="form-control text border-0 bg-primary" name="search" placeholder="프로젝트명 검색" autocomplete="off" />
+                        <input type="hidden" name="state" value="${state}">
                         <button type="submit" class="btn bg-primary"><img src="${pageContext.request.contextPath}/resources/project/svg/search.svg" alt="Search" /></button>
                     </div>
                 </form>
@@ -66,20 +73,39 @@
     </div>
 
     <div class="col-12 mt-4 mb-2 px-5">
-        <div class="d-flex">
-            <!-- 총 프로젝트 등록 개수 가져오기 -->
-            <div class="ms-1 me-3">프로젝트 ${projectPageDTOList.getCount()} 개</div>
-            <div class="me-4">|</div>
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <!-- 총 프로젝트 등록 개수 가져오기 -->
+                <div class="ms-1 me-3">프로젝트 ${projectPageDTOList.getCount()} 개</div>
+                <!-- 구분 선 -->
+                <div class="me-4">|</div>
+                <!-- 정렬 방식 변경 -->
+                <c:if test="${sortState == 0}">
+                    <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
+                    <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
+                </c:if>
+                <c:if test="${sortState == 1}">
+                    <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
+                    <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
+            </c:if>
+            </div>
 
-            <!-- 정렬 방식 변경 -->
-            <c:if test="${sortState == 0}">
-                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=1">최신 순</a>
-                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort"/>
-            </c:if>
-            <c:if test="${sortState == 1}">
-                <a class="sort me-4 nav-link" href="${pageContext.request.contextPath}/projectFind?sort=0">오래된 순</a>
-                <img src="${pageContext.request.contextPath}/resources/project/svg/down.svg" alt="Sort" style="transform: rotate(180deg)"/>
-            </c:if>
+            <!-- state 값으로 모아보기 토글 버튼 -->
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="projectBoardState"
+                <c:if test="${state == 0}">
+                       checked
+                </c:if>
+                       onclick="toggleState()">
+                <label class="form-check-label" for="projectBoardState">
+                    <c:if test="${state == 0}">
+                        모집중
+                    </c:if>
+                    <c:if test="${state == 1}">
+                        진행중
+                    </c:if>
+                </label>
+            </div>
         </div>
     </div>
 
@@ -133,6 +159,9 @@
                         <!-- 예상 기간 -->
                         <p class="col-3 card-text">예상 기간: ${projectDTO.getPboard_rangeMonth()} 개월</p>
                     </div>
+
+                    <!-- 필요 년차 -->
+                    <p class="col-3 card-text">필요 년차: ${projectDTO.getPboard_history()} 년차 이상</p>
                 </div>
             </div>
         </div>
@@ -147,14 +176,14 @@
             <c:if test="${projectPageDTOList.startPage > projectPageDTOList.pageBlock}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.startPage - 10}"></a>
+                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.startPage - 10}&state=${state}"><</a>
             </li>
             </c:if>
 
             <c:forEach begin="${projectPageDTOList.startPage}" end="${projectPageDTOList.endPage}" var="page">
                 <li class="page-item">
                     <a class="page-link"
-                       href="${pageContext.request.contextPath}/projectFind?pageNum=${page}">${page}</a>
+                       href="${pageContext.request.contextPath}/projectFind?pageNum=${page}&state=${state}">${page}</a>
                 </li>
             </c:forEach>
 
@@ -162,18 +191,18 @@
             <c:if test="${projectPageDTOList.endPage < projectPageDTOList.pageCount}">
                 <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.endPage + 10}"></a>
+                   href="${pageContext.request.contextPath}/projectFind?pageNum=${projectPageDTOList.endPage + 10}&state=${state}">&gt;</a>
             </li>
             </c:if>
         </ul>
     </nav>
 
     <!-- backGround-star -->
-    <div class="noite"></div>
+<%--    <div class="noite"></div>--%>
 
-    <div class="constelacao"></div>
+<%--    <div class="constelacao"></div>--%>
 
-    <div class="chuvaMeteoro"></div>
+<%--    <div class="chuvaMeteoro"></div>--%>
 </div>
 <!-- Footer -->
 <jsp:include page="../include/footer.jsp"/>
@@ -182,8 +211,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
 ></script>
-
 <script src="${pageContext.request.contextPath}/resources/project/project.js"></script>
+<script>
+    let basePath = "${pageContext.request.contextPath}";
+</script>
 
 </body>
 </html>

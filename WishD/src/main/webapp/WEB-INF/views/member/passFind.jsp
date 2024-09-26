@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>login</title>
+    <title>WishD | 비밀번호 찾기</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -21,36 +21,41 @@
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 	<!-- 로그인 외부 CSS 연결 -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/member/css/idFind.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/member/css/userFind.css">
 </head>
 <body class="text-light">
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
- <!-- Main Content -->
-<div class="find-container">
-        <div class="find-box">
-            <h2>비밀번호 찾기</h2>
-            <form id="find-password-form">
-                <div class="input-group">
-                    <input type="email" id="find-password-email" placeholder="이메일 주소">
-                    <div class="error-msg" id="find-password-email-error"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="find-password-username" placeholder="아이디">
-                    <div class="error-msg" id="find-password-username-error"></div>
-                </div>
-                <button class="find-btn" type="submit">비밀번호 찾기</button>
-                <div class="success-msg" id="find-password-success"></div>
-            </form>
-        </div>
+ <div class="navbar1">
+        <a href="${pageContext.request.contextPath}/idFind" class="nav1-link active" data-target="find-id">아이디 찾기</a>
+        <a href="${pageContext.request.contextPath}/passFind" class="nav1-link active" data-target="find-password">비밀번호 찾기</a>
     </div>
+    
+    <div class="form-container">
+        <h2>비밀번호 찾기</h2>
+        <form action="${pageContext.request.contextPath}/passFindPro" method="POST">
+        	<div class="input-group">
+            	<input type="text" id="user_id" name="user_id" placeholder="아이디를 입력하세요" required>
+       	 	</div>
+        	<div class="input-group">
+            	<input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+       	 	</div>
+        	<button type="submit" class="submit-btn">비밀번호 찾기</button>
+       </form>  
+       <!-- 일치하는 비밀번호 없을때 알림창  -->
+          <!-- 에러 메시지 표시 -->
+    	  <c:if test="${not empty errorMessage}">
+        	<p style="color: red;"><c:out value="${errorMessage}" /></p>
+    	  </c:if>
+    </div>
+
+
+
     <script src="${pageContext.request.contextPath}/resources/member/js/passFind.js"></script>
 
-
-
-<!-- Footer -->
-<jsp:include page="../include/footer.jsp"/>
+ <!-- Footer -->
+<%-- <jsp:include page="../include/footer.jsp"/> --%>
 
 </body>
 </html>

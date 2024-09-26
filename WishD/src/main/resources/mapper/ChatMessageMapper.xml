@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamproject.mapper.ChatMessageMapper">
+
+    <!-- request_id 불러오기 -->
+    <select id="getRequestFreelancerID" resultType="Long">
+        SELECT f_request_id
+        FROM request_freelancer
+        WHERE pboard_id = #{pboard_id}
+        AND f_request_isAgree = true
+    </select>
+
+    <!-- 채팅 저장 -->
+    <insert id="insertMessage" parameterType="com.teamproject.domain.ChatMessageDTO">
+        INSERT INTO chat_message (pboard_id, user_no, chat_content, f_request_id, chat_isMatching)
+        VALUES (#{pboard_id}, #{user_no}, #{chat_content}, #{f_request_id}, #{chat_isMatching})
+    </insert>
+
+    <!-- 채팅 내용 불러오기 -->
+    <!-- 채팅방에 표시할 유저 id 표기 -->
+    <select id="getChatHistory" resultType="com.teamproject.domain.ChatMessageDTO">
+        SELECT cm.chat_room_id, cm.pboard_id, cm.user_no, cm.chat_content, cm.chat_isMatching, ui.user_name, cm.chat_date
+        FROM chat_message cm
+        JOIN user_info ui ON cm.user_no = ui.user_no
+        WHERE cm.pboard_id = #{pboard_id}
+        AND cm.chat_isMatching = true
+        ORDER BY cm.chat_date DESC
+    </select>
+
+    <!-- 매칭 취소시 -->
+    <!-- project_board 의 state 값 변경 및 isMatching 값 변경 -->
+    <update id="setBoardState">
+        UPDATE project_board
+        SET pboard_state = '모집중', pboard_isMatching = 0
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!-- chat_isMatching 의 state 값 변경 -->
+    <update id="setChatMessageIsMatching">
+        UPDATE chat_message
+        SET chat_isMatching = false
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+
+    <delete id="setDeleteRequest">
+        DELETE FROM request_freelancer
+        WHERE pboard_id = #{pboard_id}
+    </delete>
+
+
+    <!-- 매칭 완료시 project_board state 변경 -->
+    <update id="setCompleteState">
+        UPDATE project_board
+        SET pboard_state = '완료'
+        WHERE pboard_id = #{pboard_id}
+    </update>
+
+    <!-- 채팅중 매칭취소시 파일삭제 -->
+    <!-- project_request_file -->
+    <select id="getProjectRequestFile" resultType="com.teamproject.domain.ProjectRequestFileDTO">
+        SELECT *
+        FROM project_request_files
+        WHERE pboard_id = #{pboard_id};
+    </select>
+
+
+</mapper>

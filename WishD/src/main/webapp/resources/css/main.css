@@ -51,17 +51,27 @@
 }
 
 .intro{
-	width:350px; height:550px;
+	width:335px; height:450px;
 	margin:15px;
 	background-color:#141826;
 }
 
-/* 소개문 글귀 */
+/* 소개문 글귀와 이미지 */
 .intro-head{
-	margin-top:300px;
+	margin-top:50px;
 	text-align:center;
 	font-weight:900;
 	font-size:1.5em;
+}
+
+.intro img{
+	margin-left:92px;
+	margin-right:92px;
+	display:block; 
+}
+
+.intro-image{
+	margin-top:50px;
 }
 
 .intro p{
@@ -74,7 +84,7 @@
 
 /* 둘러보기 탭 */
 .tab{
-	margin-top:200px;
+	margin-top:150px;
 }
 
 .tab p{
@@ -83,7 +93,7 @@
 	text-align:center;
 }
 
-ul{
+.tab__list{
 	display:flex;
 }
 
@@ -134,20 +144,22 @@ li.active{
 /* 소형 리스트 */
 .instant-list{
 	display:flex;
+	width:1100px; height:900px;
+	margin-top:150px;
 }
 
 .project-list{
-	margin:200px;
+	margin:25px;
 	border:1px solid #141826; border-radius:8px 8px 8px 8px;
-	width:500px; height:400px;
-	background-color:#141826;
+	width:500px; height:800px;
+	background-color:#6F40C8;
 }
 
 .freelancer-list{
-	margin:200px;
+	margin:25px;
 	border:1px solid #141826; border-radius:8px 8px 8px 8px;
-	width:500px; height:400px;
-	background-color:#141826;
+	width:500px; height:800px;
+	background-color:#6F40C8;
 }
 
 /* 리스트 헤더 */
@@ -163,14 +175,14 @@ li.active{
 
 /* 리스트 디자인 */
 .instant-table{
-	width:498px; height:200px;
+	width:498px; height:800px;
 }
 
 table, tr, td{
 	border:1px solid white; border-radius:0px 0px 10px 10px;
-	border-left-color:#8080ff; border-right-color:#8080ff;
-	background-color:#8080ff;
-	color:black;
+	border-left-color:#141826; border-right-color:#141826;
+	background-color:#141826;
+	color:white;
 }
 
 td{

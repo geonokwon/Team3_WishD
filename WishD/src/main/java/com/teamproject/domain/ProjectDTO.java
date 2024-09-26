@@ -7,16 +7,22 @@ import java.util.List;
 public class ProjectDTO {
 
     private Long pboard_id;
-    private Long user_id;
+    private Long user_no;
     private String pboard_title;
     private String pboard_content;
     private int pboard_money;
     private String pboard_startDate;
     private int pboard_rangeMonth;
-    private String pboard_job;
+    private int job_id;
+    private String job_name;
     private String pboard_state;
+    private int pboard_history;
     private Timestamp pboard_date;
     private Timestamp pboard_update;
+    private Boolean pboard_isMatching;
+    private String pboard_manager_phone;
+    private String pboard_company_name;
+
 
     //skill String 으로 가져와서 배열로 나누는 값
     private String skillList;
@@ -41,12 +47,12 @@ public class ProjectDTO {
         this.pboard_id = pboard_id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUser_no() {
+        return user_no;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser_no(Long user_id) {
+        this.user_no = user_id;
     }
 
     public String getPboard_title() {
@@ -89,12 +95,12 @@ public class ProjectDTO {
         this.pboard_rangeMonth = pboard_rangemonth;
     }
 
-    public String getPboard_job() {
-        return pboard_job;
+    public int getJob_id() {
+        return job_id;
     }
 
-    public void setPboard_job(String pboard_job) {
-        this.pboard_job = pboard_job;
+    public void setJob_id(int job_id) {
+        this.job_id = job_id;
     }
 
     public String getPboard_state() {
@@ -103,6 +109,14 @@ public class ProjectDTO {
 
     public void setPboard_state(String pboard_state) {
         this.pboard_state = pboard_state;
+    }
+
+    public int getPboard_history() {
+        return pboard_history;
+    }
+
+    public void setPboard_history(int pboard_history) {
+        this.pboard_history = pboard_history;
     }
 
     public Timestamp getPboard_date() {
@@ -128,21 +142,59 @@ public class ProjectDTO {
         this.skills = skills;
     }
 
+    public Boolean getPboard_isMatching() {
+        return pboard_isMatching;
+    }
+
+    public void setPboard_isMatching(Boolean pboard_isMatching) {
+        this.pboard_isMatching = pboard_isMatching;
+    }
+
+    public String getPboard_manager_phone() {
+        return pboard_manager_phone;
+    }
+
+    public void setPboard_manager_phone(String pboard_manager_phone) {
+        this.pboard_manager_phone = pboard_manager_phone;
+    }
+
+    public String getPboard_company_name() {
+        return pboard_company_name;
+    }
+
+    public void setPboard_company_name(String pboard_company_name) {
+        this.pboard_company_name = pboard_company_name;
+    }
+
+    public String getJob_name() {
+        return job_name;
+    }
+
+    public void setJob_name(String job_name) {
+        this.job_name = job_name;
+    }
+
     @Override
     public String toString() {
         return "ProjectDTO{" +
                 "pboard_id=" + pboard_id +
-                ", user_id=" + user_id +
+                ", user_no=" + user_no +
                 ", pboard_title='" + pboard_title + '\'' +
                 ", pboard_content='" + pboard_content + '\'' +
                 ", pboard_money=" + pboard_money +
                 ", pboard_startDate='" + pboard_startDate + '\'' +
                 ", pboard_rangeMonth=" + pboard_rangeMonth +
-                ", pboard_job='" + pboard_job + '\'' +
+                ", job_id=" + job_id +
+                ", job_name='" + job_name + '\'' +
                 ", pboard_state='" + pboard_state + '\'' +
+                ", pboard_history=" + pboard_history +
                 ", pboard_date=" + pboard_date +
                 ", pboard_update=" + pboard_update +
+                ", pboard_isMatching=" + pboard_isMatching +
+                ", pboard_manager_phone='" + pboard_manager_phone + '\'' +
+                ", pboard_company_name='" + pboard_company_name + '\'' +
                 ", skillList='" + skillList + '\'' +
+                ", skills=" + skills +
                 '}';
     }
 }

@@ -1,5 +1,25 @@
+/* input type = number의 화살표 제거 */
+	/* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+	
+	/* Firefox  */
+	input[type='number'] {
+	  -moz-appearance: textfield;
+	}
+	
+/* 선택된 아이템 'x' 스타일 */
+.selected-item span {
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
 /* 선택된 스킬들 담는 영역 */
-#selected_skill {
+#selected_skill_container {
     margin-top: 10px;
     padding: 10px;
     
@@ -95,6 +115,11 @@ input[type="file"]::file-selector-button:hover {
 }
 
 body {
+    background-image: url('http://c1d2405t3.itwillbs.com/WishD/resources/images/background_star.png');
+    background-size: contain;
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* 배경 고정 */
     margin: 0;
     padding: 0;
     width: 100%;
@@ -190,244 +215,5 @@ body {
     border: none;
     /* 색상, 두께 설정 */
     border-top: 3px solid #445283;
-}
-
-
-/* 별 배경 */
-
-.noite {
-    z-index: -1;
-    background: #0e1117;
-    width: 100vw; /* 뷰포트 너비 */
-    height: 100vh; /* 뷰포트 높이 */
-    position: fixed; /* 화면에 고정 */
-    top: 0;
-    left: 0;
-    overflow: hidden;
-}
-
-.constelacao {
-    z-index: -1;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    animation: rotate 600s infinite linear;
-}
-
-.estrela {
-    position: fixed;
-    z-index: -1;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    animation-name: estrela;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-/* 스타일 및 애니메이션에 대한 클래스는 그대로 유지 */
-.estrela.style1 {
-    animation-duration: 0.5s;
-}
-
-.estrela.style2 {
-    animation-duration: 1s;
-}
-
-.estrela.style3 {
-    animation-duration: 1.5s;
-}
-
-.estrela.style4 {
-    animation-duration: 2s;
-    animation-name: estrelaDestacada;
-}
-
-.estrela.tam1 {
-    width: 1px;
-    height: 1px;
-}
-
-.estrela.tam2 {
-    width: 2px;
-    height: 2px;
-}
-
-.estrela.tam3 {
-    width: 3px;
-    height: 3px;
-}
-
-.estrela.opacity1 {
-    opacity: 1;
-}
-
-.estrela.opacity2 {
-    opacity: 0.5;
-}
-
-.estrela.opacity3 {
-    opacity: 0.1;
-}
-
-.meteoro {
-    position: fixed;
-    background-color: #fff;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    transform: rotate(-35deg);
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-duration: 1s;
-}
-
-.meteoro:before {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
-    width: 0;
-    height: 0;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    border-left: 85px solid white;
-    position: absolute;
-    left: 2px;
-    top: 0;
-}
-
-.meteoro.style1 {
-    animation-name: meteoroStyle1;
-}
-
-.meteoro.style2 {
-    animation-name: meteoroStyle2;
-}
-
-.meteoro.style3 {
-    animation-name: meteoroStyle3;
-}
-
-.meteoro.style4 {
-    animation-name: meteoroStyle4;
-}
-
-@keyframes escurecer {
-    0% {
-        top: 0;
-    }
-    100% {
-        top: 100%;
-    }
-}
-
-@keyframes estrela {
-    0% {
-        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
-    }
-    50% {
-        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-    }
-    100% {
-        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.05);
-    }
-}
-
-@keyframes estrelaDestacada {
-    0% {
-        background-color: #ffffff;
-        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 1);
-    }
-    20% {
-        background-color: #ffc4c4;
-        box-shadow: 0 0 10px 0px rgb(255, 196, 196, 1);
-    }
-    80% {
-        background-color: #c4cfff;
-        box-shadow: 0 0 10px 0px rgb(196, 207, 255, 1);
-    }
-    100% {
-        background-color: #ffffff;
-        box-shadow: 0 0 10px 0px rgba(255, 255, 255, 0.2);
-    }
-}
-
-@keyframes meteoroStyle1 {
-    0% {
-        opacity: 0;
-        right: 300px;
-        top: 100px;
-    }
-    30% {
-        opacity: 0.3;
-    }
-    60% {
-        opacity: 0.3;
-    }
-    100% {
-        opacity: 0;
-        right: 1000px;
-        top: 600px;
-    }
-}
-
-@keyframes meteoroStyle2 {
-    0% {
-        opacity: 0;
-        right: 700px;
-        top: 100px;
-    }
-    30% {
-        opacity: 1;
-    }
-    60% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        right: 1400px;
-        top: 600px;
-    }
-}
-
-@keyframes meteoroStyle3 {
-    0% {
-        opacity: 0;
-        right: 300px;
-        top: 300px;
-    }
-    30% {
-        opacity: 1;
-    }
-    60% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        right: 1000px;
-        top: 800px;
-    }
-}
-
-@keyframes meteoroStyle4 {
-    0% {
-        opacity: 0;
-        right: 700px;
-        top: 300px;
-    }
-    30% {
-        opacity: 1;
-    }
-    60% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        right: 1400px;
-        top: 800px;
-    }
 }
 

@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>qna_write</title>
+    <title>WishD | 커뮤니티 Q&A</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,6 +20,7 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
@@ -54,36 +55,37 @@
         <!-- 섹션 2 - 1 -->    
         <div class="col-2 second-section-1 menutext-left">
            
-            <!-- <div class="col">
-                <a href="notice.html" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-                <a href="qna.html" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-                <a href="qnawrite.html" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
-            </div>
-       -->
+          <div class="col">
+                </div> 
+       
         </div>
 
         <!-- 섹션 2 - 2 글쓰기 -->
         <div class="col-8 second-section-2">
-
+        
+		  <form action="qna_writePro" method="post">
+		  	<input type="hidden" name="user_no" value="${sessionScope.user_no}">
+		  	<input type="hidden" name="user_name" value="${sessionScope.user_name}">
+		  
             <div class="row">
-
+  
                 <!-- Q&A 제목란 -->
-                <div class="col">
+                <div class="col" style="padding-left: 0";>
                     <div class="col-12 second-section-2"> 
                         <label for="notice_label" class="noticeLabelText">Notice </label>   
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+                        <input type="text" name="qcommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......" required>
                     </div>
                 </div>
 
                 <!-- Q&A 이메일란 -->
-                <div class="col">
+                <div class="col" style="padding-right: 0";>
                     <div class="col-12 second-section-2">
                         <label for="" class="noticeLabelText">&nbsp;</label>
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Email </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="답변 받으실 이메일을 작성해주세요......">
+                        <input type="text" name="user_email" class="custom-textbox no-border" placeholder="답변 받으실 이메일을 작성해주세요......" required>
                     </div>
                 </div>
 
@@ -92,24 +94,29 @@
                     <div class="col">
                         <div class="write-line"></div>
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
+                        <textarea class="custom-textbox1 input-box no-border"  name="qcommunity_content" placeholder="내용을 작성해주세요......" required></textarea>
                 
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="button" class="btn btn-primary2">글쓰기 완료</button>
+                        	<div class="" style="padding-right: 4%;">
+                            <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
+                            </div>
+                            <a href="qna" class="btn btn-primary2 text-light text-decoration-none px-4">돌아가기</a>
                         </div>
                     </div>
                 </div>
-
-            </div>
+				
+             </div>
+           </form>
         </div> <!-- 섹션 2 - 2 종료 -->
+        
 
         <!-- 섹션 2 - 3 -->
         <div class="col-2 second-section-3 menutext-right-1">
-            <a href="Community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-            <a href="" class="myqna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>My Q&A</a>
+<!--             <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br> -->
+<!--             <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br> -->
+<!--             <a href="" class="myqna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>My Q&A</a> -->
         </div>
 
     </div> <!-- 섹션 2 종료 -->

@@ -1,0 +1,181 @@
+/* project/proejct.css 파일을 복사함 */
+
+:root {
+    --bs-primary: #141826; /* 색상 변경(카드색상) */
+    --bs-dark: #0e1117;
+    --bs-purple: #6f40c8;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    justify-content: center; /* 가로 중앙 정렬 */
+/*     align-items: center; 세로 중앙 정렬 (전체 화면일 때) */
+    min-height: 100vh;
+    background-color: #0e1117; /* 어두운 배경색 */
+    color: #fff; /* 밝은 텍스트 색상 */
+}
+
+.wrap{
+	display:inline-flex;
+	align-items: flex-start;
+
+}
+
+.my-4{
+	width:80%;
+}
+
+#search {
+    width: 180px;
+}
+
+/*카드 마우스 호버시*/
+.board_card{
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.board_card:hover{
+    transform: translate(-4px, -4px); /* X와 Y 방향으로 -10px 이동 */
+}
+/*end*/
+
+.modal {
+    --bs-modal-header-border-color: none;
+    --bs-modal-header-border-width: none;
+    --bs-modal-footer-border-color: none;
+}
+
+
+.title:hover h2, .sort:hover{
+    color: rgba(255, 255, 255, 0.75);
+}
+/* input date 아이콘 삭제 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+/* 사용자 정의 버튼 스타일링 */
+input[type="file"]::file-selector-button {
+    display: none;
+}
+input[type="file"]::file-selector-button:hover {
+    background-color: #5e36a8;
+}
+
+.bg-primary {
+    background-color: var(--bs-primary) !important; /* 변수를 사용하여 색상 적용 */
+}
+.bg-dark {
+    background-color: var(--bs-dark) !important;
+}
+.bg-purple{
+    background-color: var(--bs-purple) !important;
+}
+.form-select,
+.form-control,
+.form-control:focus {
+    border: none;
+    color: #fff;
+}
+.form-check-input:checked {
+    background-color: #6f40c8;
+    border-color: #6f40c8;
+}
+.form-control:active {
+    background-color: #0e1117;
+}
+
+.form-control::placeholder {
+    color: #fff;
+    opacity: 1; /* Firefox */
+}
+.navbar {
+    background-color: #141826; /* 네비게이션 바 배경색 */
+}
+.navbar-nav .nav-link {
+    color: #fff; /* 네비게이션 링크 색상 */
+}
+.navbar-nav .nav-link:hover {
+    color: #bfbfbf; /* 네비게이션 링크 호버 색상 */
+}
+
+.btn-primary {
+    /* 버튼 텍스트 색상 */
+    --bs-btn-color: #fff;
+    /* 버튼 배경 색상 */
+    --bs-btn-bg: #6f40c8;
+    /* 버튼 테두리 색상 */
+    --bs-btn-border-color: #6f40c8;
+    /* 버튼 mouse hover text 색상 */
+    --bs-btn-hover-color: #fff;
+    /* 버튼 mouse hover 배경 색상 */
+    --bs-btn-hover-bg: #5e36a8;
+    /* 버튼 mouse hover 테두리 색상 */
+    --bs-btn-hover-border-color: #5e36a8;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    /* 버튼 mouse click text 색상 */
+    --bs-btn-active-color: #fff;
+    /* 버튼 mouse click 배경 색상 */
+    --bs-btn-active-bg: #5e36a8;
+    /* 버튼 mouse click 테두리 색상 */
+    --bs-btn-active-border-color: #5e36a8;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-bg: #5e36a8;
+    --bs-btn-disabled-border-color: #5e36a8;
+}
+
+.dropdown-menu {
+    /* 드롭다운시 배경 색상 */
+    --bs-dropdown-bg: #141826;
+    /* 드롭다운 link 폰트 색상 */
+    --bs-dropdown-link-color: #fff;
+    /* 드롭다운 link hover 폰트 색상 */
+    --bs-dropdown-link-hover-color: #fff;
+    /* 드롭다운 link hover 배경 색상 */
+    --bs-dropdown-link-hover-bg: #1e243a;
+    /* 드롭다운 link click 폰트 색상 */
+    --bs-dropdown-link-active-color: #fff;
+    /* 드롭다운 link click 배경 색상 */
+    --bs-dropdown-link-active-bg: #1e243a;
+}
+
+.card {
+    background-color: #141826; /* 카드 배경색 */
+    color: #e0e0e0; /* 카드 텍스트 색상 */
+}
+.card .card-title {
+    color: #ffffff; /* 카드 제목 색상 */
+}
+.badge {
+    background-color: #6f40c8;
+    font-weight: normal;
+}
+#skillSelectBadge:hover{
+    background-color: #5e36a8;
+}
+
+.footer {
+    background-color: #333; /* 푸터 배경색 */
+}
+.footer a {
+    color: #f8f9fa; /* 푸터 링크 색상 */
+}
+.footer a:hover {
+    color: #e0e0e0; /* 푸터 링크 호버 색상 */
+}
+.pagination .page-link {
+    color: #007bff; /* 페이지네이션 링크 색상 */
+}
+.pagination .page-link:hover {
+    color: #0056b3; /* 페이지네이션 링크 호버 색상 */
+}
+.custom-hr {
+    border: none;
+    /* 색상, 두께 설정 */
+    border-top: 3px solid #445283;
+}
+
+/* chatting time */
+.message-time{
+    font-size: 10px;
+    color: #b5b5b5;
+}

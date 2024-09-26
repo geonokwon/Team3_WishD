@@ -48,9 +48,9 @@ body {
     color: #fff;
     opacity: 1; /* Firefox */
 }
-.navbar {
-    background-color: #0e1117; /* 네비게이션 바 배경색 */
-}
+/*.navbar {*/
+/*    background-color: #0e1117; !* 네비게이션 바 배경색 *!*/
+/*}*/
 .navbar-nav .nav-link {
     color: #fff; /* 네비게이션 링크 색상 */
 }
@@ -117,57 +117,20 @@ body {
 .footer a:hover {
     color: #e0e0e0; /* 푸터 링크 호버 색상 */
 }
-.pagination .page-link {
-    color: #007bff; /* 페이지네이션 링크 색상 */
-}
-.pagination .page-link:hover {
-    color: #0056b3; /* 페이지네이션 링크 호버 색상 */
-}
+
 .custom-hr {
     border: none;
     /* 색상, 두께 설정 */
     border-top: 3px solid #445283;
 }
-
-/* 폰트 */
-@font-face {
-    font-family: 'menu'; /* 정의할 폰트 이름 */
-    src: url(fonts/Akkurat-Mono.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'head'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Light.woff2) format('woff'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
+.active>.page-link, .page-link.active {
+    z-index: 3;
+     color: var(--bs-pagination-active-color);
+    /* background-color: var(--bs-pagination-active-bg); */
+    border-color: var(--bs-pagination-active-border-color);
 }
 
-@font-face {
-    font-family: 'title'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'content'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Regular.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'noticeTitle'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     padding-top: 8%;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -178,7 +141,6 @@ body {
 
 /* 좌측 메뉴 */
 .menutext-left {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -187,21 +149,31 @@ body {
     letter-spacing: 0.03rem;
 }
 
+.comnotice {
+	display: inline-block;
+	margin-right: 1.3rem;
+}
+
 .qna {
     display: inline-block;
-    padding-top: 20%;
-   
+    margin-top: 5rem;
+   	margin-right: 2rem;
 }
 
 .write {
     display: inline-block;
-    padding-top: 30%;
-    
+    margin-top: 5rem;
+    margin-right: 0.8rem;
+}
+
+.myQna {
+    display: inline-block;
+    margin-top: 5rem;
+    margin-right: 0.6rem;
 }
 
 /* 우측 메뉴 */
 .menutext-right {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -217,7 +189,7 @@ body {
 
 /* 메뉴 호버 */
 .menu-up {
-    width: 30%;
+    /*width: 30%;*/
     height: 50px;
     background-color: rgba(255, 13, 13, 0);
     transition: transform 0.3s ease;
@@ -240,21 +212,32 @@ body {
   }
   
 
-/* 섹션 1 */
 .first-section {
-    background-image: url('../community/images/back.png');
-    background-size: auto;
-    display: flex; /* 자식 요소들을 수평으로 배치 */
+    position: relative;
+    display: flex;
     height: 400px;
     margin-top: 1rem;
     margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.first-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../community/images/back.png');
+    background-size: cover;  /* 자동으로 중앙에 배치됨 */
+    z-index: -1;
 }
 
 .first-section-1 {
     padding-top: 10px;
     justify-content: end;
 }
-
+ 
 .first-section-2 {
     padding-top: 10px;
     justify-content: center;
@@ -268,7 +251,6 @@ body {
 
 /* 섹션 2 */
 .second-section {
-    height: 700px;
     display: flex; /* 자식 요소들을 수평으로 배치 */
 }
 
@@ -282,7 +264,6 @@ body {
 
 /* 섹션 2 - 공지 목록 구성 */
 .custom-title {
-    font-family: 'title', sans-serif;
     font-size: 25px; /* 폰트 크기 설정 */
     color: #ffffff; /* 폰트 색상 설정 */
     text-align: start;
@@ -290,7 +271,6 @@ body {
 }
 
 .custom-content {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #797979; /* 폰트 색상 설정 */
     text-align: start;
@@ -299,7 +279,6 @@ body {
 }
 
 .custom-date {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #ffffff; /* 폰트 색상 설정 */
     text-align: end;
@@ -308,7 +287,6 @@ body {
 }
 
 .custom-writer {
-    font-family: 'content', sans-serif;
     font-size: 13px; /* 폰트 크기 설정 */
     color: #797979; /* 폰트 색상 설정 */
     text-align: end;
@@ -330,6 +308,11 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: 15rem;
-    margin-bottom: 1rem;
+}
+
+/* 답변 완료 버튼 */
+.answer-btn {
+	padding: 5px 10px; /* 위 아래 5px, 좌 우 10px */
+	margin-left: 0.3rem;
+    font-size: 12px; /* 글자 크기 조정 */
 }

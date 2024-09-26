@@ -5,22 +5,28 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    background-image: url('http://c1d2405t3.itwillbs.com/WishD/resources/images/background_star.png');
+    background-size: contain;
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* 배경 고정 */
     background-color: #0E1117;
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 70px; /*네비게이션 바와 충돌하지 않도록 상단 여백 추가
+    padding-top: 70px; /*네비게이션 바와 충돌하지 않도록 상단 여백 추가 */
 }
+
 
 /* 로그인 폼 컨테이너 */
 .container1 {
-    max-width: 900px;
+	max-width: 1200px; 
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding : 120px;
 }
 
 .login-box {
@@ -53,15 +59,32 @@ body {
     border-radius: 5px;
     border: none;
     background-color: #333743;
-    color: white;
+    color: white !important;
     font-size: 14px;
     transition: border-color 0.3s ease;
 }
 
+/* 클릭 시 배경색 변하지 않게 설정 */
 .login-left input:focus {
-    outline: none;
-    border: 2px solid #2a2370;
+    background-color: transparent;
+
 }
+
+/* 포커스 시 레이블을 위로 이동 */
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+    transform: translateY(-50px); 
+    font-size: 10.5px; /* 폰트 크기 조정 */
+}
+
+.login-right {
+    background-color: #1E2229;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
 
 /* 아이디 기억하기 텍스트와 체크박스를 정확히 정렬 */
 .remember-me {
@@ -99,7 +122,7 @@ body {
 
 .nav3 {
     text-decoration: none;
-    color: #6F40C8;
+    color: #fff;
     font-size: 14px;
 }
 
@@ -140,17 +163,16 @@ body {
 }
 
 /* 간편 로그인 버튼 스타일 */
-
 .social-login {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+
 }
 
 .social-btn {
-    width: 45%; /* 로그인 버튼과 비슷한 너비 */
-    margin: 0 5px; /* 버튼 간 좌우 간격 */
+    width: 50%; /* 로그인 버튼과 비슷한 너비 */
     transition: opacity 0.3s ease;
+
 }
 
 .social-image {
@@ -261,28 +283,4 @@ body {
     opacity: 1; /* 커서를 올렸을 때 텍스트 보이기 */
 }
 
-.stars {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-}
 
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle 2s infinite;
-    opacity: 0.5;
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}

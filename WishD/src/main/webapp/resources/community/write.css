@@ -123,6 +123,7 @@ body {
 .pagination .page-link:hover {
     color: #0056b3; /* 페이지네이션 링크 호버 색상 */
 }
+
 .custom-hr {
     border: none;
     /* 색상, 두께 설정 */
@@ -204,36 +205,7 @@ body {
     height: 40px;;
  }
 
-@font-face {
-    font-family: 'menu'; /* 정의할 폰트 이름 */
-    src: url(fonts/Akkurat-Mono.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'head'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Light.woff2) format('woff'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'title'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Tera-Medium.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
-@font-face {
-    font-family: 'content'; /* 정의할 폰트 이름 */
-    src: url(fonts/Grtsk-Peta-Regular.woff2) format('woff2'); /* 최신 브라우저용 */
-    font-weight: normal;
-    font-style: normal;
-} 
-
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     padding-top: 4%;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -244,7 +216,6 @@ body {
 
 /* 우측 메뉴 */
 .menutext-right {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 1rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -259,7 +230,6 @@ body {
 }
 
 .menutext-right-1 {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 14px; /* 폰트 크기 설정 */
     margin-top: 22rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -302,16 +272,27 @@ body {
   .text-change-box:hover {
     color: #797979; /* 호버 시 텍스트 색상 변화 */
   }
-  
 
-/* 섹션 1 */
+
 .first-section {
-    background-image: url('../community/images/back.png');
-    background-size: auto;
-    display: flex; /* 자식 요소들을 수평으로 배치 */
+    position: relative;
+    display: flex;
     height: 400px;
     margin-top: 1rem;
     margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.first-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../community/images/back.png');
+    background-size: cover;  /* 자동으로 중앙에 배치됨 */
+    z-index: -1;
 }
 
 .first-section-1 {
@@ -332,15 +313,18 @@ body {
 
 /* 섹션 2 */
 .second-section {
-    height: 700px;
+
+    height: auto;
+    /*min-height: 450px;*/
     display: flex; /* 자식 요소들을 수평으로 배치 */
 }
 
 .second-section-1 {
-    justify-content: end;
+    justify-content: center;
 }
 
 .second-section-2 {
+    /*width: 1500px;*/
     padding: 20px; /* 내용과 구역 경계 간의 간격 조정 */
     background-color: #14182600; /* 카드 배경색 */
     color: #e0e0e0; /* 배경색 예시 */
@@ -353,7 +337,6 @@ body {
 }
 
 .headtext {
-    font-family: 'head', sans-serif; /* 정의한 폰트 사용 */
     font-size: 34px; /* 폰트 크기 설정 */
     margin-top: 4.5rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -364,7 +347,6 @@ body {
 
 /* 글쓰기 텍스트, 텍스트박스 */
 .noticeLabelText {
-    font-family: 'title', sans-serif; /* 정의한 폰트 사용 */
     font-size: 25px; /* 폰트 크기 설정 */
     margin-top: 0.7rem;
     margin-bottom: 1rem;
@@ -375,7 +357,6 @@ body {
 }
 
 .noticeTitleText {
-    font-family: 'menu', sans-serif; /* 정의한 폰트 사용 */
     font-size: 16px; /* 폰트 크기 설정 */
     margin-top: 0.7rem;
     color: #f1f1f1; /* 폰트 색상 설정 */
@@ -396,12 +377,24 @@ body {
     background-color: #ac9fc400;
 }
 
+/* 제목 텍스트박스(읽기 전용) */
+.customRead-textbox {
+    display: block;
+    width: 100%;
+    height: 45px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #fff;
+    background-color: #ac9fc400;
+}
+
 /* content 텍스트박스 */
 .custom-textbox1 {
     width: 100%;
     margin-top: 0.3rem;
     display: block;
-    height: 45px;
+    height: 100%;
     font-size: 1.1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -411,10 +404,9 @@ body {
 
 .input-box {
     width: 100%;
-    height: auto;
-    height: 450px;
+    min-height: 450px;
     resize: none; /* 스크롤바 조정 못 하게 */
-    overflow: hidden;     /* 스크롤바 없애기 */
+    overflow: hidden; /* 스크롤바 없애기 */
     white-space: normal;  /* 텍스트 줄바꿈 허용 */
     overflow-wrap: break-word; /* 긴 단어 줄바꿈 */
 }
@@ -427,7 +419,6 @@ body {
 
 /* placeholder 텍스트 */
 .custom-textbox, .custom-textbox1::placeholder {
-    font-family: 'content', sans-serif;
     color: gray;       /* 색상 */
     font-size: 18px;   /* 폰트 크기 */
     font-weight: bold; /* 폰트 두께 */
@@ -440,8 +431,12 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: none;
-    margin-bottom: none; 
+}
+
+.write-line1 {
+    height: 0.6px; /* 선의 두께 */
+    background-color: #f0f0f0; /* 선의 색상 */
+    width: 98%; /* 선의 너비를 섹션의 전체로 설정 */
 }
 
 
@@ -449,7 +444,7 @@ body {
     height: 0.6px; /* 선의 두께 */
     background-color: #f0f0f0; /* 선의 색상 */
     width: 100%; /* 선의 너비를 섹션의 전체로 설정 */
-    margin-top: 13rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 

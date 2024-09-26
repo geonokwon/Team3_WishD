@@ -7,6 +7,20 @@ if (disagree_btn){
 }
 //버튼 이동 관련 end
 
+//모아보기 토글
+function toggleState() {
+    // 현재 체크 상태에 따라 state 값을 변경
+    let isChecked = document.getElementById('projectBoardState').checked;
+    let newState = isChecked ? 0 : 1;
+    // 페이지 이동, state 값에 따라 URL 변경
+    console.log("isChecked : " + isChecked);
+    console.log("newState : " + newState);
+
+    location.href = `${basePath}/projectFind?state=` + newState;
+}
+
+//모아보기 토글 end
+
 //스킬 추가 관련
 const selectElement =  document.getElementById("skill");
 const badgeContainer = document.getElementById("badge_container");
@@ -86,54 +100,54 @@ function skillSelect() {
 
 
 //배경 별 + 메테오 js
-function init() {
-    let style = ["style1", "style2", "style3", "style4"];
-    let tam = ["tam1", "tam1", "tam1", "tam2", "tam3"];
-
-    function getRandomArbitrary(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-    let estrela = "";
-    let qtdeEstrelas = 250;
-    let noite = document.querySelector(".constelacao");
-    let widthWindow = window.innerWidth;
-    let heightWindow = window.innerHeight;
-
-    for (let i = 0; i < qtdeEstrelas; i++) {
-        let topPosition = getRandomArbitrary(0, heightWindow);
-        let starOpacity = 1 - topPosition / heightWindow; // 투명도 조절
-
-        estrela +=
-            "<span class='estrela " +
-            style[getRandomArbitrary(0, 4)] +
-            " " +
-            tam[getRandomArbitrary(0, 5)] +
-            "' style='animation-delay: ." +
-            getRandomArbitrary(0, 9) +
-            "s; left: " +
-            getRandomArbitrary(0, widthWindow) +
-            "px; top: " +
-            topPosition +
-            "px; opacity: " +
-            starOpacity +
-            ";'></span>";
-    }
-
-    noite.innerHTML = estrela;
-
-    function carregarMeteoro() {
-        let meteoro = "<div class='meteoro " + style[getRandomArbitrary(0, 4)] + "'></div>";
-        let chuvaMeteoro = document.getElementsByClassName("chuvaMeteoro")[0];
-        chuvaMeteoro.innerHTML = meteoro;
-        setTimeout(() => (chuvaMeteoro.innerHTML = ""), 1000);
-
-        setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
-    }
-
-    setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
-}
-window.onload = init;
+// function init() {
+//     let style = ["style1", "style2", "style3", "style4"];
+//     let tam = ["tam1", "tam1", "tam1", "tam2", "tam3"];
+//
+//     function getRandomArbitrary(min, max) {
+//         return Math.floor(Math.random() * (max - min)) + min;
+//     }
+//
+//     let estrela = "";
+//     let qtdeEstrelas = 250;
+//     let noite = document.querySelector(".constelacao");
+//     let widthWindow = window.innerWidth;
+//     let heightWindow = window.innerHeight;
+//
+//     for (let i = 0; i < qtdeEstrelas; i++) {
+//         let topPosition = getRandomArbitrary(0, heightWindow);
+//         let starOpacity = 1 - topPosition / heightWindow; // 투명도 조절
+//
+//         estrela +=
+//             "<span class='estrela " +
+//             style[getRandomArbitrary(0, 4)] +
+//             " " +
+//             tam[getRandomArbitrary(0, 5)] +
+//             "' style='animation-delay: ." +
+//             getRandomArbitrary(0, 9) +
+//             "s; left: " +
+//             getRandomArbitrary(0, widthWindow) +
+//             "px; top: " +
+//             topPosition +
+//             "px; opacity: " +
+//             starOpacity +
+//             ";'></span>";
+//     }
+//
+//     noite.innerHTML = estrela;
+//
+//     function carregarMeteoro() {
+//         let meteoro = "<div class='meteoro " + style[getRandomArbitrary(0, 4)] + "'></div>";
+//         let chuvaMeteoro = document.getElementsByClassName("chuvaMeteoro")[0];
+//         chuvaMeteoro.innerHTML = meteoro;
+//         setTimeout(() => (chuvaMeteoro.innerHTML = ""), 1000);
+//
+//         setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
+//     }
+//
+//     setTimeout(carregarMeteoro, getRandomArbitrary(5000, 10000));
+// }
+// window.onload = init;
 
 //input text 타입을 -> 숫자만 입력받을수 있는 함수
 function onlyNumber (event){
@@ -193,3 +207,27 @@ if (projectWrite || projectRead) {
         });
     });
 }
+
+let managerPhone = document.getElementById("pboard_manager_phone");
+if (managerPhone) {
+    managerPhone.addEventListener("input",(e) => {
+        let input = e.target.value.replace(/\D/g, ""); // 숫자가 아닌 문자는 제거
+        let formattedNumber = "";
+
+        if (input.length <= 3) {
+            // 첫 3자리까지만 입력
+            formattedNumber = input;
+        } else if (input.length <= 7) {
+            // 3자리 이후 4자리
+            formattedNumber = input.slice(0, 3) + "-" + input.slice(3);
+        } else {
+            // 3-4-4 형식으로 나눔
+            formattedNumber = input.slice(0, 3) + "-" + input.slice(3, 7) + "-" + input.slice(7, 11);
+        }
+        e.target.value = formattedNumber; // 입력 필드에 다시 포맷된 값을 넣음
+    });
+}
+
+
+
+//projectRequestDTO 파일관련

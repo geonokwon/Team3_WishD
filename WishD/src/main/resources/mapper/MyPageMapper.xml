@@ -5,41 +5,322 @@
   
 <mapper namespace="com.teamproject.mapper.MyPageMapper">
 	
-	<!-- 일반유저 가져오기 -->
-	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO">
-		SELECT *
-		FROM user_info
-		JOIN user ON user_info.user_no = user.user_no
-		WHERE user.user_id = #{user_id}
+	<!-- 어떤 로그인인지 체크하는 용도 -->
+	<select id="getLoginMember" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info join user
+		on user_info.user_no = user.user_no
+		where user_info.user_no = #{user_no};
 	</select>
 	
-	<!-- 간편회원 가져오기 -->
+ 	<!-- 일반유저의 정보 가져오기 --> 
+<!-- 	<select id="getNormalMember" resultType="com.teamproject.domain.MemberDTO"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM user_info -->
+<!-- 		JOIN user ON user_info.user_no = user.user_no -->
+<!-- 		WHERE user.user_no = #{user_no} -->
+<!-- 	</select> -->
+	
+<!--  	간편회원의 정보 가져오기  -->
 	<select id="getSimpleMember" resultType="com.teamproject.domain.MemberDTO">
 		select * from user_info join simple_user
 		on user_info.user_no = simple_user.user_no
-		where access_Token = #{access_Token}
-	</select>
-	
-	<!-- 테이블이 비어있으면 리턴값이 없어 쿼리 수정 -->
-	<select id="getMember" resultType="com.teamproject.domain.MemberDTO">
-		SELECT *
-		FROM user_info
-		LEFT JOIN simple_user ON user_info.user_no = simple_user.user_no
-		JOIN user ON user_info.user_no = user.user_no
-		WHERE user_info.user_no = #{user_no};
+		where user_info.user_no = #{user_no}
 	</select>
 	
 	<select id="userCheck" resultType="com.teamproject.domain.MemberDTO">
-		select * from user_info join user
-		on user_info.user_no = user.user_no
-		where user_info.user_no = #{user_no} and user.user_pass = #{user_pass}
+		SELECT * 
+		FROM user_info 
+		JOIN user ON user_info.user_no = user.user_no
+		WHERE user_info.user_no = #{user_no} 
+		AND user.user_pass = #{user_pass};
 	</select>
-	
+		
 	<update id="updateMember">
-		update user_info
-		set user_pass = #{user_pass}
-		where user_no = #{user_no}
+		update user
+		set user_pass = #{user_pass} <!-- 새비밀번호 -->
+		where user_pass = #{access_Token} <!-- access_Token에 현재비밀번호를 저장 -->
+		and user_no = #{user_no}; <!-- 유저넘버 체크 -->
 	</update>
 	
-  
+	<!-- 내프로젝트 가져오기 -->
+<!--   	<select id="getMyProject" resultType="com.teamproject.domain.MyProjectDTO"> -->
+<!--   		select * from project_board join user_info -->
+<!--   		on project_board.user_id = user_info.user_no -->
+<!--   		where user_info.user_no = #{user_no} -->
+<!--   	</select> -->
+  	<select id="getMyProject" resultType="com.teamproject.domain.MyProjectDTO">
+			select * from project_board
+        	where user_no = #{user_no}
+        	<if test="search != null">
+        	and pboard_title LIKE CONCAT('%', #{search}, '%')
+        	</if>
+        	<if test="projectStatus != null">
+        	and pboard_state = #{projectStatus}
+        	</if>
+        	order by pboard_id desc
+        	limit #{startRow}, #{endRow};
+			
+<!--   		select * from project_board  -->
+<!--   		where user_id = #{user_no} -->
+<!--   		limit #{startRow}, #{endRow} -->
+  		
+<!--   		select * from project_board join user_info -->
+<!--   		on project_board.user_id = user_info.user_no -->
+<!--   		where user_info.user_no = #{user_no} -->
+<!--   		limit #{startRow}, #{pageSize} -->
+  	</select>
+  	
+  	<select id="getMyProjectSkillList" resultType="com.teamproject.domain.ProjectSkillDTO">
+  		SELECT s.*
+        FROM project_skill ps JOIN skills s
+        ON ps.skill_id = s.skill_id
+        WHERE ps.pboard_id = #{pboard_id}
+	</select>
+	
+	<!-- 내 프로젝트글개수 가져오기, 검색어 있으면 검색결과 글개수 반환 -->
+	<select id="getProjectCount" resultType="int">
+  		select count(*)
+  		from project_board
+  		where user_no = #{user_no}
+  		<if test="search != null">
+        AND pboard_title
+        LIKE CONCAT('%', #{search}, '%')
+    	</if>
+    	<if test="projectStatus != null">
+        and pboard_state = #{projectStatus}
+        </if>
+	</select>
+	
+	<!-- 수정을 위해 프로젝트 하나만 가져오기 -->
+	<select id="getProjectForUpdate" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from project_board
+		where pboard_id = #{projectPageNum}
+	</select>
+	
+	
+	<!-- 내 프리랜서글개수 가져오기, 검색어 있으면 검색결과 글개수 반환, 상태값들어오면 상태에따른 개수반환 -->
+	<select id="getFreelancerCount" resultType="int">
+  		select count(*)
+  		from freelancer
+  		where user_no = #{user_no}
+  		<if test="search != null">
+        AND freelancer_introduction
+        LIKE CONCAT('%', #{search}, '%')
+    	</if>
+    	<if test="freelancerStatus != null">
+        and freelancer_state = #{freelancerStatus}
+        </if>
+	</select>
+	
+	<select id="getMyFreelancer" resultType="com.teamproject.domain.FreelancerDTO">
+			select * from freelancer
+        	where user_no = #{user_no}
+        	<if test="search != null">
+        	and freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+        	</if>
+        	<if test="freelancerStatus != null">
+        	and freelancer_state = #{freelancerStatus}
+        	</if>
+        	order by freelancer_id desc
+        	limit #{startRow}, #{endRow};
+			
+<!-- 			select * from freelancer -->
+<!--         	where user_no = #{user_no} -->
+<!--         	<if test="freelancerSearch != null"> -->
+<!--         	and freelancer_introduction LIKE CONCAT('%', #{freelancerSearch}, '%') -->
+<!--         	</if> -->
+<!--         	<if test="freelancerStatus != null"> -->
+<!--         	and freelancer_state = #{freelancerStatus} -->
+<!--         	</if> -->
+<!--         	limit #{startRow}, #{endRow}; -->
+  	</select>
+  	
+  	<!-- 프리랜서글 스킬 목록 찾기 -->
+  	<select id="getMyFreelancerSkillList" resultType="com.teamproject.domain.FreelancerSkillDTO">
+  		select *
+        from freelancer_skill
+        JOIN skills
+        ON freelancer_skill.skill_id = skills.skill_id
+        WHERE freelancer_skill.freelancer_id = #{freelancer_id}
+	</select>
+	
+	<!-- qna 글 개수 가져오기 -->
+	<select id="getMyQnaCount" resultType="int">
+		select count(*)
+		from community_QnA
+		where user_no = #{user_no}
+	</select>
+	
+	<!-- qna 내글 리스트 -->
+	<select id="getMyQnaList" resultType="com.teamproject.domain.CommunityQnaDTO">
+		select *
+		from community_QnA
+		where user_no = #{user_no}
+		limit #{startRow}, #{endRow};
+	</select>
+	
+	
+	 
+	<!-- 테스트 먼저 이메일이랑 이름으로 user_no 얻고-->
+	<select id="idFindTest" resultType="com.teamproject.domain.MemberDTO">
+		select * from user_info
+		where user_name = #{user_name}
+		and email = #{email};
+	</select>
+	
+	<!-- 여기가 그다음실행구문 트랜젝션에서 화긴  얻어온 user_no로 id 조회-->
+	<select id="idFindTest2" resultType="com.teamproject.domain.MemberDTO">
+		select * from user join user_info
+		on user.user_no = user_info.user_no
+		where user.user_no = #{user_no};
+	</select>
+	
+	<!-- 내프로젝트 수정 -->
+	<update id="updateMyProject"> <!-- 테이블수정먼저 -->
+		update project_board
+		set
+		pboard_title = #{pboard_title},
+		pboard_money = #{pboard_money},
+		pboard_content = #{pboard_content},
+		pboard_startDate = STR_TO_DATE(#{pboard_startDate}, '%Y-%m-%d %H:%i:%s'),
+		pboard_rangeMonth = #{pboard_rangeMonth},
+		job_id = #{job_id},
+		pboard_update = now(),
+		pboard_manager_phone = #{pboard_manager_phone},
+		pboard_company_name = #{pboard_company_name},
+		pboard_history = #{pboard_history}
+		where pboard_id = #{pboard_id}; 
+	</update>
+	<delete id="updateMyProjectSkillDelete"> <!-- 스킬테이블에서 삭제 -->
+		delete
+		from project_skill
+		<if test="skillList != ''">
+			where pboard_id = #{pboard_id};
+		</if>
+	</delete>
+	<insert id="updateMyProjectSkillInsert"> <!-- 스킬테이블에 다시 등록 -->
+        insert
+        into project_skill
+        values
+        <foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{pboard_id}, #{skill_id} )
+        </foreach>
+        ;
+    </insert>
+    <!-- 내프로젝트 수정 끝 -->
+    
+    <!-- 프리랜서 수정전 글 정보가져오기 -->
+    <select id="getMyFreelancerForUpdate" resultType="com.teamproject.domain.FreelancerDTO">
+    	select * from freelancer
+    	where freelancer_id = #{freelancer_id};	
+    </select>
+    
+    <!-- 프리랜서 글 수정 시작 -->
+    <update id="updateMyFreelancer">
+		update freelancer
+		set
+		freelancer_salary = #{freelancer_salary},
+		freelancer_startdate = STR_TO_DATE(#{freelancer_startdate}, '%Y-%m-%d %H:%i:%s'),
+		freelancer_exp = #{freelancer_exp},
+		dev_exp = #{dev_exp},
+		freelancer_introduction = #{freelancer_introduction},
+		freelancer_link = #{freelancer_link},
+		freelancer_update = now(),
+		job_id = #{job_id}
+		where freelancer_id = #{freelancer_id};
+    </update>
+	<delete id="updateMyFreelancerSkillDelete">
+		delete
+		from freelancer_skill
+		<if test="skillList != ''">
+			where freelancer_id = #{freelancer_id};
+		</if>
+	</delete>
+	<insert id="updateMyFreelancerSkillInsert">
+		insert
+		into freelancer_skill
+		values
+		<foreach collection="skill_id" item="skill_id" separator=",">
+            ( #{freelancer_id}, #{skill_id} )
+        </foreach>
+	</insert>
+	<!-- 프리랜서 글 수정 끝 -->
+
+	<select id="userIdCheck" resultType="String">
+		select user_id
+		from user
+		where user_id = #{id}
+	</select>
+	
+	<select id="getJobsList" resultType="com.teamproject.domain.JobDTO">
+		select * from jobs
+	</select>
+
+	<!-- 요청한 글 가운트용 -->
+	<select id="getRequestListCount" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+	</select>
+	
+	<!-- 요청한 글 가운트용 -->
+	<select id="getRequestList" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+	</select>
+	
+	<!-- 요청한 글 페이징해서 -->
+	<select id="getMyRequestProject" resultType="com.teamproject.domain.MyProjectDTO">
+		select * from
+		request_freelancer join project_board
+		on project_board.pboard_id = request_freelancer.pboard_id
+		where request_freelancer.user_no = #{user_no}
+		<if test="search != null">
+        and project_board.pboard_title LIKE CONCAT('%', #{search}, '%')
+        </if>
+        order by project_board.pboard_state asc
+        limit #{startRow}, #{endRow};
+	</select>
+
+	<!-- 프리랜서에 요청한글 카운트용 -->
+	<select id="getRequestFreeListCount" resultType="com.teamproject.domain.FreelancerDTO">
+		select * from request_client
+		where user_no = #{user_no};
+	</select>
+	
+	<!-- 프리랜서에 요청한글 가져오기용 -->
+	<select id="getMyRequestFree" resultType="com.teamproject.domain.FreelancerDTO">
+		select * from
+		request_client join freelancer
+		on request_client.freelancer_id = freelancer.freelancer_id
+		where request_client.user_no = #{user_no}
+		<if test="search != null">
+        and freelancer.freelancer_introduction LIKE CONCAT('%', #{search}, '%')
+        </if>
+        order by freelancer.freelancer_state asc
+        limit #{startRow}, #{endRow};
+	</select>
+
+	<!-- 탈퇴전체크 -->
+	<select id="deleteCheck" resultType="com.teamproject.domain.MemberDTO">
+		select * from user
+		where user_pass = #{access_Token} <!-- 비밀번호변경 때문에 인풋네임이 엑세스토큰임 -->
+		and user_no = #{user_no};
+	</select>
+	<!-- 탈퇴 -->
+	<delete id="deleteUser">
+		delete from user
+		where user_pass = #{user_pass} 
+		and user_no = #{user_no};
+	</delete>
+	<delete id="deleteUserInfo">
+		delete from user_info
+		where user_no = #{user_no};
+	</delete>
+	
+	
+	
 </mapper>

@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>notice_write</title>
+    <title>WishD | 커뮤니티</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -20,9 +20,11 @@
             crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/community/write.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style_temp.css">
 
 </head>
 <body class="text-light">
+
 <!-- Header -->
 <jsp:include page="../include/heard.jsp"/>
 
@@ -55,16 +57,19 @@
         <div class="col-2 second-section-1 menutext-left">
            
             <!-- <div class="col">
-                <a href="notice.html" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-                <a href="qna.html" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
-                <a href="qnawrite.html" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
+                <a href="community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
+                <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+                <a href="qna_write" class="write text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">3_</span>Write</a><br>
             </div>
        -->
         </div>
 
         <!-- 글쓰기 -->
+        
         <div class="col-8 second-section-2">
-
+        
+		  <form action="notice_writePro" method="post">
+		  
             <div class="col">
                 <div class="col">
                     <div class="col-6 second-section-2"> 
@@ -72,8 +77,10 @@
                         <label for="notice_label" class="noticeLabelText">Notice </label>                    
                         <div class="write-line"></div>
 
+						
                         <label for="notice_title" class="noticeTitleText">Title </label>
-                        <input type="text" class="custom-textbox no-border" placeholder="제목을 작성해주세요......">
+  
+                        <input type="text" name="ncommunity_title" class="custom-textbox no-border" placeholder="제목을 작성해주세요......" required>
                     </div>
                 </div>
                 <!-- 내용란 -->
@@ -82,25 +89,24 @@
                         <div class="write-line"></div> <!-- 구분선 -->
 
                         <label for="notice_title" class="noticeTitleText">Content </label>
-                        <textarea class="custom-textbox1 input-box no-border" placeholder="내용을 작성해주세요......"></textarea>
-                
+                        <textarea class="custom-textbox1 input-box no-border"  name="ncommunity_content" placeholder="내용을 작성해주세요......" required></textarea>
+  
                         <div class="write-line" style="margin-top: 1rem;"></div> <!-- 구분선 -->
 
                         <div class="d-flex justify-content-center" style="padding-top: 3%;">
-                            <button type="button" class="btn btn-primary2">글쓰기 완료</button>
+                            <button type="submit" class="btn btn-primary2">글쓰기 완료</button>
                         </div>
-                    </div>
-
+                    </div>	
                  
                 </div>
             </div> <!-- 글쓰기 섹션 -->
-
+            
+		  </form>
+		  
         </div> <!-- 섹션 2 - 2 종료 -->
 
         <!-- 섹션 2 - 3 -->
-        <div class="col-2 second-section-3 menutext-right-1">
-            <a href="Community" class="text-light text-decoration-none menu-up"><span class="color" style="color: rgb(119, 121, 169)">1_</span>Notice</a><br>
-            <a href="qna" class="qna text-light text-decoration-none menu-up"><span class="color" style="color:rgb(119, 121, 169)">2_</span>Q&A</a><br>
+        <div class="col-2 second-section-3">
         </div>
 
     </div> <!-- 섹션 2 종료 -->
