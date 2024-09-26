@@ -57,6 +57,12 @@
 			<c:if test="${userInfo.user_yn == true }">
 				<a href="#" class="btn btn-primary3 text-light text-decoration-none" onclick="whiteCheck()">블랙리스트 해제</a>
 			</c:if>
+			<c:if test="${userInfo.getUser_Role() == 'user' }">
+				<a href="#" class="btn btn-primary6 text-light text-decoration-none" onclick="adminOn()">관리자 권한 추가</a>
+			</c:if>
+			<c:if test="${userInfo.getUser_Role() == 'admin' }">
+				<a href="#" class="btn btn-primary6 text-light text-decoration-none" onclick="adminOff()">관리자 권한 해제</a>
+			</c:if>
 		</div>
 	</div>
 </div>
@@ -76,6 +82,22 @@ function blackCheck(){
 function whiteCheck(){
 	if(confirm("정말 해당 유저를 블랙리스트에서 해제하시겠습니까?")==true){
 		location.href = "${pageContext.request.contextPath}/manager/whiteUser/${userInfo.user_no }"
+	} else {
+		return false;
+	}
+}
+
+function adminOn(){
+	if(confirm("정말 해당 계정에게 관리자 권한을 부여하시겠습니까?")==true){
+		location.href = "${pageContext.request.contextPath}/manager/adminOn/${userInfo.user_no }"
+	} else {
+		return false;
+	}
+}
+
+function adminOff(){
+	if(confirm("정말 해당 계정에게 관리자 권한을 해제하시겠습니까?")==true){
+		location.href = "${pageContext.request.contextPath}/manager/adminOff/${userInfo.user_no }"
 	} else {
 		return false;
 	}

@@ -128,6 +128,9 @@
 	<!-- 	회원 수를 전달함 -->
 	<select id="getUserCount" resultType="java.lang.Integer">
 		select count(*) from user_info
+		<if test='key != 0'>
+			where user_no = #{key}
+		</if>
 	</select>
 	
 <!-- 	특정 회원 정보를 전달함 -->
@@ -207,5 +210,80 @@
 	<select id="getBlackCount" resultType="java.lang.Integer">
 		select count(*) from user_info
 		where user_yn = true
+		<if test='key != 0'>
+			 and user_no = #{key}
+		</if>
 	</select>
+	
+<!-- 	새로운 기술 식별번호를 가져옴 -->
+	<select id="getNewSkillNum" resultType="java.lang.Integer">
+		select max(skill_id)+1 from skills
+	</select>
+	
+<!-- 	새로운 기술을 추가함 -->
+	<insert id="insertSkill">
+		insert into skills(skill_id, skill_name)
+		values(#{skill_id}, #{skill_name})
+	</insert>
+	
+	<!--	기술 목록을 전달함 -->
+	<select id="getSkillList" resultType="com.teamproject.domain.SkillDTO">
+		select * from skills 
+		<if test="search != null">
+			where skill_name like CONCAT('%',#{search},'%')
+		</if>
+		order by skill_id DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	기술 수를 전달함 -->
+	<select id="getSkillCount" resultType="java.lang.Integer">
+		select count(*) from skills
+		<if test="search != null">
+			where skill_name like CONCAT('%',#{search},'%')
+		</if>
+	</select>
+	
+	<!-- 	새로운 직무 식별번호를 가져옴 -->
+	<select id="getNewJobNum" resultType="java.lang.Integer">
+		select max(job_id)+1 from jobs
+	</select>
+	
+<!-- 	새로운 직무를 추가함 -->
+	<insert id="insertJob">
+		insert into jobs(job_id, job_name)
+		values(#{job_id}, #{job_name})
+	</insert>
+	
+<!--	직무 목록을 전달함 -->
+	<select id="getJobList" resultType="com.teamproject.domain.JobDTO">
+		select * from jobs 
+		<if test="search != null">
+			where job_name like CONCAT('%',#{search},'%')
+		</if>
+		order by job_id DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	직무 수를 전달함 -->
+	<select id="getJobCount" resultType="java.lang.Integer">
+		select count(*) from jobs
+		<if test="search != null">
+			where job_name like CONCAT('%',#{search},'%')
+		</if>
+	</select>
+	
+<!-- 	계정에 관리자 권한 부여 -->
+	<update id="adminOn">
+		update user_info
+		set user_role = 'admin'
+		where user_no = #{user_no}
+	</update>
+	
+<!-- 	계정에 관리자 권한 해제 -->
+	<update id="adminOff">
+		update user_info
+		set user_role = 'user'
+		where user_no = #{user_no}
+	</update>
 </mapper>

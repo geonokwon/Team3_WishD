@@ -178,7 +178,65 @@ public class ManagerDAO {
 		
 		return sqlSession.selectOne(namespace+"getBlackCount", pageDTO);
 	}
-
 	
+//	새로운 기술 식별번호를 가져옴
+	public int getNewSkillNum() {
+		
+		return sqlSession.selectOne(namespace+"getNewSkillNum");
+	}
+	
+//	새로운 기술을 삽입함
+	public void insertSkill(SkillDTO skillDTO) {
+		
+		sqlSession.insert(namespace+"insertSkill", skillDTO);
+	}
+
+//	기술 목록
+	public List<SkillDTO> getSkillList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getSkillList", pageDTO);
+	}
+
+//	기술의 수
+	public int getSkillCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getSkillCount", pageDTO);
+	}
+	
+//	새로운 직무 식별번호를 가져옴
+	public int getNewJobNum() {
+		
+		return sqlSession.selectOne(namespace+"getNewJobNum");
+	}
+	
+//	새로운 직무를 삽입함
+	public void insertJob(JobDTO jobDTO) {
+		
+		sqlSession.insert(namespace+"insertJob", jobDTO);
+	}
+	
+//	직무 목록
+	public List<JobDTO> getJobList(PageDTO pageDTO) {
+		
+		return sqlSession.selectList(namespace+"getJobList", pageDTO);
+	}
+
+//	직무의 수
+	public int getJobCount(PageDTO pageDTO) {
+		
+		return sqlSession.selectOne(namespace+"getJobCount", pageDTO);
+	}
+	
+//	계정에 관리자 권한 부여
+	public void adminOn(Long user_no) {
+		
+		sqlSession.update(namespace+"adminOn", user_no);
+	}
+	
+//	계정에 관리자 권한 해제
+	public void adminOff(Long user_no) {
+		
+		sqlSession.update(namespace+"adminOff", user_no);
+	}
 	
 }
