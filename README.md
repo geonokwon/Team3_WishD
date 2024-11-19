@@ -14,10 +14,9 @@
   </tr>
 </table>
 <hr>
-<a href="https://github.com/geonokwon/Team3_WishD/commits/main?author=geonokwon">
-  <h4>나의 커밋 내역 및 코드 파일</h4>
-</a>
+<h4>나의 커밋 내역 및 코드 파일</h4>
 
+[나의 커밋 내역 및 코드 파일](https://github.com/geonokwon/Team3_WishD/commits/main?author=geonokwon)
 
 <details>
   <summary>주요 작업</summary>
