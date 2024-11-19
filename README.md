@@ -18,6 +18,14 @@
 [나의 커밋 내역 및 코드 파일](https://github.com/geonokwon/Team3_WishD/commits/main?author=geonokwon)
 
 <details>
+  <summary>WBS</summary>
+  
+  <!-- WBS Images -->
+  ![WBS](/WishD/images/WishD(WBS).png)
+  
+</details>
+
+<details>
   <summary>주요 작업</summary>
   
   <!-- Front Images -->
