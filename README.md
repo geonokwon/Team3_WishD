@@ -14,7 +14,6 @@
   </tr>
 </table>
 <hr>
-<h4>나의 커밋 내역 및 코드 파일</h4>
 
 [나의 커밋 내역 및 코드 파일](https://github.com/geonokwon/Team3_WishD/commits/main?author=geonokwon)
 
