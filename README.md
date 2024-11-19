@@ -13,3 +13,6 @@
     <td>개발자 들이 모여있고 서비스 관리자가 선별해주는 매칭 서비스 기획</td>
   </tr>
 </table>
+<hr>
+<h4>Front - 주요작업</h4>
+![Front - 주요 작업](Team3_WishD/images/WishD(Front)-1.jpg)
