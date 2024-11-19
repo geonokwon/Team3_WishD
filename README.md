@@ -15,9 +15,14 @@
 </table>
 <hr>
 
-<h4>Front - 주요작업</h4>
+<details>
+  <summary>주요 작업</summary>
+  
+  <!-- Front Images -->
+  ![Front - 주요 작업](/WishD/images/WishD(Front)-1.png)
+  ![Front - 주요 작업](/WishD/images/WishD(Front)-2.png)
+  ![Front - 주요 작업](/WishD/images/WishD(Front)-3.png)
+  ![Front - 주요 작업](/WishD/images/WishD(Front)-4.png)
+  
+</details>
 
-![Front - 주요 작업](/WishD/images/WishD(Front)-1.png)
-![Front - 주요 작업](/WishD/images/WishD(Front)-2.png)
-![Front - 주요 작업](/WishD/images/WishD(Front)-3.png)
-![Front - 주요 작업](/WishD/images/WishD(Front)-4.png)
