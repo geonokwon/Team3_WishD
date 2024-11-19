@@ -14,7 +14,7 @@
   </tr>
 </table>
 <hr>
-<a href="https://github.com/geonokwon/Team3_WishD/commits/main/?author=geonokwon&before=9c68740f25d9f60db2f4475f0dc3028c66cc3a61+70">
+<a href="https://github.com/geonokwon/Team3_WishD/commits/main?author=geonokwon">
   <h4>나의 커밋 내역 및 코드 파일</h4>
 </a>
 
