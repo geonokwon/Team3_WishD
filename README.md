@@ -52,7 +52,7 @@
 </details>
 
 <details>
-  <summary>주요 작업</summary>
+  <summary>주요 작업(Front)</summary>
   
   <!-- Front Images -->
   ![Front - 주요 작업](/WishD/images/WishD(Front)-1.png)
